@@ -5,6 +5,7 @@ import {
   BasicMarksKit,
   BlockPlaceholderKit,
   CodeBlockKit,
+  ColumnKit,
 } from '.'
 
 /**
@@ -14,7 +15,7 @@ import {
  *
  * This array merges multiple kits into one collection to provide a
  * full-featured editing experience, covering block elements, marks,
- * autoformatting, placeholders, text alignment, and code blocks.
+ * autoformatting, placeholders, text alignment, code blocks, and column layouts.
  *
  * Kits included:
  *
@@ -55,6 +56,11 @@ import {
  *    - Supports syntax highlighting and custom rendering of code blocks
  *    - Works together with CodeSyntaxLeaf and CodeSyntaxHighlighter for styling
  *
+ * 7. ColumnKit
+ *    - Adds support for column layouts
+ *    - Provides ColumnGroupElement and ColumnElement for rendering column groups and individual columns
+ *    - Supports draggable, resizable columns with floating toolbar for width adjustments
+ *
  * Usage:
  * - Spread `ExtensionKit` into the editor configuration’s `plugins` array
  *   to enable all included extensions and custom components at once.
@@ -70,4 +76,5 @@ export const ExtensionKit = [
   ...BasicMarksKit, // Inline mark elements
   ...BlockPlaceholderKit, // Block placeholders for empty blocks
   ...CodeBlockKit, // Code block support with syntax highlighting
+  ...ColumnKit, // Column layouts (groups and individual columns)
 ]
