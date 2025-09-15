@@ -1,4 +1,8 @@
 import {
+  DocxKit,
+  ExitBreakKit,
+  TableKit,
+  LineHeightKit,
   AlignKit,
   AutoformatKit,
   BasicBlocksKit,
@@ -6,6 +10,8 @@ import {
   BlockPlaceholderKit,
   CodeBlockKit,
   ColumnKit,
+  ListKit,
+  FontKit,
 } from '.'
 
 /**
@@ -14,67 +20,76 @@ import {
  * A consolidated set of Plate.js editor extensions/plugins.
  *
  * This array merges multiple kits into one collection to provide a
- * full-featured editing experience, covering block elements, marks,
- * autoformatting, placeholders, text alignment, code blocks, and column layouts.
+ * full-featured editing experience, covering:
+ * - Block elements
+ * - Inline marks
+ * - Autoformatting
+ * - Placeholders
+ * - Text alignment
+ * - Code blocks
+ * - Column layouts
+ * - Lists
+ * - Line height control
+ * - Font styling (color, background, size, family)
+ * - Exit break handling (custom key shortcuts)
+ * - DOCX import/export and style inlining
  *
  * Kits included:
  *
  * 1. AlignKit
  *    - Provides text alignment options (left, center, right, justify).
- *    - Adds alignment commands and supports applying alignment to headings,
- *      paragraphs, images, and media embeds.
  *
  * 2. AutoformatKit
- *    - Enables automatic text formatting rules:
- *      - Markdown-style syntax (e.g., **bold**, *italic*, ~~strikethrough~~)
- *      - Smart quotes, punctuation, math symbols, arrows, and legal symbols
- *      - Inline code and code blocks with automatic insertion
- *      - List autoformatting for unordered, ordered, and todo lists
+ *    - Enables automatic text formatting rules like markdown shortcuts.
  *
  * 3. BasicBlocksKit
- *    - Adds basic block-level components:
- *      - Paragraphs (with custom ParagraphElement)
- *      - Headings H1–H6 (with custom heading elements)
- *      - Blockquotes (with custom BlockquoteElement)
- *      - Horizontal rules (with custom HrElement)
+ *    - Adds paragraph, heading, blockquote, and divider elements.
  *
  * 4. BasicMarksKit
- *    - Provides inline text formatting (marks):
- *      - Bold, Italic, Underline, Strikethrough
- *      - Superscript, Subscript
- *      - Inline code (CodeLeaf)
- *      - Highlight (HighlightLeaf)
- *      - Keyboard input (KbdLeaf)
+ *    - Provides inline styles like bold, italic, underline, etc.
  *
  * 5. BlockPlaceholderKit
- *    - Displays placeholder text in empty blocks (e.g., top-level paragraph).
- *    - Uses pseudo-elements to render muted placeholder text.
- *    - Improves UX by showing context-aware hints when blocks are empty.
+ *    - Shows placeholder text in empty blocks to improve UX.
  *
  * 6. CodeBlockKit
- *    - Adds support for code block elements
- *    - Supports syntax highlighting and custom rendering of code blocks
- *    - Works together with CodeSyntaxLeaf and CodeSyntaxHighlighter for styling
+ *    - Adds support for code blocks with syntax highlighting.
  *
  * 7. ColumnKit
- *    - Adds support for column layouts
- *    - Provides ColumnGroupElement and ColumnElement for rendering column groups and individual columns
- *    - Supports draggable, resizable columns with floating toolbar for width adjustments
+ *    - Adds support for multi-column layouts.
+ *
+ * 8. ListKit
+ *    - Adds unordered, ordered, and todo list support.
+ *
+ * 9. LineHeightKit
+ *    - Adds line-height controls for headings and paragraphs.
+ *
+ * 10. FontKit
+ *     - Adds font styling options: color, background, size, family.
+ *
+ * 11. ExitBreakKit
+ *     - Adds keyboard shortcuts to insert a break or insert before
+ *       (e.g., Ctrl/Cmd + Enter or Ctrl/Cmd + Shift + Enter).
+ *
+ * 12. DocxKit
+ *     - Adds support for importing and exporting DOCX files.
+ *     - JuicePlugin ensures inline styles are preserved during export.
  *
  * Usage:
  * - Spread `ExtensionKit` into the editor configuration’s `plugins` array
  *   to enable all included extensions and custom components at once.
- *
- * Benefits:
- * - Centralizes plugin management for a cleaner editor setup.
- * - Ensures consistent configuration and styling across all editing features.
  */
 export const ExtensionKit = [
   ...AlignKit, // Text alignment plugins
   ...AutoformatKit, // Autoformatting rules and plugins
   ...BasicBlocksKit, // Basic block elements
   ...BasicMarksKit, // Inline mark elements
-  ...BlockPlaceholderKit, // Block placeholders for empty blocks
-  ...CodeBlockKit, // Code block support with syntax highlighting
-  ...ColumnKit, // Column layouts (groups and individual columns)
+  ...BlockPlaceholderKit, // Placeholder text for empty blocks
+  ...CodeBlockKit, // Code block support
+  ...ColumnKit, // Column layouts
+  ...ListKit, // List elements
+  ...LineHeightKit, // Line height control
+  ...FontKit, // Font styling
+  ...ExitBreakKit, // Exit break shortcuts
+  ...DocxKit, // DOCX import/export support
+  ...TableKit,
 ]

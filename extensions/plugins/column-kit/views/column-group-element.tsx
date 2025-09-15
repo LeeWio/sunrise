@@ -59,13 +59,11 @@ const ColumnFloatingToolbar = ({ children }: PropsWithChildren) => {
     })
   }
 
+  // FIX: 需要更换组件，目前 tooltip 不支持交互元素，popover 又无法使用
   return (
     <Tooltip isOpen={open}>
-      {/* The trigger wraps children (the column content) */}
-      <Tooltip.Trigger>{children}</Tooltip.Trigger>
-
-      {/* Tooltip content: you may replace "qwe" with actual toolbar UI */}
-      <Tooltip.Content>qwe</Tooltip.Content>
+      <Tooltip.Trigger aria-hidden>{children}</Tooltip.Trigger>
+      <Tooltip.Content>asdf</Tooltip.Content>
     </Tooltip>
   )
 }

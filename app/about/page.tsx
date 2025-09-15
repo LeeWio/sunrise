@@ -1,9 +1,13 @@
-import { title } from '@/components/primitives'
+'use client'
+import { Popover } from '@heroui/react'
 
 export default function AboutPage() {
   return (
-    <div>
-      <h1 className={title()}>About</h1>
-    </div>
+    <Popover>
+      <Popover.Trigger>
+        <input />
+      </Popover.Trigger>
+      <Popover.Content>Content</Popover.Content>
+    </Popover>
   )
 }
