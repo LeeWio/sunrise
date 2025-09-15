@@ -1,4 +1,5 @@
 import {
+  MarkdownKit,
   DocxKit,
   ExitBreakKit,
   TableKit,
@@ -33,6 +34,8 @@ import {
  * - Font styling (color, background, size, family)
  * - Exit break handling (custom key shortcuts)
  * - DOCX import/export and style inlining
+ * - Table support
+ * - Markdown editing (GFM, math, MDX, mentions)
  *
  * Kits included:
  *
@@ -74,9 +77,20 @@ import {
  *     - Adds support for importing and exporting DOCX files.
  *     - JuicePlugin ensures inline styles are preserved during export.
  *
+ * 13. TableKit
+ *     - Adds support for table elements with resizing and layout controls.
+ *
+ * 14. MarkdownKit
+ *     - Adds Markdown editing capabilities.
+ *     - Supports GitHub Flavored Markdown (GFM), math syntax, MDX, and mentions.
+ *
  * Usage:
  * - Spread `ExtensionKit` into the editor configuration’s `plugins` array
  *   to enable all included extensions and custom components at once.
+ *
+ * Benefits:
+ * - Centralizes plugin management for a clean editor setup.
+ * - Ensures consistent configuration and styling across all editing features.
  */
 export const ExtensionKit = [
   ...AlignKit, // Text alignment plugins
@@ -91,5 +105,6 @@ export const ExtensionKit = [
   ...FontKit, // Font styling
   ...ExitBreakKit, // Exit break shortcuts
   ...DocxKit, // DOCX import/export support
-  ...TableKit,
+  ...TableKit, // Table elements support
+  ...MarkdownKit, // Markdown editing support
 ]
