@@ -1,9 +1,9 @@
-import type { VariantProps } from '@heroui/theme'
+import type { VariantProps } from '@heroui/react'
 import type { PlateContentProps, PlateViewProps } from 'platejs/react'
 
 import React, { forwardRef } from 'react'
 import { PlateContent, PlateView, PlateContainer } from 'platejs/react'
-import { cn, tv } from '@heroui/theme'
+import { tv, cn } from '@heroui/react'
 
 /**
  * editorVariants

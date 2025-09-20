@@ -11,7 +11,6 @@ import { Button } from '@heroui/button'
 import { Kbd } from '@heroui/kbd'
 import { Link } from '@heroui/link'
 import { Input } from '@heroui/input'
-import { link as linkStyles } from '@heroui/theme'
 import NextLink from 'next/link'
 import clsx from 'clsx'
 
@@ -61,10 +60,7 @@ export const Navbar = () => {
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
-                className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'data-[active=true]:text-primary data-[active=true]:font-medium',
-                )}
+                className={clsx('data-[active=true]:text-primary data-[active=true]:font-medium')}
                 color="foreground"
                 href={item.href}
               >

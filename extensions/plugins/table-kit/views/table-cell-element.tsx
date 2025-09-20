@@ -13,7 +13,7 @@ import {
 } from '@platejs/table/react'
 import { BlockSelectionPlugin, useBlockSelected } from '@platejs/selection/react'
 import { type TTableCellElement, KEYS } from 'platejs'
-import { cn, tv } from '@heroui/theme'
+import { cn, tv } from '@heroui/react'
 
 import { blockSelectionVariants } from '../../block-selection-kit/views/block-selection'
 

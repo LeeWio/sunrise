@@ -7,7 +7,7 @@ import { PathApi } from 'platejs'
 import { ResizableProvider } from '@platejs/resizable'
 import { PlateElement, usePluginOption, useReadOnly, withHOC } from 'platejs/react'
 import { BlockSelectionPlugin } from '@platejs/selection/react'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 
 import { ColumnDragHandle } from './column-drag-handle'
 import { DropLine } from './drop-line'

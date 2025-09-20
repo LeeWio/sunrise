@@ -1,6 +1,6 @@
 import type { PlateElementProps } from 'platejs/react'
 
-import { type VariantProps, tv } from '@heroui/theme'
+import { type VariantProps, tv } from '@heroui/react'
 import { PlateElement } from 'platejs/react'
 
 /**

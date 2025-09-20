@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTodoListElement, useTodoListElementState } from '@platejs/list/react'
 import { useReadOnly, type PlateElementProps } from 'platejs/react'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 import { Checkbox } from '@heroui/react'
 
 /** TodoMarker — renders the checkbox for todo lists */

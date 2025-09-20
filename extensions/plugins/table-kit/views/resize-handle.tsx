@@ -8,7 +8,7 @@ import {
   useResizeHandleState,
 } from '@platejs/resizable'
 import { tv } from 'tailwind-variants'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 
 // Media resize handle (left/right)
 export const mediaResizeHandleVariants = tv({

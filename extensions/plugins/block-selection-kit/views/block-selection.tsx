@@ -1,4 +1,4 @@
-import { tv } from '@heroui/theme' // tailwind-variants (tv) function for managing Tailwind class variants
+import { tv } from '@heroui/react' // tailwind-variants (tv) function for managing Tailwind class variants
 import { DndPlugin } from '@platejs/dnd'
 import { useBlockSelected } from '@platejs/selection/react' // Hook: checks whether the current block is selected
 import { usePluginOption, type PlateElementProps } from 'platejs/react' // Hook: reads plugin options; Plate element props type

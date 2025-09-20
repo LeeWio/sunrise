@@ -15,7 +15,7 @@ import {
   useSelected,
   useComposedRef,
 } from 'platejs/react'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 
 export const TableRowElement = (props: PlateElementProps<TTableRowElement>) => {
   const { element } = props

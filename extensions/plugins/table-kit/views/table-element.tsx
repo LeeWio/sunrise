@@ -20,7 +20,7 @@ import {
   useTableMergeState,
 } from '@platejs/table/react'
 import { BlockSelectionPlugin, useBlockSelected } from '@platejs/selection/react'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 import { Tooltip } from '@heroui/react'
 
 import { blockSelectionVariants } from '../../block-selection-kit/views/block-selection'

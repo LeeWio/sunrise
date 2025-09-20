@@ -1,9 +1,5 @@
 export const value = [
   {
-    children: [{ text: '' }],
-    type: 'hr',
-  },
-  {
     children: [{ text: 'Welcome to the Plate Playground!' }],
     type: 'h1',
   },

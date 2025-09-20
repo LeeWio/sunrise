@@ -1,7 +1,7 @@
 import type { PlateElementProps } from 'platejs/react'
 
 import { PlateElement, useFocused, useReadOnly, useSelected } from 'platejs/react'
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 import { Separator } from '@heroui/react'
 
 /**
