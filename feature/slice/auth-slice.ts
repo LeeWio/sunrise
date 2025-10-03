@@ -61,6 +61,7 @@ export const authSlice = createSlice({
      */
     removeAuthuser: state => {
       state.isAuthenticated = false
+      state.userDetail = null
     },
   },
 })

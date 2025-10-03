@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import {
   Navbar as HeroUINavbar,
@@ -8,21 +8,21 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from '@heroui/navbar';
-import { Button } from '@heroui/button';
-import { Kbd } from '@heroui/kbd';
-import { Link } from '@heroui/link';
-import { Input } from '@heroui/input';
-import { link as linkStyles } from '@heroui/theme';
-import NextLink from 'next/link';
-import clsx from 'clsx';
-import { ToastProvider } from '@heroui/toast';
+} from '@heroui/navbar'
+import { Button } from '@heroui/button'
+import { Kbd } from '@heroui/kbd'
+import { Link } from '@heroui/link'
+import { Input } from '@heroui/input'
+import { link as linkStyles } from '@heroui/theme'
+import NextLink from 'next/link'
+import clsx from 'clsx'
+import { ToastProvider } from '@heroui/toast'
 
-import { AuthForm } from './auth-form';
+import { AuthForm } from './auth-form'
 
-import { siteConfig } from '@/config/site';
-import { useToast } from '@/hooks/use-toast';
-import { ThemeSwitch } from '@/components/theme-switch';
+import { siteConfig } from '@/config/site'
+import { useToast } from '@/hooks/use-toast'
+import { ThemeSwitch } from '@/components/theme-switch'
 import {
   TwitterIcon,
   GithubIcon,
@@ -30,10 +30,10 @@ import {
   HeartFilledIcon,
   SearchIcon,
   Logo,
-} from '@/components/icons';
+} from '@/components/icons'
 
 export const Navbar = () => {
-  const toastProps = useToast();
+  const toastProps = useToast()
 
   const searchInput = (
     <Input
@@ -54,7 +54,7 @@ export const Navbar = () => {
       }
       type="search"
     />
-  );
+  )
 
   return (
     <>
@@ -163,5 +163,5 @@ export const Navbar = () => {
         </NavbarMenu>
       </HeroUINavbar>
     </>
-  );
-};
+  )
+}

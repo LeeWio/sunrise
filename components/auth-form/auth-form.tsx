@@ -17,6 +17,7 @@ import { SignUp } from './sign-up'
 
 import { useAppDispatch } from '@/hooks/store'
 import { useAuth } from '@/hooks/use-auth'
+import { removeAuthuser } from '@/feature/slice/auth-slice'
 
 export const ChevronDownIcon = () => {
   return (
@@ -74,14 +75,14 @@ export const AuthForm = () => {
 
   return (
     <>
-      {auth && auth.authorization ? (
+      {auth && auth.userDetail && auth.isAuthenticated ? (
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar
               isBordered
               className="transition-transform"
               size="sm"
-              src={auth.avatar}
+              src={auth.userDetail.avatar}
             />
           </DropdownTrigger>
           <DropdownMenu>
@@ -91,7 +92,7 @@ export const AuthForm = () => {
               textValue={'profile'}
             >
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">{auth.username}</p>
+              <p className="font-semibold">{auth.userDetail.username}</p>
             </DropdownItem>
             <DropdownItem key="settings" textValue={'My Settings'}>
               My Settings
@@ -129,7 +130,7 @@ export const AuthForm = () => {
             <DropdownItem
               key="logout"
               color="danger"
-              // onPress={() => dispatch(removeAuthUser())}
+              onPress={() => dispatch(removeAuthuser())}
             >
               Log Out
             </DropdownItem>

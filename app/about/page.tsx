@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Button } from '@heroui/button';
-import { addToast } from '@heroui/toast';
+import { Button } from '@heroui/button'
+import { addToast } from '@heroui/toast'
 
 import {
   setColor,
@@ -9,11 +9,11 @@ import {
   setToastPlacement,
   setVariant,
   setMaxVisibleToasts,
-} from '@/feature/slice/toast-slice';
-import { useAppDispatch } from '@/hooks/store';
+} from '@/feature/slice/toast-slice'
+import { useAppDispatch } from '@/hooks/store'
 
 export default function AboutPage() {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   return (
     <div className="flex flex-col gap-2">
@@ -68,7 +68,7 @@ export default function AboutPage() {
             description: 'Toast Description',
             timeout: 1000,
             shouldShowTimeoutProgress: true,
-          });
+          })
         }}
       >
         Show Timeout Progress (3000ms)
@@ -160,5 +160,5 @@ export default function AboutPage() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

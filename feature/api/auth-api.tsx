@@ -128,7 +128,10 @@ export const authApi = createApi({
           // This will catch errors thrown by transformResponse or network errors
           // Error toast is already shown in transformResponse, so we could
           // optionally just log or handle cleanup here
-          console.log('Login error:', error)
+          addToast({
+            title: 'Login error' + error,
+            color: 'danger',
+          })
         }
       },
     }),
