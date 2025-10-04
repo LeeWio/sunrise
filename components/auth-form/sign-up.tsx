@@ -6,12 +6,17 @@ import {
   ModalContent,
 } from '@heroui/modal'
 import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import { Icon } from '@iconify/react'
 import { Link } from '@heroui/link'
+
+import {
+  useCreateAccountMutation,
+  UserAuthPayload,
+} from '@/feature/api/auth-api'
 
 type SignUpProps = {
   isSignUpOpen: boolean
@@ -51,31 +56,31 @@ export const SignUp = ({
     </div>
   )
 
-  // const [userAuthPayload, setUserAuthPayload] = useState<UserAuthPayload>({
-  //   email: '',
-  //   password: '',
-  // })
-  //
-  // const handleChange = ({
-  //   target: { name, value },
-  // }: ChangeEvent<HTMLInputElement>) =>
-  //   setUserAuthPayload(pre => ({
-  //     ...pre,
-  //     [name]: value,
-  //   }))
-  //
-  // const [createAccount, { isLoading: isCreateAccountLoading }] =
-  //   useCreateAccountMutation()
-  //
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-  //
-  //   const auth = await createAccount(userAuthPayload).unwrap()
-  //
-  //   if (auth && auth.authorization) {
-  //     onSignUpOpenChange()
-  //   }
-  // }
+  const [userAuthPayload, setUserAuthPayload] = useState<UserAuthPayload>({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = ({
+    target: { name, value },
+  }: ChangeEvent<HTMLInputElement>) =>
+    setUserAuthPayload(pre => ({
+      ...pre,
+      [name]: value,
+    }))
+
+  const [createAccount, { isLoading: isCreateAccountLoading }] =
+    useCreateAccountMutation()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const auth = await createAccount(userAuthPayload).unwrap()
+
+    if (auth && auth.uid) {
+      onSignUpOpenChange()
+    }
+  }
 
   return (
     <Modal
@@ -102,22 +107,39 @@ export const SignUp = ({
                         visible: { opacity: 1, y: 0 },
                         hidden: { opacity: 0, y: 10 },
                       }}
+                      onSubmit={handleSubmit}
                     >
+                      <Input
+                        isRequired
+                        label="username"
+                        name="username"
+                        value={userAuthPayload.username}
+                        variant="bordered"
+                        onChange={handleChange}
+                      />
                       <Input
                         isRequired
                         label="Email Address"
                         name="email"
                         type="email"
+                        value={userAuthPayload.email}
                         variant="bordered"
+                        onChange={handleChange}
                       />
                       <Input
                         isRequired
                         label="Password"
                         name="password"
                         type="password"
+                        value={userAuthPayload.password}
                         variant="bordered"
+                        onChange={handleChange}
                       />
-                      <Button color="primary" type="submit">
+                      <Button
+                        color="primary"
+                        isLoading={isCreateAccountLoading}
+                        type="submit"
+                      >
                         Sign Up
                       </Button>
                       {orDivider}

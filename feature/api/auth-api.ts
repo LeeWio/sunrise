@@ -129,7 +129,112 @@ export const authApi = createApi({
           // Error toast is already shown in transformResponse, so we could
           // optionally just log or handle cleanup here
           addToast({
-            title: 'Login error' + error,
+            title: 'Login error',
+            color: 'danger',
+          })
+        }
+      },
+    }),
+    createAccount: build.mutation<AuthUser, UserAuthPayload>({
+      query: credential => ({
+        url: '/create',
+        method: 'POST',
+        body: credential,
+      }),
+
+      transformResponse(response: ResultResponse<AuthUser>) {
+        // Check if the response indicates success (assuming 10010 means success in your API for account creation)
+        if (response.status === 10010) {
+          const { data } = response
+
+          //TODO: 优化
+          if (!data) {
+            addToast({
+              title: 'Invalid account creation response',
+              color: 'danger',
+            })
+
+            // Return empty AuthUser object to indicate failure
+            return {} as AuthUser
+          }
+
+          // Success case - return user data
+          return data
+        } else {
+          // API indicates failure with non-success custom status
+          addToast({
+            title: response.message || 'Account creation failed',
+            color: 'danger',
+          })
+
+          // Return empty AuthUser object to indicate failure
+          return {} as AuthUser
+        }
+      },
+
+      transformErrorResponse(error) {
+        const getErrorMessage = (status: number | string): string => {
+          switch (status) {
+            case 400:
+              return 'Invalid account data provided'
+            case 401:
+              return 'Authentication failed'
+            case 403:
+              return 'Insufficient permissions'
+            case 404:
+              return 'Requested resource not found'
+            case 409: // Conflict - likely email/username already exists
+              return 'Account with this email or username already exists'
+            case 500:
+              return 'Internal server error'
+            default:
+              return 'An error occurred during account creation'
+          }
+        }
+
+        const errorMessage = getErrorMessage(error.status)
+
+        // Show error toast for network or server errors
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          // Wait for the query to complete
+          await queryFulfilled
+
+          // At this point, if we reach here, the response has been transformed
+          // successfully by transformResponse and validation passed
+          // if (data && data.authorization) {
+          //   // Set user authentication information
+          //   dispatch(setAuthUser({ isAuthenticated: true, userDetail: data }))
+          //
+          //   // Success account creation notification
+          //   addToast({
+          //     title: 'Account created successfully',
+          //     color: 'success',
+          //   })
+          // } else {
+          //   // This case should not normally happen if transformResponse handles validation properly
+          //   addToast({
+          //     title: 'Account creation succeeded but authentication failed',
+          //     color: 'warning',
+          //   })
+          // }
+        } catch (error) {
+          // This will catch errors thrown by transformResponse or network errors
+          // Error toast is already shown in transformResponse and transformErrorResponse,
+          // so we could optionally just log or handle cleanup here
+          addToast({
+            title: 'Account creation error',
             color: 'danger',
           })
         }
@@ -138,4 +243,4 @@ export const authApi = createApi({
   }),
 })
 
-export const { useAuthenticateUserMutation } = authApi
+export const { useAuthenticateUserMutation, useCreateAccountMutation } = authApi
