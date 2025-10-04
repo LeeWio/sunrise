@@ -129,7 +129,7 @@ export const authApi = createApi({
           // Error toast is already shown in transformResponse, so we could
           // optionally just log or handle cleanup here
           addToast({
-            title: 'Login error',
+            title: 'Login error' + error,
             color: 'danger',
           })
         }
@@ -147,7 +147,6 @@ export const authApi = createApi({
         if (response.status === 10010) {
           const { data } = response
 
-          //TODO: 优化
           if (!data) {
             addToast({
               title: 'Invalid account creation response',
@@ -206,7 +205,7 @@ export const authApi = createApi({
         }
       },
 
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
           // Wait for the query to complete
           await queryFulfilled
@@ -234,7 +233,7 @@ export const authApi = createApi({
           // Error toast is already shown in transformResponse and transformErrorResponse,
           // so we could optionally just log or handle cleanup here
           addToast({
-            title: 'Account creation error',
+            title: 'Account creation error' + error,
             color: 'danger',
           })
         }

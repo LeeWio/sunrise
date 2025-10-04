@@ -1,9 +1,11 @@
-import { title } from '@/components/primitives'
+'use client'
+
+import { BlockEditor } from '@/components/block-editor/block-editor'
 
 export default function BlogPage() {
   return (
     <div>
-      <h1 className={title()}>Blog</h1>
+      <BlockEditor />
     </div>
   )
 }

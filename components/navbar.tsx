@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -16,12 +14,10 @@ import { Input } from '@heroui/input'
 import { link as linkStyles } from '@heroui/theme'
 import NextLink from 'next/link'
 import clsx from 'clsx'
-import { ToastProvider } from '@heroui/toast'
 
 import { AuthForm } from './auth-form'
 
 import { siteConfig } from '@/config/site'
-import { useToast } from '@/hooks/use-toast'
 import { ThemeSwitch } from '@/components/theme-switch'
 import {
   TwitterIcon,
@@ -33,7 +29,7 @@ import {
 } from '@/components/icons'
 
 export const Navbar = () => {
-  const toastProps = useToast()
+  // const toastProps = useToast()
 
   const searchInput = (
     <Input
@@ -58,7 +54,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <ToastProvider {...toastProps} toastProps={toastProps} />
+      {/* <ToastProvider {...toastProps} toastProps={toastProps} /> */}
 
       <HeroUINavbar maxWidth="xl" position="sticky">
         <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
