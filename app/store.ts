@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
-import createWebStorage from 'redux-persist/es/storage/createWebStorage'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 import { authApi } from '@/feature/api/auth-api'
 import toastRecuder from '@/feature/slice/toast-slice'
@@ -58,3 +59,5 @@ export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+setupListeners(store.dispatch)

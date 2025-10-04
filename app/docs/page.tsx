@@ -1,9 +1,16 @@
-import { title } from '@/components/primitives'
+'use client'
+
+import { Code } from '@heroui/code'
+
+import { useVariants } from '@/hooks/use-variants'
 
 export default function DocsPage() {
+  const variants = useVariants()
+
   return (
     <div>
-      <h1 className={title()}>Docs</h1>
+      <div>{variants.color}</div>
+      <Code color={variants.color}>this is a demo</Code>
     </div>
   )
 }
