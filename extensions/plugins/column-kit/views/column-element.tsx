@@ -8,22 +8,20 @@ import {
 } from 'platejs/react'
 import { useComposedRef } from '@udecode/cn'
 import { ResizableProvider } from '@platejs/resizable'
-import { PathApi, TColumnElement } from 'platejs'
+import { PathApi } from 'platejs'
 import { BlockSelectionPlugin } from '@platejs/selection/react'
 import { useDraggable } from '@platejs/dnd'
 import { cn } from '@heroui/theme'
 
+import { ColumnElement as TColumnElement } from '../type/ColumnGroupElement'
+
 import { ColumnDragHandle } from './column-drag-handle'
 import { DropLine } from './drop-line'
-
-import { useVariants } from '@/hooks/use-variants'
 
 export const ColumnElement = withHOC(
   ResizableProvider,
   function ColumnElement(props: PlateElementProps<TColumnElement>) {
-    const variants = useVariants()
-
-    const { width } = props.element
+    const { width, color, size } = props.element
 
     const readOnly = useReadOnly()
     const isSelectionAreaVisible = usePluginOption(
@@ -53,7 +51,7 @@ export const ColumnElement = withHOC(
               'opacity-0 transition-opacity group-hover/column:opacity-100'
             )}
           >
-            <ColumnDragHandle />
+            <ColumnDragHandle editor={props.editor} element={props.element} />
           </div>
         )}
 
@@ -64,9 +62,8 @@ export const ColumnElement = withHOC(
         >
           <Code
             className={cn('relative h-full w-full', isDragging && 'opacity-50')}
-            color={variants.color}
-            radius={variants.radius}
-            size={variants.size}
+            color={color}
+            size={size}
           >
             {props.children}
             {!readOnly && !isSelectionAreaVisible && <DropLine />}

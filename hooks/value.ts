@@ -3,21 +3,6 @@ import type { Value } from 'platejs'
 export const initialValue: Value = [
   {
     children: [
-      { children: [{ text: 'function hello() {' }], type: 'code_line' },
-      {
-        children: [{ text: "  console.info('Code blocks are supported!');" }],
-        type: 'code_line',
-      },
-      { children: [{ text: '}' }], type: 'code_line' },
-    ],
-    lang: 'javascript',
-    type: 'code_block',
-    color: 'default',
-    size: 'lg',
-    variant: 'bordered',
-  },
-  {
-    children: [
       {
         children: [
           {
@@ -33,6 +18,8 @@ export const initialValue: Value = [
         type: 'column',
         width: '33.333333333333336%',
         id: 'r4852XWvFZ',
+        color: 'default',
+        size: 'sm',
       },
       {
         children: [
@@ -47,6 +34,8 @@ export const initialValue: Value = [
           },
         ],
         type: 'column',
+        color: 'danger',
+        size: 'sm',
         width: '33.333333333333336%',
         id: 'GMxNAqThUo',
       },
@@ -63,26 +52,14 @@ export const initialValue: Value = [
           },
         ],
         type: 'column',
+        color: 'danger',
+        size: 'sm',
         width: '33.333333333333336%',
         id: 'iXYrjeoymV',
       },
     ],
     type: 'column_group',
     id: 'jAEzSnN9Ue',
-    color: 'danger',
-    size: 'sm',
-  },
-  {
-    children: [
-      { children: [{ text: 'function hello() {' }], type: 'code_line' },
-      {
-        children: [{ text: "  console.info('Code blocks are supported!');" }],
-        type: 'code_line',
-      },
-      { children: [{ text: '}' }], type: 'code_line' },
-    ],
-    lang: 'javascript',
-    type: 'code_block',
   },
   {
     children: [{ text: 'Welcome to the Plate Playground!' }],

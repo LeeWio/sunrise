@@ -59,6 +59,7 @@ const FloatingContent = ({
         className="min-w-32 max-w-40"
         placeholder="Select color"
         selectedKeys={new Set([element.color ?? 'default'])}
+        size="sm"
         onSelectionChange={keys => {
           const value = getFirstValue(keys as Set<string>)
 
@@ -83,6 +84,7 @@ const FloatingContent = ({
         className="min-w-20 max-w-28"
         placeholder="Select size"
         selectedKeys={new Set([element.size ?? 'md'])}
+        size="sm"
         onSelectionChange={keys => {
           const value = getFirstValue(keys as Set<string>)
 
@@ -105,6 +107,7 @@ const FloatingContent = ({
         className="min-w-32 max-w-40"
         placeholder="Select variant"
         selectedKeys={new Set([element.variant ?? 'bordered'])}
+        size="sm"
         onSelectionChange={keys => {
           const value = getFirstValue(keys as Set<string>)
 
@@ -130,6 +133,7 @@ const FloatingContent = ({
             'Plain Text',
         ]}
         items={items}
+        size="sm"
       >
         {language => (
           <SelectItem
