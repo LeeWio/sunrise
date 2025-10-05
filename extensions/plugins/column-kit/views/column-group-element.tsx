@@ -115,11 +115,17 @@ const ColumnFloatingToolbar = ({ children }: PropsWithChildren) => {
             <Icon height="16" icon="lucide:trash-2" width="16" />
           </Button>
 
-          <Divider className="h-5 mx-2 " orientation="vertical" />
+          <Divider className="h-5 mx-1" orientation="vertical" />
 
           <Dropdown>
             <DropdownTrigger>
-              <Button size="sm" variant="light">
+              <Button
+                className="text-foreground"
+                color="default"
+                radius="sm"
+                size="sm"
+                variant="light"
+              >
                 {variants.color}
               </Button>
             </DropdownTrigger>
@@ -164,7 +170,13 @@ const ColumnFloatingToolbar = ({ children }: PropsWithChildren) => {
 
           <Dropdown>
             <DropdownTrigger>
-              <Button size="sm" variant="light">
+              <Button
+                className="text-foreground"
+                color="default"
+                radius="sm"
+                size="sm"
+                variant="light"
+              >
                 {variants.size}
               </Button>
             </DropdownTrigger>
@@ -183,7 +195,13 @@ const ColumnFloatingToolbar = ({ children }: PropsWithChildren) => {
 
           <Dropdown>
             <DropdownTrigger>
-              <Button size="sm" variant="light">
+              <Button
+                className="text-foreground"
+                color="default"
+                radius="sm"
+                size="sm"
+                variant="light"
+              >
                 {variants.radius}
               </Button>
             </DropdownTrigger>
