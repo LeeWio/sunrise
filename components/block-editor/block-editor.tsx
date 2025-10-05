@@ -1,6 +1,7 @@
 'use client'
 
 import { Plate, PlateContent } from 'platejs/react'
+import { Button } from '@heroui/button'
 
 import { useBlockEditor } from '@/hooks/use-block-editor'
 
@@ -9,6 +10,9 @@ export const BlockEditor = () => {
 
   return (
     <>
+      <Button onPress={() => console.log(editor.children)}>
+        print content
+      </Button>
       <Plate editor={editor}>
         {/* You would typically add a toolbar here to toggle marks */}
 

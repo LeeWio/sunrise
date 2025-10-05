@@ -1,5 +1,4 @@
 import { usePlateEditor } from 'platejs/react'
-import { useEffect } from 'react'
 
 import { initialValue } from './value'
 
@@ -39,11 +38,6 @@ export const useBlockEditor = () => {
      */
     autoSelect: 'start',
   })
-
-  useEffect(() => {
-    // 当 editor 的 value 更新时打印它
-    console.log(editor.value)
-  }, [editor.value]) // 当 editor.value 改变时，重新打印
 
   return { editor }
 }

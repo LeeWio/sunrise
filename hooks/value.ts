@@ -3,6 +3,21 @@ import type { Value } from 'platejs'
 export const initialValue: Value = [
   {
     children: [
+      { children: [{ text: 'function hello() {' }], type: 'code_line' },
+      {
+        children: [{ text: "  console.info('Code blocks are supported!');" }],
+        type: 'code_line',
+      },
+      { children: [{ text: '}' }], type: 'code_line' },
+    ],
+    lang: 'javascript',
+    type: 'code_block',
+    color: 'default',
+    size: 'lg',
+    variant: 'bordered',
+  },
+  {
+    children: [
       {
         children: [
           {
@@ -56,6 +71,18 @@ export const initialValue: Value = [
     id: 'jAEzSnN9Ue',
     color: 'danger',
     size: 'sm',
+  },
+  {
+    children: [
+      { children: [{ text: 'function hello() {' }], type: 'code_line' },
+      {
+        children: [{ text: "  console.info('Code blocks are supported!');" }],
+        type: 'code_line',
+      },
+      { children: [{ text: '}' }], type: 'code_line' },
+    ],
+    lang: 'javascript',
+    type: 'code_block',
   },
   {
     children: [{ text: 'Welcome to the Plate Playground!' }],
@@ -288,18 +315,7 @@ export const initialValue: Value = [
     ],
     type: 'blockquote',
   },
-  {
-    children: [
-      { children: [{ text: 'function hello() {' }], type: 'code_line' },
-      {
-        children: [{ text: "  console.info('Code blocks are supported!');" }],
-        type: 'code_line',
-      },
-      { children: [{ text: '}' }], type: 'code_line' },
-    ],
-    lang: 'javascript',
-    type: 'code_block',
-  },
+
   {
     children: [
       { text: 'Create ' },

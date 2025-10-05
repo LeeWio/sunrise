@@ -23,6 +23,7 @@ export const LinkFloatingToolbar = ({
     { key: KEYS.suggestion },
     'activeId'
   )
+
   const floatingOptions: UseVirtualFloatingOptions = useMemo(() => {
     return {
       middleware: [
@@ -36,6 +37,7 @@ export const LinkFloatingToolbar = ({
         activeSuggestionId || activeCommentId ? 'top-start' : 'bottom-start',
     }
   }, [activeCommentId, activeSuggestionId])
+
   const insertState = useFloatingLinkInsertState({
     ...state,
     floatingOptions: {
@@ -43,12 +45,14 @@ export const LinkFloatingToolbar = ({
       ...state?.floatingOptions,
     },
   })
+
   const {
     hidden,
     props: insertProps,
     ref: insertRef,
     textInputProps,
   } = useFloatingLinkInsert(insertState)
+
   const editState = useFloatingLinkEditState({
     ...state,
     floatingOptions: {
@@ -56,6 +60,7 @@ export const LinkFloatingToolbar = ({
       ...state?.floatingOptions,
     },
   })
+
   const {
     editButtonProps,
     props: editProps,

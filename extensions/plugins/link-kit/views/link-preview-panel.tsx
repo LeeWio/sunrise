@@ -39,6 +39,7 @@ export const LinkPreviewPanel = ({
     >
       <Button
         {...attributes}
+        isExternal
         as={Link}
         color="default"
         size="sm"

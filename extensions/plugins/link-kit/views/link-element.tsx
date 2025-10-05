@@ -20,8 +20,8 @@ export const LinkElement = (props: PlateElementProps<TLinkElement>) => {
       <Link
         isExternal
         showAnchorIcon
-        href={readOnly ? linkAttrs.href : undefined}
-        target={readOnly ? linkAttrs.target : undefined}
+        href={readOnly ? linkAttrs.href : ''}
+        target={readOnly ? linkAttrs.target : ''}
         underline="hover"
       >
         {children}
