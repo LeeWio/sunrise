@@ -2,7 +2,7 @@ import { usePlateEditor } from 'platejs/react'
 
 import { initialValue } from './value'
 
-import { Extensionkit } from '@/extensions/plugins/Extension-kit'
+import { ExtensionKit } from '@/extensions/plugins/Extension-kit'
 
 export const useBlockEditor = () => {
   const editor = usePlateEditor({
@@ -12,7 +12,7 @@ export const useBlockEditor = () => {
      * Array of plugins to be loaded into the editor. Plugins extend the editor's
      * functionality and define custom behavior.
      */
-    plugins: Extensionkit,
+    plugins: ExtensionKit,
     /**
      * Editor read-only initial state. For dynamic read-only control, use the
      * `Plate.readOnly` prop instead.

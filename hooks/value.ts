@@ -61,6 +61,33 @@ export const initialValue: Value = [
     type: 'column_group',
     id: 'jAEzSnN9Ue',
   },
+
+  {
+    children: [
+      {
+        text: 'asdfasdfasdfsadfsadfasdf',
+      },
+    ],
+    icon: '💡',
+    type: 'callout',
+    id: 'H5EO2xXcRQ',
+    variant: 'bordered',
+    color: 'primary',
+    radius: 'md',
+  },
+  {
+    children: [
+      { children: [{ text: 'function hello() {' }], type: 'code_line' },
+      {
+        children: [{ text: "  console.info('Code blocks are supported!');" }],
+        type: 'code_line',
+      },
+      { children: [{ text: '}' }], type: 'code_line' },
+    ],
+    lang: 'javascript',
+    type: 'code_block',
+  },
+
   {
     children: [{ text: 'Welcome to the Plate Playground!' }],
     type: 'h1',
@@ -258,7 +285,14 @@ export const initialValue: Value = [
       { text: ', ' },
       { strikethrough: true, text: 'strikethrough' },
       { text: ', and ' },
-      { code: true, text: 'code' },
+      {
+        code: true,
+        text: 'code',
+        color: 'danger',
+        sieze: 'sm',
+        variant: 'faded',
+        radius: 'md',
+      },
       { text: '. Use ' },
       {
         children: [{ text: 'autoformatting' }],

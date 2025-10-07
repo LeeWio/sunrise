@@ -2,8 +2,12 @@
 
 import { Plate, PlateContent } from 'platejs/react'
 import { Button } from '@heroui/button'
+import { KEYS } from 'platejs'
+import { insertInlineEquation } from '@platejs/math'
+import { insertCallout } from '@platejs/callout'
 
 import { useBlockEditor } from '@/hooks/use-block-editor'
+import { insertBlock } from '@/extensions/plugins/transforms'
 
 export const BlockEditor = () => {
   const { editor } = useBlockEditor()
@@ -12,6 +16,16 @@ export const BlockEditor = () => {
     <>
       <Button onPress={() => console.log(editor.children)}>
         print content
+      </Button>
+      <Button onPress={() => insertBlock(editor, KEYS.equation)}>
+        add equation
+      </Button>
+
+      <Button onPress={() => insertInlineEquation(editor, KEYS.inlineEquation)}>
+        add inline equation
+      </Button>
+      <Button onPress={() => insertCallout(editor, { select: true })}>
+        Add Callout
       </Button>
       <Plate editor={editor}>
         {/* You would typically add a toolbar here to toggle marks */}

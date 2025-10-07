@@ -2,7 +2,6 @@ import {
   MarkdownKit,
   DocxKit,
   ExitBreakKit,
-  TableKit,
   LineHeightKit,
   AlignKit,
   AutoformatKit,
@@ -13,8 +12,10 @@ import {
   ColumnKit,
   ListKit,
   FontKit,
-  TocKit,
   LinkKit,
+  MathKit,
+  CalloutKit,
+  EmojiKit,
 } from '.'
 
 /**
@@ -141,8 +142,11 @@ export const ExtensionKit = [
   ...FontKit, // Font styling (color, background, size, family)
   ...ExitBreakKit, // Exit break keyboard shortcuts
   ...DocxKit, // DOCX import/export support
-  ...TableKit, // Table elements support with resizing
+  // ...TableKit, // Table elements support with resizing
   ...MarkdownKit, // Markdown editing support (GFM, MDX, math)
-  ...TocKit, // Table of Contents (TOC) support for navigation
+  // ...TocKit, // Table of Contents (TOC) support for navigation
   ...LinkKit, // Hyperlink insertion, editing, and preview support
+  ...MathKit,
+  ...CalloutKit,
+  ...EmojiKit,
 ]

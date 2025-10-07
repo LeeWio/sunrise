@@ -53,7 +53,7 @@ export const LinkPreviewPanel = ({
 
       <MemoButton
         icon="lucide:pencil"
-        tooltip="To Edit"
+        tooltip="To edit"
         value="Pencil"
         onPress={onEdit}
       />
