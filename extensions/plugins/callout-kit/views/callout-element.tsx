@@ -52,9 +52,10 @@ export const CalloutElement = ({
               trigger={
                 <Button
                   isIconOnly
-                  className="size-8 p-1 text-[18px] select-none "
+                  className="text-[26px]"
                   contentEditable={false}
-                  size="md"
+                  radius="sm"
+                  size="sm"
                   variant="light"
                 >
                   {(props.element.icon as any) || '💡'}
