@@ -5,14 +5,14 @@ import {
   ModalHeader,
   ModalFooter,
   ModalContent,
-} from '@heroui/modal'
-import { Input } from '@heroui/input'
-import { Tooltip } from '@heroui/tooltip'
+  Input,
+  Tooltip,
+  Button,
+  Divider,
+  Link,
+} from '@heroui/react'
 import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion'
-import { Button } from '@heroui/button'
 import { Icon } from '@iconify/react'
-import { Divider } from '@heroui/divider'
-import { Link } from '@heroui/link'
 
 import {
   useAuthenticateUserMutation,

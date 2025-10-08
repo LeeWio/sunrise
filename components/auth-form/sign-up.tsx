@@ -4,14 +4,14 @@ import {
   ModalHeader,
   ModalFooter,
   ModalContent,
-} from '@heroui/modal'
+  Divider,
+  Button,
+  Input,
+  Link,
+} from '@heroui/react'
 import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion'
 import { ChangeEvent, useState } from 'react'
-import { Divider } from '@heroui/divider'
-import { Button } from '@heroui/button'
-import { Input } from '@heroui/input'
 import { Icon } from '@iconify/react'
-import { Link } from '@heroui/link'
 
 import {
   useCreateAccountMutation,

@@ -1,5 +1,4 @@
-import { Popover, PopoverTrigger } from '@heroui/popover'
-import { cn } from '@heroui/theme'
+import { Popover, PopoverTrigger, cn } from '@heroui/react'
 import { useEquationElement } from '@platejs/math/react'
 import { TEquationElement } from 'platejs'
 import {

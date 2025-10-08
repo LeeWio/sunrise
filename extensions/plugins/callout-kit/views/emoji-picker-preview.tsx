@@ -1,4 +1,4 @@
-import { Divider } from '@heroui/divider'
+import { Divider } from '@heroui/react'
 import { UseEmojiPickerType } from '@platejs/emoji/react'
 
 function EmojiPreview({ emoji }: Pick<UseEmojiPickerType, 'emoji'>) {
@@ -17,7 +17,7 @@ function EmojiPreview({ emoji }: Pick<UseEmojiPickerType, 'emoji'>) {
 
 function NoEmoji({ i18n }: Pick<UseEmojiPickerType, 'i18n'>) {
   return (
-    <div className="flex h-14 max-h-14 min-h-14 items-center  px-2 text-default-500">
+    <div className="flex h-14 max-h-14 min-h-14 items-center px-2 text-default-500">
       <div className="flex items-center justify-center text-2xl">😢</div>
       <div className="overflow-hidden pl-2">
         <div className="truncate text-sm font-bold">
@@ -31,7 +31,7 @@ function NoEmoji({ i18n }: Pick<UseEmojiPickerType, 'i18n'>) {
 
 function PickAnEmoji({ i18n }: Pick<UseEmojiPickerType, 'i18n'>) {
   return (
-    <div className="flex h-14 max-h-14 min-h-14 items-center px-2 text-default-500">
+    <div className="flex min-h-14 max-h-14 items-center px-2 text-default-500">
       <div className="flex items-center justify-center text-2xl">☝️</div>
       <div className="overflow-hidden pl-2">
         <div className="truncate text-sm font-semibold">{i18n.pick}</div>

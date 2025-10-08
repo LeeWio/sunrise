@@ -1,3 +1,4 @@
+
 import type { Value } from 'platejs'
 
 export const initialValue: Value = [
@@ -71,8 +72,8 @@ export const initialValue: Value = [
     icon: '💡',
     type: 'callout',
     id: 'H5EO2xXcRQ',
-    variant: 'bordered',
-    color: 'primary',
+    variant: 'flat',
+    color: 'default',
     radius: 'md',
   },
   {
@@ -86,6 +87,7 @@ export const initialValue: Value = [
     ],
     lang: 'javascript',
     type: 'code_block',
+    size: 'lg',
   },
 
   {

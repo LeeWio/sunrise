@@ -5,11 +5,11 @@ import {
   useReadOnly,
   useSelected,
 } from 'platejs/react'
-import { Tooltip } from '@heroui/tooltip'
-import { Snippet } from '@heroui/snippet'
-import { addToast } from '@heroui/toast'
+import { Tooltip } from '@heroui/react'
+import { Snippet } from '@heroui/react'
+import { addToast } from '@heroui/react'
 import { NodeApi } from 'platejs'
-import { Select, SelectItem } from '@heroui/select'
+import { Select, SelectItem } from '@heroui/react'
 import React, { useMemo, useState } from 'react'
 
 import { CodeBlockElement } from '../type/CodeBlockElement'

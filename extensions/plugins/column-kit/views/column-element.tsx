@@ -1,4 +1,3 @@
-import { Code } from '@heroui/code'
 import {
   PlateElement,
   PlateElementProps,
@@ -11,7 +10,7 @@ import { ResizableProvider } from '@platejs/resizable'
 import { PathApi } from 'platejs'
 import { BlockSelectionPlugin } from '@platejs/selection/react'
 import { useDraggable } from '@platejs/dnd'
-import { cn } from '@heroui/theme'
+import { cn, Code } from '@heroui/react'
 
 import { ColumnElement as TColumnElement } from '../type/ColumnGroupElement'
 

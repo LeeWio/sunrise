@@ -1,4 +1,4 @@
-import { Input } from '@heroui/input'
+import { Input } from '@heroui/react'
 import { Icon } from '@iconify/react'
 import { UseEmojiPickerType } from '@platejs/emoji/react'
 

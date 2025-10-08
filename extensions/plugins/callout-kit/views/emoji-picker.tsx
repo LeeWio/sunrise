@@ -32,7 +32,7 @@ export const EmojiPicker = ({
   icons?: EmojiIconList<React.ReactElement>
 }) => {
   return (
-    <div className="flex flex-col gap-2 h-[25rem]">
+    <div className="flex flex-col w-72  gap-2 h-[25rem]">
       <EmojiPickernavigation
         emojiLibrary={emojiLibrary}
         focusedCategory={focusedCategory}

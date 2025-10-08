@@ -1,16 +1,17 @@
 'use client'
 
 import React from 'react'
-import { ButtonGroup, Button } from '@heroui/button'
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from '@heroui/dropdown'
-import { useDisclosure } from '@heroui/use-disclosure'
-import { Avatar } from '@heroui/avatar'
-import { Tooltip } from '@heroui/tooltip'
+  Avatar,
+  Tooltip,
+  ButtonGroup,
+  Button,
+  useDisclosure,
+} from '@heroui/react'
 
 import { SignIn } from './sign-in'
 import { SignUp } from './sign-up'

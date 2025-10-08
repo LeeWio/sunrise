@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@heroui/button'
-import { addToast } from '@heroui/toast'
+import { Button } from '@heroui/react'
+import { addToast } from '@heroui/react'
 
 import {
   setColor,

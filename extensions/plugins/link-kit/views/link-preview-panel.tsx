@@ -1,10 +1,9 @@
-import { Button } from '@heroui/button'
 import { Link } from '@heroui/link'
 import { getLinkAttributes } from '@platejs/link'
 import { KEYS, TLinkElement } from 'platejs'
 import { useEditorRef, useEditorSelection } from 'platejs/react'
 import { useMemo } from 'react'
-import { Divider } from '@heroui/divider'
+import { Divider, Button } from '@heroui/react'
 
 import { MemoButton } from './memo-button'
 
@@ -48,22 +47,9 @@ export const LinkPreviewPanel = ({
       >
         {attributes?.href}
       </Button>
-
       <Divider className="h-5 mx-1" orientation="vertical" />
-
-      <MemoButton
-        icon="lucide:pencil"
-        tooltip="To edit"
-        value="Pencil"
-        onPress={onEdit}
-      />
-
-      <MemoButton
-        icon="lucide:trash-2"
-        tooltip="Trash"
-        value="Trash"
-        onPress={onClear}
-      />
+      <MemoButton icon="lucide:pencil" tooltip="To edit" onClick={onEdit} />
+      <MemoButton icon="lucide:trash-2" tooltip="Trash" onClick={onClear} />
     </div>
   )
 }

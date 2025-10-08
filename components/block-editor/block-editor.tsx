@@ -1,41 +1,94 @@
-'use client'
-
-import { Plate, PlateContent } from 'platejs/react'
-import { Button } from '@heroui/button'
-import { KEYS } from 'platejs'
+import { Plate, PlateContent, PlateView } from 'platejs/react'
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+} from '@heroui/react'
 import { insertInlineEquation } from '@platejs/math'
 import { insertCallout } from '@platejs/callout'
+import { KEYS } from 'platejs'
+import { useRef } from 'react'
 
 import { useBlockEditor } from '@/hooks/use-block-editor'
 import { insertBlock } from '@/extensions/plugins/transforms'
 
-export const BlockEditor = () => {
-  const { editor } = useBlockEditor()
+/**
+ * Props for BlockEditor component.
+ */
+interface BlockEditorProps {
+  /** Whether the editor is in read-only (preview) mode. */
+  readOnly?: boolean
+  isOpen: boolean
+  onOpenChange: () => void
+}
+
+export const BlockEditor = ({
+  readOnly,
+  isOpen,
+  onOpenChange,
+}: BlockEditorProps) => {
+  const menuContainerRef = useRef<HTMLDivElement>(null)
+
+  const { editor } = useBlockEditor({
+    readOnly,
+    autoSelect: readOnly ? false : 'start',
+  })
 
   return (
     <>
-      <Button onPress={() => console.log(editor.children)}>
-        print content
-      </Button>
-      <Button onPress={() => insertBlock(editor, KEYS.equation)}>
-        add equation
-      </Button>
+      <Modal
+        ref={menuContainerRef}
+        hideCloseButton
+        aria-label="block-editor label"
+        backdrop="blur"
+        isOpen={isOpen}
+        radius="sm"
+        scrollBehavior="inside"
+        size="5xl"
+        onOpenChange={onOpenChange}
+      >
+        <ModalContent>
+          {onClose => (
+            <>
+              <ModalHeader className="flex flex-row gap-1">
+                <Button onPress={() => console.log(editor.children)}>
+                  print content
+                </Button>
 
-      <Button onPress={() => insertInlineEquation(editor, KEYS.inlineEquation)}>
-        add inline equation
-      </Button>
-      <Button onPress={() => insertCallout(editor, { select: true })}>
-        Add Callout
-      </Button>
-      <Plate editor={editor}>
-        {/* You would typically add a toolbar here to toggle marks */}
+                <Button onPress={() => insertBlock(editor, KEYS.equation)}>
+                  add equation
+                </Button>
 
-        {/* 编辑时使用的 api */}
-        <PlateContent style={{ padding: '16px 64px', minHeight: '100px' }} />
+                <Button
+                  onPress={() =>
+                    insertInlineEquation(editor, KEYS.inlineEquation)
+                  }
+                >
+                  add inline equation
+                </Button>
+                <Button onPress={() => insertCallout(editor, { select: true })}>
+                  Add Callout
+                </Button>
+              </ModalHeader>
+              <ModalBody>
+                <Plate editor={editor}>
+                  {/* You would typically add a toolbar here to toggle marks */}
 
-        {/* 当处于显示文章时，用下面 api 可以提供效率 */}
-        {/* <PlateView editor={editor} /> */}
-      </Plate>
+                  {readOnly ? (
+                    <PlateView editor={editor} />
+                  ) : (
+                    <PlateContent className="focus:outline-none" />
+                  )}
+                </Plate>
+              </ModalBody>
+              <ModalFooter />
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   )
 }

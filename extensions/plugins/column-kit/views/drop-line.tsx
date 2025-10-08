@@ -1,4 +1,4 @@
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 import { useDropLine } from '@platejs/dnd'
 
 export function DropLine() {

@@ -1,11 +1,11 @@
-import { Button } from '@heroui/button'
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from '@heroui/dropdown'
-import { Tooltip } from '@heroui/tooltip'
+  Button,
+  Tooltip,
+} from '@heroui/react'
 import { memo } from 'react'
 import { Icon } from '@iconify/react'
 import { PlateEditor } from 'platejs/react'

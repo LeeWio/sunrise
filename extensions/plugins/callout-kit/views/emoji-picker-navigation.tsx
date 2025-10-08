@@ -1,5 +1,4 @@
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
+import { Tooltip, Button } from '@heroui/react'
 import { EmojiCategoryList } from '@platejs/emoji'
 import { UseEmojiPickerType } from '@platejs/emoji/react'
 

@@ -16,6 +16,8 @@ import {
   MathKit,
   CalloutKit,
   EmojiKit,
+  CursorOverlayKit,
+  FloatingToolbarKit,
 } from '.'
 
 /**
@@ -149,4 +151,6 @@ export const ExtensionKit = [
   ...MathKit,
   ...CalloutKit,
   ...EmojiKit,
+  ...CursorOverlayKit,
+  ...FloatingToolbarKit,
 ]

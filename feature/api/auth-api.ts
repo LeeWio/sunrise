@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { addToast } from '@heroui/toast'
+import { addToast } from '@heroui/react'
 
 import { AuthUser, setAuthUser } from '../slice/auth-slice'
 

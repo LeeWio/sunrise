@@ -1,4 +1,4 @@
-import { cn } from '@heroui/theme'
+import { cn } from '@heroui/react'
 import { PlateElementProps } from 'platejs/react'
 
 export const TodoLi: React.FC<PlateElementProps> = props => {

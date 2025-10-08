@@ -1,4 +1,4 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@heroui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@heroui/react'
 import { ReactNode } from 'react'
 
 export const EmojiPopover = ({

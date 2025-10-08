@@ -1,8 +1,8 @@
 import { PlateElement } from 'platejs/react'
 import { useEmojiDropdownMenuState } from '@platejs/emoji/react'
 import { useCalloutEmojiPicker } from '@platejs/callout/react'
-import { Alert } from '@heroui/alert'
-import { Button } from '@heroui/button'
+import { Alert } from '@heroui/react'
+import { Button } from '@heroui/react'
 
 import { CalloutElement as TCalloutElement } from '../type/index'
 

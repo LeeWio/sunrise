@@ -1,5 +1,4 @@
-import { Chip } from '@heroui/chip'
-import { Tooltip } from '@heroui/tooltip'
+import { Tooltip, Chip } from '@heroui/react'
 import { TText } from 'platejs'
 import { PlateLeaf, PlateLeafProps } from 'platejs/react'
 

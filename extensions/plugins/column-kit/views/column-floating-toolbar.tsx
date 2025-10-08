@@ -7,8 +7,7 @@ import {
   useRemoveNodeButton,
   useSelected,
 } from 'platejs/react'
-import { Tooltip } from '@heroui/tooltip'
-import { Button } from '@heroui/button'
+import { Button, Tooltip } from '@heroui/react'
 import { Icon } from '@iconify/react'
 import { ReactNode } from 'react'
 

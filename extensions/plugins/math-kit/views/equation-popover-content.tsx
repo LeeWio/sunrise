@@ -1,6 +1,4 @@
-import { Button } from '@heroui/button'
-import { Textarea } from '@heroui/input'
-import { PopoverContent } from '@heroui/popover'
+import { PopoverContent, Button, Textarea } from '@heroui/react'
 import { useEquationInput } from '@platejs/math/react'
 import { TEquationElement } from 'platejs'
 import {

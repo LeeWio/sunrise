@@ -6,6 +6,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 import { authApi } from '@/feature/api/auth-api'
 import toastRecuder from '@/feature/slice/toast-slice'
 import authRecuder from '@/feature/slice/auth-slice'
+import articleRecuder from '@/feature/slice/article-slice'
 import variantsRecuder from '@/feature/slice/variants-slice'
 
 const createNoopStorage = () => {
@@ -37,6 +38,7 @@ const persistConfig = {
 const middleware = [authApi.middleware]
 
 const rootReducer = combineReducers({
+  article: articleRecuder,
   toast: toastRecuder,
   auth: authRecuder,
   variants: variantsRecuder,

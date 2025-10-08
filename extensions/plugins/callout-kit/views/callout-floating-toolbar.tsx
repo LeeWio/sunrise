@@ -6,8 +6,7 @@ import {
   useSelected,
 } from 'platejs/react'
 import { ReactNode } from 'react'
-import { Tooltip } from '@heroui/tooltip'
-import { Select, SelectItem } from '@heroui/select'
+import { Select, SelectItem, Tooltip } from '@heroui/react'
 import { TCalloutElement } from 'platejs'
 
 import { CalloutElement } from '../type'

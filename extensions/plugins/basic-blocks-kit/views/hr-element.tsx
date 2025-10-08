@@ -7,8 +7,7 @@ import {
   useReadOnly,
   useSelected,
 } from 'platejs/react'
-import { cn } from '@heroui/theme'
-import { Divider } from '@heroui/divider'
+import { Divider, cn } from '@heroui/react'
 
 export function HrElement(props: PlateElementProps) {
   const readOnly = useReadOnly()

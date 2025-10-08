@@ -1,6 +1,6 @@
 import type { Emoji } from '@emoji-mart/data'
 
-import { Button } from '@heroui/button'
+import { Button } from '@heroui/react'
 import { memo } from 'react'
 
 export const EmojiButton = memo(function EmojiButton({

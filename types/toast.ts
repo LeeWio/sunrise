@@ -1,5 +1,12 @@
-import { ToastPlacement } from '@heroui/toast/dist/use-toast'
-import { ToastProps } from '@heroui/toast'
+import { ToastProps } from '@heroui/react'
+
+type ToastPlacement =
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'top-right'
+  | 'top-left'
+  | 'top-center'
 
 export interface ToastProviderProps {
   maxVisibleToasts?: number
