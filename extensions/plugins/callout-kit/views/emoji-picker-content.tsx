@@ -1,10 +1,10 @@
 import type { Emoji } from '@emoji-mart/data'
 
-import { ScrollShadow } from '@heroui/scroll-shadow'
 import { EmojiSettings, GridRow } from '@platejs/emoji'
 import { UseEmojiPickerType } from '@platejs/emoji/react'
 import { useCallback } from 'react'
 import { cn } from '@heroui/theme'
+import { ScrollShadow } from '@heroui/scroll-shadow'
 
 import { RowOfButtons } from './row-of-buttons'
 import { EmojiButton } from './emoji-button'
@@ -57,7 +57,7 @@ export const EmojiPickerContent = ({
             data-id={categoryId}
             style={{ width: getRowWidth }}
           >
-            <div className="sticky -top-px z-1 pl-1 text-default-500">
+            <div className="sticky -top-px z-1 bg-popover/90 p-1  text-sm font-semibold backdrop-blur-xs text-default-500">
               {i18n.categories[categoryId]}
             </div>
             <div
@@ -93,7 +93,7 @@ export const EmojiPickerContent = ({
   const SearchList = useCallback(() => {
     return (
       <div data-id="search" style={{ width: getRowWidth }}>
-        <div className="sticky -top-px z-1 bg-popover/90 p-1 py-2 text-sm font-semibold text-card-foreground backdrop-blur-xs pl-1 text-default-500">
+        <div className="sticky -top-px z-1 bg-popover/90 p-1  text-sm font-semibold text-card-foreground backdrop-blur-xs text-default-500">
           {i18n.searchResult}
         </div>
         <div className="relative flex flex-wrap">
@@ -121,6 +121,7 @@ export const EmojiPickerContent = ({
   return (
     <ScrollShadow
       ref={refs.current.contentRoot}
+      hideScrollBar
       className={cn(
         'h-full min-h-[50%] overflow-x-hidden overflow-y-auto',
         '[&::-webkit-scrollbar]:w-4',
@@ -130,9 +131,12 @@ export const EmojiPickerContent = ({
       )}
       data-id="scroll"
     >
-      <ScrollShadow ref={refs.current.content} className="h-full">
+      <div
+        ref={refs.current.content as React.RefObject<HTMLDivElement>}
+        className="h-full"
+      >
         {isSearching ? SearchList() : EmojiList()}
-      </ScrollShadow>
+      </div>
     </ScrollShadow>
   )
 }

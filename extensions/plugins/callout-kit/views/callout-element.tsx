@@ -19,7 +19,7 @@ export const CalloutElement = ({
   const { color, variant, radius } = props.element
 
   const { emojiPickerState, isOpen, setIsOpen } = useEmojiDropdownMenuState({
-    closeOnSelect: false,
+    closeOnSelect: true,
   })
 
   const { emojiToolbarDropdownProps, props: calloutProps } =
@@ -30,14 +30,15 @@ export const CalloutElement = ({
 
   return (
     <PlateElement
-      {...props}
       attributes={{
         ...attributes,
         'data-plate-open-context-menu': true,
       }}
+      className={className}
       style={{
         backgroundColor: props.element.backgroundColor as any,
       }}
+      {...props}
     >
       <CalloutFloatingToolbar editor={props.editor} element={props.element}>
         <Alert

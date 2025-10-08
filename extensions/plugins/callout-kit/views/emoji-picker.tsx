@@ -1,12 +1,11 @@
 import { Icon } from '@iconify/react'
 import { EmojiCategoryList, EmojiIconList, EmojiSettings } from '@platejs/emoji'
 import { UseEmojiPickerType } from '@platejs/emoji/react'
-import { ReactElement } from 'react'
 
-import { EmojiPickernavigation } from './emoji-picker-navigation'
 import { EmojiPickerSearchBar } from './emoji-picker-search-bar'
 import { EmojiPickerContent } from './emoji-picker-content'
 import { EmojiPickerPreview } from './emoji-picker-preview'
+import { EmojiPickernavigation } from './emoji-picker-navigation'
 
 export const EmojiPicker = ({
   clearSearch,
@@ -30,7 +29,7 @@ export const EmojiPicker = ({
   onMouseOver,
   onSelectEmoji,
 }: Omit<UseEmojiPickerType, 'icons'> & {
-  icons?: EmojiIconList<ReactElement>
+  icons?: EmojiIconList<React.ReactElement>
 }) => {
   return (
     <div className="flex flex-col gap-2 h-[25rem]">
@@ -41,12 +40,14 @@ export const EmojiPicker = ({
         icons={icons}
         onClick={handleCategoryClick}
       />
+
       <EmojiPickerSearchBar
         clearSearch={clearSearch}
         i18n={i18n}
         searchValue={searchValue}
         setSearch={setSearch}
       />
+
       <EmojiPickerContent
         emojiLibrary={emojiLibrary}
         i18n={i18n}

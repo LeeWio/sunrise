@@ -5,11 +5,11 @@ import { UseEmojiPickerType } from '@platejs/emoji/react'
 
 // BUG: 当点击按钮时，EmojiPickerContent 无法对应刷新
 export const EmojiPickernavigation = ({
-  onClick,
   emojiLibrary,
   focusedCategory,
   i18n,
   icons,
+  onClick,
 }: {
   onClick: (id: EmojiCategoryList) => void
 } & Pick<
