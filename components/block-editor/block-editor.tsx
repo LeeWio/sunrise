@@ -6,6 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalBody,
+  Input,
 } from '@heroui/react'
 import { insertInlineEquation } from '@platejs/math'
 import { insertCallout } from '@platejs/callout'
@@ -14,6 +15,8 @@ import { useRef } from 'react'
 
 import { useBlockEditor } from '@/hooks/use-block-editor'
 import { insertBlock } from '@/extensions/plugins/transforms'
+import { useAppDispatch } from '@/hooks/store'
+import { updateDraft } from '@/feature/slice/article-slice'
 
 /**
  * Props for BlockEditor component.
@@ -31,6 +34,8 @@ export const BlockEditor = ({
   onOpenChange,
 }: BlockEditorProps) => {
   const menuContainerRef = useRef<HTMLDivElement>(null)
+
+  const dispatch = useAppDispatch()
 
   const { editor } = useBlockEditor({
     readOnly,
@@ -58,6 +63,7 @@ export const BlockEditor = ({
                   print content
                 </Button>
 
+
                 <Button onPress={() => insertBlock(editor, KEYS.equation)}>
                   add equation
                 </Button>
@@ -74,9 +80,14 @@ export const BlockEditor = ({
                 </Button>
               </ModalHeader>
               <ModalBody>
-                <Plate editor={editor}>
+                <Plate
+                  editor={editor}
+                  onChange={({ value }) => {
+                    // 防抖
+                    dispatch(updateDraft(value))
+                  }}
+                >
                   {/* You would typically add a toolbar here to toggle marks */}
-
                   {readOnly ? (
                     <PlateView editor={editor} />
                   ) : (
@@ -88,7 +99,7 @@ export const BlockEditor = ({
             </>
           )}
         </ModalContent>
-      </Modal>
+      </Modal >
     </>
   )
 }

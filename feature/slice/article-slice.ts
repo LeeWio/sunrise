@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { TElement } from 'platejs'
 
 interface DraftState {
   title: string
-  content: string
+  content: Array<TElement>
   summary: string
   coverImage: string
 }
 
 const initialDraftState = {
   title: '',
-  content: '',
+  content: [],
   summary: '',
   coverImage: '',
 }
@@ -26,8 +27,9 @@ const articleSlice = createSlice({
   name: 'article',
   initialState,
   reducers: {
-    updateDraft(state, action: PayloadAction<ArticleState>) {
-      state.draft = action.payload.draft
+    updateDraft(state, action: PayloadAction<Array<TElement>>) {
+      console.log('aritcle-slice', action.payload)
+      state.draft.content = action.payload
     },
 
     removeDraft(state) {

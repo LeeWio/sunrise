@@ -34,7 +34,7 @@ export const MemoButton = memo(
           size="sm"
           variant="light"
           onMouseDown={onMouseDown}
-          onPressUp={onClick}
+          onPress={onClick}
         >
           {content}
         </Button>

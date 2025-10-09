@@ -4,6 +4,7 @@ import { Divider } from '@heroui/react'
 
 import { LinkToolbarButton } from './link-toolbar-button'
 import { MarkToolbarButton } from './mark-toolbar-button'
+import { MoreToolbarButton } from './more-toolbar-button'
 import { FontColorToolbarButton } from './font-color-toolbar-button'
 
 export const FloatingToolbarButtons = () => {
@@ -53,7 +54,11 @@ export const FloatingToolbarButtons = () => {
           <LinkToolbarButton />
 
           <FontColorToolbarButton icon="lucide:palette" nodeType={KEYS.color} />
+
+          <MoreToolbarButton />
+
         </div>
+
       )}
     </>
   )

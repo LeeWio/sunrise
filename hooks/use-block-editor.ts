@@ -44,7 +44,8 @@ export const useBlockEditor = ({
   autoSelect = 'start',
   maxLength = 10000,
 }: UseBlockEditorOptions) => {
-  const { content: draft } = useDraft()
+  const draft = useDraft()
+
   const plugins = useMemo(() => ExtensionKit, [])
 
   const editorValue = useMemo(() => {
@@ -52,8 +53,8 @@ export const useBlockEditor = ({
       return value
     }
 
-    if (draft && draft.length > 0) {
-      return draft
+    if (draft.content && draft.content.length > 0) {
+      return draft.content
     }
 
     return initialValue

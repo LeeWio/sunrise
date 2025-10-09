@@ -8,7 +8,7 @@ export const MarkToolbarButton = ({
   nodeType,
   ...props
 }: ComponentProps<typeof MemoButton> & {
-  nodeType?: string
+  nodeType: string
   clear?: string[] | string
 }) => {
   const state = useMarkToolbarButtonState({ clear, nodeType })

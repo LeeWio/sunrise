@@ -24,7 +24,7 @@ export const ColorPicker = ({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2  ignore-click-outside">
       <HexColorPicker
         className="!w-full"
         color={hexColor}
@@ -46,8 +46,15 @@ export const ColorPicker = ({
         >
           <Icon height="18" icon="lucide:copy" width="18" />
         </Button>
-        <Button isIconOnly size="sm" onPress={onClear}>
-          clear
+      </div>
+      <div className="flex">
+        <Button
+          isIconOnly
+          className="text-default-500"
+          size="sm"
+          onPress={onClear}
+        >
+          <Icon height="18" icon="meteor-icons:turn-up-left" widths="18" />
         </Button>
       </div>
     </div>

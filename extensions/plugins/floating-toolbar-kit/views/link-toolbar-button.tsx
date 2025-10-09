@@ -16,7 +16,7 @@ export const LinkToolbarButton = (props: ComponentProps<typeof MemoButton>) => {
       {...buttonProps}
       {...props}
       data-plate-focus
-      nodeType={'Link'}
+      icon="lucide:link"
     />
   )
 }

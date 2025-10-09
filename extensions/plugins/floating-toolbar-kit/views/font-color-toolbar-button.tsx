@@ -1,21 +1,28 @@
-import { Button, Popover, PopoverTrigger, PopoverContent } from '@heroui/react'
-import { Icon } from '@iconify/react'
 import { useEditorRef, useEditorSelector } from 'platejs/react'
 import { useCallback, useEffect, useState } from 'react'
-
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@heroui/react'
+import { Icon } from '@iconify/react'
 import { ColorPicker } from './color-picker'
 
 type FontColorToolbarButtonProps = {
   nodeType: string
   icon: string
 }
+
 export const FontColorToolbarButton = ({
   nodeType,
   icon,
 }: FontColorToolbarButtonProps) => {
-  const [isOpen, setIsOpen] = useState(false)
   const editor = useEditorRef()
-  const selectedDefined = useEditorSelector(editor => !!editor.selection, [])
 
   const color = useEditorSelector(
     editor => editor.api.mark(nodeType) as string,
@@ -23,14 +30,6 @@ export const FontColorToolbarButton = ({
   )
 
   const [selectedColor, setSelectedColor] = useState<string>()
-  const [open, setOpen] = useState(false)
-
-  const onToggle = useCallback(
-    (value = !open) => {
-      setOpen(value)
-    },
-    [open, setOpen]
-  )
 
   const updateColor = useCallback(
     (value: string) => {
@@ -45,13 +44,6 @@ export const FontColorToolbarButton = ({
     [editor, nodeType]
   )
 
-  const updateColorAndClose = useCallback(
-    (value: string) => {
-      updateColor(value)
-      onToggle()
-    },
-    [onToggle, updateColor]
-  )
 
   const clearColor = useCallback(() => {
     if (editor.selection) {
@@ -62,19 +54,12 @@ export const FontColorToolbarButton = ({
         editor.tf.removeMarks(nodeType)
       }
 
-      onToggle()
     }
-  }, [editor, selectedColor, onToggle, nodeType])
-
-  useEffect(() => {
-    if (selectedDefined) {
-      setSelectedColor(color)
-    }
-  }, [color, selectedColor])
+  }, [editor, selectedColor, nodeType])
 
   return (
-    <Popover isOpen={isOpen} onOpenChange={open => setIsOpen(open)}>
-      <PopoverTrigger>
+    <Popover>
+      <PopoverTrigger >
         <Button isIconOnly size="sm" variant="light">
           <Icon icon={icon} />
         </Button>
@@ -88,4 +73,5 @@ export const FontColorToolbarButton = ({
       </PopoverContent>
     </Popover>
   )
+
 }
