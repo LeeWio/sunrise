@@ -1,136 +1,140 @@
 'use client'
-import type { MenuTriggerAction } from '@heroui/react'
 
-import React from 'react'
-import { Autocomplete, AutocompleteItem } from '@heroui/react'
-import { useFilter } from '@react-aria/i18n'
+import React, { useState } from 'react'
+import { Input, Button, Textarea } from '@heroui/react'
 
-export type FieldState = {
-  selectedKey: React.Key | null
-  inputValue: string
-  items: typeof animals
-}
-
-const animals = [
-  {
-    label: 'Cat',
-    key: 'cat',
-    description: 'The second most popular pet in the world',
-  },
-  {
-    label: 'Dog',
-    key: 'dog',
-    description: 'The most popular pet in the world',
-  },
-  {
-    label: 'Elephant',
-    key: 'elephant',
-    description: 'The largest land animal',
-  },
-  { label: 'Lion', key: 'lion', description: 'The king of the jungle' },
-  { label: 'Tiger', key: 'tiger', description: 'The largest cat species' },
-  { label: 'Giraffe', key: 'giraffe', description: 'The tallest land animal' },
-  {
-    label: 'Dolphin',
-    key: 'dolphin',
-    description: 'A widely distributed and diverse group of aquatic mammals',
-  },
-  {
-    label: 'Penguin',
-    key: 'penguin',
-    description: 'A group of aquatic flightless birds',
-  },
-  {
-    label: 'Zebra',
-    key: 'zebra',
-    description: 'A several species of African equids',
-  },
-  {
-    label: 'Shark',
-    key: 'shark',
-    description:
-      'A group of elasmobranch fish characterized by a cartilaginous skeleton',
-  },
-  {
-    label: 'Whale',
-    key: 'whale',
-    description: 'Diverse group of fully aquatic placental marine mammals',
-  },
-  {
-    label: 'Otter',
-    key: 'otter',
-    description: 'A carnivorous mammal in the subfamily Lutrinae',
-  },
-  {
-    label: 'Crocodile',
-    key: 'crocodile',
-    description: 'A large semiaquatic reptile',
-  },
-]
+import { useCreateMutation as useCreateCategoryMutation } from '@/feature/api/category-api'
 
 export default function PricingPage() {
-  // Store Autocomplete input value, selected option, open state, and items
-  // in a state tracker
-  const [fieldState, setFieldState] = React.useState<FieldState>({
-    selectedKey: '',
-    inputValue: '',
-    items: animals,
-  })
+  const [name, setName] = useState('')
+  const [slug, setSlug] = useState('')
+  const [description, setDescription] = useState('')
+  const [color, setColor] = useState('#8b5cf6') // Default purple color for categories
+  const [parent, setParent] = useState('')
 
-  // Implement custom filtering logic and control what items are
-  // available to the Autocomplete.
-  const { startsWith } = useFilter({ sensitivity: 'base' })
+  // Use the category create mutation hook
+  const [createCategory, { isLoading, isError, isSuccess, data, error }] =
+    useCreateCategoryMutation()
 
-  // Specify how each of the Autocomplete values should change when an
-  // option is selected from the list box
-  const onSelectionChange = (key: React.Key | null) => {
-    setFieldState(prevState => {
-      let selectedItem = prevState.items.find(option => option.key === key)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-      return {
-        inputValue: selectedItem?.label || '',
-        selectedKey: key,
-        items: animals.filter(item =>
-          startsWith(item.label, selectedItem?.label || '')
-        ),
-      }
-    })
-  }
+    // Prepare the category payload
+    const categoryPayload = {
+      name,
+      slug: slug || name.toLowerCase().replace(/\s+/g, '-'), // Auto-generate slug if not provided
+      description,
+      color,
+      parent: parent || undefined, // Only include parent if it's provided
+    }
 
-  // Specify how each of the Autocomplete values should change when the input
-  // field is altered by the user
-  const onInputChange = (value: string) => {
-    setFieldState(prevState => ({
-      inputValue: value,
-      selectedKey: value === '' ? null : prevState.selectedKey,
-      items: animals.filter(item => startsWith(item.label, value)),
-    }))
-  }
+    try {
+      // Call the mutation
+      await createCategory(categoryPayload).unwrap()
 
-  // Show entire list if user opens the menu manually
-  const onOpenChange = (isOpen: boolean, menuTrigger: MenuTriggerAction) => {
-    if (menuTrigger === 'manual' && isOpen) {
-      setFieldState(prevState => ({
-        inputValue: prevState.inputValue,
-        selectedKey: prevState.selectedKey,
-        items: animals,
-      }))
+      // Reset form after successful creation
+      setName('')
+      setSlug('')
+      setDescription('')
+      setColor('#8b5cf6')
+      setParent('')
+
+      console.log(data)
+    } catch (err) {
+      console.error('Failed to create category:', err)
     }
   }
 
   return (
-    <Autocomplete
-      className="max-w-xs"
-      inputValue={fieldState.inputValue}
-      items={fieldState.items}
-      placeholder="Search an animal"
-      selectedKey={fieldState.selectedKey as any}
-      variant="bordered"
-      onInputChange={onInputChange}
-      onOpenChange={onOpenChange}
-      onSelectionChange={onSelectionChange}
-    >
-      {item => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
-    </Autocomplete>
+    <div className="w-full max-w-2xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Category Creation Demo</h1>
+
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+          <Input
+            isRequired
+            label="Category Name"
+            placeholder="Enter category name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <Input
+            label="Slug"
+            placeholder="Enter category slug (optional)"
+            value={slug}
+            onChange={e => setSlug(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <Input
+            label="Parent Category ID"
+            placeholder="Enter parent category ID (optional)"
+            value={parent}
+            onChange={e => setParent(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <Textarea
+            label="Description"
+            placeholder="Enter category description"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          <label className="text-sm font-medium" htmlFor="color-picker">
+            Color:
+          </label>
+          <input
+            className="w-10 h-10 border-0 rounded cursor-pointer"
+            id="color-picker"
+            type="color"
+            value={color}
+            onChange={e => setColor(e.target.value)}
+          />
+          <span className="text-sm text-gray-600">{color}</span>
+        </div>
+
+        <Button
+          className="w-full"
+          color="primary"
+          disabled={isLoading}
+          isLoading={isLoading}
+          type="submit"
+        >
+          {isLoading ? 'Creating Category...' : 'Create Category'}
+        </Button>
+      </form>
+
+      {/* Status messages */}
+      {isSuccess && data && (
+        <div className="mt-6 p-4 bg-success/10 border border-success rounded-lg">
+          <h3 className="font-semibold text-success">
+            Category Created Successfully!
+          </h3>
+          <p>ID: {data.cid}</p>
+          <p>Name: {data.name}</p>
+          <p>Slug: {data.slug}</p>
+          <p>Parent: {data.parent || 'None'}</p>
+        </div>
+      )}
+
+      {isError && (
+        <div className="mt-6 p-4 bg-danger/10 border border-danger rounded-lg">
+          <h3 className="font-semibold text-danger">Error Creating Category</h3>
+          <p>
+            {error && typeof error === 'object' && 'data' in error
+              ? (error.data as any)?.message || 'An error occurred'
+              : 'An error occurred'}
+          </p>
+        </div>
+      )}
+    </div>
   )
 }

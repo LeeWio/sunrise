@@ -66,8 +66,8 @@ export const useBlockEditor = ({
     readOnly,
     maxLength,
     autoSelect,
-    options() {},
-    onReady(ctx) {},
+    options() { },
+    onReady(ctx) { },
   })
 
   return { editor }

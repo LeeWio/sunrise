@@ -13,10 +13,7 @@ import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion'
 import { ChangeEvent, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-import {
-  useCreateAccountMutation,
-  UserAuthPayload,
-} from '@/feature/api/auth-api'
+import { useCreateAccountMutation, UserResponse } from '@/feature/api/auth-api'
 
 type SignUpProps = {
   isSignUpOpen: boolean
@@ -56,7 +53,7 @@ export const SignUp = ({
     </div>
   )
 
-  const [userAuthPayload, setUserAuthPayload] = useState<UserAuthPayload>({
+  const [userAuthPayload, setUserAuthPayload] = useState<UserResponse>({
     email: '',
     password: '',
   })

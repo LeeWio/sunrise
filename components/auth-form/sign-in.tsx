@@ -16,7 +16,7 @@ import { Icon } from '@iconify/react'
 
 import {
   useAuthenticateUserMutation,
-  UserAuthPayload,
+  UserResponse,
 } from '@/feature/api/auth-api'
 
 type SignInProps = {
@@ -92,7 +92,7 @@ export const SignIn = ({
   const [authenticateUser, { isLoading: isAuthenticateUserLoading }] =
     useAuthenticateUserMutation()
 
-  const [userAuthPayload, setUserAuthPayload] = useState<UserAuthPayload>({
+  const [userAuthPayload, setUserAuthPayload] = useState<UserResponse>({
     email: '',
     password: '',
   })

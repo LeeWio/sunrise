@@ -6,7 +6,7 @@ import { AuthUser, setAuthUser } from '../slice/auth-slice'
 import { RootState } from '@/app/store'
 import { ResultResponse } from '@/types'
 
-export type UserAuthPayload = {
+export type UserResponse = {
   /** Unique identifier for the user */
   uid?: string
   /** Username chosen by the user */
@@ -27,6 +27,21 @@ export type UserAuthPayload = {
   roles?: string[]
 }
 
+export type CreateUserPayload = {
+  /** Username chosen by the user */
+  username?: string
+  /** Password for authentication */
+  password: string
+  /** Email address of the user */
+  email: string
+  /** URL to the user's avatar image */
+  avatar?: string
+  /** Current status of the user account */
+  status?: string
+}
+
+// AuthUser is already defined in the slice, so we don't need to redefine it here
+
 export const authApi = createApi({
   reducerPath: 'auth-api',
   tagTypes: ['auth'],
@@ -46,7 +61,7 @@ export const authApi = createApi({
   }),
 
   endpoints: build => ({
-    authenticateUser: build.mutation<AuthUser, UserAuthPayload>({
+    authenticateUser: build.mutation<AuthUser, UserResponse>({
       query: credential => ({
         url: '/authenticate',
         method: 'POST',
@@ -135,7 +150,7 @@ export const authApi = createApi({
         }
       },
     }),
-    createAccount: build.mutation<AuthUser, UserAuthPayload>({
+    createAccount: build.mutation<AuthUser, UserResponse>({
       query: credential => ({
         url: '/create',
         method: 'POST',
@@ -239,7 +254,78 @@ export const authApi = createApi({
         }
       },
     }),
+    getAllUsers: build.query<UserResponse[], void>({
+      query: () => ({
+        url: '/all', // Endpoint to fetch all users
+        method: 'GET',
+      }),
+
+      transformResponse(response: ResultResponse<UserResponse[]>) {
+        // Assuming 10013 is a success status code for getting all users (following similar pattern to other apis)
+        if (response.status === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid users response',
+              color: 'danger',
+            })
+
+            // Return empty array to indicate failure
+            return []
+          }
+
+          // Success case - return users array
+          return data
+        } else {
+          // API indicates failure with non-success custom status
+          addToast({
+            title: response.message || 'Failed to fetch users',
+            color: 'danger',
+          })
+
+          // Return empty array to indicate failure
+          return []
+        }
+      },
+
+      transformErrorResponse: error => {
+        const getErrorMessage = (status: number | string): string => {
+          switch (status) {
+            case 400:
+              return 'Invalid request parameters'
+            case 401:
+              return 'Authentication failed'
+            case 403:
+              return 'Insufficient permissions'
+            case 404:
+              return 'Users not found'
+            case 500:
+              return 'Internal server error'
+            default:
+              return 'An error occurred while fetching users'
+          }
+        }
+
+        const errorMessage = getErrorMessage(error.status)
+
+        // Show error toast for network or server errors
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
   }),
 })
 
-export const { useAuthenticateUserMutation, useCreateAccountMutation } = authApi
+export const {
+  useAuthenticateUserMutation,
+  useCreateAccountMutation,
+  useGetAllUsersQuery,
+} = authApi
