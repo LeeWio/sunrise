@@ -10,10 +10,9 @@ import {
   Image,
   Tooltip,
 } from '@heroui/react'
-import { Icon } from '@iconify/react'
 import { useEffect, useState } from 'react'
 
-import { CommentIcon, EyeIcon, ThumbsUpIcon } from '../icons'
+import { CommentIcon, EyeIcon, StarIcon, ThumbsUpIcon } from '../icons'
 
 interface ArticleCardProps {
   title: string
@@ -104,10 +103,13 @@ export default function ArticleCard({
         <div className="flex gap-1">
           {featured && (
             <Chip
-              className="bg-background/60 text-foreground/90 shadow-medium dark:bg-default-100/50 gap-1 backdrop-blur-md backdrop-saturate-150"
+              classNames={{
+                base: 'liquid-glass',
+              }}
               radius="sm"
               size="sm"
-              startContent={<Icon icon="gravity-ui:star-fill" />}
+              startContent={<StarIcon />}
+              variant="light"
             >
               Feature
             </Chip>
@@ -116,10 +118,13 @@ export default function ArticleCard({
           {tags.map(tag => (
             <Chip
               key={tag.label}
-              className="glass-base"
+              classNames={{
+                base: 'liquid-glass',
+              }}
               radius="sm"
               size="sm"
               startContent={tag.icon}
+              variant="light"
             >
               {tag.label}
             </Chip>
@@ -150,12 +155,7 @@ export default function ArticleCard({
         </div>
 
         {date && (
-          <Tooltip
-            classNames={{
-              content: 'liquid-glass bg-transparent',
-            }}
-            content={`Posted ${date}`}
-          >
+          <Tooltip showArrow content={`Posted ${date}`}>
             <span className="text-small text-neutral-500 whitespace-nowrap">
               {getRelativeTime(date)}
             </span>
