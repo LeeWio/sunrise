@@ -12,8 +12,8 @@ import {
   SelectItem,
   Tooltip,
 } from '@heroui/react'
-import { Icon } from '@iconify/react'
 import { memo } from 'react'
+import { Icon } from '@iconify/react'
 
 import { useAppDispatch } from '@/hooks/store'
 import { updateDraft } from '@/feature/slice/article-slice'
@@ -22,6 +22,7 @@ import {
   CategoryResponse,
   useGetallQuery as useGetAllCategoriesQuery,
 } from '@/feature/api/category-api'
+import { useCreateMutation as useCreateArticleMutation } from '@/feature/api/article-api'
 import { useGetAllUsersQuery, UserResponse } from '@/feature/api/auth-api'
 import { useDraft } from '@/hooks/use-draft'
 
@@ -88,6 +89,9 @@ export const EditorFooter = memo(
     const dispatch = useAppDispatch()
     const draft = useDraft()
 
+    const [createArticle, { isLoading, isError, isSuccess, data, error }] =
+      useCreateArticleMutation()
+
     const {
       data: tags,
       isLoading: tagsLoading,
@@ -117,8 +121,6 @@ export const EditorFooter = memo(
                 label="Article Title"
                 name="title"
                 placeholder="Enter a compelling title"
-                size="md"
-                variant="bordered"
                 onChange={e => {
                   dispatch(updateDraft({ title: e.target.value }))
                 }}
@@ -129,8 +131,6 @@ export const EditorFooter = memo(
                 label="Article Summary"
                 name="summary"
                 placeholder="Briefly describe your article"
-                size="md"
-                variant="bordered"
                 onChange={e =>
                   dispatch(updateDraft({ summary: e.target.value }))
                 }
@@ -143,8 +143,6 @@ export const EditorFooter = memo(
                 label="Article Slug"
                 name="slug"
                 placeholder="Enter article slug (optional)"
-                size="md"
-                variant="bordered"
                 onChange={e => {
                   // Dispatch an action to update the slug in the store
                   dispatch(updateDraft({ slug: e.target.value }))
@@ -157,7 +155,10 @@ export const EditorFooter = memo(
               <Select
                 isClearable
                 isVirtualized
-                className="max-w-xs"
+                classNames={{
+                  base: 'max-w-xs',
+                  trigger: 'h-12',
+                }}
                 defaultSelectedKeys={new Set(draft.tagIds)}
                 isLoading={tagsLoading}
                 items={tags || []}
@@ -183,7 +184,6 @@ export const EditorFooter = memo(
                   )
                 }}
                 selectionMode="multiple"
-                size="md"
                 variant="bordered"
                 onChange={e => {
                   dispatch(updateDraft({ tagIds: e.target.value.split(',') }))
@@ -205,7 +205,10 @@ export const EditorFooter = memo(
               <Select
                 isClearable
                 isVirtualized
-                className="max-w-xs"
+                classNames={{
+                  base: 'max-w-xs',
+                  trigger: 'h-12',
+                }}
                 defaultSelectedKeys={new Set([draft.categoryId])}
                 isLoading={categoriesLoading}
                 items={categories || []}
@@ -230,8 +233,6 @@ export const EditorFooter = memo(
                     </div>
                   )
                 }}
-                selectionMode="single"
-                size="md"
                 variant="bordered"
                 onChange={e => {
                   dispatch(updateDraft({ categoryId: e.target.value }))
@@ -251,8 +252,10 @@ export const EditorFooter = memo(
             {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
             <Select
               isClearable
-              isVirtualized
-              className="max-w-xs"
+              classNames={{
+                base: 'max-w-xs',
+                trigger: 'h-12',
+              }}
               defaultSelectedKeys={new Set([draft.authorId])}
               isLoading={usersLoading}
               items={users || []}
@@ -279,8 +282,6 @@ export const EditorFooter = memo(
                 ))
               }}
               selectionMode="single"
-              size="md"
-              variant="bordered"
               onChange={e => {
                 dispatch(updateDraft({ authorId: e.target.value }))
               }}
@@ -391,6 +392,22 @@ export const EditorFooter = memo(
                     Refresh Users
                   </div>
                 )}
+              </Button>
+
+              <Button
+                onPress={e => {
+                  try {
+                    // Call the mutation
+                    createArticle(draft).unwrap()
+
+                    // Reset form after successful creation
+                    console.log(data)
+                  } catch (err) {
+                    console.error('Failed to create category:', err)
+                  }
+                }}
+              >
+                Published
               </Button>
             </div>
           </CardFooter>

@@ -6,6 +6,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 import { authApi } from '@/feature/api/auth-api'
 import { tagApi } from '@/feature/api/tag-api'
 import { categoryApi } from '@/feature/api/category-api'
+import { articleApi } from '@/feature/api/article-api'
 import toastRecuder from '@/feature/slice/toast-slice'
 import authRecuder from '@/feature/slice/auth-slice'
 import articleRecuder from '@/feature/slice/article-slice'
@@ -40,6 +41,7 @@ const persistConfig = {
 const middleware = [
   authApi.middleware,
   tagApi.middleware,
+  articleApi.middleware,
   categoryApi.middleware,
 ]
 
@@ -52,6 +54,7 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [tagApi.reducerPath]: tagApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
+  [articleApi.reducerPath]: articleApi.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

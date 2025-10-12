@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { TElement } from 'platejs'
 
 interface DraftState {
   title: string
-  content: Array<TElement>
+  content: string
   summary: string
   coverImage: string
   slug: string
@@ -14,7 +13,7 @@ interface DraftState {
 
 const initialDraftState = {
   title: '',
-  content: [],
+  content: '',
   summary: '',
   coverImage: '',
   slug: '',

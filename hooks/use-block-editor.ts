@@ -54,7 +54,7 @@ export const useBlockEditor = ({
     }
 
     if (draft.content && draft.content.length > 0) {
-      return draft.content
+      return JSON.parse(draft.content)
     }
 
     return initialValue

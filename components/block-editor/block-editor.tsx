@@ -108,7 +108,7 @@ export const BlockEditor = ({
                   editor={editor}
                   onChange={({ value }) => {
                     // 防抖
-                    dispatch(updateDraft({ content: value }))
+                    dispatch(updateDraft({ content: JSON.stringify(value) }))
                   }}
                 >
                   {/* You would typically add a toolbar here to toggle marks */}
