@@ -11,7 +11,7 @@ type CreateTagPayload = {
   color?: string
 }
 
-export type TagResponse = {
+type TagResponse = {
   tid: string
   name: string
   slug: string
@@ -24,7 +24,7 @@ export const tagApi = createApi({
   reducerPath: 'tag-api',
   tagTypes: ['tag'],
   baseQuery: fetchBaseQuery({
-    baseUrl: '/tag',
+    baseUrl: '/api/tag',
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
 

@@ -47,7 +47,7 @@ export const authApi = createApi({
   tagTypes: ['auth'],
 
   baseQuery: fetchBaseQuery({
-    baseUrl: '/user',
+    baseUrl: '/api/user',
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
 

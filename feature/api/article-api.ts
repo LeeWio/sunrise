@@ -33,7 +33,7 @@ export const articleApi = createApi({
   reducerPath: 'article-api',
   tagTypes: ['article'],
   baseQuery: fetchBaseQuery({
-    baseUrl: '/article',
+    baseUrl: '/api/article',
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
 
@@ -141,7 +141,7 @@ export const articleApi = createApi({
       },
     }),
 
-    getById: build.query<ArticleResponse, string>({
+    get: build.query<ArticleResponse, string>({
       query: id => ({
         url: `/${id}`, // Endpoint to fetch article by ID
         method: 'GET',
@@ -207,8 +207,119 @@ export const articleApi = createApi({
           status: error.status,
         }
       },
+
+      providesTags: (result, error, id) => [{ type: 'article', id }],
+    }),
+
+    getByIds: build.query<ArticleResponse[], string[]>({
+      query: ids => {
+        // Convert array of IDs to a comma-separated string for the query parameter
+        return {
+          url: `/by-ids`, // Endpoint to fetch articles by IDs
+          method: 'POST',
+          params: { ids: ids.join(',') },
+        }
+      },
+
+      transformResponse(response: ResultResponse<ArticleResponse[]>) {
+        // Assuming 200 is a success status code for getting articles (following standard HTTP codes)
+        if (response.status === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid articles response',
+              color: 'danger',
+            })
+
+            // Return empty array to indicate failure
+            return []
+          }
+
+          // Success case - return articles array
+          return data
+        } else {
+          // API indicates failure with non-success custom status
+          addToast({
+            title: response.message || 'Failed to fetch articles',
+            color: 'danger',
+          })
+
+          // Return empty array to indicate failure
+          return []
+        }
+      },
+
+      // Provides tags for cache invalidation
+      providesTags: (result, error, ids) => {
+        // Return tags for each individual article ID as well as a combined tag
+        return [
+          ...ids.map(id => ({ type: 'article' as const, id })),
+          { type: 'article', id: 'LIST_BY_IDS' },
+        ]
+      },
+
+      // The 2nd parameter is the destructured `QueryLifecycleApi`
+      async onQueryStarted(
+        arg,
+        {
+          dispatch,
+          getState,
+          extra,
+          requestId,
+          queryFulfilled,
+          getCacheEntry,
+          updateCachedData,
+        }
+      ) { },
+      // The 2nd parameter is the destructured `QueryCacheLifecycleApi`
+      async onCacheEntryAdded(
+        arg,
+        {
+          dispatch,
+          getState,
+          extra,
+          requestId,
+          cacheEntryRemoved,
+          cacheDataLoaded,
+          getCacheEntry,
+          updateCachedData,
+        }
+      ) { },
+
+      transformErrorResponse: error => {
+        const getErrorMessage = (status: number | string): string => {
+          switch (status) {
+            case 400:
+              return 'Invalid request parameters'
+            case 401:
+              return 'Authentication failed'
+            case 403:
+              return 'Insufficient permissions'
+            case 404:
+              return 'Articles not found'
+            case 500:
+              return 'Internal server error'
+            default:
+              return 'An error occurred while fetching the articles'
+          }
+        }
+
+        const errorMessage = getErrorMessage(error.status)
+
+        // Show error toast for network or server errors
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
     }),
   }),
 })
 
-export const { useCreateMutation, useGetByIdQuery } = articleApi
+export const { useCreateMutation, useGetQuery, useGetByIdsQuery } = articleApi

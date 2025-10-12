@@ -15,6 +15,7 @@
     "@heroui/react-utils": "2.1.14",
     "@heroui/theme": "^2.4.23",
     "@iconify/react": "^6.0.2",
+    "@internationalized/date": "^3.10.0",
     "@platejs/ai": "^50.3.4",
     "@platejs/autoformat": "^49.0.0",
     "@platejs/basic-nodes": "^49.0.0",

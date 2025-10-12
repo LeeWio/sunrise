@@ -27,7 +27,7 @@ export const categoryApi = createApi({
   reducerPath: 'category-api',
   tagTypes: ['category'],
   baseQuery: fetchBaseQuery({
-    baseUrl: '/category',
+    baseUrl: '/api/category',
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
 
