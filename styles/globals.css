@@ -1,3 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  /* 你也可以在这里定义变量 */
+}
+
+@layer components {
+  .liquid-glass {
+    @apply bg-background/10 backdrop-blur backdrop-saturate-150 before:bg-white/10 border-white/20 before:rounded-xl shadow-small
+  }
+}
+
 @config "../tailwind.config.js"

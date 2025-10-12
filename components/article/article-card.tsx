@@ -116,7 +116,7 @@ export default function ArticleCard({
           {tags.map(tag => (
             <Chip
               key={tag.label}
-              className="bg-background/60 text-foreground/90 shadow-medium dark:bg-default-100/50 gap-1 backdrop-blur-md backdrop-saturate-150"
+              className="glass-base"
               radius="sm"
               size="sm"
               startContent={tag.icon}
@@ -152,8 +152,7 @@ export default function ArticleCard({
         {date && (
           <Tooltip
             classNames={{
-              content:
-                'bg-background/60 text-foreground/80 shadow-medium dark:bg-default-100/50 gap-1 backdrop-blur-md backdrop-saturate-150',
+              content: 'liquid-glass bg-transparent',
             }}
             content={`Posted ${date}`}
           >
