@@ -55,8 +55,8 @@ export const BlockEditor = ({
         aria-label="block-editor label"
         backdrop="blur"
         classNames={{
-          base: 'min-h-5/6',
-          body: 'scrollbar-hide py-0 min-h-40 ',
+          base: 'min-h-5/6 ',
+          body: 'scrollbar-hide py-0 min-h-40  ',
           footer: cn(
             'z-20 bg-content1 w-full rounded-lg transition-height absolute bottom-0 h-14 overflow-visible px-6 duration-300 ease-in-out',
             {

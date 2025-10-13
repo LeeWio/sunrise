@@ -15,7 +15,7 @@ export const FloatingToolbarButtons = () => {
       {!readOnly && (
         <div
           aria-label="Link preview panel"
-          className="z-10 px-2.5 py-1 w-full items-center justify-center subpixel-antialiased outline-solid outline-transparent box-border text-small bg-content1 rounded-medium shadow-small flex flex-row gap-0.5"
+          className="liquid-glass z-10 px-2.5 py-1 w-full items-center justify-center subpixel-antialiased outline-solid outline-transparent box-border text-small rounded-medium flex flex-row gap-0.5"
         >
           <Divider className="mx-1 h-5" orientation="vertical" />
 
@@ -56,9 +56,7 @@ export const FloatingToolbarButtons = () => {
           <FontColorToolbarButton icon="lucide:palette" nodeType={KEYS.color} />
 
           <MoreToolbarButton />
-
         </div>
-
       )}
     </>
   )

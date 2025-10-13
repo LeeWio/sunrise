@@ -88,27 +88,17 @@ export default function ArticleCard({
   return (
     <Card
       isBlurred
-      isFooterBlurred
-      className="relative border-none w-full sm:max-w-sm md:max-w-md lg:max-w-lg aspect-[16/9]"
+      className="dynamic-gradient-bg border-none w-full sm:max-w-sm md:max-w-md lg:max-w-lg aspect-[16/9]"
       radius="lg"
     >
-      <Image
-        removeWrapper
-        alt="Cover Image"
-        className="absolute inset-0 z-0 w-full object-cover"
-        src={cover}
-      />
-
       <CardHeader className="flex flex-col gap-0.5 items-start">
         <div className="flex gap-1">
           {featured && (
             <Chip
-              classNames={{
-                base: 'liquid-glass',
-              }}
               radius="sm"
               size="sm"
-              startContent={<StarIcon />}
+              className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
+              startContent={<StarIcon/>}
               variant="light"
             >
               Feature
@@ -118,10 +108,8 @@ export default function ArticleCard({
           {tags.map(tag => (
             <Chip
               key={tag.label}
-              classNames={{
-                base: 'liquid-glass',
-              }}
               radius="sm"
+              className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
               size="sm"
               startContent={tag.icon}
               variant="light"
