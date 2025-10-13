@@ -11,13 +11,14 @@ type CreateTagPayload = {
   color?: string
 }
 
-type TagResponse = {
+export type TagResponse = {
   tid: string
   name: string
   slug: string
   description: string
   createdAt: string
   updatedAt: string
+  icon: string
 }
 
 export const tagApi = createApi({

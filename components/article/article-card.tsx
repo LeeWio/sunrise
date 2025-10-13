@@ -7,18 +7,17 @@ import {
   CardHeader,
   Chip,
   Skeleton,
-  Image,
   Tooltip,
 } from '@heroui/react'
-import { useEffect, useState } from 'react'
 
 import { CommentIcon, EyeIcon, StarIcon, ThumbsUpIcon } from '../icons'
 
+import { TagResponse } from '@/feature/api/tag-api'
+
 interface ArticleCardProps {
   title: string
-  description: string
-  cover: string
-  tags?: { label: string; icon?: React.ReactNode }[]
+  summary: string
+  tags?: TagResponse[]
   likes?: number
   comments?: number
   views?: string | number
@@ -29,24 +28,16 @@ interface ArticleCardProps {
 
 export default function ArticleCard({
   title,
-  description,
-  cover,
+  summary,
   tags = [],
   likes = 0,
   comments = 0,
   views = 0,
   date,
   featured = false,
-  loading: loadingProp = false,
+  loading = false,
 }: ArticleCardProps) {
-  const [loading, setLoading] = useState(loadingProp)
-
-  useEffect(() => {
-    if (loadingProp) return
-    const timer = setTimeout(() => setLoading(false), 1000)
-
-    return () => clearTimeout(timer)
-  }, [loadingProp])
+  console.log(tags)
 
   if (loading) {
     return (
@@ -95,10 +86,10 @@ export default function ArticleCard({
         <div className="flex gap-1">
           {featured && (
             <Chip
+              className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
               radius="sm"
               size="sm"
-              className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
-              startContent={<StarIcon/>}
+              startContent={<StarIcon />}
               variant="light"
             >
               Feature
@@ -107,25 +98,27 @@ export default function ArticleCard({
 
           {tags.map(tag => (
             <Chip
-              key={tag.label}
-              radius="sm"
+              key={tag.tid}
               className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
+              radius="sm"
               size="sm"
               startContent={tag.icon}
               variant="light"
             >
-              {tag.label}
+              {tag.name}
             </Chip>
           ))}
         </div>
       </CardHeader>
 
       <CardBody className="relative z-10 bg-gradient-to-t from-black/70 via-black/30 to-transparent px-5">
+        {/* 建议阅读时间、发布时间 */}
+        {/* 种类 */}
         <h3 className="text-lg md:text-xl font-semibold text-white leading-tight mb-2 line-clamp-1 transition-colors">
           {title}
         </h3>
         <p className="text-sm text-white/80 leading-relaxed line-clamp-4">
-          {description}
+          {summary}
         </p>
       </CardBody>
 
@@ -144,9 +137,9 @@ export default function ArticleCard({
 
         {date && (
           <Tooltip showArrow content={`Posted ${date}`}>
-            <span className="text-small text-neutral-500 whitespace-nowrap">
+            <Chip color="danger" variant="light">
               {getRelativeTime(date)}
-            </span>
+            </Chip>
           </Tooltip>
         )}
       </CardFooter>

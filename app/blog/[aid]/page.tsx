@@ -3,8 +3,8 @@
 import { use } from 'react'
 import { Spinner } from '@heroui/react'
 
-import { ArticleDetail } from '@/components/article/article-detail'
 import { useGetQuery } from '@/feature/api/article-api'
+import ArticleCard from '@/components/article/article-card'
 
 export default function Page({ params }: { params: Promise<{ aid: string }> }) {
   const { aid } = use(params)
@@ -15,7 +15,7 @@ export default function Page({ params }: { params: Promise<{ aid: string }> }) {
     isFetching,
     error,
   } = useGetQuery(aid, {
-    pollingInterval: 3000,
+    // pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   })
 
@@ -31,5 +31,5 @@ export default function Page({ params }: { params: Promise<{ aid: string }> }) {
 
   if (error || !article) return <div>加载失败</div>
 
-  return <ArticleDetail article={article} />
+  return <ArticleCard {...article} />
 }

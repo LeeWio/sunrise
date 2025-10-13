@@ -36,4 +36,20 @@
   width: 100%;
 }
 
+.card-1 {
+  animation-delay: 0s;
+}
+
+.card-2 {
+  animation-delay: 1s;
+}
+
+.card-3 {
+  animation-delay: 2s;
+}
+
+.card-4 {
+  animation-delay: 3s;
+}
+
 @config "../tailwind.config.js"
