@@ -12,7 +12,6 @@ import {
   CalendarIcon,
   MoonFilledIcon,
   SunFilledIcon,
-  Logo,
   HeartIcon,
 } from '@/components/icons'
 import { IconSvgProps } from '@/types'

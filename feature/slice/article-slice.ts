@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { CreateTagPayload } from '../api/tag-api'
+
 interface DraftState {
   title: string
   content: string
   summary: string
   coverImage: string
   slug: string
-  tagIds: string[]
+  tags: CreateTagPayload[]
   authorId: string
   categoryId: string
 }
@@ -17,7 +19,7 @@ const initialDraftState = {
   summary: '',
   coverImage: '',
   slug: '',
-  tagIds: [],
+  tags: [],
   authorId: '',
   categoryId: '',
 }

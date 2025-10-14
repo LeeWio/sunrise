@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { addToast } from '@heroui/react'
 
+import { CreateTagPayload } from './tag-api'
+
 import { RootState } from '@/app/store'
 import { ResultResponse } from '@/types'
 
@@ -10,7 +12,7 @@ interface CreateArticlePayload {
   summary: string
   coverImage: string
   slug: string
-  tagIds: string[]
+  tags: CreateTagPayload[]
   authorId: string
   categoryId: string
 }

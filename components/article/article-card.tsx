@@ -96,9 +96,9 @@ export default function ArticleCard({
             </Chip>
           )}
 
-          {tags.map(tag => (
+          {tags.map((tag, index) => (
             <Chip
-              key={tag.tid}
+              key={index}
               className="before:bg-white/10 border-white/20 border-1 overflow-hidden before:rounded-xl"
               radius="sm"
               size="sm"
@@ -124,13 +124,25 @@ export default function ArticleCard({
 
       <CardFooter className="justify-between items-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
         <div className="flex-1 flex gap-2">
-          <Chip color="primary" startContent={<ThumbsUpIcon />} variant="light">
+          <Chip
+            color="primary"
+            startContent={<ThumbsUpIcon size={18} />}
+            variant="light"
+          >
             {likes}
           </Chip>
-          <Chip color="warning" startContent={<CommentIcon />} variant="light">
+          <Chip
+            color="warning"
+            startContent={<CommentIcon size={18} />}
+            variant="light"
+          >
             {comments}
           </Chip>
-          <Chip color="success" startContent={<EyeIcon />} variant="light">
+          <Chip
+            color="success"
+            startContent={<EyeIcon size={18} />}
+            variant="light"
+          >
             {views}
           </Chip>
         </div>

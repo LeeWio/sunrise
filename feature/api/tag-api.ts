@@ -4,11 +4,11 @@ import { addToast } from '@heroui/react'
 import { RootState } from '@/app/store'
 import { ResultResponse } from '@/types'
 
-type CreateTagPayload = {
+export type CreateTagPayload = {
   name: string
   slug?: string
   description?: string
-  color?: string
+  icon: string
 }
 
 export type TagResponse = {

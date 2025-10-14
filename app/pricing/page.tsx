@@ -1,15 +1,9 @@
 'use client'
 
-import { Button } from '@heroui/react'
 import React, { useState } from 'react'
-import { Icon } from '@iconify/react'
 
 import { IconSvgProps } from '@/types'
-import {
-  IconPicker,
-  IconPopover,
-  useIconPopover,
-} from '@/components/icon-picker'
+import { IconPopover } from '@/components/icon-picker'
 import { ColorPicker } from '@/components/color-picker'
 
 const MailIcon = (props: IconSvgProps) => {
@@ -37,10 +31,6 @@ export default function PricingPage() {
   const [color, setColor] = useState('#FFFFF')
 
   // 使用 useIconPopover Hook 管理 Popover 状态
-  const { isOpen, setIsOpen, close } = useIconPopover({
-    defaultOpen: false,
-    onOpenChange: open => { },
-  })
 
   return (
     <>
@@ -50,33 +40,10 @@ export default function PricingPage() {
         onClear={() => setColor('')}
       />
       <IconPopover
-        isOpen={isOpen}
         placement="bottom-start"
-        trigger={
-          <Button
-            endContent={
-              <Icon
-                icon={isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'}
-                width={16}
-              />
-            }
-            variant="bordered"
-          >
-            选择图标
-          </Button>
-        }
-        onOpenChange={setIsOpen}
-      >
-        <IconPicker
-          autoClose={true}
-          iconSize="md"
-          selectedIcon={selectedIcon}
-          onClose={close}
-          onSelect={iconName => {
-            setSelectedIcon(iconName)
-          }}
-        />
-      </IconPopover>
+        selectedIcon={selectedIcon}
+        setSelectedIcon={setSelectedIcon}
+      />
       {selectedIcon && (
         <div className="flex items-center gap-2">
           <span className="text-sm text-default-600">已选择:</span>

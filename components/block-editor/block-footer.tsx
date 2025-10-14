@@ -1,30 +1,21 @@
 import {
-  Avatar,
+  Autocomplete,
+  AutocompleteItem,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Chip,
   CircularProgress,
   Input,
-  Select,
-  SelectedItems,
-  SelectItem,
   Tooltip,
 } from '@heroui/react'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
+import { iconMap } from '../icon-picker/icon-config'
+import { IconPopover } from '../icon-picker'
+
 import { useAppDispatch } from '@/hooks/store'
-import { updateDraft } from '@/feature/slice/article-slice'
-import { TagResponse, useGetallQuery } from '@/feature/api/tag-api'
-import {
-  CategoryResponse,
-  useGetallQuery as useGetAllCategoriesQuery,
-} from '@/feature/api/category-api'
-import { useCreateMutation as useCreateArticleMutation } from '@/feature/api/article-api'
-import { useGetAllUsersQuery, UserResponse } from '@/feature/api/auth-api'
 import { useDraft } from '@/hooks/use-draft'
+import { CreateTagPayload, useGetallQuery } from '@/feature/api/tag-api'
+import { updateDraft } from '@/feature/slice/article-slice'
 
 export type EditorFooterProps = {
   characters: number
@@ -84,13 +75,78 @@ const generateSlugFromTitle = (title: string): string => {
     .replace(/^-+|-+$/g, '') // Remove leading and trailing hyphens
 }
 
+export const animals = [
+  {
+    label: 'Cat',
+    key: 'cat',
+    description: 'The second most popular pet in the world',
+  },
+  {
+    label: 'Dog',
+    key: 'dog',
+    description: 'The most popular pet in the world',
+  },
+  {
+    label: 'Elephant',
+    key: 'elephant',
+    description: 'The largest land animal',
+  },
+  { label: 'Lion', key: 'lion', description: 'The king of the jungle' },
+  { label: 'Tiger', key: 'tiger', description: 'The largest cat species' },
+  { label: 'Giraffe', key: 'giraffe', description: 'The tallest land animal' },
+  {
+    label: 'Dolphin',
+    key: 'dolphin',
+    description: 'A widely distributed and diverse group of aquatic mammals',
+  },
+  {
+    label: 'Penguin',
+    key: 'penguin',
+    description: 'A group of aquatic flightless birds',
+  },
+  {
+    label: 'Zebra',
+    key: 'zebra',
+    description: 'A several species of African equids',
+  },
+  {
+    label: 'Shark',
+    key: 'shark',
+    description:
+      'A group of elasmobranch fish characterized by a cartilaginous skeleton',
+  },
+  {
+    label: 'Whale',
+    key: 'whale',
+    description: 'Diverse group of fully aquatic placental marine mammals',
+  },
+  {
+    label: 'Otter',
+    key: 'otter',
+    description: 'A carnivorous mammal in the subfamily Lutrinae',
+  },
+  {
+    label: 'Crocodile',
+    key: 'crocodile',
+    description: 'A large semiaquatic reptile',
+  },
+]
 export const EditorFooter = memo(
   ({ isOpen, characters, words }: EditorFooterProps) => {
     const dispatch = useAppDispatch()
     const draft = useDraft()
 
-    const [createArticle, { isLoading, isError, isSuccess, data, error }] =
-      useCreateArticleMutation()
+    const [selectedTagIcon, setSelectedTagIcon] = useState('')
+
+    const [isTagOpen, setIsTagOpen] = useState(false)
+
+    // const [createArticle, { isLoading, isError, isSuccess, data, error }] =
+    //   useCreateArticleMutation()
+
+    const [tag, setTag] = useState<CreateTagPayload>({
+      name: '',
+      icon: '',
+    })
 
     const {
       data: tags,
@@ -98,320 +154,75 @@ export const EditorFooter = memo(
       refetch: refetchTags,
     } = useGetallQuery()
 
-    const {
-      data: categories,
-      isLoading: categoriesLoading,
-      refetch: refetchCategories,
-    } = useGetAllCategoriesQuery()
-
-    const {
-      data: users,
-      isLoading: usersLoading,
-      refetch: refetchUsers,
-    } = useGetAllUsersQuery()
+    // const {
+    //   data: categories,
+    //   isLoading: categoriesLoading,
+    //   refetch: refetchCategories,
+    // } = useGetAllCategoriesQuery()
+    //
+    // const {
+    //   data: users,
+    //   isLoading: usersLoading,
+    //   refetch: refetchUsers,
+    // } = useGetAllUsersQuery()
 
     return isOpen ? (
       <div className="flex w-full flex-col gap-3">
-        <Card isBlurred className="bg-background/30 backdrop-blur-lg">
-          <CardBody className="flex flex-col gap-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                color="primary"
-                defaultValue={draft.title}
-                label="Article Title"
-                name="title"
-                placeholder="Enter a compelling title"
-                onChange={e => {
-                  dispatch(updateDraft({ title: e.target.value }))
-                }}
-              />
+        <div className="flex gap-2">
+          <Autocomplete
+            fullWidth
+            aria-label="chose a tag"
+            defaultItems={tags}
+            isLoading={tagsLoading}
+            placeholder="Search an animal"
+          >
+            {item => {
+              const IconComponent = iconMap.get(item.name)
 
-              <Input
-                defaultValue={draft.summary}
-                label="Article Summary"
-                name="summary"
-                placeholder="Briefly describe your article"
-                onChange={e =>
-                  dispatch(updateDraft({ summary: e.target.value }))
-                }
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                defaultValue={draft.slug}
-                label="Article Slug"
-                name="slug"
-                placeholder="Enter article slug (optional)"
-                onChange={e => {
-                  // Dispatch an action to update the slug in the store
-                  dispatch(updateDraft({ slug: e.target.value }))
-                }}
-              />
-            </div>
-
-            <div className="pt-2">
-              {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
-              <Select
-                isClearable
-                isVirtualized
-                classNames={{
-                  base: 'max-w-xs',
-                  trigger: 'h-12',
-                }}
-                defaultSelectedKeys={new Set(draft.tagIds)}
-                isLoading={tagsLoading}
-                items={tags || []}
-                label="Select Tags"
-                labelPlacement="outside"
-                placeholder="Search for tag to categorize your article"
-                radius="sm"
-                renderValue={(tags: SelectedItems<TagResponse>) => {
-                  return (
-                    <div className="flex flex-wrap gap-2">
-                      {tags.map(tag => (
-                        <Chip
-                          key={tag.data?.tid}
-                          // TODO: 根据 tag color 显示颜色
-                          color="warning"
-                          radius="sm"
-                          size="sm"
-                        >
-                          {tag.data?.name}
-                        </Chip>
-                      ))}
-                    </div>
-                  )
-                }}
-                selectionMode="multiple"
-                variant="bordered"
-                onChange={e => {
-                  dispatch(updateDraft({ tagIds: e.target.value.split(',') }))
-                }}
-                onClear={() => {
-                  dispatch(updateDraft({ tagIds: [] }))
-                }}
-              >
-                {tag => (
-                  <SelectItem key={tag.tid} textValue={tag.name}>
-                    {tag.name}
-                  </SelectItem>
-                )}
-              </Select>
-            </div>
-
-            <div className="pt-2">
-              {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
-              <Select
-                isClearable
-                isVirtualized
-                classNames={{
-                  base: 'max-w-xs',
-                  trigger: 'h-12',
-                }}
-                defaultSelectedKeys={new Set([draft.categoryId])}
-                isLoading={categoriesLoading}
-                items={categories || []}
-                label="Select Categories"
-                labelPlacement="outside"
-                placeholder="Search for categories to categorize your article"
-                radius="sm"
-                renderValue={(tags: SelectedItems<CategoryResponse>) => {
-                  return (
-                    <div className="flex flex-wrap gap-2">
-                      {tags.map(tag => (
-                        <Chip
-                          key={tag.data?.cid}
-                          // TODO: 根据 tag color 显示颜色
-                          color="warning"
-                          radius="sm"
-                          size="sm"
-                        >
-                          {tag.data?.name}
-                        </Chip>
-                      ))}
-                    </div>
-                  )
-                }}
-                variant="bordered"
-                onChange={e => {
-                  dispatch(updateDraft({ categoryId: e.target.value }))
-                }}
-                onClear={() => {
-                  dispatch(updateDraft({ categoryId: '' }))
-                }}
-              >
-                {tag => (
-                  <SelectItem key={tag.cid} textValue={tag.name}>
-                    {tag.name}
-                  </SelectItem>
-                )}
-              </Select>
-            </div>
-
-            {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
-            <Select
-              isClearable
-              classNames={{
-                base: 'max-w-xs',
-                trigger: 'h-12',
-              }}
-              defaultSelectedKeys={new Set([draft.authorId])}
-              isLoading={usersLoading}
-              items={users || []}
-              label="Select an Author"
-              labelPlacement="outside"
-              placeholder="Search for authors to assign to your article"
-              radius="sm"
-              renderValue={(items: SelectedItems<UserResponse>) => {
-                return items.map(item => (
-                  <div key={item.key} className="flex items-center gap-2">
-                    <Avatar
-                      alt={item.data?.username}
-                      className="shrink-0"
-                      size="sm"
-                      src={item.data?.avatar}
-                    />
-                    <div className="flex flex-col">
-                      <span>{item.data?.username}</span>
-                      <span className="text-default-500 text-tiny">
-                        ({item.data?.email})
-                      </span>
-                    </div>
-                  </div>
-                ))
-              }}
-              selectionMode="single"
-              onChange={e => {
-                dispatch(updateDraft({ authorId: e.target.value }))
-              }}
-              onClear={() => {
-                dispatch(updateDraft({ authorId: '' }))
-              }}
-            >
-              {user => (
-                <SelectItem key={user.uid} textValue={user.username}>
-                  <div className="flex gap-2 items-center">
-                    <Avatar
-                      alt={user.username}
-                      className="shrink-0"
-                      size="sm"
-                      src={user.avatar}
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-small">{user.username}</span>
-                      <span className="text-tiny text-default-400">
-                        {user.email}
-                      </span>
-                    </div>
-                  </div>
-                </SelectItem>
-              )}
-            </Select>
-          </CardBody>
-          <CardFooter className="flex flex-wrap justify-between items-center gap-2">
-            <div className="flex flex-wrap gap-4">
-              <div className="text-sm text-default-500">
-                {tags ? `${tags.length} tags available` : 'Loading tags...'}
-              </div>
-              <div className="text-sm text-default-500">
-                {categories
-                  ? `${categories.length} categories available`
-                  : 'Loading categories...'}
-              </div>
-              <div className="text-sm text-default-500">
-                {users ? `${users.length} users available` : 'Loading users...'}
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button
-                color="primary"
-                isDisabled={tagsLoading}
-                size="sm"
-                variant="light"
-                onClick={() => refetchTags()}
-              >
-                {tagsLoading ? (
-                  <div className="flex items-center gap-2">
-                    <CircularProgress
-                      aria-label="refetching tags"
-                      size="sm"
-                      strokeWidth={2}
-                    />
-                    Loading...
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Icon icon="lucide:refresh-cw" width={16} />
-                    Refresh Tags
-                  </div>
-                )}
-              </Button>
-              <Button
-                color="secondary"
-                isDisabled={categoriesLoading}
-                size="sm"
-                variant="light"
-                onClick={() => refetchCategories()}
-              >
-                {categoriesLoading ? (
-                  <div className="flex items-center gap-2">
-                    <CircularProgress
-                      aria-label="refetching categories"
-                      size="sm"
-                      strokeWidth={2}
-                    />
-                    Loading...
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Icon icon="lucide:refresh-cw" width={16} />
-                    Refresh Categories
-                  </div>
-                )}
-              </Button>
-              <Button
-                color="default"
-                isDisabled={usersLoading}
-                size="sm"
-                variant="light"
-                onClick={() => refetchUsers()}
-              >
-                {usersLoading ? (
-                  <div className="flex items-center gap-2">
-                    <CircularProgress
-                      aria-label="refetching users"
-                      size="sm"
-                      strokeWidth={2}
-                    />
-                    Loading...
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Icon icon="lucide:refresh-cw" width={16} />
-                    Refresh Users
-                  </div>
-                )}
-              </Button>
-
-              <Button
-                onPress={e => {
-                  try {
-                    // Call the mutation
-                    createArticle(draft).unwrap()
-
-                    // Reset form after successful creation
-                    console.log(data)
-                  } catch (err) {
-                    console.error('Failed to create category:', err)
+              return (
+                <AutocompleteItem
+                  key={item.tid}
+                  startContent={
+                    IconComponent ? <IconComponent size={18} /> : null
                   }
+                  textValue={item.name}
+                >
+                  {item.name}
+                </AutocompleteItem>
+              )
+            }}
+          </Autocomplete>
+          <Input
+            startContent={
+              <IconPopover
+                placement="bottom-start"
+                setSelectedIcon={iconName => {
+                  setTag(pre => ({
+                    ...pre,
+                    icon: iconName,
+                  }))
                 }}
-              >
-                Published
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
+              />
+            }
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+
+                dispatch(
+                  updateDraft({
+                    tags: [tag],
+                  })
+                )
+              }
+            }}
+            onValueChange={value =>
+              setTag(pre => ({
+                ...pre,
+                name: value,
+              }))
+            }
+          />
+        </div>
       </div>
     ) : (
       <div className="flex items-center w-full justify-between py-2">
@@ -444,3 +255,304 @@ export const EditorFooter = memo(
 )
 
 EditorFooter.displayName = 'EditorFooter'
+
+// <Card isBlurred className="bg-background/30 backdrop-blur-lg">
+//           <CardBody className="flex flex-col gap-3">
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//               <Input
+//                 color="primary"
+//                 defaultValue={draft.title}
+//                 label="Article Title"
+//                 name="title"
+//                 placeholder="Enter a compelling title"
+//                 onChange={e => {
+//                   dispatch(updateDraft({ title: e.target.value }))
+//                 }}
+//               />
+//
+//               <Input
+//                 defaultValue={draft.summary}
+//                 label="Article Summary"
+//                 name="summary"
+//                 placeholder="Briefly describe your article"
+//                 onChange={e =>
+//                   dispatch(updateDraft({ summary: e.target.value }))
+//                 }
+//               />
+//             </div>
+//
+//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//               <Input
+//                 defaultValue={draft.slug}
+//                 label="Article Slug"
+//                 name="slug"
+//                 placeholder="Enter article slug (optional)"
+//                 onChange={e => {
+//                   // Dispatch an action to update the slug in the store
+//                   dispatch(updateDraft({ slug: e.target.value }))
+//                 }}
+//               />
+//             </div>
+//
+//             <div className="pt-2">
+//               {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
+//               <Select
+//                 isClearable
+//                 isVirtualized
+//                 classNames={{
+//                   base: 'max-w-xs',
+//                   trigger: 'h-12',
+//                 }}
+//                 defaultSelectedKeys={new Set(draft.tagIds)}
+//                 isLoading={tagsLoading}
+//                 items={tags || []}
+//                 label="Select Tags"
+//                 labelPlacement="outside"
+//                 placeholder="Search for tag to categorize your article"
+//                 radius="sm"
+//                 renderValue={(tags: SelectedItems<TagResponse>) => {
+//                   return (
+//                     <div className="flex flex-wrap gap-2">
+//                       {tags.map(tag => (
+//                         <Chip
+//                           key={tag.data?.tid}
+//                           // TODO: 根据 tag color 显示颜色
+//                           color="warning"
+//                           radius="sm"
+//                           size="sm"
+//                         >
+//                           {tag.data?.name}
+//                         </Chip>
+//                       ))}
+//                     </div>
+//                   )
+//                 }}
+//                 selectionMode="multiple"
+//                 variant="bordered"
+//                 onChange={e => {
+//                   dispatch(updateDraft({ tagIds: e.target.value.split(',') }))
+//                 }}
+//                 onClear={() => {
+//                   dispatch(updateDraft({ tagIds: [] }))
+//                 }}
+//               >
+//                 {tag => (
+//                   <SelectItem key={tag.tid} textValue={tag.name}>
+//                     {tag.name}
+//                   </SelectItem>
+//                 )}
+//               </Select>
+//             </div>
+//
+//             <div className="pt-2">
+//               {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
+//               <Select
+//                 isClearable
+//                 isVirtualized
+//                 classNames={{
+//                   base: 'max-w-xs',
+//                   trigger: 'h-12',
+//                 }}
+//                 defaultSelectedKeys={new Set([draft.categoryId])}
+//                 isLoading={categoriesLoading}
+//                 items={categories || []}
+//                 label="Select Categories"
+//                 labelPlacement="outside"
+//                 placeholder="Search for categories to categorize your article"
+//                 radius="sm"
+//                 renderValue={(tags: SelectedItems<CategoryResponse>) => {
+//                   return (
+//                     <div className="flex flex-wrap gap-2">
+//                       {tags.map(tag => (
+//                         <Chip
+//                           key={tag.data?.cid}
+//                           // TODO: 根据 tag color 显示颜色
+//                           color="warning"
+//                           radius="sm"
+//                           size="sm"
+//                         >
+//                           {tag.data?.name}
+//                         </Chip>
+//                       ))}
+//                     </div>
+//                   )
+//                 }}
+//                 variant="bordered"
+//                 onChange={e => {
+//                   dispatch(updateDraft({ categoryId: e.target.value }))
+//                 }}
+//                 onClear={() => {
+//                   dispatch(updateDraft({ categoryId: '' }))
+//                 }}
+//               >
+//                 {tag => (
+//                   <SelectItem key={tag.cid} textValue={tag.name}>
+//                     {tag.name}
+//                   </SelectItem>
+//                 )}
+//               </Select>
+//             </div>
+//
+//             {/* TODO: 是否支持实时渲染数据，而不是一股脑子拿到所有数据 */}
+//             <Select
+//               isClearable
+//               classNames={{
+//                 base: 'max-w-xs',
+//                 trigger: 'h-12',
+//               }}
+//               defaultSelectedKeys={new Set([draft.authorId])}
+//               isLoading={usersLoading}
+//               items={users || []}
+//               label="Select an Author"
+//               labelPlacement="outside"
+//               placeholder="Search for authors to assign to your article"
+//               radius="sm"
+//               renderValue={(items: SelectedItems<UserResponse>) => {
+//                 return items.map(item => (
+//                   <div key={item.key} className="flex items-center gap-2">
+//                     <Avatar
+//                       alt={item.data?.username}
+//                       className="shrink-0"
+//                       size="sm"
+//                       src={item.data?.avatar}
+//                     />
+//                     <div className="flex flex-col">
+//                       <span>{item.data?.username}</span>
+//                       <span className="text-default-500 text-tiny">
+//                         ({item.data?.email})
+//                       </span>
+//                     </div>
+//                   </div>
+//                 ))
+//               }}
+//               selectionMode="single"
+//               onChange={e => {
+//                 dispatch(updateDraft({ authorId: e.target.value }))
+//               }}
+//               onClear={() => {
+//                 dispatch(updateDraft({ authorId: '' }))
+//               }}
+//             >
+//               {user => (
+//                 <SelectItem key={user.uid} textValue={user.username}>
+//                   <div className="flex gap-2 items-center">
+//                     <Avatar
+//                       alt={user.username}
+//                       className="shrink-0"
+//                       size="sm"
+//                       src={user.avatar}
+//                     />
+//                     <div className="flex flex-col">
+//                       <span className="text-small">{user.username}</span>
+//                       <span className="text-tiny text-default-400">
+//                         {user.email}
+//                       </span>
+//                     </div>
+//                   </div>
+//                 </SelectItem>
+//               )}
+//             </Select>
+//           </CardBody>
+//           <CardFooter className="flex flex-wrap justify-between items-center gap-2">
+//             <div className="flex flex-wrap gap-4">
+//               <div className="text-sm text-default-500">
+//                 {tags ? `${tags.length} tags available` : 'Loading tags...'}
+//               </div>
+//               <div className="text-sm text-default-500">
+//                 {categories
+//                   ? `${categories.length} categories available`
+//                   : 'Loading categories...'}
+//               </div>
+//               <div className="text-sm text-default-500">
+//                 {users ? `${users.length} users available` : 'Loading users...'}
+//               </div>
+//             </div>
+//             <div className="flex flex-wrap gap-2">
+//               <Button
+//                 color="primary"
+//                 isDisabled={tagsLoading}
+//                 size="sm"
+//                 variant="light"
+//                 onClick={() => refetchTags()}
+//               >
+//                 {tagsLoading ? (
+//                   <div className="flex items-center gap-2">
+//                     <CircularProgress
+//                       aria-label="refetching tags"
+//                       size="sm"
+//                       strokeWidth={2}
+//                     />
+//                     Loading...
+//                   </div>
+//                 ) : (
+//                   <div className="flex items-center gap-2">
+//                     <Icon icon="lucide:refresh-cw" width={16} />
+//                     Refresh Tags
+//                   </div>
+//                 )}
+//               </Button>
+//               <Button
+//                 color="secondary"
+//                 isDisabled={categoriesLoading}
+//                 size="sm"
+//                 variant="light"
+//                 onClick={() => refetchCategories()}
+//               >
+//                 {categoriesLoading ? (
+//                   <div className="flex items-center gap-2">
+//                     <CircularProgress
+//                       aria-label="refetching categories"
+//                       size="sm"
+//                       strokeWidth={2}
+//                     />
+//                     Loading...
+//                   </div>
+//                 ) : (
+//                   <div className="flex items-center gap-2">
+//                     <Icon icon="lucide:refresh-cw" width={16} />
+//                     Refresh Categories
+//                   </div>
+//                 )}
+//               </Button>
+//               <Button
+//                 color="default"
+//                 isDisabled={usersLoading}
+//                 size="sm"
+//                 variant="light"
+//                 onClick={() => refetchUsers()}
+//               >
+//                 {usersLoading ? (
+//                   <div className="flex items-center gap-2">
+//                     <CircularProgress
+//                       aria-label="refetching users"
+//                       size="sm"
+//                       strokeWidth={2}
+//                     />
+//                     Loading...
+//                   </div>
+//                 ) : (
+//                   <div className="flex items-center gap-2">
+//                     <Icon icon="lucide:refresh-cw" width={16} />
+//                     Refresh Users
+//                   </div>
+//                 )}
+//               </Button>
+//
+//               <Button
+//                 onPress={e => {
+//                   try {
+//                     // Call the mutation
+//                     createArticle(draft).unwrap()
+//
+//                     // Reset form after successful creation
+//                     console.log(data)
+//                   } catch (err) {
+//                     console.error('Failed to create category:', err)
+//                   }
+//                 }}
+//               >
+//                 Published
+//               </Button>
+//             </div>
+//           </CardFooter>
+//         </Card>

@@ -20,10 +20,8 @@ export interface IconItem {
 
 // IconPopover 组件 Props（最外层 Popover 容器）
 export interface IconPopoverProps {
-  // Popover 触发器元素
-  trigger: React.ReactNode
-  // Popover 内容（通常是 IconPicker）
-  children: React.ReactNode
+  selectedIcon?: string
+  setSelectedIcon: (iconName: string) => void
   // Popover 位置
   placement?:
   | 'top'
@@ -34,10 +32,6 @@ export interface IconPopoverProps {
   | 'top-end'
   | 'bottom-start'
   | 'bottom-end'
-  // 是否打开（受控）
-  isOpen?: boolean
-  // 打开状态变化回调
-  onOpenChange?: (isOpen: boolean) => void
 }
 
 // IconPicker 主组件 Props（组合组件）

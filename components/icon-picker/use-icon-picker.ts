@@ -145,7 +145,7 @@ export function useIconPicker(
   // Icon selection handler (using useCallback for performance)
   const handleIconSelect = useCallback(
     (icon: IconItem) => {
-      onSelect?.(icon.name, icon.component)
+      onSelect?.(icon.displayName, icon.component)
 
       if (autoClose) {
         onClose?.()
