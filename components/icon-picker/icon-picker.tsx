@@ -1,42 +1,65 @@
-import { Icon } from '@iconify/react'
+'use client'
 
-import { GlobeIcon } from '../icons'
+import type { IconPickerProps } from './types'
+import type { IconItem } from './types'
 
-import { IconSvgProps } from '@/types'
+import { useState } from 'react'
 
-export const EmojiPicker = ({ }: { icons?: React.FC<IconSvgProps> }) => { }
+import { IconPickerSearchBar } from './icon-picker-search'
+import { IconPickerNavigation } from './icon-picker-navigation'
+import { IconPickerContent } from './icon-picker-content'
+import { categories } from './icon-config'
+import { useIconPicker } from './use-icon-picker'
+import { IconPickerPreview } from './icon-picker-preview'
 
-const emojiSearchIcons = {
-  delete: <Icon height="20" icon="lucide:x" width="20" />,
-  loupe: <Icon height="20" icon="lucide:search" width="20" />,
-}
+export function IconPicker({
+  onSelect,
+  selectedIcon,
+  iconSize = 'md',
+  autoClose = true,
+  onClose,
+}: IconPickerProps) {
+  const [hoveredIcon, setHoveredIcon] = useState<IconItem | null>(null)
 
-type ReverseMap<T> = T[keyof T]
+  const {
+    searchValue,
+    setSearchValue,
+    clearSearch,
+    selectedCategory,
+    setSelectedCategory,
+    filteredIcons,
+    handleIconSelect,
+  } = useIconPicker({
+    onSelect,
+    autoClose,
+    onClose,
+  })
 
-declare const EmojiCategory: {
-  readonly Activity: 'activity'
-  readonly Custom: 'custom'
-  readonly Flags: 'flags'
-  readonly Foods: 'foods'
-  readonly Frequent: 'frequent'
-  readonly Nature: 'nature'
-  readonly Objects: 'objects'
-  readonly People: 'people'
-  readonly Brands: 'brands'
-  readonly Symbols: 'symbols'
-}
+  return (
+    <div className="flex flex-col w-96 h-[25rem]">
+      <div className="flex flex-col gap-2 flex-1 min-h-0">
+        <IconPickerNavigation
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+        />
 
-type EmojiCategoryList = ReverseMap<typeof EmojiCategory>
+        <IconPickerSearchBar
+          searchValue={searchValue}
+          onClear={clearSearch}
+          onSearchChange={setSearchValue}
+        />
 
-const emojiCategoryIcons: Record<
-  EmojiCategoryList,
-  {
-    outline: React.ReactElement
-    solid: React.ReactElement
-  }
-> = {
-  brands: {
-    outline: <GlobeIcon />,
-    solid: <GlobeIcon />,
-  },
+        <IconPickerContent
+          iconSize={iconSize}
+          icons={filteredIcons}
+          selectedIcon={selectedIcon}
+          onIconHover={setHoveredIcon}
+          onIconSelect={handleIconSelect}
+        />
+      </div>
+
+      <IconPickerPreview hoveredIcon={hoveredIcon} />
+    </div>
+  )
 }

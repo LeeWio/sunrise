@@ -1,13 +1,19 @@
+export { IconPopover } from './icon-popover'
 export { IconPicker } from './icon-picker'
-export { IconButton } from './icon-button'
-export { IconPickerSearchBar } from './icon-picker-search-bar'
-export { IconPickerNavigation } from './icon-picker-navigation'
-export { IconPickerContent } from './icon-picker-content'
-export { IconPickerPreview } from './icon-picker-preview'
 export { useIconPicker } from './use-icon-picker'
-
-export type { IconPickerProps } from './icon-picker'
+export { useIconPopover } from './use-icon-popover'
+export type {
+  IconPopoverProps,
+  IconPickerProps,
+  IconItem,
+  IconCategory,
+} from './types'
 export type {
   UseIconPickerOptions,
   UseIconPickerReturn,
 } from './use-icon-picker'
+export type {
+  UseIconPopoverOptions,
+  UseIconPopoverReturn,
+} from './use-icon-popover'
+export { categories, iconItems } from './icon-config'
