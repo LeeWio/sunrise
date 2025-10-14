@@ -28,7 +28,6 @@ import {
   DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
-  Logo,
 } from '@/components/icons'
 import { useToast } from '@/hooks/use-toast'
 
@@ -63,13 +62,13 @@ export const Navbar = () => {
       <HeroUINavbar maxWidth="xl" position="sticky">
         <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
-            <NextLink
-              className="flex justify-start items-center gap-1"
-              href="/"
-            >
-              <Logo />
-              <p className="font-bold text-inherit">ACME</p>
-            </NextLink>
+            {/* <NextLink */}
+            {/*   className="flex justify-start items-center gap-1" */}
+            {/*   href="/" */}
+            {/* > */}
+            {/*   <Logo /> */}
+            {/*   <p className="font-bold text-inherit">ACME</p> */}
+            {/* </NextLink> */}
           </NavbarBrand>
           <ul className="hidden lg:flex gap-4 justify-start ml-2">
             {siteConfig.navItems.map(item => (
@@ -109,7 +108,7 @@ export const Navbar = () => {
               <DiscordIcon className="text-default-500" />
             </Link>
             <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-              <GithubIcon className="text-default-500" />
+              <GithubIcon className="text-default-500" size={22} />
             </Link>
             <ThemeSwitch />
           </NavbarItem>

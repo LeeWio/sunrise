@@ -21,7 +21,7 @@ export function IconPickerPreview({ hoveredIcon }: IconPickerPreviewProps) {
     <div className="flex items-center gap-3 h-14 px-4 border-t border-default-200 bg-default-50/50 mt-auto">
       {/* Icon Preview */}
       <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-default/10 ring-1 ring-default/20 shrink-0">
-        <IconComponent className="text-primary"  />
+        <IconComponent className="text-primary" />
       </div>
 
       {/* Icon Info */}

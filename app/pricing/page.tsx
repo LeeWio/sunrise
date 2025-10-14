@@ -1,11 +1,16 @@
 'use client'
 
-import { Button, Input } from '@heroui/react'
+import { Button } from '@heroui/react'
 import React, { useState } from 'react'
+import { Icon } from '@iconify/react'
 
 import { IconSvgProps } from '@/types'
-import { EmojiPopover } from '@/components/icon-picker/emoji-popver'
-import { ReactIcon } from '@/components/icons'
+import {
+  IconPicker,
+  IconPopover,
+  useIconPopover,
+} from '@/components/icon-picker'
+import { ColorPicker } from '@/components/color-picker'
 
 const MailIcon = (props: IconSvgProps) => {
   return (
@@ -28,32 +33,58 @@ const MailIcon = (props: IconSvgProps) => {
 }
 
 export default function PricingPage() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [selectedIcon, setSelectedIcon] = useState('')
+  const [color, setColor] = useState('#FFFFF')
+
+  // 使用 useIconPopover Hook 管理 Popover 状态
+  const { isOpen, setIsOpen, close } = useIconPopover({
+    defaultOpen: false,
+    onOpenChange: open => { },
+  })
 
   return (
     <>
-      <Input
-        startContent={
-          <EmojiPopover
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            trigger={
-              <Button
-                isIconOnly
-                className="text-[26px]"
-                contentEditable={false}
-                radius="sm"
-                size="sm"
-                variant="light"
-              >
-                <ReactIcon />
-              </Button>
-            }
-          >
-            asdf
-          </EmojiPopover>
-        }
+      <ColorPicker
+        hexColor={color}
+        onChange={setColor}
+        onClear={() => setColor('')}
       />
+      <IconPopover
+        isOpen={isOpen}
+        placement="bottom-start"
+        trigger={
+          <Button
+            endContent={
+              <Icon
+                icon={isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'}
+                width={16}
+              />
+            }
+            variant="bordered"
+          >
+            选择图标
+          </Button>
+        }
+        onOpenChange={setIsOpen}
+      >
+        <IconPicker
+          autoClose={true}
+          iconSize="md"
+          selectedIcon={selectedIcon}
+          onClose={close}
+          onSelect={iconName => {
+            setSelectedIcon(iconName)
+          }}
+        />
+      </IconPopover>
+      {selectedIcon && (
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-default-600">已选择:</span>
+          <code className="px-2 py-1 bg-default-200 rounded text-xs">
+            {selectedIcon}
+          </code>
+        </div>
+      )}
     </>
   )
 }

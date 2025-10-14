@@ -12,7 +12,6 @@ export const ICON_CATEGORIES = {
   DEVELOPMENT: 'development', // 开发工具（语言、框架、工具）
   PLATFORMS: 'platforms', // 平台系统（OS、浏览器、游戏平台）
   UI: 'ui', // 用户界面（Search、Calendar、Globe等）
-  ACTIONS: 'actions', // 用户操作（Heart、Star、Share等）
 } as const
 
 // 分类类型（从枚举中提取）
@@ -53,11 +52,6 @@ export const CATEGORY_METADATA: Record<
     name: 'UI',
     label: 'UI',
     description: 'User interface elements',
-  },
-  [ICON_CATEGORIES.ACTIONS]: {
-    name: 'Actions',
-    label: 'Actions',
-    description: 'User interaction and action icons',
   },
 }
 
@@ -430,6 +424,13 @@ export const iconItems: IconItem[] = [
     keywords: ['aws', 'amazon', 'cloud', 'hosting', 's3', 'ec2', 'lambda'],
     displayName: 'AWS',
   },
+  {
+    name: 'BitcoinIcon',
+    component: Icons.BitcoinIcon,
+    category: ICON_CATEGORIES.BRANDS,
+    keywords: ['bitcoin', 'crypto', 'currency', 'btc', 'blockchain', 'payment'],
+    displayName: 'Bitcoin',
+  },
 
   // ========== USER INTERFACE ==========
   {
@@ -480,28 +481,28 @@ export const iconItems: IconItem[] = [
   {
     name: 'HeartIcon',
     component: Icons.HeartIcon,
-    category: ICON_CATEGORIES.ACTIONS,
+    category: ICON_CATEGORIES.UI,
     keywords: ['heart', 'like', 'favorite', 'love', 'wishlist', 'bookmark'],
     displayName: 'Heart',
   },
   {
     name: 'HeartFilledIcon',
     component: Icons.HeartFilledIcon,
-    category: ICON_CATEGORIES.ACTIONS,
+    category: ICON_CATEGORIES.UI,
     keywords: ['heart', 'filled', 'loved', 'liked', 'favorite', 'saved'],
     displayName: 'Heart Filled',
   },
   {
     name: 'ThumbsUpIcon',
     component: Icons.ThumbsUpIcon,
-    category: ICON_CATEGORIES.ACTIONS,
+    category: ICON_CATEGORIES.UI,
     keywords: ['thumbs', 'up', 'like', 'approve', 'agree', 'positive'],
     displayName: 'Thumbs Up',
   },
   {
     name: 'StarIcon',
     component: Icons.StarIcon,
-    category: ICON_CATEGORIES.ACTIONS,
+    category: ICON_CATEGORIES.UI,
     keywords: [
       'star',
       'favorite',
@@ -515,16 +516,9 @@ export const iconItems: IconItem[] = [
   {
     name: 'ShareIcon',
     component: Icons.ShareIcon,
-    category: ICON_CATEGORIES.ACTIONS,
+    category: ICON_CATEGORIES.UI,
     keywords: ['share', 'forward', 'send', 'distribute', 'export', 'social'],
     displayName: 'Share',
-  },
-  {
-    name: 'BitcoinIcon',
-    component: Icons.BitcoinIcon,
-    category: ICON_CATEGORIES.BRANDS,
-    keywords: ['bitcoin', 'crypto', 'currency', 'btc', 'blockchain', 'payment'],
-    displayName: 'Bitcoin',
   },
 
   // ========== LAYOUT ==========
