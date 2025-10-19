@@ -36,28 +36,26 @@ export function IconPicker({
   })
 
   return (
-    <div className="flex flex-col w-96 h-[25rem]">
-      <div className="flex flex-col gap-2 flex-1 min-h-0">
-        <IconPickerNavigation
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-        />
+    <div className="flex flex-col w-72  gap-2 h-[25rem]">
+      <IconPickerNavigation
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
 
-        <IconPickerSearchBar
-          searchValue={searchValue}
-          onClear={clearSearch}
-          onSearchChange={setSearchValue}
-        />
+      <IconPickerSearchBar
+        searchValue={searchValue}
+        onClear={clearSearch}
+        onSearchChange={setSearchValue}
+      />
 
-        <IconPickerContent
-          iconSize={iconSize}
-          icons={filteredIcons}
-          selectedIcon={selectedIcon}
-          onIconHover={setHoveredIcon}
-          onIconSelect={handleIconSelect}
-        />
-      </div>
+      <IconPickerContent
+        iconSize={iconSize}
+        icons={filteredIcons}
+        selectedIcon={selectedIcon}
+        onIconHover={setHoveredIcon}
+        onIconSelect={handleIconSelect}
+      />
 
       <IconPickerPreview hoveredIcon={hoveredIcon} />
     </div>

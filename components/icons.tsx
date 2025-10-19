@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { IconCategory, IconsProps } from './icon-picker-v2'
+
 import { IconSvgProps } from '@/types'
 
 export const MoonFilledIcon = ({
@@ -192,6 +194,28 @@ export const StarIcon: React.FC<IconSvgProps> = ({
     <path
       d="M6.886.773C7.29-.231 8.71-.231 9.114.773l1.472 3.667l3.943.268c1.08.073 1.518 1.424.688 2.118L12.185 9.36l.964 3.832c.264 1.05-.886 1.884-1.802 1.31L8 12.4l-3.347 2.101c-.916.575-2.066-.26-1.802-1.309l.964-3.832L.783 6.826c-.83-.694-.391-2.045.688-2.118l3.943-.268z"
       fill="currentColor"
+    />
+  </svg>
+)
+
+export const PlusIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M8 1.75a.75.75 0 0 1 .75.75v4.75h4.75a.75.75 0 0 1 0 1.5H8.75v4.75a.75.75 0 0 1-1.5 0V8.75H2.5a.75.75 0 0 1 0-1.5h4.75V2.5A.75.75 0 0 1 8 1.75"
+      fill="currentColor"
+      fillRule="evenodd"
     />
   </svg>
 )
@@ -2471,3 +2495,19 @@ export const ArrowUturnCcwLeft: React.FC<IconSvgProps> = ({
     />
   </svg>
 )
+
+export const ICONS: IconsProps = {
+  [IconCategory.DEVELOPMENT]: {
+    Nodejs: {
+      name: 'Nodejs',
+      label: 'Node.js',
+      category: IconCategory.DEVELOPMENT,
+      component: NodejsIcon,
+      description:
+        'Node.js is a high-performance JavaScript runtime built on the Chrome V8 engine, used for building scalable server-side applications.',
+      keywords: ['javascript', 'runtime', 'server', 'backend', 'express'],
+    },
+  },
+  [IconCategory.BRANDS]: {},
+  [IconCategory.ALL]: {},
+}

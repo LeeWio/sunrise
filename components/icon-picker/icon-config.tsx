@@ -576,13 +576,6 @@ export const iconItems: IconItem[] = [
   },
 ]
 
-export const iconMap = new Map(
-  iconItems.map(item => [item.displayName, item.component])
-)
-
-// ============================================
-// 自动生成分类数组（从 iconItems 中提取唯一分类）
-// ============================================
 export const categories: IconCategory[] = [
   // Always include 'all' category first
   {

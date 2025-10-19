@@ -1,20 +1,12 @@
-import {
-  Autocomplete,
-  AutocompleteItem,
-  Button,
-  CircularProgress,
-  Input,
-  Tooltip,
-} from '@heroui/react'
+import { Button, CircularProgress, Input, Tooltip } from '@heroui/react'
 import { memo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-import { iconMap } from '../icon-picker/icon-config'
 import { IconPopover } from '../icon-picker'
 
 import { useAppDispatch } from '@/hooks/store'
 import { useDraft } from '@/hooks/use-draft'
-import { CreateTagPayload, useGetallQuery } from '@/feature/api/tag-api'
+import { CreateTagDto } from '@/feature/api/tag-api'
 import { updateDraft } from '@/feature/slice/article-slice'
 
 export type EditorFooterProps = {
@@ -143,7 +135,7 @@ export const EditorFooter = memo(
     // const [createArticle, { isLoading, isError, isSuccess, data, error }] =
     //   useCreateArticleMutation()
 
-    const [tag, setTag] = useState<CreateTagPayload>({
+    const [tag, setTag] = useState<CreateTagDto>({
       name: '',
       icon: '',
     })
@@ -152,7 +144,7 @@ export const EditorFooter = memo(
       data: tags,
       isLoading: tagsLoading,
       refetch: refetchTags,
-    } = useGetallQuery()
+    } = useGetAllTagsWithoutPaginationQuery()
 
     // const {
     //   data: categories,
@@ -169,29 +161,29 @@ export const EditorFooter = memo(
     return isOpen ? (
       <div className="flex w-full flex-col gap-3">
         <div className="flex gap-2">
-          <Autocomplete
-            fullWidth
-            aria-label="chose a tag"
-            defaultItems={tags}
-            isLoading={tagsLoading}
-            placeholder="Search an animal"
-          >
-            {item => {
-              const IconComponent = iconMap.get(item.name)
-
-              return (
-                <AutocompleteItem
-                  key={item.tid}
-                  startContent={
-                    IconComponent ? <IconComponent size={18} /> : null
-                  }
-                  textValue={item.name}
-                >
-                  {item.name}
-                </AutocompleteItem>
-              )
-            }}
-          </Autocomplete>
+          {/* <Autocomplete */}
+          {/*   fullWidth */}
+          {/*   aria-label="chose a tag" */}
+          {/*   defaultItems={tags} */}
+          {/*   isLoading={tagsLoading} */}
+          {/*   placeholder="Search an animal" */}
+          {/* > */}
+          {/*   {item => { */}
+          {/*     const IconComponent = iconMap.get(item.name) */}
+          {/**/}
+          {/*     return ( */}
+          {/*       <AutocompleteItem */}
+          {/*         key={item.tid} */}
+          {/*         startContent={ */}
+          {/*           IconComponent ? <IconComponent size={18} /> : null */}
+          {/*         } */}
+          {/*         textValue={item.name} */}
+          {/*       > */}
+          {/*         {item.name} */}
+          {/*       </AutocompleteItem> */}
+          {/*     ) */}
+          {/*   }} */}
+          {/* </Autocomplete> */}
           <Input
             startContent={
               <IconPopover

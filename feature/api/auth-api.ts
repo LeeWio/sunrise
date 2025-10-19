@@ -1,75 +1,135 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 import { addToast } from '@heroui/react'
 
 import { AuthUser, setAuthUser } from '../slice/auth-slice'
 
-import { RootState } from '@/app/store'
 import { ResultResponse } from '@/types'
 
-export type UserResponse = {
-  /** Unique identifier for the user */
-  uid?: string
-  /** Username chosen by the user */
-  username?: string
-  /** Password for authentication */
-  password: string
+/**
+ * Data Transfer Object for user authentication credentials.
+ * Contains required fields for login.
+ */
+export interface AuthenticateUserDto {
   /** Email address of the user */
   email: string
-  /** URL to the user's avatar image */
+  /** Password for authentication */
+  password: string
+}
+
+/**
+ * Data Transfer Object for creating a new user account.
+ * Contains required and optional fields for user registration.
+ */
+export interface CreateUserDto {
+  /** Email address (required) */
+  email: string
+  /** Password (required) */
+  password: string
+  /** Username (optional) */
+  username?: string
+  /** Avatar URL (optional) */
   avatar?: string
-  /** Current status of the user account */
+  /** Account status (optional) */
   status?: string
-  /** Timestamp when the user account was created */
-  createdAt?: string
-  /** Timestamp when the user account was last updated */
-  updatedAt?: string
-  /** Roles assigned to this user */
+}
+
+/**
+ * Data Transfer Object for updating user profile.
+ * All fields except uid are optional for partial updates.
+ */
+export interface UpdateUserDto {
+  /** Unique identifier of the user */
+  uid: string
+  /** Username */
+  username?: string
+  /** Email address */
+  email?: string
+  /** Avatar URL */
+  avatar?: string
+  /** Account status */
+  status?: string
+  /** User roles */
   roles?: string[]
 }
 
-export type CreateUserPayload = {
-  /** Username chosen by the user */
-  username?: string
-  /** Password for authentication */
-  password: string
-  /** Email address of the user */
+/**
+ * Entity representing a complete user profile returned from the server.
+ * Contains all user data including metadata and timestamps.
+ */
+export interface UserEntity {
+  /** Unique identifier */
+  uid: string
+  /** Username */
+  username: string
+  /** Email address */
   email: string
-  /** URL to the user's avatar image */
-  avatar?: string
-  /** Current status of the user account */
-  status?: string
+  /** Avatar URL */
+  avatar: string
+  /** Account status */
+  status: string
+  /** ISO 8601 timestamp */
+  createdAt: string
+  /** ISO 8601 timestamp */
+  updatedAt: string
+  /** Assigned roles */
+  roles: string[]
 }
 
-// AuthUser is already defined in the slice, so we don't need to redefine it here
-
-export const authApi = createApi({
-  reducerPath: 'auth-api',
-  tagTypes: ['auth'],
-
-  baseQuery: fetchBaseQuery({
+// Define base query with retry logic
+const baseQueryWithRetry = retry(
+  fetchBaseQuery({
     baseUrl: '/api/user',
     prepareHeaders: (headers, { getState }) => {
-      const { auth } = getState() as RootState
+      const state = getState() as any
 
       // Add authorization token to headers if user is authenticated
-      if (auth.isAuthenticated && auth.userDetail?.authorization) {
-        headers.set('Authorization', auth.userDetail.authorization)
+      if (
+        state?.auth?.isAuthenticated &&
+        state?.auth?.userDetail?.authorization
+      ) {
+        headers.set('Authorization', state.auth.userDetail.authorization)
       }
 
       return headers
     },
   }),
+  {
+    maxRetries: 3,
+  }
+)
+
+/**
+ * Authentication API service.
+ * Handles all auth-related API operations including authentication and user management.
+ */
+export const authApi = createApi({
+  reducerPath: 'auth-api',
+  tagTypes: ['User', 'Users', 'Auth'],
+  baseQuery: baseQueryWithRetry,
+
+  // Global configuration
+  keepUnusedDataFor: 60,
+  refetchOnMountOrArgChange: false,
+  refetchOnFocus: false,
+  refetchOnReconnect: true,
 
   endpoints: build => ({
-    authenticateUser: build.mutation<AuthUser, UserResponse>({
-      query: credential => ({
+    /**
+     * Authenticate user with email and password.
+     * @param credentials - User authentication credentials
+     * @returns Authenticated user with authorization token
+     */
+    authenticateUser: build.mutation<AuthUser, AuthenticateUserDto>({
+      query: credentials => ({
         url: '/authenticate',
         method: 'POST',
-        body: credential,
+        body: credentials,
       }),
-      transformResponse: (response: ResultResponse<AuthUser>) => {
-        // Check if the response indicates success (assuming 10012 means success in your API)
-        if (response.status === 10012) {
+
+      invalidatesTags: ['Auth'],
+
+      transformResponse(response: ResultResponse<AuthUser>) {
+        if (response.code === 10012 || response.code === 200) {
           const { data } = response
 
           if (!data || !data.authorization) {
@@ -77,138 +137,49 @@ export const authApi = createApi({
               title: 'Invalid login response',
               color: 'danger',
             })
-
-            // Throw error because response indicates success but data is invalid
-            return {} as AuthUser
+            throw new Error('Invalid response')
           }
 
-          // Success case - return user data without throwing an error
-          return data
-        } else {
-          // API indicates failure with non-success custom status
           addToast({
-            title: response.message || 'Login failed',
-            color: 'danger',
+            title: 'Login successful',
+            color: 'success',
           })
 
-          // Throw error to propagate failure to the client
-          return {} as AuthUser
+          return data
         }
+
+        const errorMessage = response.message || 'Login failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
       },
+
       transformErrorResponse: error => {
-        // Return appropriate error messages based on different status codes
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Bad request'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Requested resource not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid credentials provided'
+            break
+          case 401:
+            errorMessage = 'Authentication failed - incorrect email or password'
+            break
+          case 403:
+            errorMessage = 'Access denied - account may be locked'
+            break
+          case 404:
+            errorMessage = 'User not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to authenticate'
         }
 
-        return {
-          message: getErrorMessage(error.status),
-          status: error.status,
-        }
-      },
-
-      async onQueryStarted(_, { queryFulfilled, dispatch }) {
-        try {
-          // Wait for the query to complete
-          const { data } = await queryFulfilled
-
-          // At this point, if we reach here, the response has been transformed
-          // successfully by transformResponse and validation passed
-          if (data && data.authorization) {
-            // Set user authentication information
-            dispatch(setAuthUser({ isAuthenticated: true, userDetail: data }))
-
-            // Success login notification
-            addToast({
-              title: 'Login successful',
-              color: 'success',
-            })
-          } else {
-            // This case should not normally happen if transformResponse handles validation properly
-          }
-        } catch (error) {
-          // This will catch errors thrown by transformResponse or network errors
-          // Error toast is already shown in transformResponse, so we could
-          // optionally just log or handle cleanup here
-          addToast({
-            title: 'Login error' + error,
-            color: 'danger',
-          })
-        }
-      },
-    }),
-    createAccount: build.mutation<AuthUser, UserResponse>({
-      query: credential => ({
-        url: '/create',
-        method: 'POST',
-        body: credential,
-      }),
-
-      transformResponse(response: ResultResponse<AuthUser>) {
-        // Check if the response indicates success (assuming 10010 means success in your API for account creation)
-        if (response.status === 10010) {
-          const { data } = response
-
-          if (!data) {
-            addToast({
-              title: 'Invalid account creation response',
-              color: 'danger',
-            })
-
-            // Return empty AuthUser object to indicate failure
-            return {} as AuthUser
-          }
-
-          // Success case - return user data
-          return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Account creation failed',
-            color: 'danger',
-          })
-
-          // Return empty AuthUser object to indicate failure
-          return {} as AuthUser
-        }
-      },
-
-      transformErrorResponse(error) {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid account data provided'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Requested resource not found'
-            case 409: // Conflict - likely email/username already exists
-              return 'Account with this email or username already exists'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred during account creation'
-          }
-        }
-
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -220,96 +191,395 @@ export const authApi = createApi({
         }
       },
 
-      async onQueryStarted(arg, { queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
         try {
-          // Wait for the query to complete
-          await queryFulfilled
+          const { data } = await queryFulfilled
 
-          // At this point, if we reach here, the response has been transformed
-          // successfully by transformResponse and validation passed
-          // if (data && data.authorization) {
-          //   // Set user authentication information
-          //   dispatch(setAuthUser({ isAuthenticated: true, userDetail: data }))
-          //
-          //   // Success account creation notification
-          //   addToast({
-          //     title: 'Account created successfully',
-          //     color: 'success',
-          //   })
-          // } else {
-          //   // This case should not normally happen if transformResponse handles validation properly
-          //   addToast({
-          //     title: 'Account creation succeeded but authentication failed',
-          //     color: 'warning',
-          //   })
-          // }
+          if (data && data.authorization) {
+            dispatch(setAuthUser({ isAuthenticated: true, userDetail: data }))
+          }
         } catch (error) {
-          // This will catch errors thrown by transformResponse or network errors
-          // Error toast is already shown in transformResponse and transformErrorResponse,
-          // so we could optionally just log or handle cleanup here
-          addToast({
-            title: 'Account creation error' + error,
-            color: 'danger',
-          })
+          // Error already handled in transformErrorResponse
         }
       },
     }),
-    getAllUsers: build.query<UserResponse[], void>({
-      query: () => ({
-        url: '/all', // Endpoint to fetch all users
-        method: 'GET',
+
+    /**
+     * Create a new user account.
+     * @param userData - User registration data
+     * @returns Created user (without sensitive data)
+     */
+    createUserAccount: build.mutation<AuthUser, CreateUserDto>({
+      query: userData => ({
+        url: '/create',
+        method: 'POST',
+        body: userData,
       }),
 
-      transformResponse(response: ResultResponse<UserResponse[]>) {
-        // Assuming 10013 is a success status code for getting all users (following similar pattern to other apis)
-        if (response.status === 200) {
+      invalidatesTags: ['Users'],
+
+      transformResponse(response: ResultResponse<AuthUser>) {
+        if (response.status === 10010 || response.status === 201) {
           const { data } = response
 
           if (!data) {
+            addToast({
+              title: 'Invalid account creation response',
+              color: 'danger',
+            })
+            throw new Error('Invalid response')
+          }
+
+          addToast({
+            title: 'Account created successfully',
+            color: 'success',
+          })
+
+          return data
+        }
+
+        const errorMessage = response.message || 'Account creation failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid account data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 409:
+            errorMessage = 'Conflict - account with this email already exists'
+            break
+          case 422:
+            errorMessage = 'Validation failed - please check your input'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to create account'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Get all users.
+     * @returns Array of user entities
+     */
+    getAllUsers: build.query<UserEntity[], void>({
+      query: () => ({
+        url: '/all',
+        method: 'GET',
+      }),
+
+      providesTags: result =>
+        result
+          ? [
+            ...result.map(({ uid }) => ({ type: 'User' as const, id: uid })),
+            { type: 'Users' as const, id: 'ALL' },
+          ]
+          : [{ type: 'Users' as const, id: 'ALL' }],
+
+      transformResponse(response: ResultResponse<UserEntity[]>) {
+        if (response.status === 200 || response.status === 10000) {
+          const { data } = response
+
+          if (!data || !Array.isArray(data)) {
             addToast({
               title: 'Invalid users response',
               color: 'danger',
             })
 
-            // Return empty array to indicate failure
             return []
           }
 
-          // Success case - return users array
           return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch users',
-            color: 'danger',
-          })
-
-          // Return empty array to indicate failure
-          return []
         }
+
+        const errorMessage = response.message || 'Failed to fetch users'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return []
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Users not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching users'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Users not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch users'
         }
 
-        const errorMessage = getErrorMessage(error.status)
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
 
-        // Show error toast for network or server errors
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Get user by ID.
+     * @param uid - User unique identifier
+     * @returns User entity
+     */
+    getUserById: build.query<UserEntity, string>({
+      query: uid => ({
+        url: `/${uid}`,
+        method: 'GET',
+      }),
+
+      providesTags: (result, error, uid) => [{ type: 'User', id: uid }],
+
+      transformResponse(response: ResultResponse<UserEntity>) {
+        if (response.status === 200 || response.status === 10000) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid user response',
+              color: 'danger',
+            })
+
+            return [] as any
+          }
+
+          return data
+        }
+
+        const errorMessage = response.message || 'Failed to fetch user'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return [] as any
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'User not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch user'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Update user profile.
+     * @param user - Partial user data with uid
+     * @returns Updated user entity
+     */
+    updateUser: build.mutation<UserEntity, UpdateUserDto>({
+      query: ({ uid, ...userData }) => ({
+        url: `/${uid}`,
+        method: 'PATCH',
+        body: userData,
+      }),
+
+      invalidatesTags: (result, error, { uid }) => [
+        { type: 'User', id: uid },
+        { type: 'Users', id: 'ALL' },
+      ],
+
+      transformResponse(response: ResultResponse<UserEntity>) {
+        if (response.status === 10000 || response.status === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid user update response',
+              color: 'danger',
+            })
+            throw new Error('Invalid response')
+          }
+
+          addToast({
+            title: 'User updated successfully',
+            color: 'success',
+          })
+
+          return data
+        }
+
+        const errorMessage = response.message || 'User update failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid user data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'User not found'
+            break
+          case 409:
+            errorMessage = 'Conflict - email already in use'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to update user'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Delete user account.
+     * @param uid - User unique identifier
+     * @returns void
+     */
+    deleteUser: build.mutation<void, string>({
+      query: uid => ({
+        url: `/${uid}`,
+        method: 'DELETE',
+      }),
+
+      invalidatesTags: (result, error, uid) => [
+        { type: 'User', id: uid },
+        { type: 'Users', id: 'ALL' },
+      ],
+
+      transformResponse(response: ResultResponse<void>) {
+        if (response.status === 10000 || response.status === 204) {
+          addToast({
+            title: 'User deleted successfully',
+            color: 'success',
+          })
+
+          return
+        }
+
+        const errorMessage = response.message || 'User deletion failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'User not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to delete user'
+        }
+
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -326,6 +596,9 @@ export const authApi = createApi({
 
 export const {
   useAuthenticateUserMutation,
-  useCreateAccountMutation,
+  useCreateUserAccountMutation,
   useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
 } = authApi

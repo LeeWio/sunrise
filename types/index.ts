@@ -5,7 +5,15 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 }
 
 export type ResultResponse<T = unknown> = {
-  status: number
+  code: number
   data?: T
   message: string
+}
+
+export type Page<T = unknown> = {
+  content: T[]
+  total: number
+  page: number
+  size: number
+  totalPages: number
 }

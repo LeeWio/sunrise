@@ -1,55 +1,80 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { addToast } from '@heroui/react'
 
-import { RootState } from '@/app/store'
-import { ResultResponse } from '@/types'
+import { createBaseQuery } from '../utils/base-query'
 
-export type CreateTagPayload = {
+import { Page, ResultResponse } from '@/types'
+
+export interface CreateTagDto {
   name: string
+
   slug?: string
+
   description?: string
+
   icon: string
+
+  color: string
 }
 
-export type TagResponse = {
+export interface UpdateTagDto {
   tid: string
+
+  name?: string
+
+  slug?: string
+
+  description?: string
+
+  icon?: string
+
+  color?: string
+}
+
+export interface TagEntity {
+  tid: string
+
   name: string
+
   slug: string
+
   description: string
+
   createdAt: string
+
   updatedAt: string
+
   icon: string
 }
 
+/**
+ * Tag API service.
+ * Handles all tag-related API operations including CRUD operations.
+ */
 export const tagApi = createApi({
   reducerPath: 'tag-api',
-  tagTypes: ['tag'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api/tag',
-    prepareHeaders: (headers, { getState }) => {
-      const { auth } = getState() as RootState
 
-      // Add authorization token to headers if user is authenticated
-      if (auth.isAuthenticated && auth.userDetail?.authorization) {
-        headers.set('Authorization', auth.userDetail.authorization)
-      }
+  tagTypes: ['Tag', 'Tags'],
 
-      return headers
-    },
-  }),
+  baseQuery: createBaseQuery({ baseUrl: '/api/tag' }),
 
   endpoints: build => ({
-    create: build.mutation<TagResponse, CreateTagPayload>({
+    /**
+     * Create a new tag.
+     * @param tag - Tag data for creation
+     * @returns Created tag entity
+     */
+    createTag: build.mutation<TagEntity, CreateTagDto>({
       query: tag => ({
-        url: '/create', // Set proper endpoint for creating tags
+        url: '/create',
         method: 'POST',
         body: tag,
       }),
 
-      transformResponse(response: ResultResponse<TagResponse>) {
-        // Assuming 10000 is a success status code for tag creation (following similar pattern to auth api)
-        // You may need to adjust this based on your actual API response codes
-        if (response.status === 10000) {
+      invalidatesTags: ['Tags', { type: 'Tag', id: 'LIST' }],
+
+      transformResponse(response: ResultResponse<TagEntity>) {
+        if (response.code === 4004) {
           const { data } = response
 
           if (!data) {
@@ -58,46 +83,49 @@ export const tagApi = createApi({
               color: 'danger',
             })
 
-            return {} as TagResponse
+            return {} as TagEntity
           }
 
-          // Success case - return tag data
-          return data
-        } else {
-          // API indicates failure with non-success custom status
           addToast({
-            title: response.message || 'Tag creation failed',
-            color: 'danger',
+            title: 'Tag created successfully',
+            color: 'success',
           })
 
-          // Return empty TagResponse object to indicate failure
-          return {} as TagResponse
+          return data
         }
+
+        addToast({
+          title: response.message || 'Tag creation failed',
+          color: 'danger',
+        })
+
+        return {} as TagEntity
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 4002:
-              return 'Invalid tag data provided'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Requested resource not found'
-            case 409: // Conflict - likely tag already exists
-              return 'A tag with this name or slug already exists'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred during tag creation'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid tag data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 409:
+            errorMessage =
+              'Conflict - tag with this name or slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to create tag'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -109,91 +137,89 @@ export const tagApi = createApi({
         }
       },
 
-      async onQueryStarted(_, { queryFulfilled }) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          // Wait for the query to complete
-          const { data } = await queryFulfilled
-
-          // At this point, if we reach here, the response has been transformed
-          // successfully by transformResponse and validation passed
-          if (data && data.tid) {
-            addToast({
-              title: 'Tag created successfully',
-              color: 'success',
-            })
-          }
-        } catch (error) {
-          // This will catch errors thrown by transformResponse or network errors
-          // Error toast is already shown in transformResponse and transformErrorResponse,
-          // so we could optionally just log or handle cleanup here if needed
+          await queryFulfilled
+        } catch (e) {
           addToast({
-            title: 'Create tag error: ' + error,
+            title: 'Tag creation error' + e,
             color: 'danger',
           })
         }
       },
     }),
 
-    get: build.query<TagResponse[], { page: number; pageSize: number }>({
-      query: ({ page = 1, pageSize = 10 }) => ({
-        url: '/all', // Endpoint to fetch paginated tags
+    /**
+     * Get all tags with pagination.
+     * @param params - Pagination parameters
+     * @returns Array of tag entities
+     */
+    getTags: build.query<Page<TagEntity>, { page?: number; size?: number }>({
+      query: ({ page = 1, size = 5 }) => ({
+        url: '',
         method: 'GET',
         params: {
           page,
-          pageSize,
+          size,
         },
       }),
+      providesTags: result =>
+        result?.content
+          ? [
+            ...result.content.map(({ tid }) => ({
+              type: 'Tag' as const,
+              id: tid,
+            })),
+            { type: 'Tag', id: 'LIST' },
+          ]
+          : [{ type: 'Tag', id: 'LIST' }],
 
-      transformResponse(response: ResultResponse<TagResponse[]>) {
-        // Assuming 200 is a success status code for getting tags (following standard HTTP codes)
-        if (response.status === 200) {
-          const { data } = response
-
-          if (!data) {
-            addToast({
-              title: 'Invalid tags response',
-              color: 'danger',
-            })
-
-            // Return empty array to indicate failure
-            return []
-          }
-
-          // Success case - return tags array
-          return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch tags',
-            color: 'danger',
-          })
-
-          // Return empty array to indicate failure
-          return []
+      transformResponse(response: ResultResponse<Page<TagEntity>>) {
+        if (response.code === 200 && response.data) {
+          return response.data
         }
+
+        const emptyPage: Page<TagEntity> = {
+          content: [],
+          total: 0,
+          page: 1,
+          size: 5,
+          totalPages: 0,
+        }
+
+        const errorMessage = response.message || 'Failed to fetch tags'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return emptyPage
       },
 
-      transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Tags not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching tags'
-          }
+      transformErrorResponse(error) {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameter'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Tags not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch tags'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -206,62 +232,231 @@ export const tagApi = createApi({
       },
     }),
 
-    getall: build.query<TagResponse[], void>({
+    /**
+     * Get all tags without pagination.
+     * @returns Array of all tag entities
+     */
+    getAllTags: build.query<TagEntity[], void>({
       query: () => ({
-        url: ``, // Endpoint to fetch all tags without pagination
+        url: '/all',
         method: 'GET',
       }),
 
-      transformResponse(response: ResultResponse<TagResponse[]>) {
-        // Assuming 200 is a success status code for getting all tags (following standard HTTP codes)
-        if (response.status === 200) {
+      providesTags: result =>
+        result
+          ? [
+            ...result.map(({ tid }) => ({ type: 'Tag' as const, id: tid })),
+            { type: 'Tags' as const, id: 'ALL' },
+          ]
+          : [{ type: 'Tags' as const, id: 'ALL' }],
+
+      transformResponse(response: ResultResponse<TagEntity[]>) {
+        if (response.code === 200) {
           const { data } = response
 
-          if (!data) {
+          if (!data || !Array.isArray(data)) {
             addToast({
               title: 'Invalid tags response',
               color: 'danger',
             })
 
-            // Return empty array to indicate failure
             return []
           }
 
-          // Success case - return tags array
           return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch all tags',
-            color: 'danger',
-          })
-
-          // Return empty array to indicate failure
-          return []
         }
+
+        const errorMessage = response.message || 'Failed to fetch all tags'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return []
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Tags not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching all tags'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Tags not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch all tags'
         }
 
-        const errorMessage = getErrorMessage(error.status)
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
 
-        // Show error toast for network or server errors
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Update an existing tag.
+     * @param tag - Partial tag data with tid
+     * @returns Updated tag entity
+     */
+    updateTag: build.mutation<TagEntity, UpdateTagDto>({
+      query: ({ tid, ...tag }) => ({
+        url: `/${tid}`,
+        method: 'PATCH',
+        body: tag,
+      }),
+
+      invalidatesTags: (result, error, { tid }) => [
+        { type: 'Tag', id: tid },
+        { type: 'Tags', id: 'ALL' },
+        { type: 'Tag', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<TagEntity>) {
+        if (response.code === 4005 || response.code === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid tag update response',
+              color: 'danger',
+            })
+            throw new Error('Invalid response')
+          }
+
+          addToast({
+            title: 'Tag updated successfully',
+            color: 'success',
+          })
+
+          return data
+        }
+
+        const errorMessage = response.message || 'Tag update failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid tag data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Tag not found'
+            break
+          case 409:
+            errorMessage =
+              'Conflict - tag with this name or slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to update tag'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Delete a tag.
+     * @param tid - Tag unique identifier
+     * @returns void
+     */
+    deleteTag: build.mutation<void, string>({
+      query: tid => ({
+        url: `/${tid}`,
+        method: 'DELETE',
+      }),
+
+      invalidatesTags: (result, error, tid) => [
+        { type: 'Tag', id: tid },
+        { type: 'Tags', id: 'ALL' },
+        { type: 'Tag', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<void>) {
+        if (response.code === 4005) {
+          addToast({
+            title: 'Tag deleted successfully',
+            color: 'success',
+          })
+
+          return
+        }
+
+        const errorMessage = response.message || 'Tag deletion failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Tag not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to delete tag'
+        }
+
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -276,4 +471,10 @@ export const tagApi = createApi({
   }),
 })
 
-export const { useCreateMutation, useGetQuery, useGetallQuery } = tagApi
+export const {
+  useCreateTagMutation,
+  useGetAllTagsQuery,
+  useGetTagsQuery,
+  useUpdateTagMutation,
+  useDeleteTagMutation,
+} = tagApi

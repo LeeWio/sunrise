@@ -3,7 +3,7 @@
 import { use } from 'react'
 import { Spinner } from '@heroui/react'
 
-import { useGetQuery } from '@/feature/api/article-api'
+import { useGetArticleByIdQuery } from '@/feature/api/article-api'
 import ArticleCard from '@/components/article/article-card'
 
 export default function Page({ params }: { params: Promise<{ aid: string }> }) {
@@ -14,7 +14,7 @@ export default function Page({ params }: { params: Promise<{ aid: string }> }) {
     isLoading,
     isFetching,
     error,
-  } = useGetQuery(aid, {
+  } = useGetArticleByIdQuery(aid, {
     // pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   })

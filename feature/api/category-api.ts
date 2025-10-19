@@ -1,56 +1,99 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { addToast } from '@heroui/react'
 
-import { RootState } from '@/app/store'
-import { ResultResponse } from '@/types'
+import { createBaseQuery } from '../utils/base-query'
 
-type CreateCategoryPayload = {
+import { Page, ResultResponse } from '@/types'
+
+/**
+ * Data Transfer Object for creating a new category.
+ * Contains all required fields for category creation.
+ */
+export interface CreateCategoryDto {
+  /** Category display name */
   name: string
+  /** URL-friendly slug (optional, auto-generated if not provided) */
   slug?: string
+  /** Category description */
   description?: string
+  /** Color code for the category */
   color?: string
+  /** Parent category ID for hierarchical categories */
   parent?: string
 }
 
-export type CategoryResponse = {
+/**
+ * Data Transfer Object for updating an existing category.
+ * All fields except cid are optional for partial updates.
+ */
+export interface UpdateCategoryDto {
+  /** Category unique identifier */
   cid: string
+  /** Category display name */
+  name?: string
+  /** URL-friendly slug */
+  slug?: string
+  /** Category description */
+  description?: string
+  /** Color code */
+  color?: string
+  /** Parent category ID */
+  parent?: string
+}
+
+/**
+ * Entity representing a complete category returned from the server.
+ * Contains all category data including timestamps and hierarchical information.
+ */
+export interface CategoryEntity {
+  /** Unique identifier */
+  cid: string
+  /** Display name */
   name: string
+  /** URL-friendly slug */
   slug: string
+  /** Description */
   description: string
+  /** Color code */
   color: string
+  /** Parent category ID (null for root categories) */
   parent: string | null
+  /** ISO 8601 timestamp */
   createdAt: string
+  /** ISO 8601 timestamp */
   updatedAt: string
 }
 
+
+
+/**
+ * Category API service.
+ * Handles all category-related API operations including CRUD operations.
+ */
 export const categoryApi = createApi({
   reducerPath: 'category-api',
-  tagTypes: ['category'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api/category',
-    prepareHeaders: (headers, { getState }) => {
-      const { auth } = getState() as RootState
 
-      // Add authorization token to headers if user is authenticated
-      if (auth.isAuthenticated && auth.userDetail?.authorization) {
-        headers.set('Authorization', auth.userDetail.authorization)
-      }
+  tagTypes: ['Category', 'Categories'],
 
-      return headers
-    },
-  }),
+  baseQuery: createBaseQuery({ baseUrl: '/api/category' }),
 
   endpoints: build => ({
-    create: build.mutation<CategoryResponse, CreateCategoryPayload>({
+    /**
+     * Create a new category.
+     * @param category - Category data for creation
+     * @returns Created category entity
+     */
+    createCategory: build.mutation<CategoryEntity, CreateCategoryDto>({
       query: category => ({
-        url: '/create', // Set proper endpoint for creating categories
+        url: '/create',
         method: 'POST',
         body: category,
       }),
 
-      transformResponse(response: ResultResponse<CategoryResponse>) {
-        // Assuming 3004 is a success status code for category creation (following similar pattern to other apis)
-        if (response.status === 3004) {
+      invalidatesTags: ['Categories', { type: 'Category', id: 'LIST' }],
+
+      transformResponse(response: ResultResponse<CategoryEntity>) {
+        if (response.code === 4004) {
           const { data } = response
 
           if (!data) {
@@ -59,46 +102,49 @@ export const categoryApi = createApi({
               color: 'danger',
             })
 
-            return {} as CategoryResponse
+            return {} as CategoryEntity
           }
 
-          // Success case - return category data
-          return data
-        } else {
-          // API indicates failure with non-success custom status
           addToast({
-            title: response.message || 'Category creation failed',
-            color: 'danger',
+            title: 'Category created successfully',
+            color: 'success',
           })
 
-          // Return empty CategoryResponse object to indicate failure
-          return {} as CategoryResponse
+          return data
         }
+
+        addToast({
+          title: response.message || 'Category creation failed',
+          color: 'danger',
+        })
+
+        return {} as CategoryEntity
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid category data provided'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Requested resource not found'
-            case 409: // Conflict - likely category already exists
-              return 'A category with this name or slug already exists'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred during category creation'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid category data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 409:
+            errorMessage =
+              'Conflict - category with this name or slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to create category'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -110,94 +156,90 @@ export const categoryApi = createApi({
         }
       },
 
-      async onQueryStarted(_, { queryFulfilled }) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          // Wait for the query to complete
-          const { data } = await queryFulfilled
-
-          // At this point, if we reach here, the response has been transformed
-          // successfully by transformResponse and validation passed
-          if (data && data.cid) {
-            addToast({
-              title: 'Category created successfully',
-              color: 'success',
-            })
-          }
-        } catch (error) {
-          // This will catch errors thrown by transformResponse or network errors
-          // Error toast is already shown in transformResponse and transformErrorResponse,
-          // so we could optionally just log or handle cleanup here if needed
+          await queryFulfilled
+        } catch (e) {
           addToast({
-            title: 'Create category error: ' + error,
+            title: 'Category creation error' + e,
             color: 'danger',
           })
         }
       },
     }),
 
-    getAll: build.query<
-      Array<CategoryResponse>,
-      { page: number; pageSize: number }
-    >({
-      query: ({ page = 1, pageSize = 10 }) => ({
-        url: '/getAll', // Endpoint to fetch all categories
+    /**
+     * Get all categories with pagination.
+     * @param params - Pagination parameters
+     * @returns Array of category entities
+     */
+    getCategories: build.query<Page<CategoryEntity>, { page?: number; size?: number }>({
+      query: ({ page = 1, size = 5 }) => ({
+        url: '',
         method: 'GET',
         params: {
           page,
-          pageSize,
+          size,
         },
       }),
 
-      transformResponse(response: ResultResponse<Array<CategoryResponse>>) {
-        // Assuming 3005 is a success status code for getting categories (following similar pattern to other apis)
-        if (response.status === 3005) {
-          const { data } = response
+      providesTags: result =>
+        result?.content
+          ? [
+              ...result.content.map(({ cid }) => ({
+                type: 'Category' as const,
+                id: cid,
+              })),
+              { type: 'Category', id: 'LIST' },
+            ]
+          : [{ type: 'Category', id: 'LIST' }],
 
-          if (!data) {
-            addToast({
-              title: 'Invalid categories response',
-              color: 'danger',
-            })
-
-            // Return empty pagination response to indicate failure
-            return []
-          }
-
-          // Success case - return pagination response
-          return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch categories',
-            color: 'danger',
-          })
-
-          // Return empty pagination response to indicate failure
-          return []
+      transformResponse(response: ResultResponse<Page<CategoryEntity>>) {
+        if (response.code === 200 && response.data) {
+          return response.data
         }
+
+        const emptyPage: Page<CategoryEntity> = {
+          content: [],
+          total: 0,
+          page: 1,
+          size: 5,
+          totalPages: 0,
+        }
+
+        const errorMessage = response.message || 'Failed to fetch categories'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return emptyPage
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Categories not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching categories'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Categories not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch categories'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -210,62 +252,231 @@ export const categoryApi = createApi({
       },
     }),
 
-    getall: build.query<CategoryResponse[], void>({
+    /**
+     * Get all categories without pagination.
+     * @returns Array of all category entities
+     */
+    getAllCategories: build.query<CategoryEntity[], void>({
       query: () => ({
-        url: '/all', // Endpoint to fetch all categories without pagination
+        url: '/all',
         method: 'GET',
       }),
 
-      transformResponse(response: ResultResponse<CategoryResponse[]>) {
-        // Assuming 3006 is a success status code for getting all categories (following similar pattern to other apis)
-        if (response.status === 200) {
+      providesTags: result =>
+        result
+          ? [
+              ...result.map(({ cid }) => ({ type: 'Category' as const, id: cid })),
+              { type: 'Categories' as const, id: 'ALL' },
+            ]
+          : [{ type: 'Categories' as const, id: 'ALL' }],
+
+      transformResponse(response: ResultResponse<CategoryEntity[]>) {
+        if (response.code === 200) {
           const { data } = response
 
-          if (!data) {
+          if (!data || !Array.isArray(data)) {
             addToast({
               title: 'Invalid categories response',
               color: 'danger',
             })
 
-            // Return empty array to indicate failure
             return []
           }
 
-          // Success case - return categories array
           return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch all categories',
-            color: 'danger',
-          })
-
-          // Return empty array to indicate failure
-          return []
         }
+
+        const errorMessage = response.message || 'Failed to fetch all categories'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return []
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Categories not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching all categories'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Categories not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch all categories'
         }
 
-        const errorMessage = getErrorMessage(error.status)
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
 
-        // Show error toast for network or server errors
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Update an existing category.
+     * @param category - Partial category data with cid
+     * @returns Updated category entity
+     */
+    updateCategory: build.mutation<CategoryEntity, UpdateCategoryDto>({
+      query: ({ cid, ...category }) => ({
+        url: `/${cid}`,
+        method: 'PATCH',
+        body: category,
+      }),
+
+      invalidatesTags: (result, error, { cid }) => [
+        { type: 'Category', id: cid },
+        { type: 'Categories', id: 'ALL' },
+        { type: 'Category', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<CategoryEntity>) {
+        if (response.code === 4005 || response.code === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid category update response',
+              color: 'danger',
+            })
+            throw new Error('Invalid response')
+          }
+
+          addToast({
+            title: 'Category updated successfully',
+            color: 'success',
+          })
+
+          return data
+        }
+
+        const errorMessage = response.message || 'Category update failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid category data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Category not found'
+            break
+          case 409:
+            errorMessage =
+              'Conflict - category with this name or slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to update category'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Delete a category.
+     * @param cid - Category unique identifier
+     * @returns void
+     */
+    deleteCategory: build.mutation<void, string>({
+      query: cid => ({
+        url: `/${cid}`,
+        method: 'DELETE',
+      }),
+
+      invalidatesTags: (result, error, cid) => [
+        { type: 'Category', id: cid },
+        { type: 'Categories', id: 'ALL' },
+        { type: 'Category', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<void>) {
+        if (response.code === 4005) {
+          addToast({
+            title: 'Category deleted successfully',
+            color: 'success',
+          })
+
+          return
+        }
+
+        const errorMessage = response.message || 'Category deletion failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Category not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to delete category'
+        }
+
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -280,4 +491,10 @@ export const categoryApi = createApi({
   }),
 })
 
-export const { useCreateMutation, useGetAllQuery, useGetallQuery } = categoryApi
+export const {
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
+  useGetAllCategoriesQuery,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+} = categoryApi

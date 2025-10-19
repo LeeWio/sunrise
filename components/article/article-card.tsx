@@ -37,8 +37,6 @@ export default function ArticleCard({
   featured = false,
   loading = false,
 }: ArticleCardProps) {
-  console.log(tags)
-
   if (loading) {
     return (
       <Card

@@ -9,32 +9,14 @@ export interface IconCategory {
   description?: string
 }
 
-// 图标项接口（使用类型安全的 category）
 export interface IconItem {
   name: string
   component: React.ComponentType<IconSvgProps>
-  category: IconCategoryId // 使用类型安全的分类 ID
+  category: IconCategoryId
   keywords: string[]
   displayName: string
 }
 
-// IconPopover 组件 Props（最外层 Popover 容器）
-export interface IconPopoverProps {
-  selectedIcon?: string
-  setSelectedIcon: (iconName: string) => void
-  // Popover 位置
-  placement?:
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top-start'
-  | 'top-end'
-  | 'bottom-start'
-  | 'bottom-end'
-}
-
-// IconPicker 主组件 Props（组合组件）
 export interface IconPickerProps {
   // 选择回调
   onSelect?: (

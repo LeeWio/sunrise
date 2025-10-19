@@ -13,7 +13,10 @@ import { AnimatePresence, m, LazyMotion, domAnimation } from 'framer-motion'
 import { ChangeEvent, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-import { useCreateAccountMutation, UserResponse } from '@/feature/api/auth-api'
+import {
+  CreateUserDto,
+  useCreateUserAccountMutation,
+} from '@/feature/api/auth-api'
 
 type SignUpProps = {
   isSignUpOpen: boolean
@@ -53,7 +56,7 @@ export const SignUp = ({
     </div>
   )
 
-  const [userAuthPayload, setUserAuthPayload] = useState<UserResponse>({
+  const [userAuthPayload, setUserAuthPayload] = useState<CreateUserDto>({
     email: '',
     password: '',
   })
@@ -67,7 +70,7 @@ export const SignUp = ({
     }))
 
   const [createAccount, { isLoading: isCreateAccountLoading }] =
-    useCreateAccountMutation()
+    useCreateUserAccountMutation()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

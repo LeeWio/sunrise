@@ -6,32 +6,22 @@ export interface IconPickerPreviewProps {
 
 export function IconPickerPreview({ hoveredIcon }: IconPickerPreviewProps) {
   if (!hoveredIcon) {
-    return (
-      <div className="flex items-center justify-center h-14 px-4 border-t border-default-200 bg-default-50/50 mt-auto">
-        <p className="text-xs text-default-400">
-          Hover over an icon to preview
-        </p>
-      </div>
-    )
+    return null
   }
 
   const IconComponent = hoveredIcon.component
 
   return (
-    <div className="flex items-center gap-3 h-14 px-4 border-t border-default-200 bg-default-50/50 mt-auto">
-      {/* Icon Preview */}
-      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-default/10 ring-1 ring-default/20 shrink-0">
-        <IconComponent className="text-primary" />
-      </div>
+    <div className="p-3 h-auto flex items-center justify-between w-[calc(100%_-_20px)] color-inherit subpixel-antialiased bg-background/10 backdrop-blur backdrop-saturate-150 before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small z-10">
+      <IconComponent />
 
-      {/* Icon Info */}
-      <div className="flex flex-col gap-0.5 flex-1 min-w-0">
-        <p className="text-sm font-semibold text-default-900 truncate">
+      <div className="flex flex-col flex-1 items-end">
+        <div className="text-small font-semibold text-default-400 truncate">
           {hoveredIcon.displayName}
-        </p>
-        <p className="text-xs text-default-500 truncate">
-          {hoveredIcon.category} · {hoveredIcon.keywords.slice(0, 3).join(', ')}
-        </p>
+        </div>
+        <div className="text-xs text-default-400 truncate">
+          {hoveredIcon.category}·{hoveredIcon.keywords.slice(0, 3).join(',')}
+        </div>
       </div>
     </div>
   )

@@ -1,64 +1,146 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 import { addToast } from '@heroui/react'
 
-import { CreateTagPayload } from './tag-api'
+import { CreateTagDto } from './tag-api'
 
-import { RootState } from '@/app/store'
 import { ResultResponse } from '@/types'
 
-interface CreateArticlePayload {
+/**
+ * Data Transfer Object for creating a new article.
+ * Contains all required fields for article creation.
+ */
+export interface CreateArticleDto {
+  /** Article title */
   title: string
+  /** Article content in markdown or HTML format */
   content: string
+  /** Brief summary/excerpt of the article */
   summary: string
+  /** URL to the cover image */
   coverImage: string
+  /** URL-friendly slug for the article */
   slug: string
-  tags: CreateTagPayload[]
+  /** Array of tag data for the article */
+  tags: CreateTagDto[]
+  /** Unique identifier of the article author */
   authorId: string
+  /** Unique identifier of the article category */
   categoryId: string
 }
 
-export interface ArticleResponse {
+/**
+ * Data Transfer Object for updating an existing article.
+ * All fields except aid are optional for partial updates.
+ */
+export interface UpdateArticleDto {
+  /** Unique identifier of the article to update */
   aid: string
+  /** Article title */
+  title?: string
+  /** Article content in markdown or HTML format */
+  content?: string
+  /** Brief summary/excerpt of the article */
+  summary?: string
+  /** URL to the cover image */
+  coverImage?: string
+  /** URL-friendly slug for the article */
+  slug?: string
+  /** Array of tag IDs for the article */
+  tagIds?: string[]
+  /** Unique identifier of the article category */
+  categoryId?: string
+  /** Publication status */
+  status?: 'draft' | 'published' | 'archived'
+}
+
+/**
+ * Entity representing a complete article returned from the server.
+ * Contains all article data including metadata and timestamps.
+ */
+export interface ArticleEntity {
+  /** Unique identifier */
+  aid: string
+  /** Article title */
   title: string
+  /** Article content */
   content: string
+  /** Brief summary */
   summary: string
+  /** Cover image URL */
   coverImage: string
+  /** URL-friendly slug */
   slug: string
+  /** Array of associated tag IDs */
   tagIds: string[]
+  /** Author user ID */
   authorId: string
+  /** Category ID */
   categoryId: string
+  /** Publication status */
+  status?: 'draft' | 'published' | 'archived'
+  /** View count */
+  viewCount?: number
+  /** ISO 8601 timestamp */
   createdAt: string
+  /** ISO 8601 timestamp */
   updatedAt: string
 }
 
-export const articleApi = createApi({
-  reducerPath: 'article-api',
-  tagTypes: ['article'],
-  baseQuery: fetchBaseQuery({
+// Define base query with retry logic
+const baseQueryWithRetry = retry(
+  fetchBaseQuery({
     baseUrl: '/api/article',
     prepareHeaders: (headers, { getState }) => {
-      const { auth } = getState() as RootState
+      const state = getState() as any
 
       // Add authorization token to headers if user is authenticated
-      if (auth.isAuthenticated && auth.userDetail?.authorization) {
-        headers.set('Authorization', auth.userDetail.authorization)
+      if (
+        state?.auth?.isAuthenticated &&
+        state?.auth?.userDetail?.authorization
+      ) {
+        headers.set('Authorization', state.auth.userDetail.authorization)
       }
 
       return headers
     },
   }),
+  {
+    maxRetries: 3,
+  }
+)
+
+/**
+ * Article API service.
+ * Handles all article-related API operations including CRUD operations.
+ */
+export const articleApi = createApi({
+  reducerPath: 'article-api',
+  tagTypes: ['Article', 'Articles'],
+  baseQuery: baseQueryWithRetry,
+
+  // Global configuration
+  keepUnusedDataFor: 60,
+  refetchOnMountOrArgChange: false,
+  refetchOnFocus: false,
+  refetchOnReconnect: true,
 
   endpoints: build => ({
-    create: build.mutation<ArticleResponse, CreateArticlePayload>({
+    /**
+     * Create a new article.
+     * @param article - Article data for creation
+     * @returns Created article entity
+     */
+    createArticle: build.mutation<ArticleEntity, CreateArticleDto>({
       query: article => ({
-        url: '/create', // Set proper endpoint for creating articles
+        url: '/create',
         method: 'POST',
         body: article,
       }),
 
-      transformResponse(response: ResultResponse<ArticleResponse>) {
-        // Assuming 40001 is a success status code for article creation (following similar pattern to other apis)
-        if (response.status === 40001) {
+      invalidatesTags: ['Articles'],
+
+      transformResponse(response: ResultResponse<ArticleEntity>) {
+        if (response.status === 10000 || response.status === 201) {
           const { data } = response
 
           if (!data) {
@@ -66,47 +148,49 @@ export const articleApi = createApi({
               title: 'Invalid article creation response',
               color: 'danger',
             })
-
-            return {} as ArticleResponse
+            throw new Error('Invalid response')
           }
 
-          // Success case - return article data
-          return data
-        } else {
-          // API indicates failure with non-success custom status
           addToast({
-            title: response.message || 'Article creation failed',
-            color: 'danger',
+            title: 'Article created successfully',
+            color: 'success',
           })
 
-          // Return empty ArticleResponse object to indicate failure
-          return {} as ArticleResponse
+          return data
         }
+
+        const errorMessage = response.message || 'Article creation failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid article data provided'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Requested resource not found'
-            case 409: // Conflict - likely article already exists
-              return 'An article with this slug already exists'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred during article creation'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid article data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 409:
+            errorMessage = 'Conflict - article with this slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to create article'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -117,41 +201,23 @@ export const articleApi = createApi({
           status: error.status,
         }
       },
-
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          // Wait for the query to complete
-          const { data } = await queryFulfilled
-
-          // At this point, if we reach here, the response has been transformed
-          // successfully by transformResponse and validation passed
-          if (data && data.aid) {
-            addToast({
-              title: 'Article created successfully',
-              color: 'success',
-            })
-          }
-        } catch (error) {
-          // This will catch errors thrown by transformResponse or network errors
-          // Error toast is already shown in transformResponse and transformErrorResponse,
-          // so we could optionally just log or handle cleanup here if needed
-          addToast({
-            title: 'Create article error: ' + error,
-            color: 'danger',
-          })
-        }
-      },
     }),
 
-    get: build.query<ArticleResponse, string>({
+    /**
+     * Get a single article by ID.
+     * @param id - Article unique identifier
+     * @returns Article entity
+     */
+    getArticleById: build.query<ArticleEntity, string>({
       query: id => ({
-        url: `/${id}`, // Endpoint to fetch article by ID
+        url: `/${id}`,
         method: 'GET',
       }),
 
-      transformResponse(response: ResultResponse<ArticleResponse>) {
-        // Assuming 200 is a success status code for getting an article (following standard HTTP codes)
-        if (response.status === 200) {
+      providesTags: (result, error, id) => [{ type: 'Article', id }],
+
+      transformResponse(response: ResultResponse<ArticleEntity>) {
+        if (response.status === 200 || response.status === 10000) {
           const { data } = response
 
           if (!data) {
@@ -160,45 +226,45 @@ export const articleApi = createApi({
               color: 'danger',
             })
 
-            // Return empty article response to indicate failure
-            return {} as ArticleResponse
+            return [] as any
           }
 
-          // Success case - return article data
           return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch article',
-            color: 'danger',
-          })
-
-          // Return empty article response to indicate failure
-          return {} as ArticleResponse
         }
+
+        const errorMessage = response.message || 'Failed to fetch article'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return [] as any
       },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Article not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching the article'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Article not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch article'
         }
 
-        const errorMessage = getErrorMessage(error.status)
-
-        // Show error toast for network or server errors
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -209,107 +275,234 @@ export const articleApi = createApi({
           status: error.status,
         }
       },
-
-      providesTags: (result, error, id) => [{ type: 'article', id }],
     }),
 
-    getByIds: build.query<ArticleResponse[], string[]>({
-      query: ids => {
-        // Convert array of IDs to a comma-separated string for the query parameter
-        return {
-          url: `/by-ids`, // Endpoint to fetch articles by IDs
-          method: 'POST',
-          params: { ids: ids.join(',') },
-        }
-      },
+    /**
+     * Get multiple articles by their IDs.
+     * @param ids - Array of article IDs
+     * @returns Array of article entities
+     */
+    getArticlesByIds: build.query<ArticleEntity[], string[]>({
+      query: ids => ({
+        url: `/by-ids`,
+        method: 'POST',
+        params: { ids: ids.join(',') },
+      }),
 
-      transformResponse(response: ResultResponse<ArticleResponse[]>) {
-        // Assuming 200 is a success status code for getting articles (following standard HTTP codes)
-        if (response.status === 200) {
+      providesTags: (result, error, ids) =>
+        result
+          ? [
+            ...result.map(({ aid }) => ({
+              type: 'Article' as const,
+              id: aid,
+            })),
+            { type: 'Articles' as const, id: 'LIST' },
+          ]
+          : [{ type: 'Articles' as const, id: 'LIST' }],
+
+      transformResponse(response: ResultResponse<ArticleEntity[]>) {
+        if (response.status === 200 || response.status === 10000) {
           const { data } = response
 
-          if (!data) {
+          if (!data || !Array.isArray(data)) {
             addToast({
               title: 'Invalid articles response',
               color: 'danger',
             })
 
-            // Return empty array to indicate failure
             return []
           }
 
-          // Success case - return articles array
           return data
-        } else {
-          // API indicates failure with non-success custom status
-          addToast({
-            title: response.message || 'Failed to fetch articles',
-            color: 'danger',
-          })
-
-          // Return empty array to indicate failure
-          return []
         }
+
+        const errorMessage = response.message || 'Failed to fetch articles'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return []
       },
-
-      // Provides tags for cache invalidation
-      providesTags: (result, error, ids) => {
-        // Return tags for each individual article ID as well as a combined tag
-        return [
-          ...ids.map(id => ({ type: 'article' as const, id })),
-          { type: 'article', id: 'LIST_BY_IDS' },
-        ]
-      },
-
-      // The 2nd parameter is the destructured `QueryLifecycleApi`
-      async onQueryStarted(
-        arg,
-        {
-          dispatch,
-          getState,
-          extra,
-          requestId,
-          queryFulfilled,
-          getCacheEntry,
-          updateCachedData,
-        }
-      ) { },
-      // The 2nd parameter is the destructured `QueryCacheLifecycleApi`
-      async onCacheEntryAdded(
-        arg,
-        {
-          dispatch,
-          getState,
-          extra,
-          requestId,
-          cacheEntryRemoved,
-          cacheDataLoaded,
-          getCacheEntry,
-          updateCachedData,
-        }
-      ) { },
 
       transformErrorResponse: error => {
-        const getErrorMessage = (status: number | string): string => {
-          switch (status) {
-            case 400:
-              return 'Invalid request parameters'
-            case 401:
-              return 'Authentication failed'
-            case 403:
-              return 'Insufficient permissions'
-            case 404:
-              return 'Articles not found'
-            case 500:
-              return 'Internal server error'
-            default:
-              return 'An error occurred while fetching the articles'
-          }
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Articles not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch articles'
         }
 
-        const errorMessage = getErrorMessage(error.status)
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
 
-        // Show error toast for network or server errors
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Update an existing article.
+     * @param article - Partial article data with aid
+     * @returns Updated article entity
+     */
+    updateArticle: build.mutation<ArticleEntity, UpdateArticleDto>({
+      query: ({ aid, ...article }) => ({
+        url: `/${aid}`,
+        method: 'PATCH',
+        body: article,
+      }),
+
+      invalidatesTags: (result, error, { aid }) => [
+        { type: 'Article', id: aid },
+        { type: 'Articles', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<ArticleEntity>) {
+        if (response.status === 10000 || response.status === 200) {
+          const { data } = response
+
+          if (!data) {
+            addToast({
+              title: 'Invalid article update response',
+              color: 'danger',
+            })
+            throw new Error('Invalid response')
+          }
+
+          addToast({
+            title: 'Article updated successfully',
+            color: 'success',
+          })
+
+          return data
+        }
+
+        const errorMessage = response.message || 'Article update failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid article data provided'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Article not found'
+            break
+          case 409:
+            errorMessage = 'Conflict - article with this slug already exists'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to update article'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Delete an article.
+     * @param aid - Article unique identifier
+     * @returns void
+     */
+    deleteArticle: build.mutation<void, string>({
+      query: aid => ({
+        url: `/${aid}`,
+        method: 'DELETE',
+      }),
+
+      invalidatesTags: (result, error, aid) => [
+        { type: 'Article', id: aid },
+        { type: 'Articles', id: 'LIST' },
+      ],
+
+      transformResponse(response: ResultResponse<void>) {
+        if (response.status === 10000 || response.status === 204) {
+          addToast({
+            title: 'Article deleted successfully',
+            color: 'success',
+          })
+
+          return
+        }
+
+        const errorMessage = response.message || 'Article deletion failed'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+        throw new Error(errorMessage)
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Article not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to delete article'
+        }
+
         addToast({
           title: errorMessage,
           color: 'danger',
@@ -324,4 +517,10 @@ export const articleApi = createApi({
   }),
 })
 
-export const { useCreateMutation, useGetQuery, useGetByIdsQuery } = articleApi
+export const {
+  useCreateArticleMutation,
+  useGetArticleByIdQuery,
+  useGetArticlesByIdsQuery,
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
+} = articleApi

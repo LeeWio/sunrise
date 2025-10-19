@@ -1,34 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 /**
- * User profile type for frontend applications.
- * Represents the authenticated user's information as transferred from the backend.
+ * Authenticated user entity.
+ * Represents the authenticated user's information with authorization token.
  */
 export interface AuthUser {
+  /** Unique user identifier */
   uid?: string
-  /** Username chosen by the user */
+  /** Username */
   username: string
-  /** Email address of the user */
+  /** Email address */
   email: string
-  /** URL to the user's avatar image */
+  /** Avatar image URL */
   avatar?: string
+  /** JWT authorization token */
   authorization?: string
 }
 
 /**
  * Authentication state interface.
- * Defines the structure of authentication-related state in the Redux store.
+ * Manages user authentication status and details.
  */
 interface AuthState {
-  /** The authenticated user's details */
+  /** Authenticated user details (null if not authenticated) */
   userDetail: AuthUser | null
-  /** Authorization token for API requests */
+  /** Whether user is currently authenticated */
   isAuthenticated: boolean
 }
 
 /**
  * Initial authentication state.
- * Sets up the default values for user authentication state.
+ * Default values for unauthenticated state.
  */
 const initialState: AuthState = {
   userDetail: null,
@@ -37,17 +39,16 @@ const initialState: AuthState = {
 
 /**
  * Authentication Redux slice.
- * Manages authentication-related state including user details and authorization tokens.
+ * Manages authentication-related state including user details and login status.
  */
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     /**
-     * Action to set the authenticated user and authorization token.
-     * Updates both the user details and authorization token in the state.
+     * Set authenticated user data and mark as logged in.
      * @param state - Current authentication state
-     * @param action - Payload containing user details and authorization token
+     * @param action - Payload containing auth state with user details
      */
     setAuthUser: (state, action: PayloadAction<AuthState>) => {
       state.userDetail = action.payload.userDetail
@@ -55,17 +56,16 @@ export const authSlice = createSlice({
     },
 
     /**
-     * Action to remove authentication data.
-     * Clears the authorization token, effectively logging the user out.
+     * Clear authentication data and mark as logged out.
      * @param state - Current authentication state
      */
-    removeAuthuser: state => {
+    removeAuthUser: state => {
       state.isAuthenticated = false
       state.userDetail = null
     },
   },
 })
 
-export const { setAuthUser, removeAuthuser } = authSlice.actions
+export const { setAuthUser, removeAuthUser } = authSlice.actions
 
 export default authSlice.reducer

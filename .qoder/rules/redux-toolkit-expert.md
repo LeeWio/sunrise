@@ -10,6 +10,7 @@ You are an expert in Redux Toolkit, RTK Query, Redux state management, and moder
 ## Philosophy and Core Principles
 
 State Management Philosophy
+
 - Treat state as the single source of truth for application data
 - Separate client state (UI, preferences) from server state (API data)
 - Follow unidirectional data flow: Actions → Reducers → State → UI
@@ -18,6 +19,7 @@ State Management Philosophy
 - Leverage RTK Query for all server state management
 
 Code Quality Standards
+
 - Write type-safe Redux code with full TypeScript coverage
 - Ensure all actions, reducers, and selectors are properly typed
 - Follow immutability patterns (RTK uses Immer internally)
@@ -28,27 +30,32 @@ Code Quality Standards
 ## Naming Conventions
 
 ### Slice Names
+
 - Use singular nouns for slice names: 'auth', 'user', 'theme' (not 'auths', 'users')
 - Use kebab-case for slice file names: auth-slice.ts, user-slice.ts
 - Use camelCase for slice state keys in the store
 
 ### Action Names
+
 - Use descriptive, verb-based names: setAuthUser, removeAuthUser, toggleTheme
 - Avoid generic names: update, set, change (be specific)
 - Use present tense verbs: setUser (not setUserAction or userSet)
 
 ### Selector Names
+
 - Prefix with 'select': selectAuthUser, selectIsAuthenticated
 - Use descriptive names: selectUserById (not getUser)
 - For memoized selectors, use 'select' prefix: selectFilteredPosts
 
 ### Hook Names
+
 - RTK Query hooks follow pattern: use[Operation][Resource][Type]
   - Queries: useGetAllTagsQuery, useGetUserByIdQuery
   - Mutations: useCreateTagMutation, useUpdateUserMutation
 - Never use generic names: useGet, useCreate (always include resource name)
 
 ### Type Names
+
 - DTOs (Data Transfer Objects): CreateTagDto, UpdateUserDto
 - Entities (Server responses): TagEntity, UserEntity, PostEntity
 - State types: AuthState, ThemeState, UserPreferencesState
@@ -57,9 +64,10 @@ Code Quality Standards
 ## Type System Standards
 
 ### DTO (Data Transfer Object) Pattern
+
 ```typescript
 // ✅ CORRECT: Input data sent to server
-export interface CreateTagDto {
+export interface CreateTagRequest {
   /** Tag display name */
   name: string
   /** URL-friendly slug (optional, auto-generated if not provided) */
@@ -70,7 +78,7 @@ export interface CreateTagDto {
   icon: string
 }
 
-export interface UpdateTagDto {
+export interface UpdateTagRequest {
   /** Tag unique identifier */
   tid: string
   /** Partial update fields */
@@ -81,14 +89,15 @@ export interface UpdateTagDto {
 }
 
 // ❌ INCORRECT: Avoid these patterns
-export interface CreateTagPayload { }  // Don't use Payload suffix
-export interface TagRequest { }        // Don't use Request suffix
+export interface CreateTagPayload {} // Don't use Payload suffix
+export interface TagRequest {} // Don't use Request suffix
 ```
 
 ### Entity Pattern
+
 ```typescript
 // ✅ CORRECT: Complete data returned from server
-export interface TagEntity {
+export interface Tag {
   /** Unique identifier */
   tid: string
   /** Display name */
@@ -106,11 +115,12 @@ export interface TagEntity {
 }
 
 // ❌ INCORRECT: Avoid these patterns
-export interface TagResponse { }  // Don't use Response suffix
-export interface TagModel { }     // Don't use Model suffix
+export interface TagResponse {} // Don't use Response suffix
+export interface TagModel {} // Don't use Model suffix
 ```
 
 ### State Type Pattern
+
 ```typescript
 // ✅ CORRECT: Client state structure
 interface AuthState {
@@ -130,6 +140,7 @@ const initialState: AuthState = {
 ## createSlice Best Practices
 
 ### Basic Structure
+
 ```typescript
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
@@ -157,7 +168,7 @@ const themeSlice = createSlice({
     setColorScheme: (state, action: PayloadAction<string>) => {
       state.colorScheme = action.payload
     },
-    toggleTheme: (state) => {
+    toggleTheme: state => {
       state.mode = state.mode === 'light' ? 'dark' : 'light'
     },
   },
@@ -171,6 +182,7 @@ export default themeSlice.reducer
 ### Reducer Guidelines
 
 ✅ DO:
+
 - Keep reducers pure (no side effects, no async operations)
 - Use Immer's draft state for direct mutations
 - Return void from reducers (Immer handles immutability)
@@ -178,6 +190,7 @@ export default themeSlice.reducer
 - Add JSDoc comments for complex logic
 
 ❌ DON'T:
+
 - Perform async operations in reducers
 - Call APIs or dispatch other actions
 - Use Date.now(), Math.random() or other non-deterministic functions
@@ -185,6 +198,7 @@ export default themeSlice.reducer
 - Use generic action types without proper typing
 
 ### extraReducers Pattern
+
 ```typescript
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
@@ -205,13 +219,13 @@ const userSlice = createSlice({
     error: null as string | null,
   },
   reducers: {
-    clearError: (state) => {
+    clearError: state => {
       state.error = null
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchUserProfile.pending, (state) => {
+      .addCase(fetchUserProfile.pending, state => {
         state.loading = true
         state.error = null
       })
@@ -230,6 +244,7 @@ const userSlice = createSlice({
 ## createApi (RTK Query) Best Practices
 
 ### API Structure Standards
+
 ```typescript
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 
@@ -239,40 +254,40 @@ const baseQueryWithRetry = retry(
     baseUrl: '/api/tags',
     prepareHeaders: (headers, { getState }) => {
       const { auth } = getState() as RootState
-      
+
       // Add authentication token
       if (auth.isAuthenticated && auth.userDetail?.authorization) {
         headers.set('Authorization', auth.userDetail.authorization)
       }
-      
+
       return headers
     },
   }),
   {
-    maxRetries: 3,  // Fixed retry count
+    maxRetries: 3, // Fixed retry count
   }
 )
 
 export const tagApi = createApi({
-  reducerPath: 'tag-api',           // Unique identifier
-  tagTypes: ['Tag', 'Tags'],        // Cache tag types
+  reducerPath: 'tag-api', // Unique identifier
+  tagTypes: ['Tag', 'Tags'], // Cache tag types
   baseQuery: baseQueryWithRetry,
-  
+
   // Global configuration
-  keepUnusedDataFor: 60,            // Cache retention in seconds
+  keepUnusedDataFor: 60, // Cache retention in seconds
   refetchOnMountOrArgChange: false,
   refetchOnFocus: false,
   refetchOnReconnect: true,
-  
-  endpoints: (build) => ({
+
+  endpoints: build => ({
     // Query endpoints
-    getAllTags: build.query<TagEntity[], void>({ }),
-    getTagById: build.query<TagEntity, string>({ }),
-    
+    getAllTags: build.query<TagEntity[], void>({}),
+    getTagById: build.query<TagEntity, string>({}),
+
     // Mutation endpoints
-    createTag: build.mutation<TagEntity, CreateTagDto>({ }),
-    updateTag: build.mutation<TagEntity, UpdateTagDto>({ }),
-    deleteTag: build.mutation<void, string>({ }),
+    createTag: build.mutation<TagEntity, CreateTagDto>({}),
+    updateTag: build.mutation<TagEntity, UpdateTagDto>({}),
+    deleteTag: build.mutation<void, string>({}),
   }),
 })
 
@@ -289,45 +304,46 @@ export const {
 ### Endpoint Implementation Standards
 
 #### Query Endpoints (GET operations)
+
 ```typescript
 getAllTags: build.query<TagEntity[], void>({
   query: () => ({
     url: '',
     method: 'GET',
   }),
-  
+
   // Provide fine-grained cache tags
-  providesTags: (result) =>
+  providesTags: result =>
     result
       ? [
           ...result.map(({ tid }) => ({ type: 'Tag' as const, id: tid })),
           { type: 'Tags' as const, id: 'ALL' },
         ]
       : [{ type: 'Tags' as const, id: 'ALL' }],
-  
+
   // Transform successful response
   transformResponse(response: ResultResponse<TagEntity[]>) {
     if (response.status === 200 || response.status === 10000) {
       const { data } = response
-      
+
       if (!data || !Array.isArray(data)) {
         addToast({ title: 'Invalid tags response', color: 'danger' })
         return []
       }
-      
+
       return data
     }
-    
+
     // Handle API error
     const errorMessage = response.message || 'Failed to fetch tags'
     addToast({ title: errorMessage, color: 'danger' })
     return []
   },
-  
+
   // Transform network errors
   transformErrorResponse: (error: any) => {
     let errorMessage: string
-    
+
     switch (error.status) {
       case 401:
         errorMessage = 'Authentication required - please sign in'
@@ -344,9 +360,9 @@ getAllTags: build.query<TagEntity[], void>({
       default:
         errorMessage = 'Failed to fetch tags'
     }
-    
+
     addToast({ title: errorMessage, color: 'danger' })
-    
+
     return {
       message: errorMessage,
       status: error.status,
@@ -356,40 +372,41 @@ getAllTags: build.query<TagEntity[], void>({
 ```
 
 #### Mutation Endpoints (POST/PATCH/DELETE operations)
+
 ```typescript
 createTag: build.mutation<TagEntity, CreateTagDto>({
-  query: (tag) => ({
+  query: tag => ({
     url: '/create',
     method: 'POST',
     body: tag,
   }),
-  
+
   // Invalidate list cache to trigger refetch
   invalidatesTags: ['Tags'],
-  
+
   transformResponse(response: ResultResponse<TagEntity>) {
     if (response.status === 10000 || response.status === 201) {
       const { data } = response
-      
+
       if (!data) {
         addToast({ title: 'Invalid response', color: 'danger' })
         throw new Error('Invalid response')
       }
-      
+
       // Show success toast
       addToast({ title: 'Tag created successfully', color: 'success' })
-      
+
       return data
     }
-    
+
     const errorMessage = response.message || 'Tag creation failed'
     addToast({ title: errorMessage, color: 'danger' })
     throw new Error(errorMessage)
   },
-  
+
   transformErrorResponse: (error: any) => {
     let errorMessage: string
-    
+
     switch (error.status) {
       case 400:
         errorMessage = 'Invalid request parameters'
@@ -406,9 +423,9 @@ createTag: build.mutation<TagEntity, CreateTagDto>({
       default:
         errorMessage = 'Failed to create tag'
     }
-    
+
     addToast({ title: errorMessage, color: 'danger' })
-    
+
     return {
       message: errorMessage,
       status: error.status,
@@ -420,52 +437,64 @@ createTag: build.mutation<TagEntity, CreateTagDto>({
 ## CRUD Operations Standards
 
 ### CREATE Operations
+
 Responsibilities:
+
 1. Send POST request with CreateDto
 2. Handle success/error responses
 3. Display user feedback (Toast notifications)
 4. Invalidate list cache to trigger auto-refresh
 
 Pattern:
+
 - invalidatesTags: ['ResourceList']
 - Show success toast on creation
 - Show error toast on failure
 - Return created entity
 
 ### READ Operations
+
 Responsibilities:
+
 1. Send GET request
 2. Provide fine-grained cache tags
 3. Handle empty/invalid responses gracefully
 4. Display error feedback only (no success toast for queries)
 
 Pattern:
+
 - providesTags: Individual items + List tag
 - Return array for lists, single entity for by-id queries
 - Return empty array [] on error (for lists)
 - Throw error for critical failures (404 on by-id queries)
 
 ### UPDATE Operations
+
 Responsibilities:
+
 1. Send PATCH/PUT request with UpdateDto
 2. Handle success/error responses
 3. Display user feedback
 4. Invalidate specific item and list caches
 
 Pattern:
+
 - invalidatesTags: [{ type: 'Resource', id }, { type: 'Resources', id: 'ALL' }]
 - Show success toast on update
 - Show error toast on failure
 - Return updated entity
 
 ### DELETE Operations
+
 Responsibilities:
+
 1. Send DELETE request with resource ID
 2. Handle success/error responses
 3. Display user feedback
 4. Invalidate specific item and list caches
 
 Pattern:
+
 - invalidatesTags: [{ type: 'Resource', id }, { type: 'Resources', id: 'ALL' }]
 - Show success toast on deletion
 - Show error toast on failure
@@ -474,12 +503,13 @@ Pattern:
 ## Cache Management Standards
 
 ### Tag Strategy
+
 ```typescript
 // Define tag types for all resources
 tagTypes: ['Post', 'User', 'Comment', 'Tag']
 
 // Provide fine-grained tags in queries
-providesTags: (result) =>
+providesTags: result =>
   result
     ? [
         // Individual item tags
@@ -491,12 +521,13 @@ providesTags: (result) =>
 
 // Invalidate specific tags in mutations
 invalidatesTags: (result, error, { id }) => [
-  { type: 'Post', id },           // Specific item
-  { type: 'Post', id: 'LIST' },   // List view
+  { type: 'Post', id }, // Specific item
+  { type: 'Post', id: 'LIST' }, // List view
 ]
 ```
 
 ### Cache Invalidation Rules
+
 - CREATE: Invalidate list cache only
 - UPDATE: Invalidate specific item + list cache
 - DELETE: Invalidate specific item + list cache
@@ -504,6 +535,7 @@ invalidatesTags: (result, error, { id }) => [
 - Use specific IDs over broad invalidation
 
 ### Cache Time Configuration
+
 ```typescript
 // Global defaults
 keepUnusedDataFor: 60,  // 60 seconds
@@ -522,6 +554,7 @@ endpoints: (build) => ({
 ## Error Handling Standards
 
 ### Response Error Handling
+
 - Every endpoint MUST handle errors independently
 - Use specific, user-friendly error messages
 - Map HTTP status codes to meaningful messages
@@ -529,6 +562,7 @@ endpoints: (build) => ({
 - Return structured error objects with message and status
 
 ### Error Status Code Mapping
+
 ```typescript
 // Standard mapping for all endpoints
 switch (error.status) {
@@ -560,6 +594,7 @@ switch (error.status) {
 ```
 
 ### Toast Notification Standards
+
 - SUCCESS toast: Only for mutations (create, update, delete)
 - ERROR toast: For all failures (queries and mutations)
 - WARNING toast: For validation or business logic warnings
@@ -570,6 +605,7 @@ switch (error.status) {
 ## Retry Logic Standards
 
 ### Configuration
+
 ```typescript
 // Fixed retry configuration
 const baseQueryWithRetry = retry(
@@ -581,6 +617,7 @@ const baseQueryWithRetry = retry(
 ```
 
 ### Retry Strategy
+
 - Retry network errors (FETCH_ERROR)
 - Retry 5xx server errors (500-599)
 - DO NOT retry 4xx client errors (user must fix input)
@@ -590,6 +627,7 @@ const baseQueryWithRetry = retry(
 ## State Organization Standards
 
 ### Store Structure
+
 ```typescript
 // app/store.ts
 import { configureStore } from '@reduxjs/toolkit'
@@ -608,17 +646,15 @@ export const store = configureStore({
     // Client state slices
     auth: authReducer,
     theme: themeReducer,
-    
+
     // Server state APIs
     [tagApi.reducerPath]: tagApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
   },
-  
+
   // Add API middleware
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(tagApi.middleware)
-      .concat(userApi.middleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(tagApi.middleware).concat(userApi.middleware),
 })
 
 // Enable refetchOnFocus/refetchOnReconnect behaviors
@@ -629,6 +665,7 @@ export type AppDispatch = typeof store.dispatch
 ```
 
 ### File Organization
+
 ```
 feature/
 ├── api/              # RTK Query APIs
@@ -647,16 +684,19 @@ feature/
 ## Performance Standards
 
 ### Memoization
+
 - Use createSelector for derived state
 - Memoize expensive computations
 - Avoid recreating selectors on each render
 
 ### Code Splitting
+
 - Lazy load API slices when possible
 - Use dynamic imports for large state modules
 - Split by feature domain
 
 ### Bundle Size
+
 - Import only needed RTK Query modules
 - Use tree-shaking compatible imports
 - Avoid importing entire Redux Toolkit
@@ -664,6 +704,7 @@ feature/
 ## Testing Standards
 
 ### Slice Testing
+
 ```typescript
 import { describe, it, expect } from 'vitest'
 import authReducer, { setAuthUser, removeAuthUser } from './auth-slice'
@@ -672,24 +713,25 @@ describe('authSlice', () => {
   it('should handle setAuthUser', () => {
     const previousState = { userDetail: null, isAuthenticated: false }
     const user = { uid: '123', email: 'test@example.com' }
-    
+
     expect(
-      authReducer(previousState, setAuthUser({ userDetail: user, isAuthenticated: true }))
+      authReducer(
+        previousState,
+        setAuthUser({ userDetail: user, isAuthenticated: true })
+      )
     ).toEqual({
       userDetail: user,
       isAuthenticated: true,
     })
   })
-  
+
   it('should handle removeAuthUser', () => {
-    const previousState = { 
-      userDetail: { uid: '123', email: 'test@example.com' }, 
-      isAuthenticated: true 
+    const previousState = {
+      userDetail: { uid: '123', email: 'test@example.com' },
+      isAuthenticated: true,
     }
-    
-    expect(
-      authReducer(previousState, removeAuthUser())
-    ).toEqual({
+
+    expect(authReducer(previousState, removeAuthUser())).toEqual({
       userDetail: null,
       isAuthenticated: false,
     })
@@ -698,6 +740,7 @@ describe('authSlice', () => {
 ```
 
 ### API Testing
+
 - Mock API responses
 - Test loading, success, and error states
 - Verify cache invalidation
@@ -706,12 +749,14 @@ describe('authSlice', () => {
 ## Documentation Standards
 
 ### JSDoc Requirements
+
 - Document all public interfaces
 - Include @example tags for complex types
 - Document all reducer actions
 - Explain non-obvious state transformations
 
 ### Code Comments
+
 - Explain WHY, not WHAT
 - Document business logic decisions
 - Clarify complex cache strategies
@@ -719,14 +764,16 @@ describe('authSlice', () => {
 
 ## Migration from Legacy Redux
 
-### DO NOT USE:
+### DO NOT USE
+
 - createStore (deprecated)
 - combineReducers (use configureStore)
 - applyMiddleware (use configureStore)
 - createAction manually (use createSlice)
 - createReducer manually (use createSlice)
 
-### ALWAYS USE:
+### ALWAYS USE
+
 - configureStore instead of createStore
 - createSlice instead of hand-written reducers
 - createAsyncThunk for async logic
@@ -736,6 +783,7 @@ describe('authSlice', () => {
 ## Common Anti-Patterns to Avoid
 
 ❌ DON'T:
+
 - Store derived data in state (calculate on-the-fly)
 - Duplicate data across slices (normalize instead)
 - Store form state in Redux (use local state)
@@ -746,6 +794,7 @@ describe('authSlice', () => {
 - Create God slices with too many responsibilities
 
 ✅ DO:
+
 - Keep state minimal and normalized
 - Use selectors for derived data
 - Use local state for temporary data
@@ -758,6 +807,7 @@ describe('authSlice', () => {
 ## Code Review Checklist
 
 Before submitting Redux code, verify:
+
 - [ ] All types use Dto/Entity naming pattern
 - [ ] All endpoints handle errors independently
 - [ ] Toast notifications are consistent and specific

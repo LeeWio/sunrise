@@ -18,7 +18,7 @@ import { SignUp } from './sign-up'
 
 import { useAppDispatch } from '@/hooks/store'
 import { useAuth } from '@/hooks/use-auth'
-import { removeAuthuser } from '@/feature/slice/auth-slice'
+import { removeAuthUser } from '@/feature/slice/auth-slice'
 
 export const ChevronDownIcon = () => {
   return (
@@ -131,7 +131,7 @@ export const AuthForm = () => {
             <DropdownItem
               key="logout"
               color="danger"
-              onPress={() => dispatch(removeAuthuser())}
+              onPress={() => dispatch(removeAuthUser())}
             >
               Log Out
             </DropdownItem>
