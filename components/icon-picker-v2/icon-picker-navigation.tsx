@@ -16,14 +16,17 @@ export const IconPickerNavigation = ({
   return (
     <Tabs
       aria-label="Icon categories"
-      classNames={{
-        tabList: 'w-full',
-      }}
+      variant="underlined"
       selectedKey={activeCategory}
+      size='sm'
       onSelectionChange={key => onActiveCategoryChange(key as IconCategoryList)}
     >
       {categories?.map(category => (
-        <Tab key={category} title={category} />
+        <Tab 
+          key={category} 
+          title={category.replace(/-/g, ' ')} 
+          className="capitalize"
+        />
       ))}
     </Tabs>
   )

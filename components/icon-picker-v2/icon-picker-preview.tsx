@@ -10,10 +10,15 @@ export const IconPickerPreview = ({ selectedIcon }: IconPickerPreviewProps) => {
   }
 
   return (
-    <div className="flex items-center justify-between p-2">
-      <div className="flex items-center gap-2">
-        <selectedIcon.component />
-        <p className="text-sm font-bold">{selectedIcon.name}</p>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-100 dark:bg-gray-800">
+          <selectedIcon.component className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{selectedIcon.name}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">ID: {selectedIcon.id}</p>
+        </div>
       </div>
     </div>
   )
