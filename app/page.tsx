@@ -27,7 +27,6 @@ export default function Home() {
           Show Toast
         </Button>
 
-        {/* 用于登陆成功 */}
         <Button
           variant="flat"
           onPress={() =>

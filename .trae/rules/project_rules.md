@@ -1,7 +1,3 @@
----
-trigger: always_on
-alwaysApply: true
----
 This comprehensive guide outlines best practices, conventions, and standards for development with modern web technologies including ReactJS, NextJS, Redux, TypeScript, JavaScript, HTML, CSS, and UI frameworks.
 
     Development Philosophy

@@ -1,1 +1,5 @@
+export * from './icon-picker'
+export * from './icon-popover'
+export * from './use-icon-picker'
+export * from './use-icon-picker-state'
 export * from './type'

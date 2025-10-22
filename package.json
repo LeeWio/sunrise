@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "test": "jest"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.2.1",

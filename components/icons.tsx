@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IconCategory, IconsProps } from './icon-picker-v2'
+import { type IconCategoryList, type IconsProps, IconCategory } from './icon-picker-v2'
 
 import { IconSvgProps } from '@/types'
 
@@ -2495,19 +2495,3 @@ export const ArrowUturnCcwLeft: React.FC<IconSvgProps> = ({
     />
   </svg>
 )
-
-export const ICONS: IconsProps = {
-  [IconCategory.DEVELOPMENT]: {
-    Nodejs: {
-      name: 'Nodejs',
-      label: 'Node.js',
-      category: IconCategory.DEVELOPMENT,
-      component: NodejsIcon,
-      description:
-        'Node.js is a high-performance JavaScript runtime built on the Chrome V8 engine, used for building scalable server-side applications.',
-      keywords: ['javascript', 'runtime', 'server', 'backend', 'express'],
-    },
-  },
-  [IconCategory.BRANDS]: {},
-  [IconCategory.ALL]: {},
-}
