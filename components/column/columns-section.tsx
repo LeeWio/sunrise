@@ -263,25 +263,38 @@ export function ColumnsSection() {
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           whileInView={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-5xl sm:text-6xl lg:text-8xl font-black mb-6">
+          <motion.h2
+            className="text-5xl sm:text-6xl lg:text-8xl font-black mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: false }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Mind Sparks
             </span>
-          </h2>
-          <p className="text-xl lg:text-2xl text-default-700 max-w-3xl mx-auto leading-relaxed mb-6">
-            Where curiosity meets creativity, ideas dance with possibilities, and the extraordinary emerges from the ordinary
-          </p>
+          </motion.h2>
+          <motion.p
+            className="text-xl lg:text-2xl text-default-700 max-w-3xl mx-auto leading-relaxed mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: false }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            Where curiosity meets creativity, ideas dance with possibilities,
+            and the extraordinary emerges from the ordinary
+          </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
+            whileInView={{ opacity: 1 }}
           >
             <a
-              href="/columns"
               className="inline-flex items-center gap-2 text-default-500 hover:text-default-700 text-sm font-light transition-colors duration-200"
+              href="/columns"
             >
               wander through more wonders
               <span className="opacity-60">→</span>
@@ -295,8 +308,8 @@ export function ColumnsSection() {
             <motion.div
               className="flex-1 lg:max-w-[32%]"
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
+              whileInView={{ opacity: 1, x: 0 }}
             >
               <ColumnCard
                 articles={columns[0].articles}
@@ -311,8 +324,8 @@ export function ColumnsSection() {
             <motion.div
               className="flex-1 lg:max-w-[32%] lg:mt-8"
               initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
             >
               <ColumnCard
                 articles={columns[1].articles}
@@ -327,8 +340,8 @@ export function ColumnsSection() {
             <motion.div
               className="flex-1 lg:max-w-[32%] lg:mt-4"
               initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
+              whileInView={{ opacity: 1, x: 0 }}
             >
               <ColumnCard
                 articles={columns[2].articles}
@@ -344,4 +357,3 @@ export function ColumnsSection() {
     </section>
   )
 }
-
