@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { Button } from '@heroui/react'
 
 import { IconSvgProps } from '@/types'
 import { IconPopover } from '@/components/icon-picker'
@@ -34,6 +35,11 @@ export default function PricingPage() {
 
   return (
     <>
+      <Button endContent={<PlusIcon size={18} />} onPress={onOpen}>
+        create tag
+      </Button>
+
+      <CreateTag isOpen={isOpen} onOpenChange={onOpenChange} />
       <ColorPicker
         hexColor={color}
         onChange={setColor}

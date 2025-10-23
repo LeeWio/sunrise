@@ -1,25 +1,66 @@
-import { IconMeta } from './type'
+import { Divider } from '@heroui/react'
+import { UseIconPickerType, IconMeta } from './type'
 
-export type IconPickerPreviewProps = {
-  selectedIcon: IconMeta | null
-}
-
-export const IconPickerPreview = ({ selectedIcon }: IconPickerPreviewProps) => {
-  if (!selectedIcon) {
-    return null
-  }
-
+function IconPreview({ selectedIcon }: { selectedIcon: IconMeta | null }) {
+  if (!selectedIcon) return null
+  
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-100 dark:bg-gray-800">
-          <selectedIcon.component className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{selectedIcon.name}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">ID: {selectedIcon.id}</p>
-        </div>
+    <div className="flex h-14 max-h-14 min-h-14 items-center px-2 text-default-500">
+      <div className="flex items-center justify-center text-2xl">
+        <selectedIcon.component className="w-6 h-6" />
+      </div>
+      <div className="overflow-hidden pl-2">
+        <div className="truncate text-sm font-semibold">{selectedIcon.name}</div>
+        <div className="truncate text-sm">{selectedIcon.id}</div>
       </div>
     </div>
   )
 }
+
+function NoIcon({ i18n }: Pick<UseIconPickerType, 'i18n'>) {
+  return (
+    <div className="flex h-14 max-h-14 min-h-14 items-center px-2 text-default-500">
+      <div className="flex items-center justify-center text-2xl">😢</div>
+      <div className="overflow-hidden pl-2">
+        <div className="truncate text-sm font-bold">
+          {i18n.searchNoResultsTitle}
+        </div>
+        <div className="truncate text-sm">{i18n.searchNoResultsSubtitle}</div>
+      </div>
+    </div>
+  )
+}
+
+function PickAnIcon({ i18n }: Pick<UseIconPickerType, 'i18n'>) {
+  return (
+    <div className="flex min-h-14 max-h-14 items-center px-2 text-default-500">
+      <div className="flex items-center justify-center text-2xl">☝️</div>
+      <div className="overflow-hidden pl-2">
+        <div className="truncate text-sm font-semibold">{i18n.pick}</div>
+      </div>
+    </div>
+  )
+}
+
+export const IconPickerPreview = ({
+  selectedIcon,
+  hasFound = true,
+  i18n,
+  isSearching = false,
+}: Pick<UseIconPickerType, 'selectedIcon' | 'hasFound' | 'i18n' | 'isSearching'>) => {
+  const showPickIcon = !selectedIcon && (!isSearching || hasFound)
+  const showNoIcon = isSearching && !hasFound
+  const showPreview = selectedIcon && !showNoIcon && !showNoIcon
+
+  return (
+    <>
+      <Divider className="!my-0" orientation="horizontal" />
+      {showPreview && <IconPreview selectedIcon={selectedIcon} />}
+      {showPickIcon && <PickAnIcon i18n={i18n} />}
+      {showNoIcon && <NoIcon i18n={i18n} />}
+    </>
+  )
+}
+
+// 设置显示名称便于调试
+IconPickerPreview.displayName = 'IconPickerPreview'

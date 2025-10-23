@@ -18,11 +18,10 @@ export const useIconPicker = (options: UseIconPickerOptions) => {
 
   const props = {
     onSelectIcon: (icon: IconMeta) => {
-      console.log('useIconPicker: onSelectIcon called with:', icon)
-      // 确保 onSelect 回调被调用
       if (onSelect) {
         onSelect(icon)
       }
+      
       addToast({
         title: `Selected icon: ${icon.name}`,
         color: 'success',

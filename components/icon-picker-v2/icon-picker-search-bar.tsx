@@ -2,7 +2,7 @@ import { Input } from '@heroui/react'
 import { Icon } from '@iconify/react'
 import { UseIconPickerType } from './type'
 
-export const IconPickerSearch = ({
+export const IconPickerSearchBar = ({
   i18n,
   searchValue,
   setSearch,
@@ -28,6 +28,3 @@ export const IconPickerSearch = ({
     </div>
   )
 }
-
-// 设置显示名称便于调试
-IconPickerSearch.displayName = 'IconPickerSearch'

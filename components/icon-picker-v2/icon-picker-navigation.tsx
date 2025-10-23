@@ -1,33 +1,47 @@
-import { Tabs, Tab } from '@heroui/react'
+import { Tooltip, Button } from '@heroui/react'
+import { UseIconPickerType, IconCategoryList } from './type'
 
-import { IconCategoryList } from './type'
-
-export type IconPickerNavigationProps = {
-  categories: IconCategoryList[]
-  activeCategory: IconCategoryList
-  onActiveCategoryChange: (category: IconCategoryList) => void
-}
-
+// 模拟 emoji-picker 的实现方式
 export const IconPickerNavigation = ({
-  categories,
-  activeCategory,
-  onActiveCategoryChange,
-}: IconPickerNavigationProps) => {
+  iconLibrary,
+  focusedCategory,
+  i18n,
+  icons,
+  onClick,
+}: {
+  onClick: (id: IconCategoryList) => void
+} & Pick<
+  UseIconPickerType,
+  'iconLibrary' | 'focusedCategory' | 'i18n' | 'icons'
+>) => {
+  // 模拟 emojiLibrary.getGrid().sections() 的行为
+  const sections = icons?.categories ? Object.keys(icons.categories).map(id => ({ id })) : []
+
   return (
-    <Tabs
-      aria-label="Icon categories"
-      variant="underlined"
-      selectedKey={activeCategory}
-      size='sm'
-      onSelectionChange={key => onActiveCategoryChange(key as IconCategoryList)}
-    >
-      {categories?.map(category => (
-        <Tab 
-          key={category} 
-          title={category.replace(/-/g, ' ')} 
-          className="capitalize"
-        />
-      ))}
-    </Tabs>
+    <div className="flex items-center justify-around w-full">
+      {sections.map(({ id }) => {
+        const categoryId = id as IconCategoryList
+        const label = i18n.categories[categoryId]
+        const icon = icons?.categories?.[categoryId]?.outline
+
+        return (
+          <Tooltip key={id} content={label} delay={500} id={id}>
+            <Button
+              isIconOnly
+              aria-label={label}
+              className="text-default-500"
+              data-hover={categoryId === focusedCategory}
+              size="sm"
+              variant="light"
+              onPress={() => {
+                onClick(categoryId)
+              }}
+            >
+              {icon}
+            </Button>
+          </Tooltip>
+        )
+      })}
+    </div>
   )
 }

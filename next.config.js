@@ -4,6 +4,10 @@ const nextConfig = {
     ignoreBuildErrors: true
   },
 
+  images: {
+    domains: ['res.cloudinary.com'], // 添加这一行
+  },
+
   async rewrites() {
     return [
       {

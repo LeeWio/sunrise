@@ -1,20 +1,35 @@
-import { PopoverWrapper } from '@/components/util/popover-wrapper'
+import { Popover, PopoverContent, PopoverTrigger } from '@heroui/react'
+import { UseIconPickerType } from './type'
+import { IconPicker } from './icon-picker'
+import { useIconPickerState } from './use-icon-picker-state'
 
-import { IconPicker, IconPickerProps } from './icon-picker'
-
-export interface IconPopoverProps extends Omit<IconPickerProps, 'onSelectIcon'> {
-  onSelectIcon?: IconPickerProps['onSelectIcon']
-  isOpen: boolean
-  onOpenChange: (isOpen: boolean) => void
+export type IconPopoverProps = {
   children: React.ReactNode
+} & UseIconPickerType
+
+export const IconPopover = ({
+  children,
+  ...props
+}: IconPopoverProps) => {
+  return (
+    <Popover>
+      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContent className="p-0">
+        <IconPicker {...props} />
+      </PopoverContent>
+    </Popover>
+  )
 }
 
-export const IconPopover = (props: IconPopoverProps) => {
-  const { children, isOpen, onOpenChange, onSelectIcon = () => {}, ...rest } = props
-
-  return (
-    <PopoverWrapper isOpen={isOpen} onOpenChange={onOpenChange} trigger={children}>
-      <IconPicker {...rest} onSelectIcon={onSelectIcon} />
-    </PopoverWrapper>
-  )
+// Hook to use with IconPopover
+export const useIconPopover = () => {
+  const { iconPickerState, isOpen, onOpen, onOpenChange } = useIconPickerState()
+  
+  return {
+    iconPopoverProps: {
+      isOpen,
+      onOpenChange,
+    },
+    iconPickerProps: iconPickerState,
+  }
 }

@@ -94,45 +94,83 @@ export type IconList<T = string> = {
   }
 }
 
-export type IconSettingsType = {
+// 图标选择器设置，借鉴 emoji-picker 的做法
+export const IconSettings = {
   buttonSize: {
-    value: number
-  }
-  categories: {
-    value?: IconCategoryList[]
-  }
+    value: 48, // 按钮大小
+  },
   perLine: {
-    value: number
-  }
+    value: 8, // 每行显示的图标数量
+  },
   showFrequent: {
-    value: boolean
-    key?: string
-    limit?: number
-    prefix?: string
-  }
+    value: false,
+  },
 }
 
+export type IconSettingsType = typeof IconSettings
+
+// 图标分类图标定义，借鉴 emoji-picker 的做法
+export type IconCategoryIcons<T = React.ReactElement> = Record<
+  IconCategoryList,
+  {
+    outline: T
+    solid: T
+  }
+>
+
+export type IconSearchIcons<T = React.ReactElement> = {
+  delete: T
+  loupe: T
+}
+
+export type IconIconList<T = React.ReactElement> = {
+  categories: IconCategoryIcons<T>
+  search: IconSearchIcons<T>
+}
+
+// 专业化的 UseIconPickerType，借鉴 emoji-picker 的设计
 export type UseIconPickerType<
   T extends React.ReactElement = React.ReactElement,
 > = {
-  iconLibrary: Record<string, IconMeta>
-  hasFound: boolean // search has results
-  i18n: Record<string, string>
-  icons: IconList<T> // the icons used in the picker UI
-  isOpen: boolean
-  isSearching: boolean
-  refs: Record<string, React.RefObject<HTMLDivElement>>
-  searchResults: IconMeta[]
+  // 状态相关
+  activeCategory: IconCategoryList
+  categories: IconCategoryList[]
+  displayedIcons: { category: string; icons: IconMeta[] }[]
+  selectedIcon: IconMeta | null
   searchValue: string
-  visibleCategories: Map<IconCategoryList, boolean>
+  isSearching: boolean
+  isOpen: boolean
+  hasFound: boolean
+  focusedCategory?: IconCategoryList
+  focusedIconIndex?: number | null
+  
+  // 库相关
+  iconLibrary: Record<string, IconMeta>
+  icons?: IconIconList<T>
+  
+  // 国际化
+  i18n: {
+    categories: Record<string, string>
+    search: string
+    searchResult: string
+    searchNoResultsTitle: string
+    searchNoResultsSubtitle: string
+    pick: string
+  }
+  
+  // 配置
+  settings: IconSettingsType
+  refs: {
+    contentRoot: React.RefObject<HTMLDivElement>
+    content: React.RefObject<HTMLDivElement>
+  }
+  
+  // 回调函数
+  onActiveCategoryChange: (category: IconCategoryList) => void
+  onSelectIcon: (icon: IconMeta) => void
+  setSearch: (value: string) => void
   clearSearch: () => void
   onOpenChange: () => void
-  setSearch: (value: string) => void
-  handleCategoryClick: (id: IconCategoryList) => void
-  onMouseOver: (icon?: IconMeta) => void
-  onSelectIcon: (icon: IconMeta) => void
-  icon?: IconMeta
-  focusedCategory?: IconCategoryList
-  settings?: IconSettingsType
-  styles?: React.CSSProperties
+  onMouseOver?: (icon?: IconMeta) => void
+  handleCategoryClick?: (id: IconCategoryList) => void
 }
