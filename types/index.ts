@@ -16,4 +16,10 @@ export type Page<T = unknown> = {
   page: number
   size: number
   totalPages: number
+  // Backend Spring Data pagination fields
+  totalElements?: number
+  numberOfElements?: number
+  last?: boolean
+  first?: boolean
+  numberOfElements?: number
 }

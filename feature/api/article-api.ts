@@ -3,7 +3,7 @@ import { addToast } from '@heroui/react'
 
 import { CreateTagDto } from './tag-api'
 
-import { ResultResponse } from '@/types'
+import { Page, ResultResponse } from '@/types'
 
 /**
  * Data Transfer Object for creating a new article.
@@ -189,6 +189,103 @@ export const articleApi = createApi({
             break
           default:
             errorMessage = 'Failed to create article'
+        }
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return {
+          message: errorMessage,
+          status: error.status,
+        }
+      },
+    }),
+
+    /**
+     * Get articles with pagination.
+     * @param params - Pagination parameters
+     * @returns Paginated article entities
+     */
+    getArticles: build.query<Page<ArticleEntity>, { page?: number; size?: number; status?: string }>({
+      query: ({ page = 1, size = 10, status }) => ({
+        url: '',
+        method: 'GET',
+        params: {
+          page,
+          size,
+          ...(status && { status }),
+        },
+      }),
+
+      providesTags: result =>
+        result?.content
+          ? [
+              ...result.content.map(({ aid }) => ({
+                type: 'Article' as const,
+                id: aid,
+              })),
+              { type: 'Articles' as const, id: 'LIST' },
+            ]
+          : [{ type: 'Articles' as const, id: 'LIST' }],
+
+      transformResponse(response: ResultResponse<any>) {
+        if (response.code === 200 && response.data) {
+          // Transform Spring Data pagination format to our Page format
+          const backendData = response.data
+          return {
+            content: backendData.content || [],
+            total: backendData.totalElements || 0,
+            page: backendData.number + 1 || 1, // Spring Data uses 0-based indexing
+            size: backendData.size || 10,
+            totalPages: backendData.totalPages || 0,
+            totalElements: backendData.totalElements,
+            numberOfElements: backendData.numberOfElements,
+            last: backendData.last,
+            first: backendData.first,
+          }
+        }
+
+        const emptyPage: Page<ArticleEntity> = {
+          content: [],
+          total: 0,
+          page: 1,
+          size: 10,
+          totalPages: 0,
+        }
+
+        const errorMessage = response.message || 'Failed to fetch articles'
+
+        addToast({
+          title: errorMessage,
+          color: 'danger',
+        })
+
+        return emptyPage
+      },
+
+      transformErrorResponse: error => {
+        let errorMessage: string
+
+        switch (error.status) {
+          case 400:
+            errorMessage = 'Invalid request parameters'
+            break
+          case 401:
+            errorMessage = 'Authentication required - please sign in'
+            break
+          case 403:
+            errorMessage = 'Access denied - insufficient permissions'
+            break
+          case 404:
+            errorMessage = 'Articles not found'
+            break
+          case 500:
+            errorMessage = 'Internal server error - please try again'
+            break
+          default:
+            errorMessage = 'Failed to fetch articles'
         }
 
         addToast({
@@ -519,6 +616,7 @@ export const articleApi = createApi({
 
 export const {
   useCreateArticleMutation,
+  useGetArticlesQuery,
   useGetArticleByIdQuery,
   useGetArticlesByIdsQuery,
   useUpdateArticleMutation,

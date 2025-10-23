@@ -1,27 +1,32 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: 'Next.js + HeroUI',
-  description: 'Make beautiful websites regardless of your design experience.',
+  name: 'Sunrise Blog',
+  description: '分享技术、记录生活、追逐光明的个人博客',
+  author: {
+    name: '博主姓名',
+    avatar: '/images/avatar.svg',
+    bio: '热爱技术，喜欢分享，专注于前端开发和用户体验设计。',
+  },
   navItems: [
     {
-      label: 'Home',
+      label: '首页',
       href: '/',
     },
     {
-      label: 'Docs',
-      href: '/docs',
-    },
-    {
-      label: 'Pricing',
-      href: '/pricing',
-    },
-    {
-      label: 'Blog',
+      label: '文章',
       href: '/blog',
     },
     {
-      label: 'About',
+      label: '分类',
+      href: '/categories',
+    },
+    {
+      label: '标签',
+      href: '/tags',
+    },
+    {
+      label: '关于',
       href: '/about',
     },
   ],

@@ -174,9 +174,21 @@ export const tagApi = createApi({
           ]
           : [{ type: 'Tag', id: 'LIST' }],
 
-      transformResponse(response: ResultResponse<Page<TagEntity>>) {
+      transformResponse(response: ResultResponse<any>) {
         if (response.code === 200 && response.data) {
-          return response.data
+          // Transform Spring Data pagination format to our Page format
+          const backendData = response.data
+          return {
+            content: backendData.content || [],
+            total: backendData.totalElements || 0,
+            page: backendData.number + 1 || 1, // Spring Data uses 0-based indexing
+            size: backendData.size || 5,
+            totalPages: backendData.totalPages || 0,
+            totalElements: backendData.totalElements,
+            numberOfElements: backendData.numberOfElements,
+            last: backendData.last,
+            first: backendData.first,
+          }
         }
 
         const emptyPage: Page<TagEntity> = {
