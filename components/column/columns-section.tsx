@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 
-import { Code2Icon, BrainIcon } from '../icons'
+import { Code2Icon, BrainIcon, DatabaseIcon } from '../icons'
 
 import { ColumnCard } from './column-card'
 
@@ -186,11 +186,79 @@ export function ColumnsSection() {
         },
       ],
     },
+    {
+      title: 'Database & Architecture',
+      gradientColors: ['#10B981', '#06B6D4', '#3B82F6'],
+      icon: <DatabaseIcon className="text-white" size={24} />,
+      totalArticles: 10,
+      articles: [
+        {
+          id: '30',
+          title: 'PostgreSQL Performance Tuning: A Complete Guide',
+          date: 'Oct 18, 2024',
+          views: '9.2k',
+        },
+        {
+          id: '31',
+          title: 'Database Design Patterns: From Theory to Practice',
+          date: 'Oct 14, 2024',
+          views: '7.6k',
+        },
+        {
+          id: '32',
+          title: 'Microservices Architecture: Design Principles',
+          date: 'Oct 9, 2024',
+          views: '8.1k',
+        },
+        {
+          id: '33',
+          title: 'Distributed Systems: Building Scalable Apps',
+          date: 'Oct 2, 2024',
+          views: '6.4k',
+        },
+        {
+          id: '34',
+          title: 'Container Orchestration with Kubernetes',
+          date: 'Sep 25, 2024',
+          views: '8.7k',
+        },
+        {
+          id: '35',
+          title: 'API Design Best Practices: REST vs GraphQL',
+          date: 'Sep 18, 2024',
+          views: '5.9k',
+        },
+        {
+          id: '36',
+          title: 'Database Migration Strategies: Zero Downtime',
+          date: 'Sep 12, 2024',
+          views: '4.8k',
+        },
+        {
+          id: '37',
+          title: 'Caching Patterns: Redis vs Memcached',
+          date: 'Sep 5, 2024',
+          views: '6.3k',
+        },
+        {
+          id: '38',
+          title: 'Event-Driven Architecture with Message Queues',
+          date: 'Aug 28, 2024',
+          views: '7.4k',
+        },
+        {
+          id: '39',
+          title: 'Data Modeling: From ERD to Implementation',
+          date: 'Aug 20, 2024',
+          views: '5.2k',
+        },
+      ],
+    },
   ]
 
   return (
     <section className="py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -198,27 +266,79 @@ export function ColumnsSection() {
           viewport={{ once: true }}
           whileInView={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4">
+          <h2 className="text-5xl sm:text-6xl lg:text-8xl font-black mb-6">
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Featured Columns
+              Mind Sparks
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-default-600 font-light max-w-2xl mx-auto">
-            Deep-dive series covering modern web development topics
+          <p className="text-xl lg:text-2xl text-default-700 max-w-3xl mx-auto leading-relaxed mb-6">
+            Where curiosity meets creativity, ideas dance with possibilities, and the extraordinary emerges from the ordinary
           </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <a
+              href="/columns"
+              className="inline-flex items-center gap-2 text-default-500 hover:text-default-700 text-sm font-light transition-colors duration-200"
+            >
+              wander through more wonders
+              <span className="opacity-60">→</span>
+            </a>
+          </motion.div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {columns.map((column, index) => (
-            <ColumnCard
-              key={column.title}
-              articles={column.articles}
-              gradientColors={column.gradientColors}
-              icon={column.icon}
-              title={column.title}
-              totalArticles={column.totalArticles}
-            />
-          ))}
+        <div className="relative px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            {/* First column - positioned normally */}
+            <motion.div
+              className="flex-1 lg:max-w-[32%]"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <ColumnCard
+                articles={columns[0].articles}
+                gradientColors={columns[0].gradientColors}
+                icon={columns[0].icon}
+                title={columns[0].title}
+                totalArticles={columns[0].totalArticles}
+              />
+            </motion.div>
+
+            {/* Second column - elevated and centered */}
+            <motion.div
+              className="flex-1 lg:max-w-[32%] lg:mt-8"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <ColumnCard
+                articles={columns[1].articles}
+                gradientColors={columns[1].gradientColors}
+                icon={columns[1].icon}
+                title={columns[1].title}
+                totalArticles={columns[1].totalArticles}
+              />
+            </motion.div>
+
+            {/* Third column - slightly offset */}
+            <motion.div
+              className="flex-1 lg:max-w-[32%] lg:mt-4"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <ColumnCard
+                articles={columns[2].articles}
+                gradientColors={columns[2].gradientColors}
+                icon={columns[2].icon}
+                title={columns[2].title}
+                totalArticles={columns[2].totalArticles}
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
