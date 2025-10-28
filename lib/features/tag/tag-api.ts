@@ -1,9 +1,11 @@
 // Tag API types and interfaces matching backend Horizon project
 
-import { createApi } from "@reduxjs/toolkit/query/react";
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { createBaseQuery } from "../utils/base-query";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { Page, ResultResponse } from "@/types";
+
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { createBaseQuery } from "../utils/base-query";
 
 // Transform backend response to frontend format
 const transformResponse = <T>(response: ResultResponse<T>) => {
@@ -11,12 +13,13 @@ const transformResponse = <T>(response: ResultResponse<T>) => {
   if (response.code >= 200 && response.code < 300) {
     return response.data as T;
   }
-  throw new Error(response.message || 'Request failed');
+  throw new Error(response.message || "Request failed");
 };
 
 // Transform pagination response
 const transformPaginatedResponse = <T>(response: ResultResponse<Page<T>>) => {
   const data = transformResponse(response);
+
   return {
     ...data,
     // Ensure consistent pagination format
@@ -30,31 +33,34 @@ const transformPaginatedResponse = <T>(response: ResultResponse<Page<T>>) => {
 
 // Enhanced error handling
 const transformErrorResponse = (error: FetchBaseQueryError) => {
-  if (error.status === 'PARSING_ERROR' && error.originalStatus) {
+  if (error.status === "PARSING_ERROR" && error.originalStatus) {
     return {
       status: error.originalStatus,
-      message: (error.data as { message?: string })?.message || 'Response parsing error',
+      message:
+        (error.data as { message?: string })?.message ||
+        "Response parsing error",
       data: error.data,
     };
   }
 
-  if (error.status === 'TIMEOUT_ERROR') {
+  if (error.status === "TIMEOUT_ERROR") {
     return {
       status: 408,
-      message: 'Request timeout. Please try again.',
+      message: "Request timeout. Please try again.",
     };
   }
 
-  if (error.status === 'FETCH_ERROR') {
+  if (error.status === "FETCH_ERROR") {
     return {
       status: 0,
-      message: 'Network error. Please check your connection.',
+      message: "Network error. Please check your connection.",
     };
   }
 
   return {
     status: error.status as number,
-    message: (error.data as { message?: string })?.message || 'An error occurred',
+    message:
+      (error.data as { message?: string })?.message || "An error occurred",
     data: error.data,
   };
 };
@@ -135,10 +141,10 @@ export interface SearchTagsRequest {
   size?: number;
 
   /** Sort field */
-  sortBy?: 'name' | 'createdAt' | 'articleCount';
+  sortBy?: "name" | "createdAt" | "articleCount";
 
   /** Sort direction */
-  sortDirection?: 'asc' | 'desc';
+  sortDirection?: "asc" | "desc";
 }
 
 export interface PopularTagsRequest {
@@ -146,7 +152,7 @@ export interface PopularTagsRequest {
   limit?: number;
 
   /** Time period (day, week, month, all) */
-  period?: 'day' | 'week' | 'month' | 'all';
+  period?: "day" | "week" | "month" | "all";
 }
 
 // Tag with article count
@@ -162,12 +168,12 @@ export interface TagWithStats extends Tag {
 }
 
 const tagApi = createApi({
-  reducerPath: 'tag-api',
+  reducerPath: "tag-api",
 
-  tagTypes: ['Tag', 'Tags', 'PopularTags'],
+  tagTypes: ["Tag", "Tags", "PopularTags"],
 
   baseQuery: createBaseQuery({
-    baseUrl: '/api/tag',
+    baseUrl: "/api/tag",
   }),
 
   // Global configuration for cache invalidation and behavior
@@ -176,28 +182,29 @@ const tagApi = createApi({
   refetchOnFocus: true,
   refetchOnReconnect: true,
 
-  endpoints: build => ({
+  endpoints: (build) => ({
     /**
      * Create a new tag.
      * @param tag - Tag data for creation
      * @returns Created tag entity
      */
     createTag: build.mutation<Tag, CreateTagRequest>({
-      query: tag => ({
-        url: '/create',
-        method: 'POST',
-        body: tag
+      query: (tag) => ({
+        url: "/create",
+        method: "POST",
+        body: tag,
       }),
-      transformResponse: (response: ResultResponse<Tag>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<Tag>) =>
+        transformResponse(response),
       transformErrorResponse,
-      invalidatesTags: ['Tags', { type: 'Tag', id: 'LIST' }],
+      invalidatesTags: ["Tags", { type: "Tag", id: "LIST" }],
       // Optimistic update for better UX
       onQueryStarted: async (tagData, { dispatch, queryFulfilled }) => {
         // Optimistic update: immediately add a temporary tag
         const tempTag: Tag = {
           tid: `temp-${Date.now()}`,
           name: tagData.name,
-          slug: tagData.slug || tagData.name.toLowerCase().replace(/\s+/g, '-'),
+          slug: tagData.slug || tagData.name.toLowerCase().replace(/\s+/g, "-"),
           icon: tagData.icon,
           color: tagData.color,
           description: tagData.description,
@@ -206,7 +213,7 @@ const tagApi = createApi({
 
         // Patch the cache with optimistic update
         dispatch(
-          tagApi.util.updateQueryData('getAllTags', undefined, (draft) => {
+          tagApi.util.updateQueryData("getAllTags", undefined, (draft) => {
             if (draft) {
               return {
                 ...draft,
@@ -214,39 +221,45 @@ const tagApi = createApi({
                 totalElements: (draft.totalElements || 0) + 1,
               };
             }
+
             return draft;
-          })
+          }),
         );
 
         try {
           const { data } = await queryFulfilled;
+
           // Replace optimistic update with real data
           dispatch(
-            tagApi.util.updateQueryData('getAllTags', undefined, (draft) => {
+            tagApi.util.updateQueryData("getAllTags", undefined, (draft) => {
               if (draft) {
                 return {
                   ...draft,
-                  content: draft.content?.map(tag =>
-                    tag.tid === tempTag.tid ? data : tag
+                  content: draft.content?.map((tag) =>
+                    tag.tid === tempTag.tid ? data : tag,
                   ) || [data],
                 };
               }
+
               return draft;
-            })
+            }),
           );
         } catch {
           // Revert optimistic update on error
           dispatch(
-            tagApi.util.updateQueryData('getAllTags', undefined, (draft) => {
+            tagApi.util.updateQueryData("getAllTags", undefined, (draft) => {
               if (draft) {
                 return {
                   ...draft,
-                  content: draft.content?.filter(tag => tag.tid !== tempTag.tid) || [],
+                  content:
+                    draft.content?.filter((tag) => tag.tid !== tempTag.tid) ||
+                    [],
                   totalElements: Math.max(0, (draft.totalElements || 0) - 1),
                 };
               }
+
               return draft;
-            })
+            }),
           );
         }
       },
@@ -260,12 +273,12 @@ const tagApi = createApi({
     updateTag: build.mutation<Tag, UpdateTagRequest>({
       query: ({ tid, ...patch }) => ({
         url: `/${tid}`,
-        method: 'PUT',
-        body: patch
+        method: "PUT",
+        body: patch,
       }),
       invalidatesTags: (result, error, { tid }) => [
-        { type: 'Tag', id: tid },
-        'Tags'
+        { type: "Tag", id: tid },
+        "Tags",
       ],
     }),
 
@@ -276,7 +289,7 @@ const tagApi = createApi({
      */
     getTagById: build.query<Tag, string>({
       query: (tagId) => `/${tagId}`,
-      providesTags: (result, error, tagId) => [{ type: 'Tag', id: tagId }],
+      providesTags: (result, error, tagId) => [{ type: "Tag", id: tagId }],
     }),
 
     /**
@@ -287,11 +300,11 @@ const tagApi = createApi({
     deleteTag: build.mutation<void, string>({
       query: (tagId) => ({
         url: `/${tagId}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
       invalidatesTags: (result, error, tagId) => [
-        { type: 'Tag', id: tagId },
-        'Tags'
+        { type: "Tag", id: tagId },
+        "Tags",
       ],
     }),
 
@@ -302,30 +315,36 @@ const tagApi = createApi({
      */
     getAllTags: build.query<Page<Tag>, SearchTagsRequest | void>({
       query: (params) => ({
-        url: '',
-        params: params || {}
+        url: "",
+        params: params || {},
       }),
-      transformResponse: (response: ResultResponse<Page<Tag>>) => transformPaginatedResponse(response),
+      transformResponse: (response: ResultResponse<Page<Tag>>) =>
+        transformPaginatedResponse(response),
       transformErrorResponse,
-      providesTags: ['Tags'],
+      providesTags: ["Tags"],
       // Subscribe to real-time updates
       async onCacheEntryAdded(arg, api) {
         // Set up WebSocket subscription for real-time tag updates
         // This would integrate with your WebSocket implementation
         const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL}/tags`;
 
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           const ws = new WebSocket(wsUrl);
 
           ws.onmessage = (event) => {
             try {
               const data = JSON.parse(event.data);
-              if (data.type === 'TAG_CREATED' || data.type === 'TAG_UPDATED' || data.type === 'TAG_DELETED') {
+
+              if (
+                data.type === "TAG_CREATED" ||
+                data.type === "TAG_UPDATED" ||
+                data.type === "TAG_DELETED"
+              ) {
                 // Invalidate cache when tags change
-                api.dispatch(tagApi.util.invalidateTags(['Tags']));
+                api.dispatch(tagApi.util.invalidateTags(["Tags"]));
               }
             } catch (error) {
-              console.warn('WebSocket message parsing error:', error);
+              console.warn("WebSocket message parsing error:", error);
             }
           };
 
@@ -344,10 +363,10 @@ const tagApi = createApi({
      */
     getPopularTags: build.query<TagWithStats[], PopularTagsRequest | void>({
       query: (params) => ({
-        url: '/popular',
-        params: params || {}
+        url: "/popular",
+        params: params || {},
       }),
-      providesTags: ['PopularTags'],
+      providesTags: ["PopularTags"],
     }),
 
     /**
@@ -355,12 +374,15 @@ const tagApi = createApi({
      * @param params - Search parameters
      * @returns Search results
      */
-    searchTags: build.query<Page<Tag>, { keyword: string; page?: number; size?: number }>({
+    searchTags: build.query<
+      Page<Tag>,
+      { keyword: string; page?: number; size?: number }
+    >({
       query: ({ keyword, page = 0, size = 10 }) => ({
-        url: '/search',
-        params: { keyword, page, size }
+        url: "/search",
+        params: { keyword, page, size },
       }),
-      providesTags: ['Tags'],
+      providesTags: ["Tags"],
     }),
 
     /**
@@ -370,20 +392,23 @@ const tagApi = createApi({
      */
     getTagsByArticle: build.query<Tag[], string>({
       query: (articleId) => `/article/${articleId}`,
-      providesTags: ['Tags'],
+      providesTags: ["Tags"],
     }),
 
     /**
      * Get tag statistics.
      * @returns Tag statistics overview
      */
-    getTagStats: build.query<{
-      totalTags: number;
-      totalArticles: number;
-      popularTags: Tag[];
-    }, void>({
-      query: () => '/stats',
-      providesTags: ['PopularTags'],
+    getTagStats: build.query<
+      {
+        totalTags: number;
+        totalArticles: number;
+        popularTags: Tag[];
+      },
+      void
+    >({
+      query: () => "/stats",
+      providesTags: ["PopularTags"],
     }),
 
     /**
@@ -394,41 +419,45 @@ const tagApi = createApi({
     followTag: build.mutation<void, string>({
       query: (tagId) => ({
         url: `/${tagId}/follow`,
-        method: 'POST'
+        method: "POST",
       }),
       transformErrorResponse,
       invalidatesTags: (result, error, tagId) => [
-        { type: 'Tag', id: tagId },
-        'PopularTags'
+        { type: "Tag", id: tagId },
+        "PopularTags",
       ],
       // Optimistic update for follow status
       onQueryStarted: async (tagId, { dispatch, queryFulfilled, getState }) => {
         // Update the tag in cache optimistically
         dispatch(
-          tagApi.util.updateQueryData('getTagById', tagId, (draft) => {
+          tagApi.util.updateQueryData("getTagById", tagId, (draft) => {
             if (draft) {
               return { ...draft, isFollowed: true };
             }
+
             return draft;
-          })
+          }),
         );
 
         // Also update in lists
         const state = getState();
         const allTagsData = tagApi.endpoints.getAllTags.select()(state)?.data;
+
         if (allTagsData) {
           dispatch(
-            tagApi.util.updateQueryData('getAllTags', undefined, (draft) => {
+            tagApi.util.updateQueryData("getAllTags", undefined, (draft) => {
               if (draft) {
                 return {
                   ...draft,
-                  content: draft.content?.map(tag =>
-                    tag.tid === tagId ? { ...tag, isFollowed: true } : tag
-                  ) || [],
+                  content:
+                    draft.content?.map((tag) =>
+                      tag.tid === tagId ? { ...tag, isFollowed: true } : tag,
+                    ) || [],
                 };
               }
+
               return draft;
-            })
+            }),
           );
         }
 
@@ -437,26 +466,29 @@ const tagApi = createApi({
         } catch {
           // Revert optimistic update on error
           dispatch(
-            tagApi.util.updateQueryData('getTagById', tagId, (draft) => {
+            tagApi.util.updateQueryData("getTagById", tagId, (draft) => {
               if (draft) {
                 return { ...draft, isFollowed: false };
               }
+
               return draft;
-            })
+            }),
           );
 
           dispatch(
-            tagApi.util.updateQueryData('getAllTags', undefined, (draft) => {
+            tagApi.util.updateQueryData("getAllTags", undefined, (draft) => {
               if (draft) {
                 return {
                   ...draft,
-                  content: draft.content?.map(tag =>
-                    tag.tid === tagId ? { ...tag, isFollowed: false } : tag
-                  ) || [],
+                  content:
+                    draft.content?.map((tag) =>
+                      tag.tid === tagId ? { ...tag, isFollowed: false } : tag,
+                    ) || [],
                 };
               }
+
               return draft;
-            })
+            }),
           );
         }
       },
@@ -470,23 +502,24 @@ const tagApi = createApi({
     unfollowTag: build.mutation<void, string>({
       query: (tagId) => ({
         url: `/${tagId}/follow`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
       transformErrorResponse,
       invalidatesTags: (result, error, tagId) => [
-        { type: 'Tag', id: tagId },
-        'PopularTags'
+        { type: "Tag", id: tagId },
+        "PopularTags",
       ],
       // Optimistic update for unfollow status
       onQueryStarted: async (tagId, { dispatch, queryFulfilled }) => {
         // Update the tag in cache optimistically
         dispatch(
-          tagApi.util.updateQueryData('getTagById', tagId, (draft) => {
+          tagApi.util.updateQueryData("getTagById", tagId, (draft) => {
             if (draft) {
               return { ...draft, isFollowed: false };
             }
+
             return draft;
-          })
+          }),
         );
 
         try {
@@ -494,12 +527,13 @@ const tagApi = createApi({
         } catch {
           // Revert optimistic update on error
           dispatch(
-            tagApi.util.updateQueryData('getTagById', tagId, (draft) => {
+            tagApi.util.updateQueryData("getTagById", tagId, (draft) => {
               if (draft) {
                 return { ...draft, isFollowed: true };
               }
+
               return draft;
-            })
+            }),
           );
         }
       },
@@ -512,13 +546,13 @@ const tagApi = createApi({
      */
     getFollowedTags: build.query<Tag[], string | void>({
       query: (userId) => ({
-        url: '/followed',
-        params: userId ? { userId } : {}
+        url: "/followed",
+        params: userId ? { userId } : {},
       }),
-      providesTags: ['Tags'],
+      providesTags: ["Tags"],
     }),
   }),
-})
+});
 
 // Export hooks for all endpoints
 export const {
@@ -534,4 +568,4 @@ export const {
   useFollowTagMutation,
   useUnfollowTagMutation,
   useGetFollowedTagsQuery,
-} = tagApi
+} = tagApi;

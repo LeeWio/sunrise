@@ -1,4 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
+import type { Page } from "@/types";
 
 import { createSlice } from "../create-slice";
 
@@ -11,7 +12,6 @@ import {
   ChangePasswordRequest,
   AuditUserRequest,
   UpdateUserRequest,
-  Page,
 } from "./user-api";
 
 export interface UserSliceState {

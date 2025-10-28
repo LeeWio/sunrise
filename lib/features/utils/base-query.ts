@@ -1,11 +1,11 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
-import { retry } from '@reduxjs/toolkit/query/react'
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { retry } from "@reduxjs/toolkit/query/react";
 
-import { RootState } from '@/lib/store'
+import { RootState } from "@/lib/store";
 
 interface CreateBaseQueryOptions {
-  baseUrl: string
-  maxRetries?: number
+  baseUrl: string;
+  maxRetries?: number;
 }
 
 export const createBaseQuery = ({
@@ -16,22 +16,22 @@ export const createBaseQuery = ({
     fetchBaseQuery({
       baseUrl,
       prepareHeaders: (headers, { getState }) => {
-        // 先假设
-        const { auth } = getState()
+        // Get user state with proper typing
+        const { user } = getState() as RootState;
 
-        if (auth.isAuthenticated && auth.userDetail?.authorization) {
-          headers.set('Authorization', auth.userDetail.authorization)
+        if (user?.isAuthenticated && user?.token) {
+          headers.set("Authorization", `Bearer ${user.token}`);
         }
 
         // 可选：添加 Content-Type 或其他通用 headers
-        headers.set('Content-Type', 'application/json')
+        headers.set("Content-Type", "application/json");
 
-        return headers
+        return headers;
       },
       // 可选：添加全局错误处理（如 token 过期跳转登录）
       // 可通过 `validateStatus` 或在 `transformErrorResponse` 中处理
     }),
     {
       maxRetries,
-    }
-  )
+    },
+  );

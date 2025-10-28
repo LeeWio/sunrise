@@ -1,12 +1,19 @@
 // User API types and interfaces matching backend Horizon project
 
-import { createApi } from "@reduxjs/toolkit/query/react";
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { createBaseQuery } from "../utils/base-query";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { Page, ResultResponse } from "@/types";
 
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { createBaseQuery } from "../utils/base-query";
+
 // User status enum matching backend UserStatus
-export type UserStatus = 'PENDING' | 'ACTIVE' | 'INACTIVE' | 'BANNED' | 'DELETED';
+export type UserStatus =
+  | "PENDING"
+  | "ACTIVE"
+  | "INACTIVE"
+  | "BANNED"
+  | "DELETED";
 
 // Role interface matching backend RoleVO
 export interface Role {
@@ -169,10 +176,10 @@ export interface SearchUsersRequest {
   size?: number;
 
   /** Sort field */
-  sortBy?: 'username' | 'createdAt' | 'lastLoginAt' | 'articleCount';
+  sortBy?: "username" | "createdAt" | "lastLoginAt" | "articleCount";
 
   /** Sort direction */
-  sortDirection?: 'asc' | 'desc';
+  sortDirection?: "asc" | "desc";
 }
 
 // OTP verification types
@@ -222,12 +229,13 @@ const transformResponse = <T>(response: ResultResponse<T>) => {
   if (response.code >= 200 && response.code < 300) {
     return response.data as T;
   }
-  throw new Error(response.message || 'Request failed');
+  throw new Error(response.message || "Request failed");
 };
 
 // Transform pagination response
 const transformPaginatedResponse = <T>(response: ResultResponse<Page<T>>) => {
   const data = transformResponse(response);
+
   return {
     ...data,
     // Ensure consistent pagination format
@@ -241,42 +249,45 @@ const transformPaginatedResponse = <T>(response: ResultResponse<Page<T>>) => {
 
 // Enhanced error handling
 const transformErrorResponse = (error: FetchBaseQueryError) => {
-  if (error.status === 'PARSING_ERROR' && error.originalStatus) {
+  if (error.status === "PARSING_ERROR" && error.originalStatus) {
     return {
       status: error.originalStatus,
-      message: (error.data as { message?: string })?.message || 'Response parsing error',
+      message:
+        (error.data as { message?: string })?.message ||
+        "Response parsing error",
       data: error.data,
     };
   }
 
-  if (error.status === 'TIMEOUT_ERROR') {
+  if (error.status === "TIMEOUT_ERROR") {
     return {
       status: 408,
-      message: 'Request timeout. Please try again.',
+      message: "Request timeout. Please try again.",
     };
   }
 
-  if (error.status === 'FETCH_ERROR') {
+  if (error.status === "FETCH_ERROR") {
     return {
       status: 0,
-      message: 'Network error. Please check your connection.',
+      message: "Network error. Please check your connection.",
     };
   }
 
   return {
     status: error.status as number,
-    message: (error.data as { message?: string })?.message || 'An error occurred',
+    message:
+      (error.data as { message?: string })?.message || "An error occurred",
     data: error.data,
   };
 };
 
 const userApi = createApi({
-  reducerPath: 'user-api',
+  reducerPath: "user-api",
 
-  tagTypes: ['User', 'Users', 'CurrentUser', 'UserStats'],
+  tagTypes: ["User", "Users", "CurrentUser", "UserStats"],
 
   baseQuery: createBaseQuery({
-    baseUrl: '/api/user',
+    baseUrl: "/api/user",
   }),
 
   // Global configuration for cache invalidation and behavior
@@ -285,7 +296,7 @@ const userApi = createApi({
   refetchOnFocus: true,
   refetchOnReconnect: true,
 
-  endpoints: build => ({
+  endpoints: (build) => ({
     /**
      * User login authentication.
      * @param credentials - Login credentials
@@ -293,13 +304,14 @@ const userApi = createApi({
      */
     login: build.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
-        url: '/authenticate',
-        method: 'POST',
-        body: credentials
+        url: "/authenticate",
+        method: "POST",
+        body: credentials,
       }),
-      transformResponse: (response: ResultResponse<LoginResponse>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<LoginResponse>) =>
+        transformResponse(response),
       transformErrorResponse,
-      invalidatesTags: ['CurrentUser'],
+      invalidatesTags: ["CurrentUser"],
     }),
 
     /**
@@ -309,13 +321,14 @@ const userApi = createApi({
      */
     register: build.mutation<User, RegisterRequest>({
       query: (userData) => ({
-        url: '/create',
-        method: 'POST',
-        body: userData
+        url: "/create",
+        method: "POST",
+        body: userData,
       }),
-      transformResponse: (response: ResultResponse<User>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<User>) =>
+        transformResponse(response),
       transformErrorResponse,
-      invalidatesTags: ['Users'],
+      invalidatesTags: ["Users"],
     }),
 
     /**
@@ -324,11 +337,11 @@ const userApi = createApi({
      */
     logout: build.mutation<void, void>({
       query: () => ({
-        url: '/logout',
-        method: 'POST'
+        url: "/logout",
+        method: "POST",
       }),
       transformErrorResponse,
-      invalidatesTags: ['CurrentUser'],
+      invalidatesTags: ["CurrentUser"],
     }),
 
     /**
@@ -336,27 +349,32 @@ const userApi = createApi({
      * @returns Current user entity
      */
     getCurrentUser: build.query<User, void>({
-      query: () => '/profile',
-      transformResponse: (response: ResultResponse<User>) => transformResponse(response),
+      query: () => "/profile",
+      transformResponse: (response: ResultResponse<User>) =>
+        transformResponse(response),
       transformErrorResponse,
-      providesTags: ['CurrentUser'],
+      providesTags: ["CurrentUser"],
       // Subscribe to real-time updates
       async onCacheEntryAdded(arg, api) {
         // Set up WebSocket subscription for real-time user updates
         const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL}/user/profile`;
 
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           const ws = new WebSocket(wsUrl);
 
           ws.onmessage = (event) => {
             try {
               const data = JSON.parse(event.data);
-              if (data.type === 'USER_UPDATED' || data.type === 'USER_STATUS_CHANGED') {
+
+              if (
+                data.type === "USER_UPDATED" ||
+                data.type === "USER_STATUS_CHANGED"
+              ) {
                 // Invalidate cache when user data changes
-                api.dispatch(userApi.util.invalidateTags(['CurrentUser']));
+                api.dispatch(userApi.util.invalidateTags(["CurrentUser"]));
               }
             } catch (error) {
-              console.warn('WebSocket message parsing error:', error);
+              console.warn("WebSocket message parsing error:", error);
             }
           };
 
@@ -375,42 +393,21 @@ const userApi = createApi({
      */
     updateProfile: build.mutation<User, UpdateProfileRequest>({
       query: (profileData) => ({
-        url: '/profile',
-        method: 'PUT',
-        body: profileData
+        url: "/profile",
+        method: "PUT",
+        body: profileData,
       }),
-      transformResponse: (response: ResultResponse<User>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<User>) =>
+        transformResponse(response),
       transformErrorResponse,
-      invalidatesTags: ['CurrentUser'],
+      invalidatesTags: ["CurrentUser"],
       // Optimistic update for profile changes
       onQueryStarted: async (profileData, { dispatch, queryFulfilled }) => {
-        // Get current user data for optimistic update
-        const currentData = dispatch(userApi.endpoints.getCurrentUser.select());
-
-        if (currentData.data) {
-          // Optimistic update
-          dispatch(
-            userApi.util.updateQueryData('getCurrentUser', undefined, (draft) => {
-              if (draft) {
-                return { ...draft, ...profileData };
-              }
-              return draft;
-            })
-          );
-
-          try {
-            await queryFulfilled;
-          } catch {
-            // Revert optimistic update on error
-            dispatch(
-              userApi.util.updateQueryData('getCurrentUser', undefined, (draft) => {
-                if (draft) {
-                  return currentData.data;
-                }
-                return draft;
-              })
-            );
-          }
+        try {
+          await queryFulfilled;
+        } catch {
+          // Revert optimistic update on error - refetch data
+          dispatch(userApi.util.invalidateTags(["CurrentUser"]));
         }
       },
     }),
@@ -422,9 +419,9 @@ const userApi = createApi({
      */
     changePassword: build.mutation<void, ChangePasswordRequest>({
       query: (passwordData) => ({
-        url: '/password',
-        method: 'PUT',
-        body: passwordData
+        url: "/password",
+        method: "PUT",
+        body: passwordData,
       }),
       transformErrorResponse,
     }),
@@ -436,55 +433,21 @@ const userApi = createApi({
      */
     uploadAvatar: build.mutation<{ avatarUrl: string }, FormData>({
       query: (file) => ({
-        url: '/avatar',
-        method: 'POST',
-        body: file
+        url: "/avatar",
+        method: "POST",
+        body: file,
       }),
-      transformResponse: (response: ResultResponse<{ avatarUrl: string }>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<{ avatarUrl: string }>) =>
+        transformResponse(response),
       transformErrorResponse,
-      invalidatesTags: ['CurrentUser'],
+      invalidatesTags: ["CurrentUser"],
       // Optimistic update for avatar
       onQueryStarted: async (file, { dispatch, queryFulfilled }) => {
-        const currentData = dispatch(userApi.endpoints.getCurrentUser.select());
-
-        if (currentData.data) {
-          // Create temporary avatar URL for immediate update
-          const tempAvatarUrl = URL.createObjectURL(file.get('avatar') as File);
-
-          dispatch(
-            userApi.util.updateQueryData('getCurrentUser', undefined, (draft) => {
-              if (draft) {
-                return { ...draft, avatar: tempAvatarUrl };
-              }
-              return draft;
-            })
-          );
-
-          try {
-            const { data } = await queryFulfilled;
-            // Replace with real avatar URL
-            dispatch(
-              userApi.util.updateQueryData('getCurrentUser', undefined, (draft) => {
-                if (draft) {
-                  return { ...draft, avatar: data.avatarUrl };
-                }
-                return draft;
-              })
-            );
-          } catch {
-            // Revert to original avatar on error
-            dispatch(
-              userApi.util.updateQueryData('getCurrentUser', undefined, (draft) => {
-                if (draft) {
-                  return { ...draft, avatar: currentData.data.avatar };
-                }
-                return draft;
-              })
-            );
-          } finally {
-            // Clean up temporary URL
-            URL.revokeObjectURL(tempAvatarUrl);
-          }
+        try {
+          await queryFulfilled;
+        } catch {
+          // Revert optimistic update on error - refetch data
+          dispatch(userApi.util.invalidateTags(["CurrentUser"]));
         }
       },
     }),
@@ -496,12 +459,13 @@ const userApi = createApi({
      */
     getAllUsers: build.query<Page<User>, SearchUsersRequest | void>({
       query: (params) => ({
-        url: '/all',
-        params: params || {}
+        url: "/all",
+        params: params || {},
       }),
-      transformResponse: (response: ResultResponse<Page<User>>) => transformPaginatedResponse(response),
+      transformResponse: (response: ResultResponse<Page<User>>) =>
+        transformPaginatedResponse(response),
       transformErrorResponse,
-      providesTags: ['Users'],
+      providesTags: ["Users"],
     }),
 
     /**
@@ -511,9 +475,10 @@ const userApi = createApi({
      */
     getUserById: build.query<UserWithStats, string>({
       query: (userId) => `/${userId}`,
-      transformResponse: (response: ResultResponse<UserWithStats>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<UserWithStats>) =>
+        transformResponse(response),
       transformErrorResponse,
-      providesTags: (result, error, userId) => [{ type: 'User', id: userId }],
+      providesTags: (result, error, userId) => [{ type: "User", id: userId }],
     }),
 
     /**
@@ -524,14 +489,15 @@ const userApi = createApi({
     updateUser: build.mutation<User, UpdateUserRequest>({
       query: ({ uid, ...patch }) => ({
         url: `/${uid}`,
-        method: 'PUT',
-        body: patch
+        method: "PUT",
+        body: patch,
       }),
-      transformResponse: (response: ResultResponse<User>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<User>) =>
+        transformResponse(response),
       transformErrorResponse,
       invalidatesTags: (result, error, { uid }) => [
-        { type: 'User', id: uid },
-        'Users'
+        { type: "User", id: uid },
+        "Users",
       ],
     }),
 
@@ -543,14 +509,15 @@ const userApi = createApi({
     auditUser: build.mutation<User, AuditUserRequest>({
       query: (auditData) => ({
         url: `/${auditData.uid}/status`,
-        method: 'PUT',
-        body: auditData
+        method: "PUT",
+        body: auditData,
       }),
-      transformResponse: (response: ResultResponse<User>) => transformResponse(response),
+      transformResponse: (response: ResultResponse<User>) =>
+        transformResponse(response),
       transformErrorResponse,
       invalidatesTags: (result, error, { uid }) => [
-        { type: 'User', id: uid },
-        'Users'
+        { type: "User", id: uid },
+        "Users",
       ],
     }),
 
@@ -562,12 +529,12 @@ const userApi = createApi({
     deleteUser: build.mutation<void, string>({
       query: (userId) => ({
         url: `/${userId}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
       transformErrorResponse,
       invalidatesTags: (result, error, userId) => [
-        { type: 'User', id: userId },
-        'Users'
+        { type: "User", id: userId },
+        "Users",
       ],
     }),
 
@@ -578,9 +545,9 @@ const userApi = createApi({
      */
     sendOTP: build.mutation<void, string>({
       query: (email) => ({
-        url: '/send-otp',
-        method: 'POST',
-        body: { email }
+        url: "/send-otp",
+        method: "POST",
+        body: { email },
       }),
       transformErrorResponse,
     }),
@@ -592,9 +559,9 @@ const userApi = createApi({
      */
     verifyOTP: build.mutation<void, { email: string; otp: string }>({
       query: ({ email, otp }) => ({
-        url: '/verify-otp',
-        method: 'POST',
-        body: { email, otp }
+        url: "/verify-otp",
+        method: "POST",
+        body: { email, otp },
       }),
       transformErrorResponse,
     }),
@@ -606,9 +573,9 @@ const userApi = createApi({
      */
     forgotPassword: build.mutation<void, string>({
       query: (email) => ({
-        url: '/forgot-password',
-        method: 'POST',
-        body: { email }
+        url: "/forgot-password",
+        method: "POST",
+        body: { email },
       }),
       transformErrorResponse,
     }),
@@ -618,27 +585,30 @@ const userApi = createApi({
      * @param resetData - Token and new password
      * @returns void
      */
-    resetPassword: build.mutation<void, { token: string; newPassword: string }>({
-      query: ({ token, newPassword }) => ({
-        url: '/reset-password',
-        method: 'POST',
-        body: { token, newPassword }
-      }),
-      transformErrorResponse,
-    }),
+    resetPassword: build.mutation<void, { token: string; newPassword: string }>(
+      {
+        query: ({ token, newPassword }) => ({
+          url: "/reset-password",
+          method: "POST",
+          body: { token, newPassword },
+        }),
+        transformErrorResponse,
+      },
+    ),
 
     /**
      * Get user statistics (admin function).
      * @returns User statistics overview
      */
     getUserStats: build.query<UserStats, void>({
-      query: () => '/stats',
-      transformResponse: (response: ResultResponse<UserStats>) => transformResponse(response),
+      query: () => "/stats",
+      transformResponse: (response: ResultResponse<UserStats>) =>
+        transformResponse(response),
       transformErrorResponse,
-      providesTags: ['UserStats'],
+      providesTags: ["UserStats"],
     }),
   }),
-})
+});
 
 // Export hooks for all endpoints
 export const {
@@ -659,4 +629,4 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useGetUserStatsQuery,
-} = userApi
+} = userApi;
