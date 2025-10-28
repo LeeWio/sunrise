@@ -1,32 +1,12 @@
-'use client'
-
-import { useRef, useEffect } from 'react'
-import { HeroSection } from '@/components/home/hero-section'
-import { ArticleSection } from '@/components/home/article-section'
-import { ColumnsSection } from '@/components/column/columns-section'
-import { AboutSection } from '@/components/home/about-section'
-import { NewsletterSection } from '@/components/home/newsletter-section'
+import LangSwitch from "@/components/lang-switch";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
-  const articlesRef = useRef<HTMLDivElement>(null)
-
-  const scrollToArticles = () => {
-    articlesRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    console.log('Home page loaded')
-  }, [])
-
+  const t = useTranslations("Route")
   return (
-    <div className="min-h-screen bg-background">
-      <HeroSection scrollToArticles={scrollToArticles} />
-      <div ref={articlesRef}>
-        <ArticleSection />
-      </div>
-      <ColumnsSection />
-      <AboutSection />
-      <NewsletterSection />
-    </div>
-  )
+    <>
+      <LangSwitch />
+      <button className="button button--primary " >{t('dashboard')}</button>
+    </>
+  );
 }

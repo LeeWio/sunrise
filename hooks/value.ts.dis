@@ -1,8 +1,0 @@
-import type { Value } from 'platejs'
-
-export const initialValue: Value = [
-  {
-    children: [{ text: 'Welcome to the Plate Playground!' }],
-    type: 'h1',
-  },
-]

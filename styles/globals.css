@@ -1,55 +1,5 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
 
-@theme {
-  /* 你也可以在这里定义变量 */
-}
+@import "@heroui/styles";
 
-@layer components {
-  .liquid-glass {
-    @apply bg-background/10 backdrop-blur backdrop-saturate-150 before:bg-white/10 border-white/20 before:rounded-xl shadow-small
-  }
-}
-
-
-@keyframes gradient-bg {
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
-  }
-}
-
-.dynamic-gradient-bg {
-  background: linear-gradient(-45deg, 
-    rgba(255, 0, 150, 0.8), 
-    rgba(0, 204, 255, 0.8), 
-    rgba(255, 204, 0, 0.8), 
-    rgba(255, 0, 150, 0.8)
-  );
-  background-size: 400% 400%;
-  animation: gradient-bg 4s ease infinite;
-  height: 100%;
-  width: 100%;
-}
-
-.card-1 {
-  animation-delay: 0s;
-}
-
-.card-2 {
-  animation-delay: 1s;
-}
-
-.card-3 {
-  animation-delay: 2s;
-}
-
-.card-4 {
-  animation-delay: 3s;
-}
-
-@config "../tailwind.config.js"
+@import "./themes/ocean.css" layer(theme)
