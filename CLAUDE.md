@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Communication Standards
+
+**IMPORTANT: Language Requirements**
+- **Communication Language:** All conversations, explanations, and discussions with me must be in **中文 (Chinese)**
+- **Code Language:** All code, comments, variable names, and technical documentation must be in **English only**
+- **Documentation:** All technical documentation, README files, and code comments should be written in English
+
+When explaining concepts, debugging issues, or discussing implementation details, respond in Chinese. When writing or modifying code, use English for all code elements, comments, and documentation.
+
 ## Project Overview
 
 This is a Next.js 16 project called "sunrise" using:

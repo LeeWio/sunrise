@@ -1,0 +1,111 @@
+@layer base {
+  /* Forest Light - Natural green theme */
+  [data-theme="forest"] {
+    color-scheme: light;
+
+    /* Base */
+    --background: oklch(0.985 0.012 120);
+    --foreground: oklch(0.180 0.030 120);
+    --panel: oklch(1 0 0);
+    --panel-foreground: var(--foreground);
+
+    --radius: 0.625rem;
+
+    --muted: oklch(0.550 0.025 120);
+    --scrollbar: oklch(0.820 0.020 120);
+
+    --default: oklch(1 0 0);
+    --default-foreground: oklch(0.300 0.025 120);
+
+    --surface-1: var(--background);
+    --surface-2: oklch(0.965 0.018 120);
+    --surface-3: oklch(0.930 0.028 120);
+
+    /* Forest accent - Natural green */
+    --accent: oklch(0.520 0.170 145);
+    --accent-foreground: oklch(1 0 0);
+
+    --accent-soft: oklch(0.880 0.045 140);
+    --accent-soft-foreground: oklch(0.350 0.120 145);
+
+    /* Status */
+    --success: oklch(0.550 0.180 145);
+    --success-foreground: oklch(1 0 0);
+
+    --warning: oklch(0.700 0.130 75);
+    --warning-foreground: oklch(0.250 0.035 75);
+
+    --danger: oklch(0.620 0.160 25);
+    --danger-foreground: oklch(1 0 0);
+
+    /* Component Colors */
+    --segment: oklch(0.975 0.025 140);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(0.600 0.120 140 / 25%);
+    --divider: oklch(0.830 0.020 120);
+    --focus: oklch(0.520 0.170 145 / 35%);
+    --link: var(--accent);
+
+    --shadow-with-border:
+      0 0px 6px 0px rgba(34, 197, 94, 0.08),
+      0 3px 12px 0px rgba(34, 197, 94, 0.12),
+      0 0px 1px 0px rgba(0, 0, 0, 0.08);
+
+    --skeleton-animation: shimmer;
+  }
+
+  /* Forest Dark */
+  [data-theme="forest-dark"] {
+    color-scheme: dark;
+
+    /* Base */
+    --background: oklch(0.130 0.018 125);
+    --foreground: oklch(0.920 0.015 125);
+    --panel: oklch(0.170 0.025 125);
+    --panel-foreground: var(--foreground);
+
+    --muted: oklch(0.480 0.030 125);
+    --scrollbar: oklch(0.350 0.025 125);
+
+    --default: oklch(0.220 0.030 125);
+    --default-foreground: oklch(0.800 0.020 125);
+
+    --surface-1: var(--background);
+    --surface-2: oklch(0.190 0.035 125);
+    --surface-3: oklch(0.240 0.045 125);
+
+    /* Forest accent - Deep green */
+    --accent: oklch(0.720 0.160 145);
+    --accent-foreground: oklch(0.120 0.018 125);
+
+    --accent-soft: oklch(0.380 0.140 145);
+    --accent-soft-foreground: oklch(0.880 0.015 125);
+
+    /* Status */
+    --success: oklch(0.750 0.180 145);
+    --success-foreground: oklch(0.120 0.018 125);
+
+    --warning: oklch(0.820 0.130 75);
+    --warning-foreground: oklch(0.180 0.035 75);
+
+    --danger: oklch(0.720 0.160 25);
+    --danger-foreground: oklch(1 0 0);
+
+    /* Component Colors */
+    --segment: oklch(1 0 0 / 10%);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(1 0 0 / 18%);
+    --divider: oklch(0.420 0.030 125);
+    --focus: oklch(0.720 0.160 145 / 45%);
+    --link: var(--accent);
+
+    --shadow-with-border:
+      0 0 0 1px oklch(34 197 94 / 20%),
+      0 6px 20px -4px rgba(34, 197, 94, 0.20),
+      0 3px 6px -2px rgba(0, 0, 0, 0.20);
+  }
+}

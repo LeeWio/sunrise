@@ -1,0 +1,111 @@
+@layer base {
+  /* Lavender Light - Soft purple theme */
+  [data-theme="lavender"] {
+    color-scheme: light;
+
+    /* Base */
+    --background: oklch(0.987 0.010 280);
+    --foreground: oklch(0.170 0.028 280);
+    --panel: oklch(1 0 0);
+    --panel-foreground: var(--foreground);
+
+    --radius: 1.25rem;
+
+    --muted: oklch(0.570 0.025 275);
+    --scrollbar: oklch(0.860 0.018 280);
+
+    --default: oklch(1 0 0);
+    --default-foreground: oklch(0.260 0.025 275);
+
+    --surface-1: var(--background);
+    --surface-2: oklch(0.967 0.015 280);
+    --surface-3: oklch(0.932 0.025 280);
+
+    /* Lavender accent - Soft purple */
+    --accent: oklch(0.580 0.160 285);
+    --accent-foreground: oklch(1 0 0);
+
+    --accent-soft: oklch(0.910 0.050 280);
+    --accent-soft-foreground: oklch(0.380 0.130 285);
+
+    /* Status */
+    --success: oklch(0.570 0.160 155);
+    --success-foreground: oklch(1 0 0);
+
+    --warning: oklch(0.720 0.140 80);
+    --warning-foreground: oklch(0.230 0.038 80);
+
+    --danger: oklch(0.630 0.170 18);
+    --danger-foreground: oklch(1 0 0);
+
+    /* Component Colors */
+    --segment: oklch(0.977 0.025 275);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(0.680 0.090 275 / 20%);
+    --divider: oklch(0.870 0.018 280);
+    --focus: oklch(0.580 0.160 285 / 36%);
+    --link: var(--accent);
+
+    --shadow-with-border:
+      0 0px 8px 0px rgba(196, 181, 253, 0.12),
+      0 4px 16px 0px rgba(196, 181, 253, 0.18),
+      0 0px 1px 0px rgba(0, 0, 0, 0.08);
+
+    --skeleton-animation: shimmer;
+  }
+
+  /* Lavender Dark */
+  [data-theme="lavender-dark"] {
+    color-scheme: dark;
+
+    /* Base */
+    --background: oklch(0.135 0.018 278);
+    --foreground: oklch(0.930 0.014 278);
+    --panel: oklch(0.175 0.028 278);
+    --panel-foreground: var(--foreground);
+
+    --muted: oklch(0.510 0.032 278);
+    --scrollbar: oklch(0.390 0.028 278);
+
+    --default: oklch(0.235 0.032 278);
+    --default-foreground: oklch(0.810 0.020 278);
+
+    --surface-1: var(--background);
+    --surface-2: oklch(0.205 0.038 278);
+    --surface-3: oklch(0.255 0.048 278);
+
+    /* Lavender accent - Dreamy purple */
+    --accent: oklch(0.760 0.150 285);
+    --accent-foreground: oklch(0.135 0.018 278);
+
+    --accent-soft: oklch(0.420 0.140 285);
+    --accent-soft-foreground: oklch(0.890 0.014 278);
+
+    /* Status */
+    --success: oklch(0.740 0.160 155);
+    --success-foreground: oklch(0.135 0.018 278);
+
+    --warning: oklch(0.840 0.140 80);
+    --warning-foreground: oklch(0.180 0.038 80);
+
+    --danger: oklch(0.740 0.170 18);
+    --danger-foreground: oklch(1 0 0);
+
+    /* Component Colors */
+    --segment: oklch(1 0 0 / 11%);
+    --segment-foreground: var(--foreground);
+
+    /* Misc */
+    --border: oklch(1 0 0 / 17%);
+    --divider: oklch(0.430 0.032 278);
+    --focus: oklch(0.760 0.150 285 / 46%);
+    --link: var(--accent);
+
+    --shadow-with-border:
+      0 0 0 1px oklch(196 181 253 / 24%),
+      0 8px 24px -4px rgba(196, 181, 253, 0.28),
+      0 4px 8px -2px rgba(0, 0, 0, 0.16);
+  }
+}
