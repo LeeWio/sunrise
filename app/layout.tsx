@@ -1,15 +1,14 @@
+import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-
-import { fontSans } from "@/config/fonts";
-
-import "@/styles/globals.css";
 import { cn } from "@heroui/react";
 import { Link } from "@heroui/react";
 
 import StoreProvider from "./store-provider";
+
+import { fontSans } from "@/config/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -70,7 +69,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <StoreProvider>
             <div className="relative flex flex-col min-h-screen">
-              <main className="grow mx-auto px-6 py-8">{children}</main>
+              <main className="w-full grow mx-auto px-6 py-8">{children}</main>
 
               <footer className="w-full flex items-center justify-center py-3">
                 <Link.Root

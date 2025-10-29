@@ -1,10 +1,2 @@
-@layer theme, base, components, utilities;
-
+@import "tailwindcss";
 @import "@heroui/styles";
-
-@import "./themes/ocean.css" layer(theme);
-@import "./themes/aurora.css" layer(theme);
-@import "./themes/forest.css" layer(theme);
-@import "./themes/sunset.css" layer(theme);
-@import "./themes/lavender.css" layer(theme);
-@import "./themes/midnight.css" layer(theme);
