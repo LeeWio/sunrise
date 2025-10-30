@@ -1,5 +1,11 @@
 @import "tailwindcss";
-@import "./partials/blocks.css";
+
+@import './partials/typography.css';
+@import './partials/blocks.css';
+@import './partials/placeholder.css';
+@import './partials/animations.css';
+@import './partials/lists.css';
+@import './partials/code.css';
 
 .ProseMirror {
   @apply outline-0 pr-2 pl-2 py-2 z-0 mx-auto;
@@ -13,7 +19,7 @@
     @apply bg-black/10 dark:bg-white/20 inline;
   }
 
-  &>.react-renderer {
+  & > .react-renderer {
     @apply my-12 first:mt-0 last:mb-0;
   }
 
@@ -27,9 +33,5 @@
     &:after {
       @apply border-t-black/40 dark:border-t-white/40 w-full -top-[1.5em] max-w-2xl mx-auto left-0 right-0;
     }
-  }
-
-  &:focus {
-    outline: none;
   }
 }

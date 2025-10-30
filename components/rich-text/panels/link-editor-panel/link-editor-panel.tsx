@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { Button, Form, Input } from "@heroui/react";
+import { Button, Form } from "@heroui/react";
 
 import { CheckIcon } from "@/components/icons";
 
@@ -7,6 +7,7 @@ export type LinkEditorPanelProps = {
   initialUrl?: string;
   initialOpenInNewTab?: boolean;
   onSetLink: (url: string, openInNewTab?: boolean) => void;
+  onOpenChange?: () => void;
 };
 
 export const useLinkEditorState = ({
@@ -58,27 +59,27 @@ export const LinkEditorPanel = ({
   });
 
   return (
-    <>
-      <Form
-        className="flex justify-center items-center"
-        onSubmit={state.handleSubmit}
+    <Form
+      className="flex justify-between items-center"
+      onSubmit={state.handleSubmit}
+    >
+      <input
+        aria-label="URL input"
+        className="text-sm shadow-sm border-none ring-0 focus:ring-0 focus:outline-none hover:outline-none hover:border-none"
+        placeholder="Enter URL"
+        type="url"
+        value={state.url}
+        onChange={state.onChange}
+      />
+      <Button
+        isIconOnly
+        isDisabled={!state.isValidUrl}
+        size="sm"
+        type="submit"
+        variant="ghost"
       >
-        <Input
-          aria-label="URL input"
-          placeholder="Enter URL"
-          type="url"
-          value={state.url}
-          onChange={state.onChange}
-        />
-        <Button
-          isDisabled={!state.isValidUrl}
-          size="lg"
-          type="submit"
-          variant="ghost"
-        >
-          <CheckIcon />
-        </Button>
-      </Form>
-    </>
+        <CheckIcon />
+      </Button>
+    </Form>
   );
 };

@@ -9,12 +9,17 @@ import { useTextmenuCommands } from "./hooks/use-text-menu-commands";
 import { useTextMenuContentTypes } from "./hooks/use-text-menu-content-types";
 import TextMenuItem from "./components/text-menu-item";
 import PopoverWrapper from "./components/popover-wrapper";
+import MoreOptionsPicker from "./components/more-options-picker";
+import ColorPicker from "./components/color-picker";
 
 import {
   BoldIcon,
+  BucketPaintIcon,
   CodeIcon,
+  EllipsisVerticalIcon,
   ItalicIcon,
   LinkIcon,
+  PaletteIcon,
   StrikethroughIcon,
   UnderlineIcon,
 } from "@/components/icons";
@@ -30,7 +35,7 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
       className="tooltip flex items-center justify-center gap-0.5 z-50"
       editor={editor}
       pluginKey="textMenu"
-      shouldShow={states.shouldShow}
+      resizeDelay={0}
     >
       <Separator className="mx-0.5 h-5" orientation="vertical" />
 
@@ -76,12 +81,34 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
 
       <Separator className="mx-0.5 h-5" orientation="vertical" />
 
-      <PopoverWrapper
-        aria-label="Toggle bold text"
-        icon={<LinkIcon />}
-        tooltip="Bold (Ctrl+B)"
-      >
+      <PopoverWrapper aria-label="" icon={<LinkIcon />}>
         <LinkEditorPanel onSetLink={commands.onLink} />
+      </PopoverWrapper>
+
+      <PopoverWrapper aria-label="" icon={<BucketPaintIcon />} placement="top">
+        <ColorPicker
+          color={states.currentHighlight}
+          onChange={commands.onChangeHighlight}
+          onClear={commands.onClearHighlight}
+        />
+      </PopoverWrapper>
+
+      <PopoverWrapper aria-label="" icon={<PaletteIcon />} placement="top">
+        <ColorPicker
+          color={states.currentColor}
+          onChange={commands.onChangeColor}
+          onClear={commands.onClearColor}
+        />
+      </PopoverWrapper>
+
+      <Separator className="mx-0.5 h-5" orientation="vertical" />
+
+      <PopoverWrapper
+        aria-label="more options"
+        icon={<EllipsisVerticalIcon />}
+        placement="top"
+      >
+        <MoreOptionsPicker editor={editor} />
       </PopoverWrapper>
     </BubbleMenu>
   );

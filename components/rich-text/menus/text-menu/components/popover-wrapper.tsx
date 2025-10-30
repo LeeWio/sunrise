@@ -1,11 +1,4 @@
-import {
-  Button,
-  cn,
-  PopoverArrow,
-  PopoverContent,
-  PopoverDialog,
-  PopoverRoot,
-} from "@heroui/react";
+import { Button, cn, Popover } from "@heroui/react";
 import { memo, ReactNode } from "react";
 
 interface PopoverWrapperProps {
@@ -17,14 +10,11 @@ interface PopoverWrapperProps {
    * Whether the trigger button is selected/active
    */
   isSelected?: boolean;
+  placement?: "top" | "bottom" | "left" | "right";
   /**
    * Size of the trigger button
    */
   size?: "sm" | "md" | "lg";
-  /**
-   * Tooltip text to show on hover
-   */
-  tooltip?: string;
   /**
    * Additional CSS classes for the trigger button
    */
@@ -45,26 +35,11 @@ interface PopoverWrapperProps {
    * ARIA label for accessibility
    */
   "aria-label"?: string;
-  /**
-   * Popover placement
-   */
-  placement?: "top" | "bottom" | "left" | "right";
-  /**
-   * Popover offset from trigger
-   */
-  offset?: number;
-  /**
-   * Whether popover should show arrow
-   */
-  showArrow?: boolean;
+
   /**
    * Popover content
    */
   children: ReactNode;
-  /**
-   * Popover heading (optional)
-   */
-  heading?: ReactNode;
   /**
    * Whether popover is controlled
    */
@@ -77,33 +52,25 @@ interface PopoverWrapperProps {
 
 const PopoverWrapper: React.FC<PopoverWrapperProps> = ({
   icon,
-  tooltip,
   size = "sm",
   isSelected = false,
   children,
-  heading,
   className,
-  popoverClassName,
   isDisabled = false,
   isPending = false,
   "aria-label": ariaLabel,
-  placement = "bottom",
-  offset = 8,
-  showArrow = true,
   isOpen,
   onOpenChange,
+  placement,
   ...props
 }) => {
-  // Determine if button should be icon only (priority to icon only mode)
   const isIconOnly = !!icon;
 
-  // Trigger button content
   const triggerContent = icon;
 
-  // Create the trigger button component
   const triggerButton = (
     <Button
-      aria-label={ariaLabel || (tooltip ? tooltip : "")}
+      aria-label={ariaLabel}
       className={cn(
         "transition-all duration-200 ease-in-out",
         {
@@ -122,24 +89,16 @@ const PopoverWrapper: React.FC<PopoverWrapperProps> = ({
     </Button>
   );
 
-  // Popover content
-  const popoverContent = (
-    <PopoverDialog className={cn(popoverClassName)}>
-      {heading && (
-        <div className="px-3 py-2 border-b border-border">{heading}</div>
-      )}
-      {children}
-    </PopoverDialog>
-  );
-
   return (
-    <PopoverRoot isOpen={isOpen} onOpenChange={onOpenChange}>
-      {triggerButton}
-      <PopoverContent offset={offset} placement={placement}>
-        {showArrow && <PopoverArrow />}
-        {popoverContent}
-      </PopoverContent>
-    </PopoverRoot>
+    <Popover.Root isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Popover.Trigger>{triggerButton}</Popover.Trigger>
+      <Popover.Content
+        className="tooltip flex justify-center items-center"
+        placement={placement}
+      >
+        {children}
+      </Popover.Content>
+    </Popover.Root>
   );
 };
 

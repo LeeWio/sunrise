@@ -3,6 +3,8 @@ import { useEditorState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 
 import { MenuProps } from "../type";
+import { LinkEditorPanel } from "../../panels/link-editor-panel";
+import { LinkPreviewPanel } from "../../panels/link-preview-panel";
 
 export const LinkMenu = ({ editor, appendTo }: MenuProps) => {
   const [showEdit, setShowEdit] = useState(false);
@@ -47,12 +49,27 @@ export const LinkMenu = ({ editor, appendTo }: MenuProps) => {
 
   return (
     <BubbleMenu
+      appendTo={appendTo?.current || undefined}
       editor={editor}
       pluginKey="linkMenu"
       shouldShow={shouldShow}
       updateDelay={0}
     >
-      Link Menu
+      {showEdit ? (
+        <div className="tooltip flex justify-center items-center">
+          <LinkEditorPanel
+            initialOpenInNewTab={target === "_blank"}
+            initialUrl={link}
+            onSetLink={onSetLink}
+          />
+        </div>
+      ) : (
+        <LinkPreviewPanel
+          url={link}
+          onClear={onUnsetLink}
+          onEdit={handleEdit}
+        />
+      )}
     </BubbleMenu>
   );
 };

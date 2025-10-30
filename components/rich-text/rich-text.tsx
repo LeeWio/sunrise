@@ -1,12 +1,13 @@
 "use client";
 
-import { EditorContent, useEditorState } from "@tiptap/react";
 import "./styles/index.css";
+import { EditorContent, useEditorState } from "@tiptap/react";
 import { Button } from "@heroui/react";
 import { useRef } from "react";
 
 import { TextMenu } from "./menus/text-menu";
 import { ContentItemMenu } from "./menus/content-item-menu";
+import { LinkMenu } from "./menus/link-menu";
 
 import { useRichText } from "@/hooks/use-rich-text";
 
@@ -28,7 +29,11 @@ export const RichText = () => {
   }) ?? { characters: 0, words: 0 };
 
   if (!editor) {
-    return null;
+    return (
+      <div className="p-4 bg-blue-100 text-blue-800 rounded">
+        编辑器正在加载中...
+      </div>
+    );
   }
 
   return (
@@ -53,6 +58,8 @@ export const RichText = () => {
               className="w-full h-full overflow-y-auto scrollbar-hide min-h-dvh"
               editor={editor}
             />
+
+            <LinkMenu appendTo={menuContainerRef} editor={editor} />
 
             <TextMenu appendTo={menuContainerRef} editor={editor} />
           </>
