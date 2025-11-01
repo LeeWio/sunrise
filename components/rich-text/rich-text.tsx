@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { TextMenu } from "./menus/text-menu";
 import { ContentItemMenu } from "./menus/content-item-menu";
 import { LinkMenu } from "./menus/link-menu";
+import { ImageBlockMenu } from "./extensions/image-block/views/image-block-menu";
 
 import { useRichText } from "@/hooks/use-rich-text";
 
@@ -38,26 +39,21 @@ export const RichText = () => {
 
   return (
     <>
-      <Button
-        onPress={() =>
-          editor
-            .chain()
-            .focus()
-            .setColumns()
-            .focus(editor.state.selection.head - 1)
-            .run()
-        }
-      >
-        add columns
+      <Button onPress={() => editor.chain().focus().setImageUpload().run()}>
+        add Image
       </Button>
+
       <div ref={menuContainerRef}>
         {editor && editor.isEditable && (
           <>
-            <ContentItemMenu editor={editor} isEditable={editor.isEditable} />
             <EditorContent
               className="w-full h-full overflow-y-auto scrollbar-hide min-h-dvh"
               editor={editor}
             />
+
+            <ContentItemMenu editor={editor} isEditable={editor.isEditable} />
+
+            <ImageBlockMenu appendTo={menuContainerRef} editor={editor} />
 
             <LinkMenu appendTo={menuContainerRef} editor={editor} />
 

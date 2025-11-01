@@ -9,3 +9,5 @@ export { TextAlign } from "@tiptap/extension-text-align";
 
 export { Columns, Column } from "./multi-column";
 export { Link } from "./link";
+export { ImageBlock } from "./image-block";
+export { ImageUpload } from "./image-upload";

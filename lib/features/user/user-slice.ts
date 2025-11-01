@@ -420,3 +420,5 @@ export const {
   selectIsPendingUser,
   selectIsBannedUser,
 } = userSlice.selectors;
+
+export default userSlice.reducer;

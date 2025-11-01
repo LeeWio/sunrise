@@ -4,20 +4,19 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-
 export type ResultResponse<T = unknown> = {
   /** Business status code (e.g., 200, 201) */
-  code: number
+  code: number;
 
   /** Human-readable message */
-  message: string
+  message: string;
 
   /** Response payload (may be null if no data) */
-  data?: T
+  data?: T;
 
   /** ISO 8601 formatted timestamp of the response */
-  timestamp?: string
-}
+  timestamp?: string;
+};
 
 export interface Page<T> {
   /** Page content (list of items) */

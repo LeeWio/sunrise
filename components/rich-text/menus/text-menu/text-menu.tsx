@@ -36,6 +36,7 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
       editor={editor}
       pluginKey="textMenu"
       resizeDelay={0}
+      shouldShow={states.shouldShow}
     >
       <Separator className="mx-0.5 h-5" orientation="vertical" />
 
