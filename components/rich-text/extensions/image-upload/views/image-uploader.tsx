@@ -5,7 +5,7 @@ import { useDropZone, useFileUpload, useUploader } from "./hooks";
 
 import { PictureIcon } from "@/components/icons";
 
-export const Imageuploader = ({
+export const ImageUploader = ({
   onUpload,
 }: {
   onUpload: (url: string) => void;

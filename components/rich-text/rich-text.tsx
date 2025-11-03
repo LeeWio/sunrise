@@ -17,17 +17,23 @@ export const RichText = () => {
 
   const menuContainerRef = useRef<HTMLDivElement>(null);
 
-  const { characters, words } = useEditorState({
+  const { charactersCount, wordsCount } = useEditorState({
+    editor,
+    selector: (context) => ({
+      charactersCount: context.editor?.storage.characterCount.characters(),
+      wordsCount: context.editor?.storage.characterCount.words(),
+    }),
+  });
+
+  const { canUndo, canRedo } = useEditorState({
     editor,
     selector: (ctx) => {
-      const { characters, words } = ctx.editor?.storage.characterCount || {
-        characters: () => 0,
-        words: () => 0,
+      return {
+        canUndo: ctx.editor?.can().chain().focus().undo().run(),
+        canRedo: ctx.editor?.can().chain().focus().redo().run(),
       };
-
-      return { characters: characters(), words: words() };
     },
-  }) ?? { characters: 0, words: 0 };
+  });
 
   if (!editor) {
     return (
@@ -39,15 +45,36 @@ export const RichText = () => {
 
   return (
     <>
-      <Button onPress={() => editor.chain().focus().setImageUpload().run()}>
-        add Image
-      </Button>
+      <div className="flex gap-2 p-4">
+        <Button onPress={() => editor.chain().focus().setImageUpload().run()}>
+          add Image
+        </Button>
+        <Button onPress={() => editor.chain().focus().setAudioUpload().run()}>
+          add Audio
+        </Button>
+        <Button
+          onPress={() =>
+            editor
+              .chain()
+              .focus()
+              .setAccordion({
+                title: "New Accordion",
+                content:
+                  "This is the accordion content. Click to edit this content.",
+                expanded: false,
+              })
+              .run()
+          }
+        >
+          add Accordion
+        </Button>
+      </div>
 
       <div ref={menuContainerRef}>
         {editor && editor.isEditable && (
           <>
             <EditorContent
-              className="w-full h-full overflow-y-auto scrollbar-hide min-h-dvh"
+              className="w-screen h-full overflow-y-auto scrollbar-hide min-h-dvh"
               editor={editor}
             />
 

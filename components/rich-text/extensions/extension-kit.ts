@@ -10,16 +10,57 @@ import {
   Highlight,
   ImageBlock,
   ImageUpload,
+  Document,
+  Figcaption,
+  HorizontalRule,
+  Heading,
+  Selection,
+  CharacterCount,
+  ListKit,
+  Gapcursor,
+  Placeholder,
+  TrailingNode,
+  Typography,
+  Audio,
+  Accordion,
+  AudioUpload,
 } from ".";
 
 export const ExtensionKit = () => [
   StarterKit.configure({
     link: false,
+    document: false,
+    horizontalRule: false,
+    heading: false,
   }),
+  Heading.configure({
+    levels: [1, 2, 3, 4, 5, 6],
+  }),
+  CharacterCount.configure({
+    limit: 5000,
+  }),
+  ListKit.configure({
+    listItem: {
+      HTMLAttributes: { class: "" },
+    },
+  }),
+  Placeholder.configure({
+    includeChildren: true,
+    showOnlyCurrent: false,
+    placeholder: "Write something …",
+  }),
+  TrailingNode.configure({}),
+  Gapcursor,
+  Selection,
+  Typography,
+  // UndoRedo,
+  Figcaption,
+  HorizontalRule,
   ImageUpload.configure({}),
   Highlight,
   TextAlign,
   Subscript,
+  Document,
   ImageBlock.configure({
     resize: {
       enabled: true,
@@ -30,4 +71,7 @@ export const ExtensionKit = () => [
   TextStyleKit,
   Columns,
   Link,
+  Audio,
+  AudioUpload,
+  Accordion,
 ];

@@ -489,3 +489,175 @@ export const PictureIcon = ({
     />
   </svg>
 );
+
+export const PauseIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1M6.25 5.25a1 1 0 0 0-1 1v3.5a1 1 0 1 0 2 0v-3.5a1 1 0 0 0-1-1m3.5 0a1 1 0 0 0-1 1v3.5a1 1 0 1 0 2 0v-3.5a1 1 0 0 0-1-1"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export const MusicIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M13 5.46v3.08a3 3 0 0 0-.976 0q-.135.022-.274.055C10.231 8.96 9 10.263 9 11.505s1.231 1.955 2.75 1.59c1.519-.364 2.75-1.667 2.75-2.91q0-.057-.004-.113L14.5 10V1.25a.75.75 0 0 0-.932-.728L6.136 2.38l-.568.142A.75.75 0 0 0 5 3.25v7.291a3 3 0 0 0-.976 0q-.135.021-.274.054C2.231 10.96 1 12.263 1 13.506s1.231 1.955 2.75 1.59c1.519-.364 2.75-1.667 2.75-2.91q0-.057-.003-.113L6.5 12V7.086zm0-1.546V2.211L6.5 3.836v1.703l6.136-1.534zm-8.003 8.127a2 2 0 0 0 .003.144c0 .133-.079.419-.396.754a2.5 2.5 0 0 1-1.204.698c-.47.113-.748.023-.844-.032a.2.2 0 0 1-.047-.036l-.001-.002l-.003-.007a.2.2 0 0 1-.005-.054c0-.133.079-.419.396-.754a2.5 2.5 0 0 1 1.204-.698a1.6 1.6 0 0 1 .637-.037q.13.024.26.024m8-2a2 2 0 0 0 .003.144c0 .133-.079.419-.396.754a2.5 2.5 0 0 1-1.204.698c-.47.113-.748.023-.844-.032a.2.2 0 0 1-.047-.036l-.001-.002l-.003-.007a.2.2 0 0 1-.005-.054c0-.133.079-.419.396-.754a2.5 2.5 0 0 1 1.204-.698a1.6 1.6 0 0 1 .637-.037q.13.024.26.024"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const UploadIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M4.406 8.094a.646.646 0 0 1 .917 0L7.354 10.13V1.646a.646.646 0 1 1 1.292 0v8.484l1.031-1.036a.646.646 0 0 1 .917.917l-2.147 2.147a.646.646 0 0 1-.917 0L4.406 9.011a.646.646 0 0 1 0-.917M2.75 6.833a4.833 4.833 0 1 1 9.666 0 .646.646 0 0 0 1.292 0 6.125 6.125 0 1 0-12.25 0 .646.646 0 0 0 1.292 0"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const PlusIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M8 2a.75.75 0 0 1 .75.75v5.25H14a.75.75 0 0 1 0 1.5H8.75V14a.75.75 0 0 1-1.5 0V8.75H2a.75.75 0 0 1 0-1.5h5.25V2.75A.75.75 0 0 1 8 2"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const ChevronDownIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const ChevronUpIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M11.354 9.354a.5.5 0 0 1-.708 0L8 6.707 5.354 9.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const HeartIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M1.633 2.796c.762-.837 1.85-1.297 3.127-1.297c1.164 0 2.407.55 3.24 1.626c.828-1.075 2.066-1.626 3.24-1.626c1.274 0 2.36.458 3.124 1.293c.756.828 1.136 1.962 1.136 3.22c0 2.166-1.113 3.909-2.522 5.264c-1.405 1.352-3.17 2.383-4.633 3.14a.75.75 0 0 1-.693-.002c-1.463-.765-3.228-1.788-4.633-3.133C1.61 9.93.5 8.193.5 6.013c0-1.255.378-2.389 1.133-3.217m1.109 1.01C2.287 4.306 2 5.053 2 6.013c0 1.624.816 2.996 2.057 4.184c1.146 1.098 2.6 1.985 3.945 2.705c1.335-.71 2.79-1.604 3.937-2.707C13.182 8.998 14 7.62 14 6.013c0-.963-.288-1.71-.744-2.21C12.808 3.314 12.14 3 11.24 3c-.976 0-2.093.628-2.527 1.95a.75.75 0 0 1-1.426 0C6.854 3.63 5.725 3 4.76 3c-.903 0-1.57.315-2.018.807"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const PlayIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 16 16"
+    width={size || width}
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M13.5 8a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0m-7.75 3.031L11 8.866a1 1 0 0 0 0-1.732L7.25 4.969a1 1 0 0 0-1.5.866v4.33a1 1 0 0 0 1.5.866"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);

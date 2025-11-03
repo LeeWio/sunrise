@@ -32,7 +32,9 @@ export const useRichText = () => {
     /**
      * Called when the editor's content is updated.
      */
-    onUpdate(props) { },
+    onUpdate(props) {
+      console.log(props.editor.getHTML());
+    },
 
     /**
      * Called before the editor is constructed.

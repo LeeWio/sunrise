@@ -2,6 +2,7 @@ import { Editor } from "@tiptap/react";
 
 import { Link } from "../../extensions/link";
 import { ImageBlock, ImageUpload } from "../../extensions";
+import { Audio } from "../../extensions/audio";
 
 export const isTableGripSelected = (node: HTMLElement) => {
   let container = node;
@@ -33,6 +34,7 @@ export const isCustomNodeSelected = (editor: Editor, node: HTMLElement) => {
     ImageUpload.name,
     // CodeBlock.name,
     Link.name,
+    Audio.name,
     // Figcaption.name,
     // TableOfContentsNode.name,
     // ExcalidrawImage.name,

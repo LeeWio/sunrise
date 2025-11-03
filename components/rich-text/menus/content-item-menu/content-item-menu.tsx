@@ -1,9 +1,12 @@
 import { Editor } from "@tiptap/react";
 import { useEffect, useState } from "react";
 import DragHandle from "@tiptap/extension-drag-handle-react";
+import { Button } from "@heroui/react";
 
 import { useData } from "./hooks/use-data";
 import useContentItemActions from "./hooks/use-content-item-actions";
+
+import { EllipsisVerticalIcon } from "@/components/icons";
 
 export type ContentItemMenuProps = {
   editor: Editor;
@@ -59,7 +62,11 @@ export const ContentItemMenu = ({
       pluginKey="ContentItemMenu"
       onNodeChange={data.handleNodeChange}
     >
-      {isEditable && <div>sdf</div>}
+      {isEditable && (
+        <Button isIconOnly variant="ghost">
+          <EllipsisVerticalIcon />
+        </Button>
+      )}
     </DragHandle>
   );
 };

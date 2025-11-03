@@ -1,7 +1,7 @@
 import { NodeViewProps, NodeViewWrapper } from "@tiptap/react";
 import { useCallback } from "react";
 
-import { Imageuploader } from "./image-uploader";
+import { ImageUploader } from "./image-uploader";
 
 export const ImageUpload = ({ getPos, editor }: NodeViewProps) => {
   const onUpload = useCallback(
@@ -9,10 +9,10 @@ export const ImageUpload = ({ getPos, editor }: NodeViewProps) => {
       const pos = getPos();
 
       if (url && typeof pos === "number") {
-        console.log("asdf");
+        // http://localhost:8080/uploads/3b750ea2498b40db926c5e14cfac448b.png
         editor
           .chain()
-          .setImageBlock({ src: url })
+          .setImageBlock({ src: "http://localhost:8080" + url })
           .deleteRange({ from: pos, to: pos })
           .focus()
           .run();
@@ -24,7 +24,7 @@ export const ImageUpload = ({ getPos, editor }: NodeViewProps) => {
   return (
     <NodeViewWrapper>
       <div data-drag-handle className="p-0 m-0">
-        <Imageuploader onUpload={onUpload} />
+        <ImageUploader onUpload={onUpload} />
       </div>
     </NodeViewWrapper>
   );

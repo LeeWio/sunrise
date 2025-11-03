@@ -16,11 +16,11 @@ export const createBaseQuery = ({
     fetchBaseQuery({
       baseUrl,
       prepareHeaders: (headers, { getState }) => {
-        // Get user state with proper typing
-        const { user } = getState() as RootState;
+        // Get auth state with proper typing
+        const { auth } = getState() as RootState;
 
-        if (user?.isAuthenticated && user?.token) {
-          headers.set("Authorization", `Bearer ${user.token}`);
+        if (auth?.isAuthenticated && auth?.token) {
+          headers.set("Authorization", `Bearer ${auth.token}`);
         }
 
         // 可选：添加 Content-Type 或其他通用 headers

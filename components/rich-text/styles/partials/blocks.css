@@ -81,4 +81,82 @@
       @apply my-2 mx-0;
     }
   }
+
+  /* Audio Node */
+  [data-type='audio'] {
+    @apply my-4;
+
+    .audio-node-wrapper {
+      @apply block w-full;
+    }
+
+    .audio-node-container {
+      @apply relative;
+
+      &[data-selected="true"] {
+        @apply ring-2 ring-blue-500;
+      }
+    }
+
+    /* Progress bar styling */
+    input[type="range"] {
+      @apply appearance-none bg-gray-200 rounded-lg outline-none;
+
+      &::-webkit-slider-thumb {
+        @apply appearance-none w-3 h-3 bg-blue-500 rounded-full cursor-pointer transition-colors hover:bg-blue-600;
+      }
+
+      &::-moz-range-thumb {
+        @apply w-3 h-3 bg-blue-500 rounded-full cursor-pointer border-0 transition-colors hover:bg-blue-600;
+      }
+    }
+
+    /* Dark mode support */
+    .dark input[type="range"] {
+      @apply bg-gray-700;
+
+      &::-webkit-slider-thumb {
+        @apply bg-blue-400 hover:bg-blue-300;
+      }
+
+      &::-moz-range-thumb {
+        @apply bg-blue-400 hover:bg-blue-300;
+      }
+    }
+  }
+
+  /* Accordion Node */
+  [data-type='accordion'] {
+    @apply my-4;
+
+    .accordion-node-wrapper {
+      @apply block w-full;
+    }
+
+    .accordion-node-container {
+      @apply relative;
+    }
+
+    /* Selection styling */
+    &[data-selected="true"] .accordion-node-container {
+      .accordion-node-container > div > div {
+        @apply ring-2 ring-blue-500 ring-offset-2;
+      }
+    }
+
+    /* Drag handle styling */
+    .accordion-node-container:hover .cursor-move {
+      @apply opacity-100;
+    }
+
+    /* Custom input styling */
+    input[type="text"], textarea {
+      @apply transition-colors;
+    }
+
+    /* Empty content placeholder */
+    .border-dashed {
+      @apply transition-colors;
+    }
+  }
 }
