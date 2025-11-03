@@ -9,6 +9,7 @@ import { TextMenu } from "./menus/text-menu";
 import { ContentItemMenu } from "./menus/content-item-menu";
 import { LinkMenu } from "./menus/link-menu";
 import { ImageBlockMenu } from "./extensions/image-block/views/image-block-menu";
+import { AudioMenu } from "./extensions/audio/views/audio-menu";
 
 import { useRichText } from "@/hooks/use-rich-text";
 
@@ -85,6 +86,8 @@ export const RichText = () => {
             <LinkMenu appendTo={menuContainerRef} editor={editor} />
 
             <TextMenu appendTo={menuContainerRef} editor={editor} />
+
+            <AudioMenu appendTo={menuContainerRef} editor={editor} />
           </>
         )}
       </div>
