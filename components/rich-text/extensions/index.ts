@@ -7,6 +7,7 @@ export { TextStyleKit } from "@tiptap/extension-text-style";
 export { Highlight } from "@tiptap/extension-highlight";
 export { TextAlign } from "@tiptap/extension-text-align";
 export { Typography } from "@tiptap/extension-typography";
+export { Mathematics } from "@tiptap/extension-mathematics";
 export {
   Gapcursor,
   CharacterCount,

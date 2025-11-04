@@ -1,16 +1,20 @@
 import { BubbleMenu } from "@tiptap/react/menus";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { useEditorState } from "@tiptap/react";
 
 import { ImageBlock } from "../image-block";
 
+import { ImageBlockWidth } from "./image-block-width";
+
 import { MenuProps } from "@/components/rich-text/menus/type";
 import TextMenuItem from "@/components/rich-text/menus/text-menu/components/text-menu-item";
-import { AlignLeftIcon } from "@/components/icons";
+import {
+  AlignCenterFillIcon,
+  AlignLeftFillIcon,
+  AlignRightFillIcon,
+} from "@/components/icons";
 
 export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
-  const menuRef = useRef(null);
-
   const shouldShow = useCallback(() => {
     return editor.isActive(ImageBlock.name);
   }, [editor]);
@@ -75,11 +79,29 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
     >
       <TextMenuItem
         aria-label=""
-        icon={<AlignLeftIcon />}
+        icon={<AlignLeftFillIcon />}
         isSelected={isImageLeft}
-        tooltip="Bold (Ctrl+B)"
+        tooltip=""
         onPress={onAlignImageLeft}
       />
+
+      <TextMenuItem
+        aria-label=""
+        icon={<AlignCenterFillIcon />}
+        isSelected={isImageCenter}
+        tooltip=""
+        onPress={onAlignImageCenter}
+      />
+
+      <TextMenuItem
+        aria-label=""
+        icon={<AlignRightFillIcon />}
+        isSelected={isImageRight}
+        tooltip=""
+        onPress={onAlignImageRight}
+      />
+
+      <ImageBlockWidth value={width} onChange={onWidthChange} />
     </BubbleMenu>
   );
 };

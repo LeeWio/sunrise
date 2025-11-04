@@ -24,6 +24,7 @@ import {
   Audio,
   Accordion,
   AudioUpload,
+  Mathematics,
 } from ".";
 
 export const ExtensionKit = () => [
@@ -33,21 +34,37 @@ export const ExtensionKit = () => [
     horizontalRule: false,
     heading: false,
   }),
+
   Heading.configure({
     levels: [1, 2, 3, 4, 5, 6],
   }),
+
   CharacterCount.configure({
     limit: 5000,
   }),
+
   ListKit.configure({
     listItem: {
       HTMLAttributes: { class: "" },
     },
   }),
+
   Placeholder.configure({
     includeChildren: true,
     showOnlyCurrent: false,
     placeholder: "Write something …",
+  }),
+
+  Mathematics.configure({
+    inlineOptions: {
+      // optional options for the inline math node
+    },
+    blockOptions: {
+      // optional options for the block math node
+    },
+    katexOptions: {
+      // optional options for the KaTeX renderer
+    },
   }),
   TrailingNode.configure({}),
   Gapcursor,
@@ -74,4 +91,5 @@ export const ExtensionKit = () => [
   Audio,
   AudioUpload,
   Accordion,
+  Math,
 ];

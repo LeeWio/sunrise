@@ -8,10 +8,10 @@ import { useTextMenuStates } from "../hooks/use-text-menu-states";
 import TextMenuItem from "./text-menu-item";
 
 import {
-  AlignCenterIcon,
+  AlignCenterFillIcon,
   AlignJustifyIcon,
-  AlignLeftIcon,
-  AlignRightIcon,
+  AlignLeftFillIcon,
+  AlignRightFillIcon,
   SubscriptIcon,
   SuperscriptIcon,
 } from "@/components/icons";
@@ -41,7 +41,7 @@ const MoreOptionsPicker = ({ editor }: { editor: Editor }) => {
 
       <TextMenuItem
         aria-label="Align text left"
-        icon={<AlignLeftIcon />}
+        icon={<AlignLeftFillIcon />}
         isSelected={states.isAlignLeft}
         tooltip="Align Left"
         onPress={commands.onAlignLeft}
@@ -49,7 +49,7 @@ const MoreOptionsPicker = ({ editor }: { editor: Editor }) => {
 
       <TextMenuItem
         aria-label="Align text center"
-        icon={<AlignCenterIcon />}
+        icon={<AlignCenterFillIcon />}
         isSelected={states.isAlignCenter}
         tooltip="Align Center"
         onPress={commands.onAlignCenter}
@@ -57,7 +57,7 @@ const MoreOptionsPicker = ({ editor }: { editor: Editor }) => {
 
       <TextMenuItem
         aria-label="Align text right"
-        icon={<AlignRightIcon />}
+        icon={<AlignRightFillIcon />}
         isSelected={states.isAlignRight}
         tooltip="Align Right"
         onPress={commands.onAlignRight}

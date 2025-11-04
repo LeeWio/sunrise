@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useAudioMetadata } from "./use-audio-metadata";
 
-import { PauseIcon, PlayIcon } from "@/components/icons";
+import { PlayFillIcon, PauseFillIcon } from "@/components/icons";
 
 interface AudioViewProps extends NodeViewProps { }
 
@@ -238,9 +238,9 @@ export const AudioView: React.FC<AudioViewProps> = ({
                     onPress={togglePlayPause}
                   >
                     {isPlaying ? (
-                      <PauseIcon size={20} />
+                      <PauseFillIcon size={20} />
                     ) : (
-                      <PlayIcon size={20} />
+                      <PlayFillIcon size={20} />
                     )}
                   </Button>
                 </div>
@@ -254,9 +254,9 @@ export const AudioView: React.FC<AudioViewProps> = ({
                     onPress={toggleMute}
                   >
                     {isMuted ? (
-                      <PauseIcon size={16} />
+                      <PauseFillIcon size={16} />
                     ) : (
-                      <PauseIcon size={16} />
+                      <PauseFillIcon size={16} />
                     )}
                   </Button>
                   <input

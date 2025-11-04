@@ -1,6 +1,7 @@
 "use client";
 
 import "./styles/index.css";
+import "katex/dist/katex.min.css";
 import { EditorContent, useEditorState } from "@tiptap/react";
 import { Button } from "@heroui/react";
 import { useRef } from "react";
@@ -10,6 +11,7 @@ import { ContentItemMenu } from "./menus/content-item-menu";
 import { LinkMenu } from "./menus/link-menu";
 import { ImageBlockMenu } from "./extensions/image-block/views/image-block-menu";
 import { AudioMenu } from "./extensions/audio/views/audio-menu";
+import { ColumnsMenu } from "./extensions/multi-column/menus/columns-menu";
 
 import { useRichText } from "@/hooks/use-rich-text";
 
@@ -58,16 +60,12 @@ export const RichText = () => {
             editor
               .chain()
               .focus()
-              .setAccordion({
-                title: "New Accordion",
-                content:
-                  "This is the accordion content. Click to edit this content.",
-                expanded: false,
-              })
+              .setColumns()
+              .focus(editor.state.selection.head - 1)
               .run()
           }
         >
-          add Accordion
+          add Columns
         </Button>
       </div>
 
@@ -75,9 +73,11 @@ export const RichText = () => {
         {editor && editor.isEditable && (
           <>
             <EditorContent
-              className="w-screen h-full overflow-y-auto scrollbar-hide min-h-dvh"
+              className="w-[720px] h-full overflow-y-auto scrollbar-hide min-h-dvh"
               editor={editor}
             />
+
+            <ColumnsMenu appendTo={menuContainerRef} editor={editor} />
 
             <ContentItemMenu editor={editor} isEditable={editor.isEditable} />
 

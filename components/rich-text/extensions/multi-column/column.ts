@@ -20,7 +20,10 @@ export const Column = Node.create({
   renderHTML({ HTMLAttributes }) {
     return [
       "div",
-      mergeAttributes(HTMLAttributes, { "data-type": "column" }),
+      mergeAttributes(HTMLAttributes, {
+        "data-type": "column",
+        class: "tooltip",
+      }),
       0,
     ];
   },
