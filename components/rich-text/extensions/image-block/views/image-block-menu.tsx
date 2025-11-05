@@ -12,6 +12,8 @@ import {
   AlignCenterFillIcon,
   AlignLeftFillIcon,
   AlignRightFillIcon,
+  FlipHorizontalIcon,
+  FlipVerticalIcon,
 } from "@/components/icons";
 
 export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
@@ -43,6 +45,22 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
       .run();
   }, [editor]);
 
+  const onFlipHorizontal = useCallback(() => {
+    editor
+      .chain()
+      .focus(undefined, { scrollIntoView: false })
+      .setImageBlockFlipX(!editor.getAttributes(ImageBlock.name).flipX)
+      .run();
+  }, [editor]);
+
+  const onFlipVertical = useCallback(() => {
+    editor
+      .chain()
+      .focus(undefined, { scrollIntoView: false })
+      .setImageBlockFlipY(!editor.getAttributes(ImageBlock.name).flipY)
+      .run();
+  }, [editor]);
+
   const onWidthChange = useCallback(
     (value: number) => {
       editor
@@ -54,15 +72,33 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
     [editor],
   );
 
-  const { isImageCenter, isImageLeft, isImageRight, width } = useEditorState({
+  const {
+    isImageCenter,
+    isImageLeft,
+    isImageRight,
+    width,
+    isImageFlipHorizontal,
+    isImageFlipVertical,
+  } = useEditorState({
     editor,
     selector: (ctx: { editor: typeof editor }) => {
       return {
         isImageLeft: ctx.editor.isActive(ImageBlock.name, { align: "left" }),
+
         isImageCenter: ctx.editor.isActive(ImageBlock.name, {
           align: "center",
         }),
+
         isImageRight: ctx.editor.isActive(ImageBlock.name, { align: "right" }),
+
+        isImageFlipVertical: ctx.editor.isActive(ImageBlock.name, {
+          flipY: true,
+        }),
+
+        isImageFlipHorizontal: ctx.editor.isActive(ImageBlock.name, {
+          flipX: true,
+        }),
+
         width: parseInt(ctx.editor.getAttributes(ImageBlock.name)?.width || 0),
       };
     },
@@ -99,6 +135,22 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
         isSelected={isImageRight}
         tooltip=""
         onPress={onAlignImageRight}
+      />
+
+      <TextMenuItem
+        aria-label="Flip Horizontal"
+        icon={<FlipHorizontalIcon />}
+        isSelected={isImageFlipHorizontal}
+        tooltip="Flip Horizontal"
+        onPress={onFlipHorizontal}
+      />
+
+      <TextMenuItem
+        aria-label="Flip Vertical"
+        icon={<FlipVerticalIcon />}
+        isSelected={isImageFlipVertical}
+        tooltip="Flip Vertical"
+        onPress={onFlipVertical}
       />
 
       <ImageBlockWidth value={width} onChange={onWidthChange} />

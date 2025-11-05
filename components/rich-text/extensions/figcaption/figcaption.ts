@@ -1,7 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/react";
 
-import { Image } from "../image";
-
 export const Figcaption = Node.create({
   name: "figcaption",
 
