@@ -1,7 +1,9 @@
+"use client";
+
 import { Avatar, Button, Card, Label, Popover, Slider } from "@heroui/react";
 import { AvatarFallback, AvatarImage } from "@heroui/react";
 import { TooltipContent, TooltipRoot, TooltipTrigger } from "@heroui/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 import {
   BackwardFillIcon,
@@ -17,9 +19,6 @@ import {
 
 import { useMetadata } from "./hooks/use-metadata";
 
-// 音频加载状态
-type LoadingState = "idle" | "loading" | "loaded" | "error";
-
 // 重复模式
 type RepeatMode = "off" | "all" | "one";
 
@@ -29,9 +28,6 @@ type Size = "sm" | "md" | "lg";
 // 显示变体
 type Variant = "default" | "compact" | "minimal";
 
-// 预加载策略
-type Preload = "none" | "metadata" | "auto";
-
 // 音乐播放器接口
 interface MusicPlayerProps {
   // ===== 必需参数 =====
@@ -39,7 +35,6 @@ interface MusicPlayerProps {
 
   // ===== 基础配置 =====
   autoplay?: boolean;
-  _preload?: Preload;
 
   // ===== 覆盖信息（可选，如果不提供将使用自动解析的数据） =====
   title?: string;
@@ -85,7 +80,6 @@ interface MusicPlayerProps {
 export const MusicPlayer = ({
   url,
   autoplay = false,
-  _preload = "metadata",
 
   title: propTitle,
   artist: propArtist,
@@ -140,96 +134,73 @@ export const MusicPlayer = ({
     "https://heroui.com/images/album-cover.png";
   const parsedDuration = metadata?.format.duration || 0;
 
-  // 音频相关状态
+  // 音频状态 - 学习 audio-view.tsx 的简洁模式
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(propDuration || parsedDuration || 0);
-  const [loadingState, setLoadingState] = useState<LoadingState>("idle");
-  const [error, setError] = useState<string | null>(null);
+  const [volume, setVolume] = useState(defaultVolume);
 
-  // 播放控制状态
+  // 控制状态
   const [isFavorited, setIsFavorited] = useState(defaultFavorited);
   const [repeatMode, setRepeatMode] = useState<RepeatMode>(defaultRepeat);
   const [isShuffled, setIsShuffled] = useState(defaultShuffle);
-  const [volume, setVolume] = useState(defaultVolume);
-  const [previousVolume, setPreviousVolume] = useState(defaultVolume);
-  const [isMuted, setIsMuted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // 使用 ref 来避免循环依赖
-  const isPlayingRef = useRef(isPlaying);
-  const updatingRef = useRef(false);
+  // 简化的播放/暂停 - 直接学习 audio-view.tsx
+  const togglePlayPause = useCallback(async () => {
+    if (!audioRef.current) return;
 
-  // 同步 isPlayingRef 和 isPlaying state
-  useEffect(() => {
-    isPlayingRef.current = isPlaying;
-  }, [isPlaying]);
-
-  // 播放/暂停切换 - 简化版本
-  const togglePlayPause = useCallback(() => {
-    const audio = audioRef.current;
-
-    if (!audio || loadingState === "error") return;
-
-    // 防止循环调用
-    if (updatingRef.current) {
-      return;
-    }
-
-    if (isPlayingRef.current) {
-      // 立即更新 UI 状态
-      setIsPlaying(false);
-      isPlayingRef.current = false;
-
-      updatingRef.current = true;
-      audio.pause();
-      setTimeout(() => {
-        updatingRef.current = false;
-      }, 50);
-    } else {
-      // 立即更新 UI 状态
-      setIsPlaying(true);
-      isPlayingRef.current = true;
-
-      updatingRef.current = true;
-      const playPromise = audio.play();
-
-      if (playPromise) {
-        playPromise.catch((err) => {
-          // 播放失败时恢复状态
-          setIsPlaying(false);
-          isPlayingRef.current = false;
-          setError(err.message);
-          onError?.(err);
-          updatingRef.current = false;
-        });
+    try {
+      if (isPlaying) {
+        audioRef.current.pause();
       } else {
-        // 对于某些浏览器，play() 可能不返回 Promise
-        setTimeout(() => {
-          updatingRef.current = false;
-        }, 100);
+        // 确保音频已加载
+        if (audioRef.current.readyState < 2) {
+          await new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+              reject(new Error("Audio loading timeout"));
+            }, 5000);
+
+            audioRef.current!.addEventListener(
+              "canplay",
+              () => {
+                clearTimeout(timeout);
+                resolve(undefined);
+              },
+              { once: true },
+            );
+          });
+        }
+
+        await audioRef.current.play();
       }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+
+      // 处理浏览器自动播放策略
+      if (errorMessage.includes("user didn't interact")) {
+        // 不设置错误状态，避免阻止播放器显示
+        // 只通过回调通知，让用户界面正常显示
+      } else {
+        setError(errorMessage);
+      }
+
+      onError?.(err instanceof Error ? err : new Error(errorMessage));
     }
-  }, [loadingState, onError]);
+  }, [isPlaying, onError]);
 
-  // 跳转到指定时间
-  const seekTo = useCallback(
-    (time: number) => {
-      if (!audioRef.current || loadingState === "error") return;
-
-      audioRef.current.currentTime = time;
-      setCurrentTime(time);
-    },
-    [loadingState],
-  );
+  // 简化的时间跳转
+  const seekTo = useCallback((time: number) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = time;
+  }, []);
 
   // 上一曲
   const skipPrevious = useCallback(() => {
-    // 如果当前时间超过3秒，重新开始播放
     if (currentTime > 3) {
       seekTo(0);
-    } else {
-      // 否则可以触发上一曲事件（需要父组件处理）
     }
   }, [currentTime, seekTo]);
 
@@ -238,230 +209,172 @@ export const MusicPlayer = ({
     // Next track functionality should be handled by parent component
   }, []);
 
-  // 收藏切换
+  // 状态切换函数
   const toggleFavorite = useCallback(() => {
-    const newFavorited = !isFavorited;
-
-    setIsFavorited(newFavorited);
-    onFavoriteChange?.(newFavorited);
+    setIsFavorited(!isFavorited);
+    onFavoriteChange?.(!isFavorited);
   }, [isFavorited, onFavoriteChange]);
 
-  // 重复模式切换
   const toggleRepeat = useCallback(() => {
     const modes: RepeatMode[] = ["off", "all", "one"];
-    const currentIndex = modes.indexOf(repeatMode);
-    const newMode = modes[(currentIndex + 1) % modes.length];
+    const newMode = modes[(modes.indexOf(repeatMode) + 1) % modes.length];
 
     setRepeatMode(newMode);
     onRepeatChange?.(newMode);
   }, [repeatMode, onRepeatChange]);
 
-  // 随机播放切换
   const toggleShuffle = useCallback(() => {
-    const newShuffled = !isShuffled;
-
-    setIsShuffled(newShuffled);
-    onShuffleChange?.(newShuffled);
+    setIsShuffled(!isShuffled);
+    onShuffleChange?.(!isShuffled);
   }, [isShuffled, onShuffleChange]);
 
-  // 音量调节
+  // 音量控制 - 学习 audio-view.tsx 的简洁方式
   const handleVolumeChange = useCallback(
     (newVolume: number) => {
       if (!audioRef.current) return;
-
       audioRef.current.volume = newVolume;
       setVolume(newVolume);
-      setPreviousVolume(newVolume);
-
-      // 如果音量大于0，取消静音状态
-      if (newVolume > 0) {
-        setIsMuted(false);
-      }
-
       onVolumeChange?.(newVolume);
     },
     [onVolumeChange],
   );
 
-  // 静音切换
   const toggleMute = useCallback(() => {
-    if (!audioRef.current) return;
-
-    if (isMuted) {
-      // 取消静音，恢复之前的音量
-      audioRef.current.volume = previousVolume;
-      setVolume(previousVolume);
-      setIsMuted(false);
-      onVolumeChange?.(previousVolume);
+    if (volume > 0) {
+      handleVolumeChange(0);
     } else {
-      // 静音，保存当前音量
-      setPreviousVolume(volume);
-      audioRef.current.volume = 0;
-      setVolume(0);
-      setIsMuted(true);
-      onVolumeChange?.(0);
+      handleVolumeChange(1);
     }
-  }, [isMuted, previousVolume, volume, onVolumeChange]);
+  }, [volume, handleVolumeChange]);
 
-  // 获取当前音量图标
-  const getVolumeIcon = () => {
-    if (volume === 0 || isMuted) {
-      return <VolumeXFillIcon className="size-4" />;
-    }
+  const isMuted = volume === 0;
 
-    return <Volume2FillIcon className="size-4" />;
-  };
-
-  // 格式化时间
+  // 简单的格式化函数
   const formatTime = useCallback((time: number) => {
     if (!isFinite(time)) return "0:00";
-
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
 
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }, []);
 
-  // 获取尺寸相关的类名
-  const getSizeClasses = useCallback(() => {
-    switch (size) {
-      case "sm":
-        return {
-          container: "max-w-sm",
-          cover: "size-16",
-          title: "text-lg",
-          controls: "gap-2",
-          button: "size-8",
-        };
-      case "lg":
-        return {
-          container: "max-w-3xl",
-          cover: "size-32",
-          title: "text-3xl",
-          controls: "gap-6",
-          button: "size-12",
-        };
-      case "md":
-      default:
-        return {
-          container: "max-w-2xl",
-          cover: "size-24",
-          title: "text-2xl",
-          controls: "gap-4",
-          button: "size-10",
-        };
-    }
-  }, [size]);
+  // 音量图标
+  const getVolumeIcon = () =>
+    isMuted ? (
+      <VolumeXFillIcon className="size-4" />
+    ) : (
+      <Volume2FillIcon className="size-4" />
+    );
 
-  // 简化的音频事件处理 - 只在挂载时设置一次
+  // 单一音频事件处理器 - 学习 audio-view.tsx 的简洁模式
   useEffect(() => {
     const audio = audioRef.current;
 
     if (!audio) return;
 
-    // 设置音频源
+    // 直接设置音频属性
     audio.src = url;
     audio.preload = "metadata";
     audio.volume = volume;
 
-    const handleLoadedData = () => {
-      const audioDuration = audio.duration;
-
-      if (audioDuration && !propDuration) {
-        setDuration(audioDuration);
-        onDurationChange?.(audioDuration);
-      }
-      setLoadingState("loaded");
+    // 简单的事件处理器 - 完全学习 audio-view.tsx
+    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+      setLoading(false);
       onReady?.();
-    };
-
-    const handleTimeUpdate = () => {
-      const newCurrentTime = audio.currentTime;
-
-      if (Math.abs(newCurrentTime - currentTime) > 0.1) {
-        setCurrentTime(newCurrentTime);
-        onTimeUpdate?.(newCurrentTime);
+      if (audio.duration && !propDuration) {
+        onDurationChange?.(audio.duration);
       }
     };
-
     const handlePlay = () => {
-      // 只有在非手动触发时才更新状态（避免重复设置）
-      if (!updatingRef.current) {
-        setIsPlaying(true);
-        isPlayingRef.current = true;
-        onPlay?.();
-      }
+      setIsPlaying(true);
+      onPlay?.();
     };
-
     const handlePause = () => {
-      // 只有在非手动触发时才更新状态（避免重复设置）
-      if (!updatingRef.current) {
-        setIsPlaying(false);
-        isPlayingRef.current = false;
-        onPause?.();
-      }
+      setIsPlaying(false);
+      onPause?.();
     };
-
     const handleEnded = () => {
       setIsPlaying(false);
-      isPlayingRef.current = false;
       onEnded?.();
-
-      // 处理重复播放
       if (repeatMode === "one") {
         audio.currentTime = 0;
         audio.play().catch(() => {});
       }
     };
+    const handleError = () => {
+      const audioError = audio.error;
 
-    const handleError = (e: Event) => {
-      const audioError = (e.target as HTMLAudioElement).error;
-      const errorMessage = audioError?.message || "Audio loading failed";
+      // 如果没有真正的音频错误，不要设置错误状态
+      if (!audioError) {
+        setLoading(false);
+
+        return;
+      }
+
+      const errorMessage = audioError.message || "Audio loading failed";
+
+      // 对于自动播放策略相关的错误，不设置错误状态
+      if (
+        errorMessage.includes("user didn't interact") ||
+        errorMessage.includes("play() failed") ||
+        errorMessage.includes("autoplay")
+      ) {
+        setLoading(false);
+
+        return;
+      }
 
       setError(errorMessage);
-      setLoadingState("error");
+      setLoading(false);
       onError?.(new Error(errorMessage));
     };
 
-    // 添加事件监听
-    const events = [
-      { event: "loadeddata", handler: handleLoadedData },
-      { event: "timeupdate", handler: handleTimeUpdate },
-      { event: "play", handler: handlePlay },
-      { event: "pause", handler: handlePause },
-      { event: "ended", handler: handleEnded },
-      { event: "error", handler: handleError },
-    ];
-
-    events.forEach(({ event, handler }) => {
-      audio.addEventListener(event, handler);
-    });
+    // 添加事件监听器 - 学习 audio-view.tsx 的模式
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
 
     return () => {
-      events.forEach(({ event, handler }) => {
-        audio.removeEventListener(event, handler);
-      });
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
     };
-  }, []);
+  }, [
+    url,
+    volume,
+    repeatMode,
+    propDuration,
+    onReady,
+    onDurationChange,
+    onPlay,
+    onPause,
+    onEnded,
+    onError,
+  ]);
 
-  // 更新音频源和属性
+  // URL 更新处理
   useEffect(() => {
     const audio = audioRef.current;
 
-    if (!audio) return;
-
-    if (audio.src !== url) {
+    if (audio && audio.src !== url) {
       audio.src = url;
-      audio.load(); // 重新加载音频
-      // 重置状态
+      audio.load();
       setIsPlaying(false);
       setCurrentTime(0);
-      setLoadingState("loading");
+      setLoading(true);
       setError(null);
     }
   }, [url]);
 
-  // 更新音量
+  // 音量更新
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -470,14 +383,14 @@ export const MusicPlayer = ({
     }
   }, [volume]);
 
-  // 更新解析的时长
+  // 元数据时长更新
   useEffect(() => {
     if (parsedDuration > 0 && !propDuration && duration !== parsedDuration) {
       setDuration(parsedDuration);
     }
   }, [parsedDuration, propDuration, duration]);
 
-  // 处理元数据错误
+  // 元数据错误处理
   useEffect(() => {
     if (metadataError) {
       setError(metadataError.message);
@@ -485,28 +398,55 @@ export const MusicPlayer = ({
     }
   }, [metadataError, onError]);
 
-  // 处理自动播放
+  // 自动播放
   useEffect(() => {
-    if (autoplay && loadingState === "loaded" && !isPlayingRef.current) {
-      // 延迟一点时间确保所有状态都设置好了
-      setTimeout(() => {
-        togglePlayPause();
-      }, 100);
+    if (autoplay && !loading && !isPlaying) {
+      setTimeout(togglePlayPause, 100);
     }
-  }, [autoplay, loadingState]);
+  }, [autoplay, loading, isPlaying, togglePlayPause]);
 
-  const sizeClasses = getSizeClasses();
+  // 响应式样式函数
+  const getResponsiveClasses = useCallback(() => {
+    switch (size) {
+      case "sm":
+        return {
+          container: "w-full max-w-sm",
+          cover: "size-16 sm:size-20",
+          title: "text-lg sm:text-xl",
+          button: "size-8 sm:size-9",
+          controls: "gap-2 sm:gap-3",
+          padding: "p-4 sm:p-6",
+        };
+      case "lg":
+        return {
+          container: "w-full max-w-4xl xl:max-w-5xl",
+          cover: "size-32 sm:size-40",
+          title: "text-2xl sm:text-3xl xl:text-4xl",
+          button: "size-12 sm:size-14",
+          controls: "gap-4 sm:gap-6",
+          padding: "p-6 sm:p-8 lg:p-10",
+        };
+      case "md":
+      default:
+        return {
+          container: "w-full max-w-2xl lg:max-w-3xl",
+          cover: "size-20 sm:size-24",
+          title: "text-xl sm:text-2xl",
+          button: "size-10 sm:size-11",
+          controls: "gap-3 sm:gap-4",
+          padding: "p-5 sm:p-7",
+        };
+    }
+  }, [size]);
 
-  // 如果有错误，显示错误状态
-  if (loadingState === "error" || metadataError) {
+  const responsiveClasses = getResponsiveClasses();
+
+  // 错误状态
+  if (error || metadataError) {
     return (
-      <Card.Root className={`w-full p-4 ${className}`}>
+      <Card.Root className={`w-full ${responsiveClasses.padding} ${className}`}>
         <div className="text-center text-danger">
-          <p>
-            {metadataError
-              ? "Metadata extraction failed"
-              : "Audio loading failed"}
-          </p>
+          <p>Audio loading failed</p>
           <p className="text-sm text-danger/60">
             {error || metadataError?.message}
           </p>
@@ -518,31 +458,37 @@ export const MusicPlayer = ({
   // 紧凑模式
   if (variant === "compact") {
     return (
-      <Card.Root className={`w-full ${className}`}>
-        <div className="flex items-center gap-4 p-4">
-          {/* 封面图片 */}
-          <Avatar.Root className={`${sizeClasses.cover} shrink-0 rounded-lg`}>
+      <Card.Root className={`w-full ${responsiveClasses.padding} ${className}`}>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <Avatar.Root
+            className={`${responsiveClasses.cover} shrink-0 rounded-lg`}
+          >
             <AvatarImage
               alt={title}
               className="object-cover rounded-lg"
               src={coverImage}
             />
             <AvatarFallback className="rounded-lg bg-gradient-to-br from-primary/20 to-accent/20">
-              <div className="text-2xl">♪</div>
+              <div className="text-2xl sm:text-3xl">♪</div>
             </AvatarFallback>
           </Avatar.Root>
 
-          {/* 信息和控制 */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             {showTrackInfo && (
-              <div className="mb-2">
-                <div className="font-semibold">{title}</div>
-                <div className="text-sm text-foreground/70">{artist}</div>
+              <div className="mb-3">
+                <div
+                  className={`font-semibold ${responsiveClasses.title} truncate`}
+                >
+                  {title}
+                </div>
+                <div className="text-sm text-foreground/70 truncate">
+                  {artist}
+                </div>
               </div>
             )}
 
             {showProgressBar && (
-              <div className="mb-2">
+              <div className="mb-3">
                 <Slider
                   maxValue={duration || 100}
                   minValue={0}
@@ -570,7 +516,6 @@ export const MusicPlayer = ({
                   >
                     <BackwardFillIcon className="size-4" />
                   </Button>
-
                   <Button
                     isIconOnly
                     size="sm"
@@ -579,7 +524,6 @@ export const MusicPlayer = ({
                   >
                     {isPlaying ? <PauseFillIcon /> : <PlayFillIcon />}
                   </Button>
-
                   <Button
                     isIconOnly
                     size="sm"
@@ -607,14 +551,29 @@ export const MusicPlayer = ({
                       />
                     </Button>
                   )}
+                  {showVolumeControl && (
+                    <Button
+                      isIconOnly
+                      className="text-foreground/60"
+                      size="sm"
+                      variant="ghost"
+                      onPress={toggleMute}
+                    >
+                      {getVolumeIcon()}
+                    </Button>
+                  )}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-        <audio ref={audioRef} title={`Playing: ${title} by ${artist}`} />
+        <audio
+          ref={audioRef}
+          preload="metadata"
+          src={url}
+          title={`Playing: ${title} by ${artist}`}
+        />
       </Card.Root>
     );
   }
@@ -622,10 +581,12 @@ export const MusicPlayer = ({
   // 极简模式
   if (variant === "minimal") {
     return (
-      <div className={`flex items-center gap-4 ${className}`}>
+      <div
+        className={`flex flex-col sm:flex-row items-center gap-4 w-full ${className}`}
+      >
         <Button
           isIconOnly
-          className="rounded-full"
+          className="rounded-full flex-shrink-0"
           size={size === "sm" ? "sm" : size === "lg" ? "lg" : "md"}
           variant="ghost"
           onPress={togglePlayPause}
@@ -634,14 +595,14 @@ export const MusicPlayer = ({
         </Button>
 
         {showTrackInfo && (
-          <div>
-            <div className="font-medium">{title}</div>
-            <div className="text-sm text-foreground/70">{artist}</div>
+          <div className="min-w-0 flex-1 text-center sm:text-left">
+            <div className="font-medium truncate">{title}</div>
+            <div className="text-sm text-foreground/70 truncate">{artist}</div>
           </div>
         )}
 
         {showProgressBar && (
-          <div className="flex-1">
+          <div className="flex-1 w-full sm:w-auto order-2 sm:order-1">
             <Slider
               maxValue={duration || 100}
               minValue={0}
@@ -656,8 +617,12 @@ export const MusicPlayer = ({
           </div>
         )}
 
-        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-        <audio ref={audioRef} title={`Playing: ${title} by ${artist}`} />
+        <audio
+          ref={audioRef}
+          preload="metadata"
+          src={url}
+          title={`Playing: ${title} by ${artist}`}
+        />
       </div>
     );
   }
@@ -665,88 +630,136 @@ export const MusicPlayer = ({
   // 默认模式
   return (
     <Card.Root
-      className={`w-full ${sizeClasses.container} overflow-hidden ${className}`}
+      className={`w-full ${responsiveClasses.container} overflow-hidden ${className}`}
     >
-      {/* 背景渐变 */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
 
-      <div className="relative flex flex-col gap-6 p-8 md:flex-row md:items-center md:gap-8">
-        {/* 专辑封面 */}
-        <div className="relative mx-auto shrink-0 md:mx-0">
-          <Avatar.Root className={`${sizeClasses.cover} rounded-xl`}>
-            <AvatarImage
-              alt="Album cover"
-              className="aspect-square w-full rounded-xl object-cover"
-              src={coverImage}
-            />
-            <AvatarFallback className="rounded-xl bg-gradient-to-br from-primary/20 to-accent/20">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-foreground/60">♪</div>
-                <div className="text-sm text-foreground/40">Album</div>
-              </div>
-            </AvatarFallback>
-          </Avatar.Root>
+      <div className={`relative ${responsiveClasses.padding}`}>
+        <div className="flex flex-col gap-6 lg:gap-8 xl:gap-10">
+          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
+            <div className="relative shrink-0">
+              <Avatar.Root
+                className={`${responsiveClasses.cover} rounded-xl mx-auto sm:mx-0`}
+              >
+                <AvatarImage
+                  alt="Album cover"
+                  className="aspect-square w-full rounded-xl object-cover"
+                  src={coverImage}
+                />
+                <AvatarFallback className="rounded-xl bg-gradient-to-br from-primary/20 to-accent/20">
+                  <div className="text-center">
+                    <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground/60">
+                      ♪
+                    </div>
+                    <div className="text-xs sm:text-sm text-foreground/40">
+                      Album
+                    </div>
+                  </div>
+                </AvatarFallback>
+              </Avatar.Root>
 
-          {/* 播放指示器 */}
-          {isPlaying && (
-            <div className="absolute -bottom-2 -right-2 flex items-center justify-center rounded-full bg-primary p-2 shadow-lg">
-              <div className="flex items-center gap-0.5">
-                <div className="h-1 w-0.5 bg-white animate-pulse" />
-                <div className="h-1 w-0.5 bg-white animate-pulse delay-75" />
-                <div className="h-1 w-0.5 bg-white animate-pulse delay-150" />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 播放器和信息 */}
-        <div className="flex flex-1 flex-col gap-6">
-          {/* 曲目信息 */}
-          <Card.Header className="gap-2 pb-0">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                {showTrackInfo && (
-                  <>
-                    <Card.Title className={`${sizeClasses.title} font-bold`}>
-                      {title}
-                    </Card.Title>
-                    <Card.Description className="text-base text-foreground/70">
-                      {artist}
-                      {album && ` • ${album}`}
-                    </Card.Description>
-                  </>
-                )}
-              </div>
-
-              {showFavorite && (
-                <TooltipRoot delay={0}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      isIconOnly
-                      className="mt-1"
-                      size="md"
-                      variant="ghost"
-                      onPress={toggleFavorite}
-                    >
-                      <HeartIcon
-                        className="size-5"
-                        fill={isFavorited ? "currentColor" : "none"}
-                      />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      {isFavorited
-                        ? "Remove from favorites"
-                        : "Add to favorites"}
-                    </p>
-                  </TooltipContent>
-                </TooltipRoot>
+              {isPlaying && (
+                <div className="absolute -bottom-2 -right-2 flex items-center justify-center rounded-full bg-primary p-2 shadow-lg">
+                  <div className="flex items-center gap-0.5">
+                    <div className="h-1 w-0.5 bg-white animate-pulse" />
+                    <div className="h-1 w-0.5 bg-white animate-pulse delay-75" />
+                    <div className="h-1 w-0.5 bg-white animate-pulse delay-150" />
+                  </div>
+                </div>
               )}
             </div>
-          </Card.Header>
 
-          {/* 进度条 */}
+            <div className="flex-1 text-center sm:text-left lg:text-center xl:text-left min-w-0">
+              {showTrackInfo && (
+                <div className="mb-4">
+                  <h2
+                    className={`font-bold ${responsiveClasses.title} mb-2 truncate`}
+                  >
+                    {title}
+                  </h2>
+                  <p className="text-base sm:text-lg text-foreground/70">
+                    {artist}
+                    {album && (
+                      <>
+                        {" • "}
+                        <span className="hidden sm:inline">{album}</span>
+                        <span className="sm:hidden">
+                          {album.length > 20
+                            ? album.substring(0, 20) + "..."
+                            : album}
+                        </span>
+                      </>
+                    )}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex items-center justify-center gap-2 sm:hidden">
+                {showRepeat && (
+                  <Button
+                    isIconOnly
+                    className={
+                      repeatMode !== "off"
+                        ? "text-primary"
+                        : "text-foreground/60"
+                    }
+                    size="sm"
+                    variant="ghost"
+                    onPress={toggleRepeat}
+                  >
+                    <RepeatIcon className="size-4" />
+                  </Button>
+                )}
+                {showShuffle && (
+                  <Button
+                    isIconOnly
+                    className={
+                      isShuffled ? "text-primary" : "text-foreground/60"
+                    }
+                    size="sm"
+                    variant="ghost"
+                    onPress={toggleShuffle}
+                  >
+                    <ShuffleIcon className="size-4" />
+                  </Button>
+                )}
+                {showFavorite && (
+                  <Button
+                    isIconOnly
+                    className={
+                      isFavorited ? "text-danger" : "text-foreground/60"
+                    }
+                    size="sm"
+                    variant="ghost"
+                    onPress={toggleFavorite}
+                  >
+                    <HeartIcon
+                      className="size-4"
+                      fill={isFavorited ? "currentColor" : "none"}
+                    />
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            {showFavorite && (
+              <div className="hidden sm:block">
+                <Button
+                  isIconOnly
+                  className={isFavorited ? "text-danger" : "text-foreground/60"}
+                  size="md"
+                  variant="ghost"
+                  onPress={toggleFavorite}
+                >
+                  <HeartIcon
+                    className="size-5"
+                    fill={isFavorited ? "currentColor" : "none"}
+                  />
+                </Button>
+              </div>
+            )}
+          </div>
+
           {showProgressBar && (
             <div className="space-y-3">
               <Slider
@@ -756,8 +769,10 @@ export const MusicPlayer = ({
                 value={currentTime}
                 onChange={seekTo as any}
               >
-                <Label>{formatTime(currentTime)}</Label>
-                <Slider.Output>{formatTime(duration)}</Slider.Output>
+                <div className="flex justify-between text-sm text-foreground/60 mb-2">
+                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatTime(duration)}</span>
+                </div>
                 <Slider.Track>
                   <Slider.Fill />
                   <Slider.Thumb />
@@ -766,10 +781,9 @@ export const MusicPlayer = ({
             </div>
           )}
 
-          {/* 控制按钮 */}
           {showControls && (
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex items-center gap-1">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-1 order-2 sm:order-1">
                 {showRepeat && (
                   <TooltipRoot delay={0}>
                     <TooltipTrigger asChild>
@@ -789,9 +803,11 @@ export const MusicPlayer = ({
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
-                        {repeatMode === "off" && "Enable repeat"}
-                        {repeatMode === "all" && "Repeat all"}
-                        {repeatMode === "one" && "Repeat one"}
+                        {repeatMode === "off"
+                          ? "Enable repeat"
+                          : repeatMode === "all"
+                            ? "Repeat all"
+                            : "Repeat one"}
                       </p>
                     </TooltipContent>
                   </TooltipRoot>
@@ -819,7 +835,7 @@ export const MusicPlayer = ({
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 sm:gap-4 order-1 sm:order-2">
                 <TooltipRoot delay={0}>
                   <TooltipTrigger asChild>
                     <Button
@@ -838,17 +854,17 @@ export const MusicPlayer = ({
 
                 <Button
                   isIconOnly
-                  isDisabled={loadingState === "loading"}
+                  className="size-12 sm:size-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+                  isDisabled={loading}
                   size="lg"
-                  variant="ghost"
                   onPress={togglePlayPause}
                 >
-                  {loadingState === "loading" ? (
+                  {loading ? (
                     <div className="animate-spin">⟳</div>
                   ) : isPlaying ? (
-                    <PauseFillIcon className="size-6" />
+                    <PauseFillIcon className="size-5 sm:size-6" />
                   ) : (
-                    <PlayFillIcon className="size-6" />
+                    <PlayFillIcon className="size-5 sm:size-6" />
                   )}
                 </Button>
 
@@ -869,125 +885,106 @@ export const MusicPlayer = ({
                 </TooltipRoot>
               </div>
 
-              {showVolumeControl && (
-                <Popover>
-                  <Popover.Trigger>
-                    <Button
-                      isIconOnly
-                      size="sm"
-                      variant="ghost"
-                      onPress={toggleMute}
+              <div className="order-3">
+                {showVolumeControl && (
+                  <Popover>
+                    <Popover.Trigger>
+                      <Button
+                        isIconOnly
+                        className="text-foreground/60"
+                        size="sm"
+                        variant="ghost"
+                        onPress={toggleMute}
+                      >
+                        {getVolumeIcon()}
+                      </Button>
+                    </Popover.Trigger>
+
+                    <Popover.Content
+                      className="w-48 p-4"
+                      offset={8}
+                      placement="top"
                     >
-                      {getVolumeIcon()}
-                    </Button>
-                  </Popover.Trigger>
+                      <Popover.Dialog>
+                        <Popover.Heading className="text-sm font-medium mb-3">
+                          Volume Control
+                        </Popover.Heading>
 
-                  <Popover.Content
-                    className="w-48 p-4"
-                    offset={8}
-                    placement="top"
-                  >
-                    <Popover.Dialog>
-                      <Popover.Heading className="text-sm font-medium mb-3">
-                        Volume Control
-                      </Popover.Heading>
-
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <Button
-                            isIconOnly
-                            className="text-foreground/60"
-                            size="sm"
-                            variant="ghost"
-                            onPress={toggleMute}
-                          >
-                            {getVolumeIcon()}
-                          </Button>
-
-                          <div className="flex-1">
-                            <Slider
-                              className="w-full"
-                              maxValue={1}
-                              minValue={0}
-                              step={0.01}
-                              value={isMuted ? 0 : volume}
-                              onChange={handleVolumeChange as any}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3">
+                            <Button
+                              isIconOnly
+                              className="text-foreground/60"
+                              size="sm"
+                              variant="ghost"
+                              onPress={toggleMute}
                             >
-                              <Slider.Output />
-                              <Slider.Track>
-                                <Slider.Fill />
-                                <Slider.Thumb />
-                              </Slider.Track>
-                            </Slider>
+                              {getVolumeIcon()}
+                            </Button>
+
+                            <div className="flex-1">
+                              <Slider
+                                className="w-full"
+                                maxValue={1}
+                                minValue={0}
+                                step={0.01}
+                                value={volume}
+                                onChange={handleVolumeChange as any}
+                              >
+                                <Slider.Output />
+                                <Slider.Track>
+                                  <Slider.Fill />
+                                  <Slider.Thumb />
+                                </Slider.Track>
+                              </Slider>
+                            </div>
+
+                            <span className="text-xs text-foreground/60 w-8 text-right">
+                              {Math.round(volume * 100)}%
+                            </span>
                           </div>
 
-                          <span className="text-xs text-foreground/60 w-8 text-right">
-                            {Math.round((isMuted ? 0 : volume) * 100)}%
-                          </span>
+                          <div className="flex justify-center gap-2">
+                            <Button
+                              className="text-xs"
+                              variant="ghost"
+                              onPress={() => handleVolumeChange(0)}
+                            >
+                              0%
+                            </Button>
+                            <Button
+                              className="text-xs"
+                              variant="ghost"
+                              onPress={() => handleVolumeChange(0.5)}
+                            >
+                              50%
+                            </Button>
+                            <Button
+                              className="text-xs"
+                              variant="ghost"
+                              onPress={() => handleVolumeChange(1)}
+                            >
+                              100%
+                            </Button>
+                          </div>
                         </div>
-
-                        {/* 快速音量按钮 */}
-                        <div className="flex justify-center gap-2">
-                          <Button
-                            className="text-xs"
-                            variant="ghost"
-                            onPress={() => handleVolumeChange(0)}
-                          >
-                            0%
-                          </Button>
-                          <Button
-                            className="text-xs"
-                            variant="ghost"
-                            onPress={() => handleVolumeChange(0.25)}
-                          >
-                            25%
-                          </Button>
-                          <Button
-                            className="text-xs"
-                            variant="ghost"
-                            onPress={() => handleVolumeChange(0.5)}
-                          >
-                            50%
-                          </Button>
-                          <Button
-                            className="text-xs"
-                            variant="ghost"
-                            onPress={() => handleVolumeChange(0.75)}
-                          >
-                            75%
-                          </Button>
-                          <Button
-                            className="text-xs"
-                            size="sm"
-                            variant="ghost"
-                            onPress={() => handleVolumeChange(1)}
-                          >
-                            100%
-                          </Button>
-                        </div>
-                      </div>
-                    </Popover.Dialog>
-                  </Popover.Content>
-                </Popover>
-              )}
+                      </Popover.Dialog>
+                    </Popover.Content>
+                  </Popover>
+                )}
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      <Card.Footer className="flex justify-between items-center text-sm text-foreground/50">
-        <div>HeroUI v3 Music Player</div>
-        <div>
-          {metadataLoading
-            ? "Loading metadata..."
-            : loadingState === "loading"
-              ? "Loading audio..."
-              : "Ready"}
-        </div>
-      </Card.Footer>
-
-      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <audio ref={audioRef} title={`Playing: ${title} by ${artist}`} />
+      <audio
+        ref={audioRef}
+        preload="metadata"
+        src={url}
+        title={`Playing: ${title} by ${artist}`}
+      />
     </Card.Root>
   );
 };
+
