@@ -114,12 +114,12 @@ export const Audio = Node.create({
     return {
       setAudio:
         (attrs) =>
-          ({ commands }) => {
-            return commands.insertContent({
-              type: this.name,
-              attrs: { src: attrs.src },
-            });
-          },
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            attrs: { src: attrs.src },
+          });
+        },
     };
   },
 });

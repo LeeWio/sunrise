@@ -2,7 +2,7 @@ import { Button } from "@heroui/react";
 import { NodeViewProps, NodeViewWrapper } from "@tiptap/react";
 import { useCallback } from "react";
 
-interface AudioUploadViewProps extends NodeViewProps { }
+interface AudioUploadViewProps extends NodeViewProps {}
 export const AudioUploadView: React.FC<AudioUploadViewProps> = ({
   editor,
   getPos,

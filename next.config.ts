@@ -9,7 +9,11 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["ui-avatars.com", "heroui.com"],
+    domains: [
+      "heroui-assets.nyc3.cdn.digitaloceanspaces.com",
+      "ui-avatars.com",
+      "heroui.com",
+    ],
   },
   async rewrites() {
     return [

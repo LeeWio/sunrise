@@ -3,12 +3,10 @@
 import React, { useCallback, useRef, useEffect } from "react";
 import { NodeViewWrapper, NodeViewProps, NodeViewContent } from "@tiptap/react";
 import { Button } from "@heroui/react";
+
 import { AccordionAttributes } from "../accordion";
 
-import {
-  PencilIcon,
-  TrashIcon,
-} from "@/components/icons";
+import { PencilIcon, TrashIcon } from "@/components/icons";
 
 // React component for rendering the accordion node view
 export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
@@ -60,23 +58,27 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
   // Select node
   const handleSelect = useCallback(() => {
     const pos = getPos();
+
     if (pos !== undefined) {
       editor.commands.setNodeSelection(pos);
     }
   }, [getPos, editor]);
 
   // Handle key events for title input
-  const handleTitleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      e.stopPropagation();
-      handleTitleSave();
-    } else if (e.key === "Escape") {
-      e.preventDefault();
-      e.stopPropagation();
-      handleTitleCancel();
-    }
-  }, [handleTitleSave, handleTitleCancel]);
+  const handleTitleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        e.stopPropagation();
+        handleTitleSave();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        handleTitleCancel();
+      }
+    },
+    [handleTitleSave, handleTitleCancel],
+  );
 
   // Auto-focus title input when editing starts
   useEffect(() => {
@@ -87,15 +89,18 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
   }, [isEditingTitle]);
 
   // Handle title input change
-  const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTempTitle(e.target.value);
-  }, []);
+  const handleTitleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTempTitle(e.target.value);
+    },
+    [],
+  );
 
   return (
     <NodeViewWrapper
       data-drag-handle
-      data-selected={selected}
       className="accordion-node-wrapper"
+      data-selected={selected}
     >
       <div
         className="accordion-node-container group relative my-4"
@@ -116,12 +121,32 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
               {/* Chevron indicator */}
               <div className="transition-transform duration-200">
                 {expanded ? (
-                  <svg className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                  <svg
+                    className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 15l7-7 7 7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
                   </svg>
                 ) : (
-                  <svg className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7 7m-7 7v10a2 2 0 0 0 2 2H6a2 2 0 0 0 2-2V5a2 2 0 0 1 2-2h7" />
+                  <svg
+                    className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m19 9-7 7 7m-7 7v10a2 2 0 0 0 2 2H6a2 2 0 0 0 2-2V5a2 2 0 0 1 2-2h7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
                   </svg>
                 )}
               </div>
@@ -131,13 +156,13 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
                 <div className="flex-1" onClick={(e) => e.stopPropagation()}>
                   <input
                     ref={titleInputRef}
-                    type="text"
-                    value={tempTitle}
-                    onChange={handleTitleChange}
-                    onBlur={handleTitleSave}
-                    onKeyDown={handleTitleKeyDown}
                     className="w-full px-3 py-2 text-lg font-medium bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter title..."
+                    type="text"
+                    value={tempTitle}
+                    onBlur={handleTitleSave}
+                    onChange={handleTitleChange}
+                    onKeyDown={handleTitleKeyDown}
                   />
                 </div>
               ) : (
@@ -155,10 +180,10 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
               {/* Edit title button */}
               <Button
                 isIconOnly
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 size="sm"
                 variant="light"
                 onPress={handleTitleEdit}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 <PencilIcon className="h-4 w-4" />
               </Button>
@@ -166,11 +191,11 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
               {/* Delete button */}
               <Button
                 isIconOnly
+                className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
+                color="danger"
                 size="sm"
                 variant="light"
-                color="danger"
                 onPress={handleDelete}
-                className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400"
               >
                 <TrashIcon className="h-4 w-4" />
               </Button>
@@ -182,9 +207,7 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
             <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-900/50">
               <div className="min-h-[60px]">
                 {/* TipTap Editor Content */}
-                <NodeViewContent
-                  className="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
-                />
+                <NodeViewContent className="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300" />
               </div>
             </div>
           )}

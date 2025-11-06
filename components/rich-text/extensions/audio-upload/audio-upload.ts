@@ -39,8 +39,8 @@ export const AudioUpload = Node.create({
     return {
       setAudioUpload:
         () =>
-          ({ commands }) =>
-            commands.insertContent(`<div data-type="${this.name}"></div>`),
+        ({ commands }) =>
+          commands.insertContent(`<div data-type="${this.name}"></div>`),
     };
   },
 

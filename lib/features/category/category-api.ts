@@ -686,4 +686,3 @@ export const {
 export { categoryApi };
 
 // Types are already exported above
-

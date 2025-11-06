@@ -160,41 +160,41 @@ export const ImageBlock = Image.extend<ImageBlockOptions>({
     return {
       setImageBlock:
         (options) =>
-          ({ commands }) => {
-            return commands.insertContent({
-              type: this.name,
-              attrs: { src: options.src },
-            });
-          },
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            attrs: { src: options.src },
+          });
+        },
 
       setImageBlockAlign:
         (align: ImageAlign) =>
-          ({ commands }) => {
-            return commands.updateAttributes(this.name, { align });
-          },
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, { align });
+        },
 
       setImageBlockWidth:
         (width: number) =>
-          ({ commands }) =>
-            commands.updateAttributes(this.name, {
-              width: `${Math.max(0, Math.min(100, width))}%`,
-            }),
+        ({ commands }) =>
+          commands.updateAttributes(this.name, {
+            width: `${Math.max(0, Math.min(100, width))}%`,
+          }),
 
       setImageBlockFlipX:
         (flip: boolean) =>
-          ({ commands }) => {
-            return commands.updateAttributes(this.name, {
-              flipX: flip,
-            });
-          },
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, {
+            flipX: flip,
+          });
+        },
 
       setImageBlockFlipY:
         (flip: boolean) =>
-          ({ commands }) => {
-            return commands.updateAttributes(this.name, {
-              flipY: flip,
-            });
-          },
+        ({ commands }) => {
+          return commands.updateAttributes(this.name, {
+            flipY: flip,
+          });
+        },
     };
   },
 });

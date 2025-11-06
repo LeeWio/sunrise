@@ -1138,4 +1138,3 @@ export const {
 export { articleApi };
 
 // Types are already exported above
-

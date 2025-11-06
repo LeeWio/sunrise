@@ -27,7 +27,7 @@ export const useRichText = () => {
     /**
      * Called after the editor is constructed.
      */
-    onCreate(props) { },
+    onCreate(props) {},
 
     /**
      * Called when the editor's content is updated.
@@ -39,38 +39,38 @@ export const useRichText = () => {
     /**
      * Called before the editor is constructed.
      */
-    onBeforeCreate(props) { },
+    onBeforeCreate(props) {},
 
     /**
      * Called when the editor is unmounted.
      */
-    onMount(props) { },
+    onMount(props) {},
 
     /**
      * Called when the editor is unmounted.
      */
-    onUnmount(props) { },
+    onUnmount(props) {},
 
     /**
      * Called when the editor encounters an error while parsing the content.
      * Only enabled if `enableContentCheck` is `true`.
      */
-    onContentError(props) { },
+    onContentError(props) {},
 
     /**
      * Called on blur events.
      */
-    onBlur(props) { },
+    onBlur(props) {},
 
     /**
      * Called when content is deleted from the editor.
      */
-    onDelete(props) { },
+    onDelete(props) {},
 
     /**
      * Called when the editor is destroyed.
      */
-    onDestroy(props) { },
+    onDestroy(props) {},
 
     /**
      * The extensions to use

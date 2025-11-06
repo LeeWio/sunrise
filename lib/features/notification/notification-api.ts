@@ -844,4 +844,3 @@ export const useRealTimeNotifications = (userId?: string) => {
 export { notificationApi };
 
 // Types are already exported above
-

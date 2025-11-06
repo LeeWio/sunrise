@@ -84,9 +84,9 @@ export const useAudioMetadata = (src: string) => {
       coverArt:
         common.picture && common.picture.length > 0
           ? {
-            format: common.picture[0].format,
-            data: common.picture[0].data,
-          }
+              format: common.picture[0].format,
+              data: common.picture[0].data,
+            }
           : null,
     });
   };
@@ -121,7 +121,7 @@ export const useAudioMetadata = (src: string) => {
       clearMetadata();
     }
 
-    return () => { };
+    return () => {};
   }, [src, extractMetadata, clearMetadata]);
 
   return {

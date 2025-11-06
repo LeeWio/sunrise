@@ -7,7 +7,7 @@ import { useAudioMetadata } from "./use-audio-metadata";
 
 import { PlayFillIcon, PauseFillIcon } from "@/components/icons";
 
-interface AudioViewProps extends NodeViewProps { }
+interface AudioViewProps extends NodeViewProps {}
 
 export const AudioView: React.FC<AudioViewProps> = ({
   node,
