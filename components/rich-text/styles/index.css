@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
-@import './partials/typography.css';
-@import './partials/blocks.css';
-@import './partials/placeholder.css';
-@import './partials/animations.css';
-@import './partials/lists.css';
-@import './partials/code.css';
+@import "./partials/typography.css";
+@import "./partials/blocks.css";
+@import "./partials/placeholder.css";
+@import "./partials/animations.css";
 
 .ProseMirror {
   @apply outline-0 pr-2 pl-2 py-2 z-0 mx-auto;

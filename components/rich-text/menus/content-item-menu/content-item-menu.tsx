@@ -63,7 +63,7 @@ export const ContentItemMenu = ({
       onNodeChange={data.handleNodeChange}
     >
       {isEditable && (
-        <Button isIconOnly variant="ghost">
+        <Button isIconOnly size="sm" variant="ghost">
           <EllipsisVerticalIcon />
         </Button>
       )}

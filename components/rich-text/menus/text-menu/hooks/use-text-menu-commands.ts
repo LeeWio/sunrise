@@ -22,8 +22,8 @@ export const useTextmenuCommands = (editor: Editor) => {
     [editor],
   );
 
-  const onCode = useCallback(
-    () => editor.chain().focus().toggleCode().run(),
+  const onChip = useCallback(
+    () => editor.chain().focus().toggleChip().run(),
     [editor],
   );
 
@@ -209,7 +209,7 @@ export const useTextmenuCommands = (editor: Editor) => {
     onItalic,
     onStrike,
     onUnderline,
-    onCode,
+    onChip,
     onCodeBlock,
     onSubscript,
     onSuperscript,

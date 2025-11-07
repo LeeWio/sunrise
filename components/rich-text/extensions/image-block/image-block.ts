@@ -1,7 +1,7 @@
 import type { ImageOptions, SetImageOptions } from "@tiptap/extension-image";
 
 import { Image } from "@tiptap/extension-image";
-import { Range, ReactNodeViewRenderer } from "@tiptap/react";
+import { mergeAttributes, Range, ReactNodeViewRenderer } from "@tiptap/react";
 
 import { ImageBlockView } from "./views/image-block-view";
 
@@ -137,20 +137,20 @@ export const ImageBlock = Image.extend<ImageBlockOptions>({
     };
   },
 
-  // parseHTML() {
-  //   return [
-  //     {
-  //       tag: 'img[src*="tiptap.dev"]:not([src^="data:"]), img[src*="windows.net"]:not([src^="data:"])',
-  //     },
-  //   ];
-  // },
-  //
-  // renderHTML({ HTMLAttributes }: { HTMLAttributes: Record<string, any> }) {
-  //   return [
-  //     "img",
-  //     mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-  //   ];
-  // },
+  parseHTML() {
+    return [
+      {
+        tag: 'img[src*="tiptap.dev"]:not([src^="data:"]), img[src*="windows.net"]:not([src^="data:"])',
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }: { HTMLAttributes: Record<string, any> }) {
+    return [
+      "img",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+    ];
+  },
 
   addNodeView() {
     return ReactNodeViewRenderer(ImageBlockView);

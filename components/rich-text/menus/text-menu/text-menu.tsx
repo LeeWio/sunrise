@@ -75,9 +75,9 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
       <TextMenuItem
         aria-label="Toggle code formatting"
         icon={<CodeIcon />}
-        isSelected={states.isCode}
+        isSelected={states.isChip}
         tooltip="Code"
-        onPress={commands.onCode}
+        onPress={commands.onChip}
       />
 
       <Separator className="mx-0.5 h-5" orientation="vertical" />

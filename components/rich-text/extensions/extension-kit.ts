@@ -25,6 +25,9 @@ import {
   Accordion,
   AudioUpload,
   Mathematics,
+  Checkbox,
+  CheckboxGroup,
+  Chip,
 } from ".";
 
 export const ExtensionKit = () => [
@@ -33,6 +36,8 @@ export const ExtensionKit = () => [
     document: false,
     horizontalRule: false,
     heading: false,
+    code: false,
+    codeBlock: false,
   }),
 
   Heading.configure({
@@ -42,11 +47,14 @@ export const ExtensionKit = () => [
   CharacterCount.configure({
     limit: 5000,
   }),
-
+  Chip,
   ListKit.configure({
     listItem: {
       HTMLAttributes: { class: "" },
     },
+    taskItem: false,
+    taskList: false,
+    listKeymap: false,
   }),
 
   Placeholder.configure({
@@ -72,6 +80,8 @@ export const ExtensionKit = () => [
   Typography,
   // UndoRedo,
   Figcaption,
+  Checkbox,
+  CheckboxGroup,
   HorizontalRule,
   ImageUpload.configure({}),
   Highlight,
@@ -91,5 +101,4 @@ export const ExtensionKit = () => [
   Audio,
   AudioUpload,
   Accordion,
-  Math,
 ];

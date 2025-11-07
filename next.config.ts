@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       "heroui-assets.nyc3.cdn.digitaloceanspaces.com",
       "ui-avatars.com",
       "heroui.com",
+      "localhost",
     ],
   },
   async rewrites() {

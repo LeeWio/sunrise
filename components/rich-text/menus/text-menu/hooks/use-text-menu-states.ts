@@ -15,7 +15,7 @@ export const useTextMenuStates = (editor: Editor) => {
         isItalic: ctx.editor.isActive("italic"),
         isStrike: ctx.editor.isActive("strike"),
         isUnderline: ctx.editor.isActive("underline"),
-        isCode: ctx.editor.isActive("code"),
+        isChip: ctx.editor.isActive("chip"),
         isSubscript: ctx.editor.isActive("subscript"),
         isSuperscript: ctx.editor.isActive("superscript"),
         isAlignLeft: ctx.editor.isActive({ textAlign: "left" }),

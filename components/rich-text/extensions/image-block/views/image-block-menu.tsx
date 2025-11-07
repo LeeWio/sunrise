@@ -114,26 +114,29 @@ export const ImageBlockMenu = ({ editor, appendTo }: MenuProps) => {
       shouldShow={shouldShow}
     >
       <TextMenuItem
-        aria-label=""
+        aria-label="Align Left"
         icon={<AlignLeftFillIcon />}
+        isDisabled={width == 100}
         isSelected={isImageLeft}
-        tooltip=""
+        tooltip="Align Left"
         onPress={onAlignImageLeft}
       />
 
       <TextMenuItem
-        aria-label=""
+        aria-label="Align Center"
         icon={<AlignCenterFillIcon />}
+        isDisabled={width == 100}
         isSelected={isImageCenter}
-        tooltip=""
+        tooltip="Align Center"
         onPress={onAlignImageCenter}
       />
 
       <TextMenuItem
-        aria-label=""
+        aria-label="Align Right"
         icon={<AlignRightFillIcon />}
+        isDisabled={width == 100}
         isSelected={isImageRight}
-        tooltip=""
+        tooltip="Align Right"
         onPress={onAlignImageRight}
       />
 

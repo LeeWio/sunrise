@@ -1,6 +1,6 @@
 import { cn } from "@heroui/react";
 import { NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 
 export const ImageBlockView = ({
   editor,
@@ -11,10 +11,6 @@ export const ImageBlockView = ({
   const { src, width, align, alt, flipX, flipY } = node.attrs;
   const imageWrapperRef = useRef(null);
   const imageRef = useRef(null);
-
-  const [isResizing, setIsResizing] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startWidth, setStartWidth] = useState(0);
 
   const wrapperClassName = cn(
     align === "left" ? "ml-0" : "ml-auto",
@@ -48,11 +44,11 @@ export const ImageBlockView = ({
         <img
           ref={imageRef}
           alt={alt || ""}
+          className="rounded-lg"
           decoding="async"
           loading="lazy"
           src={src}
           style={imageStyle}
-          onClick={onClick}
         />
       </div>
     </NodeViewWrapper>
