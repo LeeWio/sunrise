@@ -6,7 +6,7 @@ import { Button } from "@heroui/react";
 
 import { AccordionAttributes } from "../accordion";
 
-import { PencilIcon, TrashIcon } from "@/components/icons";
+import { PencilIcon, SlashFillIcon } from "@/components/icons";
 
 // React component for rendering the accordion node view
 export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
@@ -197,7 +197,7 @@ export const AccordionView: React.FC<NodeViewProps<AccordionAttributes>> = ({
                 variant="light"
                 onPress={handleDelete}
               >
-                <TrashIcon className="h-4 w-4" />
+                <SlashFillIcon />
               </Button>
             </div>
           </div>

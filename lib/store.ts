@@ -8,6 +8,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 import { fileApi } from "./features/file/file-api";
+import { tagApi } from "./features";
 
 import userReducer from "@/lib/features/user/user-slice";
 
@@ -40,12 +41,13 @@ const persistConfig = {
 };
 
 // Adding middleware (logger in this case) to monitor actions in the Redux state
-const middleware = [fileApi.middleware];
+const middleware = [fileApi.middleware, tagApi.middleware];
 
 // Combine all reducers, combining different slices of state into one main rootReducer
 const rootReducer = combineReducers({
   auth: userReducer,
   [fileApi.reducerPath]: fileApi.reducer,
+  [tagApi.reducerPath]: tagApi.reducer,
 });
 
 // Apply the persistReducer function to enable persistence for the root reducer

@@ -6,7 +6,7 @@ import { Button } from "@heroui/react";
 import { useData } from "./hooks/use-data";
 import useContentItemActions from "./hooks/use-content-item-actions";
 
-import { EllipsisVerticalIcon } from "@/components/icons";
+import { EllipsisIcon } from "@/components/icons";
 
 export type ContentItemMenuProps = {
   editor: Editor;
@@ -64,7 +64,7 @@ export const ContentItemMenu = ({
     >
       {isEditable && (
         <Button isIconOnly size="sm" variant="ghost">
-          <EllipsisVerticalIcon />
+          <EllipsisIcon />
         </Button>
       )}
     </DragHandle>

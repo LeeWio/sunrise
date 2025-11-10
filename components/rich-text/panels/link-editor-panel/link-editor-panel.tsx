@@ -71,14 +71,14 @@ export const LinkEditorPanel = ({
         value={state.url}
         onChange={state.onChange}
       />
+
       <Button
         isIconOnly
         isDisabled={!state.isValidUrl}
-        size="sm"
         type="submit"
         variant="ghost"
       >
-        <CheckIcon />
+        <CheckIcon size={10} />
       </Button>
     </Form>
   );

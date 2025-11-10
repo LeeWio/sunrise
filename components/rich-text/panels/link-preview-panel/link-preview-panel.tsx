@@ -2,7 +2,7 @@ import { Link } from "@heroui/react";
 
 import TextMenuItem from "../../menus/text-menu/components/text-menu-item";
 
-import { PencilIcon, TrashIcon } from "@/components/icons";
+import { ScribbleIcon, TrashFillIcon } from "@/components/icons";
 
 export type LinkPreviewPanelProps = {
   url: string;
@@ -23,14 +23,14 @@ export const LinkPreviewPanel = ({
 
       <TextMenuItem
         aria-label="Edit link"
-        icon={<PencilIcon />}
+        icon={<ScribbleIcon />}
         tooltip="edit"
         onPress={onEdit}
       />
 
       <TextMenuItem
         aria-label="Remove link"
-        icon={<TrashIcon />}
+        icon={<TrashFillIcon />}
         tooltip="clear"
         onPress={onClear}
       />

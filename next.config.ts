@@ -9,11 +9,31 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [
-      "heroui-assets.nyc3.cdn.digitaloceanspaces.com",
-      "ui-avatars.com",
-      "heroui.com",
-      "localhost",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "heroui-assets.nyc3.cdn.digitaloceanspaces.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "heroui.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/**",
+      },
     ],
   },
   async rewrites() {

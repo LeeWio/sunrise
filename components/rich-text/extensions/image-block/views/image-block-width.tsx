@@ -23,14 +23,14 @@ export const ImageBlockWidth = memo(
           <TextMenuItem
             aria-label=""
             icon={<ResizeIcon />}
-            tooltip="Resize image"
+            tooltip="Resize Image"
           />
           <Popover.Content>
-            <Popover.Dialog className="flex h-48 items-center justify-center">
+            <Popover.Dialog className="flex w-48 items-center justify-center">
               <Slider
-                className="h-full"
-                minValue={40}
-                orientation="vertical"
+                className="w-full flex flex-row justify-between"
+                minValue={50}
+                orientation="horizontal"
                 value={value}
                 onChange={handleChange}
               >
@@ -38,6 +38,7 @@ export const ImageBlockWidth = memo(
                   <Slider.Fill />
                   <Slider.Thumb />
                 </Slider.Track>
+                <Slider.Output />
               </Slider>
             </Popover.Dialog>
           </Popover.Content>

@@ -14,9 +14,9 @@ import ColorPicker from "./components/color-picker";
 
 import {
   BoldIcon,
-  BucketPaintIcon,
-  CodeIcon,
-  EllipsisVerticalIcon,
+  HighlighterIcon,
+  CurlybracesIcon,
+  EllipsisIcon,
   ItalicIcon,
   LinkIcon,
   PaletteIcon,
@@ -74,7 +74,7 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
 
       <TextMenuItem
         aria-label="Toggle code formatting"
-        icon={<CodeIcon />}
+        icon={<CurlybracesIcon />}
         isSelected={states.isChip}
         tooltip="Code"
         onPress={commands.onChip}
@@ -86,7 +86,7 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
         <LinkEditorPanel onSetLink={commands.onLink} />
       </PopoverWrapper>
 
-      <PopoverWrapper aria-label="" icon={<BucketPaintIcon />} placement="top">
+      <PopoverWrapper aria-label="" icon={<HighlighterIcon />} placement="top">
         <ColorPicker
           color={states.currentHighlight}
           onChange={commands.onChangeHighlight}
@@ -106,7 +106,7 @@ export const TextMenu = ({ editor, appendTo }: MenuProps) => {
 
       <PopoverWrapper
         aria-label="more options"
-        icon={<EllipsisVerticalIcon />}
+        icon={<EllipsisIcon />}
         placement="top"
       >
         <MoreOptionsPicker editor={editor} />

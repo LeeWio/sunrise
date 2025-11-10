@@ -1,8 +1,7 @@
 "use client";
 
-import { Avatar, Button, Card, Label, Popover, Slider } from "@heroui/react";
+import { Avatar, Button, Card, Label, Slider, Tooltip } from "@heroui/react";
 import { AvatarFallback, AvatarImage } from "@heroui/react";
-import { TooltipContent, TooltipRoot, TooltipTrigger } from "@heroui/react";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 import {
@@ -11,10 +10,9 @@ import {
   PauseFillIcon,
   PlayFillIcon,
   HeartIcon,
-  RepeatIcon,
-  ShuffleIcon,
   Volume2FillIcon,
   VolumeXFillIcon,
+  SpeakerWave2Icon,
 } from "../icons";
 
 import { useMetadata } from "./hooks/use-metadata";
@@ -629,362 +627,63 @@ export const MusicPlayer = ({
 
   // 默认模式
   return (
-    <Card.Root
-      className={`w-full ${responsiveClasses.container} overflow-hidden ${className}`}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-
-      <div className={`relative ${responsiveClasses.padding}`}>
-        <div className="flex flex-col gap-6 lg:gap-8 xl:gap-10">
-          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
-            <div className="relative shrink-0">
-              <Avatar.Root
-                className={`${responsiveClasses.cover} rounded-xl mx-auto sm:mx-0`}
-              >
-                <AvatarImage
-                  alt="Album cover"
-                  className="aspect-square w-full rounded-xl object-cover"
-                  src={coverImage}
-                />
-                <AvatarFallback className="rounded-xl bg-gradient-to-br from-primary/20 to-accent/20">
-                  <div className="text-center">
-                    <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground/60">
-                      ♪
-                    </div>
-                    <div className="text-xs sm:text-sm text-foreground/40">
-                      Album
-                    </div>
-                  </div>
-                </AvatarFallback>
-              </Avatar.Root>
-
-              {isPlaying && (
-                <div className="absolute -bottom-2 -right-2 flex items-center justify-center rounded-full bg-primary p-2 shadow-lg">
-                  <div className="flex items-center gap-0.5">
-                    <div className="h-1 w-0.5 bg-white animate-pulse" />
-                    <div className="h-1 w-0.5 bg-white animate-pulse delay-75" />
-                    <div className="h-1 w-0.5 bg-white animate-pulse delay-150" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="flex-1 text-center sm:text-left lg:text-center xl:text-left min-w-0">
-              {showTrackInfo && (
-                <div className="mb-4">
-                  <h2
-                    className={`font-bold ${responsiveClasses.title} mb-2 truncate`}
-                  >
-                    {title}
-                  </h2>
-                  <p className="text-base sm:text-lg text-foreground/70">
-                    {artist}
-                    {album && (
-                      <>
-                        {" • "}
-                        <span className="hidden sm:inline">{album}</span>
-                        <span className="sm:hidden">
-                          {album.length > 20
-                            ? album.substring(0, 20) + "..."
-                            : album}
-                        </span>
-                      </>
-                    )}
-                  </p>
-                </div>
-              )}
-
-              <div className="flex items-center justify-center gap-2 sm:hidden">
-                {showRepeat && (
-                  <Button
-                    isIconOnly
-                    className={
-                      repeatMode !== "off"
-                        ? "text-primary"
-                        : "text-foreground/60"
-                    }
-                    size="sm"
-                    variant="ghost"
-                    onPress={toggleRepeat}
-                  >
-                    <RepeatIcon className="size-4" />
-                  </Button>
-                )}
-                {showShuffle && (
-                  <Button
-                    isIconOnly
-                    className={
-                      isShuffled ? "text-primary" : "text-foreground/60"
-                    }
-                    size="sm"
-                    variant="ghost"
-                    onPress={toggleShuffle}
-                  >
-                    <ShuffleIcon className="size-4" />
-                  </Button>
-                )}
-                {showFavorite && (
-                  <Button
-                    isIconOnly
-                    className={
-                      isFavorited ? "text-danger" : "text-foreground/60"
-                    }
-                    size="sm"
-                    variant="ghost"
-                    onPress={toggleFavorite}
-                  >
-                    <HeartIcon
-                      className="size-4"
-                      fill={isFavorited ? "currentColor" : "none"}
-                    />
-                  </Button>
-                )}
-              </div>
-            </div>
-
-            {showFavorite && (
-              <div className="hidden sm:block">
-                <Button
-                  isIconOnly
-                  className={isFavorited ? "text-danger" : "text-foreground/60"}
-                  size="md"
-                  variant="ghost"
-                  onPress={toggleFavorite}
-                >
-                  <HeartIcon
-                    className="size-5"
-                    fill={isFavorited ? "currentColor" : "none"}
-                  />
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {showProgressBar && (
-            <div className="space-y-3">
-              <Slider
-                className="w-full"
-                maxValue={duration || 100}
-                minValue={0}
-                value={currentTime}
-                onChange={seekTo as any}
-              >
-                <div className="flex justify-between text-sm text-foreground/60 mb-2">
-                  <span>{formatTime(currentTime)}</span>
-                  <span>{formatTime(duration)}</span>
-                </div>
-                <Slider.Track>
-                  <Slider.Fill />
-                  <Slider.Thumb />
-                </Slider.Track>
-              </Slider>
-            </div>
-          )}
-
-          {showControls && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-1 order-2 sm:order-1">
-                {showRepeat && (
-                  <TooltipRoot delay={0}>
-                    <TooltipTrigger asChild>
-                      <Button
-                        isIconOnly
-                        className={
-                          repeatMode !== "off"
-                            ? "text-primary"
-                            : "text-foreground/60"
-                        }
-                        size="sm"
-                        variant="ghost"
-                        onPress={toggleRepeat}
-                      >
-                        <RepeatIcon className="size-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>
-                        {repeatMode === "off"
-                          ? "Enable repeat"
-                          : repeatMode === "all"
-                            ? "Repeat all"
-                            : "Repeat one"}
-                      </p>
-                    </TooltipContent>
-                  </TooltipRoot>
-                )}
-
-                {showShuffle && (
-                  <TooltipRoot delay={0}>
-                    <TooltipTrigger asChild>
-                      <Button
-                        isIconOnly
-                        className={
-                          isShuffled ? "text-primary" : "text-foreground/60"
-                        }
-                        size="sm"
-                        variant="ghost"
-                        onPress={toggleShuffle}
-                      >
-                        <ShuffleIcon className="size-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{isShuffled ? "Disable shuffle" : "Enable shuffle"}</p>
-                    </TooltipContent>
-                  </TooltipRoot>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2 sm:gap-4 order-1 sm:order-2">
-                <TooltipRoot delay={0}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      isIconOnly
-                      size="md"
-                      variant="ghost"
-                      onPress={skipPrevious}
-                    >
-                      <BackwardFillIcon className="size-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Previous track</p>
-                  </TooltipContent>
-                </TooltipRoot>
-
-                <Button
-                  isIconOnly
-                  className="size-12 sm:size-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
-                  isDisabled={loading}
-                  size="lg"
-                  onPress={togglePlayPause}
-                >
-                  {loading ? (
-                    <div className="animate-spin">⟳</div>
-                  ) : isPlaying ? (
-                    <PauseFillIcon className="size-5 sm:size-6" />
-                  ) : (
-                    <PlayFillIcon className="size-5 sm:size-6" />
-                  )}
-                </Button>
-
-                <TooltipRoot delay={0}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      isIconOnly
-                      size="md"
-                      variant="ghost"
-                      onPress={skipNext}
-                    >
-                      <ForwardFillIcon className="size-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Next track</p>
-                  </TooltipContent>
-                </TooltipRoot>
-              </div>
-
-              <div className="order-3">
-                {showVolumeControl && (
-                  <Popover>
-                    <Popover.Trigger>
-                      <Button
-                        isIconOnly
-                        className="text-foreground/60"
-                        size="sm"
-                        variant="ghost"
-                        onPress={toggleMute}
-                      >
-                        {getVolumeIcon()}
-                      </Button>
-                    </Popover.Trigger>
-
-                    <Popover.Content
-                      className="w-48 p-4"
-                      offset={8}
-                      placement="top"
-                    >
-                      <Popover.Dialog>
-                        <Popover.Heading className="text-sm font-medium mb-3">
-                          Volume Control
-                        </Popover.Heading>
-
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3">
-                            <Button
-                              isIconOnly
-                              className="text-foreground/60"
-                              size="sm"
-                              variant="ghost"
-                              onPress={toggleMute}
-                            >
-                              {getVolumeIcon()}
-                            </Button>
-
-                            <div className="flex-1">
-                              <Slider
-                                className="w-full"
-                                maxValue={1}
-                                minValue={0}
-                                step={0.01}
-                                value={volume}
-                                onChange={handleVolumeChange as any}
-                              >
-                                <Slider.Output />
-                                <Slider.Track>
-                                  <Slider.Fill />
-                                  <Slider.Thumb />
-                                </Slider.Track>
-                              </Slider>
-                            </div>
-
-                            <span className="text-xs text-foreground/60 w-8 text-right">
-                              {Math.round(volume * 100)}%
-                            </span>
-                          </div>
-
-                          <div className="flex justify-center gap-2">
-                            <Button
-                              className="text-xs"
-                              variant="ghost"
-                              onPress={() => handleVolumeChange(0)}
-                            >
-                              0%
-                            </Button>
-                            <Button
-                              className="text-xs"
-                              variant="ghost"
-                              onPress={() => handleVolumeChange(0.5)}
-                            >
-                              50%
-                            </Button>
-                            <Button
-                              className="text-xs"
-                              variant="ghost"
-                              onPress={() => handleVolumeChange(1)}
-                            >
-                              100%
-                            </Button>
-                          </div>
-                        </div>
-                      </Popover.Dialog>
-                    </Popover.Content>
-                  </Popover>
-                )}
-              </div>
-            </div>
-          )}
+    <Card variant="default">
+      <Card.Header className="flex flex-row gap-2">
+        <img
+          alt="Indie Hackers community"
+          className="pointer-events-none aspect-square w-14 select-none rounded-2xl object-cover"
+          loading="lazy"
+          src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg"
+        />
+        <div className="text-gray-300">
+          <div className="font-extrabold text-lg">Ditto</div>
+          <div className="font-bold text-md">NewJeans</div>
         </div>
-      </div>
+      </Card.Header>
+      <Card.Content className="w-full text-gray-500">
+        <Slider
+          className="w-full flex flex-row items-center justify-center"
+          defaultValue={30}
+        >
+          <Label className="text-gray-500">0:00</Label>
+          <Slider.Track>
+            <Slider.Fill />
+            <Slider.Thumb />
+          </Slider.Track>
+          <Slider.Output>3:00</Slider.Output>
+        </Slider>
+      </Card.Content>
+      <Card.Footer className="flex items-center justify-between">
+        <Button isIconOnly size="lg" variant="ghost">
+          <HeartIcon />
+        </Button>
+        <div>
+          <Button isIconOnly variant="ghost">
+            <BackwardFillIcon />
+          </Button>
+          <Button isIconOnly variant="ghost">
+            <PlayFillIcon />
+          </Button>
+          <Button isIconOnly variant="ghost">
+            <ForwardFillIcon />
+          </Button>
+        </div>
 
-      <audio
-        ref={audioRef}
-        preload="metadata"
-        src={url}
-        title={`Playing: ${title} by ${artist}`}
-      />
-    </Card.Root>
+        <Tooltip delay={0}>
+          <Button isIconOnly variant="ghost">
+            <SpeakerWave2Icon />
+          </Button>
+          <Tooltip.Content className="flex h-40 items-center justify-center">
+            <Slider className="h-full" defaultValue={30} orientation="vertical">
+              <Slider.Output />
+              <Slider.Track>
+                <Slider.Fill />
+                <Slider.Thumb />
+              </Slider.Track>
+            </Slider>
+          </Tooltip.Content>
+        </Tooltip>
+      </Card.Footer>
+    </Card>
   );
 };
-
