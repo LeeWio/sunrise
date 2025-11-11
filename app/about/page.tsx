@@ -1,467 +1,328 @@
 "use client";
 
-import {
-  Button,
-  Card,
-  Input,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@heroui/react";
-import { useState, useEffect } from "react";
+import { Avatar, Button, Card, Link } from "@heroui/react";
+import { Icon } from "@iconify/react";
+import { motion, Variants, TargetAndTransition } from "motion/react";
 
-import { SlashFillIcon, EditIcon, PlusIcon } from "@/components/icons";
-import {
-  useCreateTagMutation,
-  useGetTagsQuery,
-  useUpdateTagMutation,
-  useDeleteTagMutation,
-  type Tag,
-} from "@/lib/features/tag/tag-api";
+// Create motion versions of HeroUI components
+const MotionCard = motion(Card);
+const MotionButton = motion(Button);
+
+// Animation variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  } as TargetAndTransition,
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  } as TargetAndTransition,
+};
+
+const scaleItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+  } as TargetAndTransition,
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  } as TargetAndTransition,
+};
 
 export default function AboutPage() {
-  // 状态管理
-  const [editingTag, setEditingTag] = useState<Tag | null>(null);
-  const [deletingTag, setDeletingTag] = useState<Tag | null>(null);
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  return (
+    <motion.div
+      animate="visible"
+      className="min-h-screen space-y-8 p-6"
+      initial="hidden"
+      variants={containerVariants}
+    >
+      {/* Header Section */}
+      <motion.div className="text-center space-y-4" variants={itemVariants}>
+        <motion.h1
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold"
+          variants={itemVariants}
+        >
+          What I Use
+        </motion.h1>
+        <motion.p
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto"
+          variants={itemVariants}
+        >
+          &quot;To do great work, one must first master their tools.&quot;
+        </motion.p>
+      </motion.div>
 
-  // 表单状态
-  const [formData, setFormData] = useState({
-    name: "",
-    slug: "",
-    color: "#FCF5EE",
-    description: "",
-    icon: "🏷️",
-  });
-
-  // API hooks
-  const {
-    data: tagsData,
-    isLoading: isTagsLoading,
-    refetch: refetchTags,
-  } = useGetTagsQuery({ page: 1, size: 20 });
-  const [createTag, { isLoading: isCreating }] = useCreateTagMutation();
-  const [updateTag, { isLoading: isUpdating }] = useUpdateTagMutation();
-  const [deleteTag, { isLoading: isDeleting }] = useDeleteTagMutation();
-
-  // 重置表单
-  const resetForm = () => {
-    setFormData({
-      name: "",
-      slug: "",
-      color: "#FCF5EE",
-      description: "",
-      icon: "🏷️",
-    });
-  };
-
-  // 开始编辑
-  const startEdit = (tag: Tag) => {
-    setEditingTag(tag);
-    setFormData({
-      name: tag.name,
-      slug: tag.slug || "",
-      color: tag.color || "#FCF5EE",
-      description: tag.description || "",
-      icon: tag.icon || "🏷️",
-    });
-  };
-
-  // 开始删除
-  const startDelete = (tag: Tag) => {
-    setDeletingTag(tag);
-  };
-
-  // 处理创建 Tag
-  const handleCreateTag = async () => {
-    try {
-      await createTag(formData).unwrap();
-      setShowCreateForm(false);
-      resetForm();
-      refetchTags();
-      alert("Tag created successfully!");
-    } catch (error) {
-      console.error("Failed to create tag:", error);
-    }
-  };
-
-  // 处理更新 Tag
-  const handleUpdateTag = async () => {
-    if (!editingTag?.tid) return;
-
-    try {
-      await updateTag({
-        tid: editingTag.tid,
-        ...formData,
-      }).unwrap();
-      setEditingTag(null);
-      resetForm();
-      refetchTags();
-      alert("Tag updated successfully!");
-    } catch (error) {
-      console.error("Failed to update tag:", error);
-    }
-  };
-
-  // 处理删除 Tag
-  const handleDeleteTag = async () => {
-    if (!deletingTag?.tid) return;
-
-    try {
-      await deleteTag(deletingTag.tid).unwrap();
-      setDeletingTag(null);
-      refetchTags();
-      alert("Tag deleted successfully!");
-    } catch (error) {
-      console.error("Failed to delete tag:", error);
-    }
-  };
-
-  // 自动生成 slug
-  useEffect(() => {
-    const generatedSlug = formData.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-
-    setFormData((prev) => ({ ...prev, slug: generatedSlug }));
-  }, [formData.name]);
-
-  // Tag 表单项组件
-  const TagForm = ({
-    isEdit = false,
-    editingTag,
-  }: {
-    isEdit?: boolean;
-    editingTag?: Tag | null;
-  }) => {
-    const formId = isEdit ? "edit-tag-form" : "create-tag-form";
-
-    return (
-      <div className="w-[400px] space-y-5">
-        {/* 标题 */}
-        <div className="pb-2 border-b border-default-200">
-          <h3 className="text-lg font-semibold">
-            {isEdit ? `Edit Tag: ${editingTag?.name}` : "Create New Tag"}
-          </h3>
-        </div>
-
-        {/* 表单字段 */}
-        <div className="space-y-4">
-          {/* Tag Name */}
-          <div className="flex flex-col gap-1">
-            <Label isRequired htmlFor={`${formId}-name`}>
-              Tag Name
-            </Label>
-            <Input
-              required
-              aria-label="Tag Name"
-              className="w-full"
-              id={`${formId}-name`}
-              placeholder="Enter tag name"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
-              }
+      {/* Content Section */}
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Featured Card - MacBook Pro M1 Max */}
+        <MotionCard
+          className="flex flex-col sm:flex-row overflow-hidden"
+          transition={{ duration: 0.3 }}
+          variants={scaleItemVariants}
+          whileHover={{
+            scale: 1.02,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          }}
+        >
+          <div className="relative h-48 sm:h-auto sm:w-48 flex-shrink-0">
+            <img
+              alt="MacBook Pro M1 Max"
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+              src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=400&fit=crop"
             />
           </div>
-
-          {/* Slug */}
-          <div className="flex flex-col gap-1">
-            <Label isRequired htmlFor={`${formId}-slug`}>
-              Slug
-            </Label>
-            <Input
-              required
-              aria-label="Slug"
-              className="w-full"
-              description="Auto-generated from name"
-              id={`${formId}-slug`}
-              placeholder="URL-friendly identifier"
-              value={formData.slug}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, slug: e.target.value }))
-              }
-            />
+          <div className="flex flex-1 flex-col justify-between p-6">
+            <Card.Header className="gap-3 p-0">
+              <Card.Title>MacBook Pro 16" M1 Max</Card.Title>
+              <Card.Description>
+                64GB RAM • 2TB SSD • Ultimate performance for creative work
+              </Card.Description>
+            </Card.Header>
+            <Card.Footer className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-0">
+              <div>
+                <span className="text-foreground font-medium">
+                  Daily Driver
+                </span>
+                <span className="text-muted-foreground text-sm block">
+                  Since 2021
+                </span>
+              </div>
+              <MotionButton
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View Specs
+              </MotionButton>
+            </Card.Footer>
           </div>
+        </MotionCard>
 
-          {/* Color */}
-          <div className="flex flex-col gap-1">
-            <Label htmlFor={`${formId}-color`}>Color</Label>
-            <Input
-              aria-label="Color"
-              className="w-full"
-              id={`${formId}-color`}
-              startContent={
-                <div
-                  className="w-5 h-5 rounded border border-default-200"
-                  style={{ backgroundColor: formData.color }}
-                />
-              }
-              type="color"
-              value={formData.color}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  color: e.target.value,
-                }))
-              }
-            />
-          </div>
-
-          {/* Icon */}
-          <div className="flex flex-col gap-1">
-            <Label htmlFor={`${formId}-icon`}>Icon</Label>
-            <Input
-              aria-label="Icon"
-              className="w-full"
-              id={`${formId}-icon`}
-              placeholder="Enter emoji or icon"
-              value={formData.icon}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, icon: e.target.value }))
-              }
-            />
-          </div>
-
-          {/* Description */}
-          <div className="flex flex-col gap-1">
-            <Label htmlFor={`${formId}-description`}>Description</Label>
-            <Input
-              aria-label="Description"
-              className="w-full"
-              id={`${formId}-description`}
-              placeholder="Enter tag description"
-              value={formData.description}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }))
-              }
-            />
-          </div>
-        </div>
-
-        {/* 预览区域 */}
-        <div className="p-4 bg-default-50 rounded-lg border border-default-200">
-          <p className="text-sm font-medium mb-2">Preview:</p>
-          <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 rounded-full border border-default-200 flex items-center justify-center text-white font-semibold text-sm"
-              style={{ backgroundColor: formData.color }}
-            >
-              {formData.icon || "🏷️"}
-            </div>
-            <div>
-              <div className="font-medium">{formData.name || "Tag Name"}</div>
-              <code className="text-xs bg-default-100 px-2 py-1 rounded">
-                {formData.slug || "slug"}
-              </code>
-            </div>
-          </div>
-          {formData.description && (
-            <p className="text-sm text-default-600 mt-2 line-clamp-2">
-              {formData.description}
-            </p>
-          )}
-        </div>
-
-        {/* 按钮组 */}
-        <div className="flex gap-3 pt-2 border-t border-default-200">
-          <Button
-            className="flex-1"
-            color="danger"
-            variant="light"
-            onPress={() => {
-              if (isEdit) {
-                setEditingTag(null);
-              } else {
-                setShowCreateForm(false);
-              }
-              resetForm();
+        {/* Cards Grid Layout */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+        >
+          {/* iPhone 16 Pro Card */}
+          <MotionCard
+            className="relative"
+            transition={{ duration: 0.2 }}
+            variants={scaleItemVariants}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
             }}
           >
-            Cancel
-          </Button>
-          <Button
-            className="flex-1"
-            color="primary"
-            isDisabled={!formData.name || !formData.slug}
-            isLoading={isCreating || isUpdating}
-            onPress={isEdit ? handleUpdateTag : handleCreateTag}
+            <Card.Header className="gap-4 pb-4">
+              <Icon
+                aria-label="iPhone icon"
+                className="text-blue-600 text-2xl flex-shrink-0"
+                icon="mingcute:iphone-line"
+                role="img"
+              />
+              <div className="space-y-1">
+                <span className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">
+                  MOBILE
+                </span>
+                <Card.Title className="text-lg">iPhone 16 Pro</Card.Title>
+                <Card.Description>
+                  Titanium • 256GB • The creative companion
+                </Card.Description>
+              </div>
+            </Card.Header>
+            <Card.Footer className="pt-0">
+              <Link className="text-sm" href="#" rel="noopener noreferrer">
+                Always Connected
+                <Link.Icon className="ml-1" />
+              </Link>
+            </Card.Footer>
+          </MotionCard>
+
+          {/* AirPods Pro Card */}
+          <MotionCard
+            className="gap-4"
+            transition={{ duration: 0.2 }}
+            variants={scaleItemVariants}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+            }}
           >
-            {isEdit ? "Update Tag" : "Create Tag"}
-          </Button>
-        </div>
-      </div>
-    );
-  };
+            <Card.Header>
+              <Avatar className="w-16 h-16 rounded-xl">
+                <Avatar.Image
+                  alt="AirPods Pro"
+                  src="https://images.unsplash.com/photo-1602562780974-fbc1839815db?w=200&h=200&fit=crop"
+                />
+                <Avatar.Fallback>APP</Avatar.Fallback>
+              </Avatar>
+            </Card.Header>
+            <Card.Content>
+              <Card.Title className="text-lg">AirPods Pro</Card.Title>
+              <Card.Description>
+                ANC • Spatial Audio • Focus mode
+              </Card.Description>
+            </Card.Content>
+            <Card.Footer className="flex items-center gap-3">
+              <Avatar className="w-6 h-6">
+                <Avatar.Image
+                  alt="Apple"
+                  src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/apple.jpg"
+                />
+                <Avatar.Fallback>A</Avatar.Fallback>
+              </Avatar>
+              <span className="text-muted-foreground text-sm">Deep Work</span>
+            </Card.Footer>
+          </MotionCard>
 
-  return (
-    <div className="container mx-auto p-6 max-w-6xl">
-      <Card className="p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Tag Management</h1>
-
-          {/* 创建 Tag Popover */}
-          <Popover
-            isOpen={showCreateForm}
-            offset={8}
-            placement="bottom-end"
-            onOpenChange={setShowCreateForm}
+          {/* Gaming Collection Card */}
+          <MotionCard
+            className="gap-4"
+            transition={{ duration: 0.2 }}
+            variants={scaleItemVariants}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+            }}
           >
-            <PopoverTrigger>
-              <Button color="primary" startContent={<PlusIcon />}>
-                Create Tag
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="p-4">
-              <TagForm />
-            </PopoverContent>
-          </Popover>
-        </div>
+            <Card.Header>
+              <Avatar className="w-16 h-16 rounded-xl">
+                <Avatar.Image
+                  alt="Gaming Setup"
+                  src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=200&h=200&fit=crop"
+                />
+                <Avatar.Fallback>PS5</Avatar.Fallback>
+              </Avatar>
+            </Card.Header>
+            <Card.Content>
+              <Card.Title className="text-lg">Gaming Setup</Card.Title>
+              <Card.Description>
+                PS5 • Switch OLED • Weekend Warrior
+              </Card.Description>
+            </Card.Content>
+            <Card.Footer className="flex items-center gap-3">
+              <Avatar className="w-6 h-6">
+                <Avatar.Image
+                  alt="Gaming"
+                  src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/gaming.jpg"
+                />
+                <Avatar.Fallback>G</Avatar.Fallback>
+              </Avatar>
+              <span className="text-muted-foreground text-sm">Relax Time</span>
+            </Card.Footer>
+          </MotionCard>
+        </motion.div>
 
-        {/* Tags Grid */}
-        {isTagsLoading ? (
-          <div className="text-center py-8">
-            <div className="inline-flex items-center gap-2">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary" />
-              <span>Loading tags...</span>
+        {/* Featured Product Cards */}
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          variants={containerVariants}
+        >
+          <MotionCard
+            className="relative overflow-hidden min-h-[300px]"
+            transition={{ duration: 0.3 }}
+            variants={scaleItemVariants}
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 15px 35px rgba(0,0,0,0.2)",
+            }}
+          >
+            <img
+              alt="PlayStation 5"
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover opacity-90"
+              src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=800&h=400&fit=crop"
+            />
+
+            <div className="relative z-40 flex flex-col h-full min-h-[300px] justify-between text-white ">
+              <Card.Header className="space-y-2 p-0">
+                <Card.Title className="text-2xl font-bold">
+                  PlayStation 5
+                </Card.Title>
+                <Card.Description className="text-lg opacity-90">
+                  Disc Version • DualSense • 4K Gaming
+                </Card.Description>
+              </Card.Header>
+              <Card.Footer className="flex items-center justify-between ">
+                <div>
+                  <div className="font-medium text-lg">Weekend Gaming</div>
+                  <div className="text-sm opacity-80">
+                    Ultimate Entertainment
+                  </div>
+                </div>
+                <MotionButton
+                  className="bg-white text-black hover:bg-gray-100"
+                  size="sm"
+                  variant="tertiary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View Library
+                </MotionButton>
+              </Card.Footer>
             </div>
-          </div>
-        ) : !tagsData?.content?.length ? (
-          <div className="text-center py-8 text-default-500">
-            No tags found. Click "Create Tag" to add your first tag.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tagsData.content.map((tag: Tag) => (
-              <Card key={tag.tid} className="p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-8 h-8 rounded-full border border-default-200 flex items-center justify-center text-white font-semibold text-sm"
-                      style={{ backgroundColor: tag.color }}
-                    >
-                      {tag.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">{tag.name}</h3>
-                      <code className="text-xs bg-default-100 px-2 py-1 rounded">
-                        {tag.slug}
-                      </code>
-                    </div>
+          </MotionCard>
+
+          {/* Nintendo Switch Card */}
+          <MotionCard
+            className="relative overflow-hidden min-h-[300px]"
+            transition={{ duration: 0.3 }}
+            variants={scaleItemVariants}
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 15px 35px rgba(0,0,0,0.2)",
+            }}
+          >
+            <img
+              alt="Nintendo Switch OLED"
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover opacity-90"
+              src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=400&fit=crop"
+            />
+            <div className="relative z-10 flex flex-col h-full min-h-[300px] justify-end p-6">
+              <Card.Footer className="flex items-center justify-between p-0 text-white">
+                <div>
+                  <div className="font-bold text-xl">Switch OLED</div>
+                  <div className="text-sm opacity-90">
+                    Hybrid Console • Zelda • Mario Kart
                   </div>
                 </div>
-
-                {tag.description && (
-                  <p className="text-sm text-default-600 mb-4 line-clamp-2">
-                    {tag.description}
-                  </p>
-                )}
-
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-4 h-4 rounded border border-default-200"
-                      style={{ backgroundColor: tag.color }}
-                    />
-                    <span className="text-xs text-default-500">
-                      {tag.color}
-                    </span>
-                  </div>
-
-                  <div className="flex gap-1">
-                    {/* 编辑 Popover */}
-                    <Popover
-                      isOpen={editingTag?.tid === tag.tid}
-                      offset={8}
-                      placement="bottom-end"
-                      onOpenChange={(open) => {
-                        if (!open) {
-                          setEditingTag(null);
-                          resetForm();
-                        }
-                      }}
-                    >
-                      <PopoverTrigger>
-                        <Button
-                          size="sm"
-                          startContent={<EditIcon />}
-                          variant="light"
-                          onPress={() => startEdit(tag)}
-                        >
-                          Edit
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-4">
-                        <TagForm isEdit editingTag={editingTag} />
-                      </PopoverContent>
-                    </Popover>
-
-                    {/* 删除 Popover */}
-                    <Popover
-                      isOpen={deletingTag?.tid === tag.tid}
-                      offset={8}
-                      placement="bottom-end"
-                      onOpenChange={(open) => {
-                        if (!open) {
-                          setDeletingTag(null);
-                        }
-                      }}
-                    >
-                      <PopoverTrigger>
-                        <Button
-                          color="danger"
-                          size="sm"
-                          startContent={<SlashFillIcon />}
-                          onPress={() => startDelete(tag)}
-                        >
-                          Delete
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-4 min-w-72">
-                        <div className="space-y-4">
-                          <div>
-                            <p className="font-semibold mb-2">Delete Tag</p>
-                            <p className="text-sm text-default-600">
-                              Are you sure you want to delete the tag{" "}
-                              <strong>"{deletingTag?.name}"</strong>?
-                            </p>
-                            <p className="text-xs text-default-500 mt-2">
-                              This action cannot be undone.
-                            </p>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button
-                              color="default"
-                              size="sm"
-                              variant="light"
-                              onPress={() => setDeletingTag(null)}
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              color="danger"
-                              isLoading={isDeleting}
-                              size="sm"
-                              onPress={handleDeleteTag}
-                            >
-                              Delete
-                            </Button>
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        )}
-      </Card>
-    </div>
+                <MotionButton
+                  className="bg-white text-black hover:bg-gray-100"
+                  size="sm"
+                  variant="tertiary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Play Anywhere
+                </MotionButton>
+              </Card.Footer>
+            </div>
+          </MotionCard>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }

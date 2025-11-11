@@ -29,6 +29,5 @@ export { HorizontalRule } from "./horizontal-rule";
 export { Heading } from "./heading";
 export { Audio } from "./audio";
 export { AudioUpload } from "./audio-upload";
-export { Accordion } from "./accordion";
 export { Checkbox, CheckboxGroup } from "./checkbox";
 export { Chip } from "./chip";

@@ -22,7 +22,6 @@ import {
   TrailingNode,
   Typography,
   Audio,
-  Accordion,
   AudioUpload,
   Mathematics,
   Checkbox,
@@ -100,5 +99,4 @@ export const ExtensionKit = () => [
   Link,
   Audio,
   AudioUpload,
-  Accordion,
 ];
