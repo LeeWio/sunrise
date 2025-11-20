@@ -14,6 +14,7 @@ import { AudioMenu } from "./extensions/audio/views/audio-menu";
 import { ColumnsMenu } from "./extensions/multi-column/menus/columns-menu";
 
 import { useRichText } from "@/hooks/use-rich-text";
+import { CodeBlockMenu } from "./extensions/code-block/views/code-block-menu";
 
 export const RichText = () => {
   const { editor } = useRichText();
@@ -76,6 +77,8 @@ export const RichText = () => {
               className="w-[720px] h-full overflow-y-auto scrollbar-hide min-h-dvh"
               editor={editor}
             />
+
+            <CodeBlockMenu appendTo={menuContainerRef} editor={editor} />
 
             <ColumnsMenu appendTo={menuContainerRef} editor={editor} />
 

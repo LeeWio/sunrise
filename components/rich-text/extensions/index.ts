@@ -31,3 +31,4 @@ export { Audio } from "./audio";
 export { AudioUpload } from "./audio-upload";
 export { Checkbox, CheckboxGroup } from "./checkbox";
 export { Chip } from "./chip";
+export { CodeBlock } from './code-block'

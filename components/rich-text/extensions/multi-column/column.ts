@@ -22,7 +22,7 @@ export const Column = Node.create({
       "div",
       mergeAttributes(HTMLAttributes, {
         "data-type": "column",
-        class: "tooltip",
+        class: "surface surface--default px-3 py-1 text-sm rounded-lg",
       }),
       0,
     ];

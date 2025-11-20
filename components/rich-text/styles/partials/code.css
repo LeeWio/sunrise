@@ -1,0 +1,68 @@
+.ProseMirror {
+  .hljs-comment,
+  .hljs-quote {
+    color: #a6adc8; /* Subtext1 - Comments and quotes */
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #f5c2e7; /* Pink - Variables and attributes */
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: #fab387; /* Peach - Numbers and built-ins */
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #a6e3a1; /* Green - Strings and symbols */
+  }
+
+  .hljs-title,
+  .hljs-section {
+    color: #f9e2af; /* Yellow - Titles and sections */
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #94e2d5; /* Teal - Keywords */
+  }
+
+  .hljs-deletion {
+    color: #f38ba8; /* Red - Deletions */
+  }
+
+  .hljs-addition {
+    color: #a6e3a1; /* Green - Additions */
+  }
+
+  .hljs-function {
+    color: #89b4fa; /* Blue - Function names */
+  }
+
+  .hljs-class {
+    color: #f5c2e7; /* Pink - Class names */
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+  }
+}

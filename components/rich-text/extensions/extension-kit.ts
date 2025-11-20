@@ -27,6 +27,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Chip,
+  CodeBlock
 } from ".";
 
 export const ExtensionKit = () => [
@@ -99,4 +100,5 @@ export const ExtensionKit = () => [
   Link,
   Audio,
   AudioUpload,
+  CodeBlock
 ];
