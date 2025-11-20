@@ -8,7 +8,7 @@ import { Link } from "@heroui/react";
 
 import StoreProvider from "./store-provider";
 
-import { fontSans } from "@/config/fonts";
+import { fontMono, fontSans, fontSerif } from "@/config/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -64,6 +64,8 @@ export default async function RootLayout({
         className={cn(
           "min-h-screen text-foreground bg-background font-sans antialiased",
           fontSans.variable,
+          fontMono.variable,
+          fontSerif.variable,
         )}
       >
         <NextIntlClientProvider messages={messages}>

@@ -1,3 +1,26 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+.cursor-crosshair {
+  cursor: crosshair;
+}
