@@ -8,6 +8,7 @@ import {
   LayoutColumns,
   LayoutSideContentRight,
   TrashBin,
+  SquareDashedText,
 } from '@gravity-ui/icons';
 import { MenuButton } from '../../components/menu-button';
 import { getRenderContainer } from '../../utils/get-render-container';
@@ -19,6 +20,11 @@ interface ColumnsMenuProps {
   appendTo?: React.RefObject<HTMLElement | null>;
 }
 
+/**
+ * TODO: This menu should be refactored to use HeroUI's Toolbar component
+ * once it is fully developed and available in the library.
+ * Currently using a custom implementation with BubbleMenu and MenuButton.
+ */
 export const ColumnsMenu = ({ editor, appendTo }: ColumnsMenuProps) => {
   const getReferencedVirtualElement = useCallback(() => {
     return {
@@ -41,6 +47,12 @@ export const ColumnsMenu = ({ editor, appendTo }: ColumnsMenuProps) => {
     editor.chain().focus().setLayout(ColumnLayout.TwoColumn).run();
   }, [editor]);
 
+  const onColumnThree = useCallback(() => {
+    // If we only have 2 columns, we might need to add one first
+    // For now, we assume setLayout handles the distribution logic
+    editor.chain().focus().setLayout(ColumnLayout.ThreeColumn).run();
+  }, [editor]);
+
   const onColumnRight = useCallback(() => {
     editor.chain().focus().setLayout(ColumnLayout.SidebarRight).run();
   }, [editor]);
@@ -49,7 +61,7 @@ export const ColumnsMenu = ({ editor, appendTo }: ColumnsMenuProps) => {
     editor.chain().focus().deleteNode('columns').run();
   }, [editor]);
 
-  const { isColumnLeft, isColumnTwo, isColumnRight } = useEditorState({
+  const { isColumnLeft, isColumnTwo, isColumnThree, isColumnRight } = useEditorState({
     editor,
     selector: (ctx) => ({
       isColumnLeft: ctx.editor.isActive('columns', {
@@ -61,8 +73,11 @@ export const ColumnsMenu = ({ editor, appendTo }: ColumnsMenuProps) => {
       isColumnTwo: ctx.editor.isActive('columns', {
         layout: ColumnLayout.TwoColumn,
       }),
+      isColumnThree: ctx.editor.isActive('columns', {
+        layout: ColumnLayout.ThreeColumn,
+      }),
     }),
-  }) ?? { isColumnLeft: false, isColumnTwo: false, isColumnRight: false };
+  }) ?? { isColumnLeft: false, isColumnTwo: false, isColumnThree: false, isColumnRight: false };
 
   return (
     <BubbleMenu
@@ -84,6 +99,15 @@ export const ColumnsMenu = ({ editor, appendTo }: ColumnsMenuProps) => {
 
       <MenuButton onPress={onColumnTwo} isActive={isColumnTwo} tooltip="Two Columns" tabIndex={-1}>
         <LayoutColumns className="size-4" />
+      </MenuButton>
+
+      <MenuButton
+        onPress={onColumnThree}
+        isActive={isColumnThree}
+        tooltip="Three Columns"
+        tabIndex={-1}
+      >
+        <SquareDashedText className="size-4" />
       </MenuButton>
 
       <MenuButton

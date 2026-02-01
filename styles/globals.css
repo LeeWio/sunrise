@@ -13,3 +13,39 @@
 @import './theme/sky.css' layer(theme);
 @import './theme/spotify.css' layer(theme);
 @import './theme/uber.css' layer(theme);
+
+@layer components {
+  /* Fluid Slide Glassmorphism Modal (Global) */
+  .modal__backdrop {
+    @apply bg-black/20 backdrop-blur-md;
+    /* Backdrop Transitions */
+    @apply data-[entering]:duration-500 data-[entering]:ease-[cubic-bezier(0.25,1,0.5,1)];
+    @apply data-[exiting]:duration-200 data-[exiting]:ease-[cubic-bezier(0.5,0,0.75,0)];
+  }
+
+  .modal__container {
+    /* Entrance Animations: Fade + Fluid Slide Up */
+    @apply data-[entering]:animate-in data-[entering]:fade-in-0 data-[entering]:slide-in-from-bottom-4;
+    @apply data-[entering]:duration-500 data-[entering]:ease-[cubic-bezier(0.25,1,0.5,1)];
+
+    /* Exit Animations: Fade + Fluid Slide Down */
+    @apply data-[exiting]:animate-out data-[exiting]:fade-out-0 data-[exiting]:slide-out-to-bottom-2;
+    @apply data-[exiting]:duration-200 data-[exiting]:ease-[cubic-bezier(0.5,0,0.75,0)];
+  }
+
+  .modal__dialog {
+    /* Ultra-Clean Glass Background */
+    @apply bg-background/60 shadow-2xl backdrop-blur-3xl;
+    /* High-Definition Edge */
+    @apply border border-white/5 ring-1 ring-white/10 dark:ring-white/5;
+  }
+
+  .modal__header,
+  .modal__footer {
+    @apply border-none bg-transparent;
+  }
+
+  .modal__body {
+    @apply bg-transparent;
+  }
+}

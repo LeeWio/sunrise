@@ -1,7 +1,6 @@
 'use client';
 
-import { EditorContent } from '@tiptap/react';
-import { Modal, Button, useOverlayState } from '@heroui/react';
+import { Modal, useOverlayState } from '@heroui/react';
 import { useRichText } from '@/hooks/use-rich-text';
 import { RichTextHeader } from './rich-text-header';
 import { RichTextBody } from './rich-text-body';
@@ -39,15 +38,11 @@ export const RichText = (props: RichTextProps) => {
   return (
     <Modal>
       <Modal.Backdrop variant="blur" isOpen={state.isOpen} onOpenChange={state.setOpen}>
-        <Modal.Container size="cover" scroll="inside">
+        <Modal.Container scroll="inside">
           <Modal.Dialog className="mx-auto flex h-full w-full max-w-5xl flex-col overflow-visible">
-            <Modal.CloseTrigger />
-
             <RichTextHeader editor={editor} />
-
             <RichTextBody editor={editor} />
-
-            <RichTextFooter editor={editor} onClose={state.close} />
+            <RichTextFooter editor={editor} />
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
