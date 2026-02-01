@@ -1,0 +1,15 @@
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss';
+@import '@heroui/styles';
+
+@import './theme/airbnb.css' layer(theme);
+@import './theme/coinbase.css' layer(theme);
+@import './theme/discord.css' layer(theme);
+@import './theme/lavender.css' layer(theme);
+@import './theme/mint.css' layer(theme);
+@import './theme/netflix.css' layer(theme);
+@import './theme/rabbit.css' layer(theme);
+@import './theme/sky.css' layer(theme);
+@import './theme/spotify.css' layer(theme);
+@import './theme/uber.css' layer(theme);

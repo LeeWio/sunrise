@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@import './partials/typography.css';
+@import './partials/layout.css';
+@import './partials/ui.css';
+@import './partials/blocks.css';
+@import './partials/placeholder.css';
+@import './partials/animations.css';
+@import './partials/code.css';
