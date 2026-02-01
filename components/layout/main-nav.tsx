@@ -6,7 +6,7 @@ import { Key } from 'react';
 
 const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
-  { id: 'journal', label: 'Journal', href: '/journal' },
+  { id: 'content', label: 'Content', href: '/content' },
   { id: 'timeline', label: 'Timeline', href: '/timeline' },
   { id: 'settings', label: 'Settings', href: '/settings' },
 ];
