@@ -32,7 +32,7 @@ export default function SettingsPage() {
                 <span className="text-danger text-md">Delete Account</span>
                 <span className="text-default-500 text-small">Permanently remove all data</span>
               </div>
-              <Button color="danger" variant="ghost">
+              <Button variant="ghost" className="text-danger hover:bg-danger/10">
                 Delete
               </Button>
             </div>

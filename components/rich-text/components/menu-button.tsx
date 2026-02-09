@@ -15,10 +15,11 @@ export function MenuButton({ children, onPress, isActive, tooltip, tabIndex }: M
   const button = (
     <Button
       size="sm"
-      variant={isActive ? 'solid' : 'light'}
+      variant={isActive ? 'secondary' : 'ghost'}
       onPress={onPress}
       className={isActive ? 'bg-default-200' : 'border-none bg-transparent shadow-none'}
       isIconOnly
+      // @ts-ignore
       tabIndex={tabIndex}
     >
       {children}
@@ -27,8 +28,9 @@ export function MenuButton({ children, onPress, isActive, tooltip, tabIndex }: M
 
   if (tooltip) {
     return (
-      <Tooltip content={tooltip} closeDelay={0}>
-        {button}
+      <Tooltip closeDelay={0}>
+        <Tooltip.Trigger>{button}</Tooltip.Trigger>
+        <Tooltip.Content>{tooltip}</Tooltip.Content>
       </Tooltip>
     );
   }

@@ -9,7 +9,7 @@ export { Heading } from './heading';
 export { Link } from './link';
 // export { Subscript } from "@tiptap/extension-subscript";
 // export { Superscript } from "@tiptap/extension-superscript";
-// export { TextStyleKit } from "@tiptap/extension-text-style";
+export { TextStyleKit } from '@tiptap/extension-text-style';
 // export { Highlight } from "@tiptap/extension-highlight";
 // export { TextAlign } from "@tiptap/extension-text-align";
 // export { Typography } from "@tiptap/extension-typography";

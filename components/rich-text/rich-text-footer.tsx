@@ -4,7 +4,7 @@ import { Modal, Spinner, Chip } from '@heroui/react';
 import { Editor, useEditorState } from '@tiptap/react';
 import { useAppSelector } from '@/lib/store/hooks';
 import { Check, CircleExclamation } from '@gravity-ui/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState, useRef } from 'react';
 import { useIsSSR } from '@react-aria/ssr';
 

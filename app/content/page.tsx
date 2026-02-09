@@ -20,7 +20,8 @@ export default function ContentPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">Drafts</h1>
         <p className="text-default-500 mx-auto max-w-sm">
-          Currently you have written <strong>{wordCount}</strong> words in your active draft.
+          Currently you have written <strong suppressHydrationWarning>{wordCount}</strong> words in
+          your active draft.
         </p>
         <div className="pt-4">
           <Button variant="primary" size="lg" onPress={open}>

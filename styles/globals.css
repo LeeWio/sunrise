@@ -3,6 +3,9 @@
 @import 'tailwindcss';
 @import '@heroui/styles';
 
+/* Support all HeroUI dark themes (e.g., airbnb-dark, dark, etc.) */
+@custom-variant dark (&:where([data-theme$="dark"], [data-theme$="dark"] *));
+
 @import './theme/airbnb.css' layer(theme);
 @import './theme/coinbase.css' layer(theme);
 @import './theme/discord.css' layer(theme);
@@ -13,6 +16,19 @@
 @import './theme/sky.css' layer(theme);
 @import './theme/spotify.css' layer(theme);
 @import './theme/uber.css' layer(theme);
+
+@layer base {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  html {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
 
 @layer components {
   /* Fluid Slide Glassmorphism Modal (Global) */
@@ -34,10 +50,10 @@
   }
 
   .modal__dialog {
-    /* Ultra-Clean Glass Background */
-    @apply bg-background/60 shadow-2xl backdrop-blur-3xl;
+    /* Respects theme background while maintaining glassmorphism */
+    @apply bg-background/70 shadow-2xl backdrop-blur-xl;
     /* High-Definition Edge */
-    @apply border border-white/5 ring-1 ring-white/10 dark:ring-white/5;
+    @apply border border-white/10 dark:border-white/5;
   }
 
   .modal__header,

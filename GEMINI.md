@@ -38,6 +38,26 @@ Sunrise is a personal website system designed to record every aspect of life. It
   2.  **Learn**: Read the documentation (`node scripts/get_component_docs.mjs ComponentName`).
   3.  **Implement**: Use the component following v3 patterns (compound components, no provider).
 
+**Animations with Motion & HeroUI:**
+
+When you need to animate HeroUI components (like Buttons), **DO NOT** wrap them in a `motion.div`. Instead, convert the HeroUI component into a motion component:
+
+```typescript
+import { motion } from 'motion/react';
+import { Button } from '@heroui/react';
+
+// Create a motion-enhanced version of the HeroUI component
+const MotionButton = motion(Button);
+
+// Use it with all standard Motion props
+<MotionButton
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  Animated Button
+</MotionButton>
+```
+
 ### 2. React Best Practices
 
 **All React code must be performant and standardized.**

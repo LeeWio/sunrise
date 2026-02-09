@@ -11,11 +11,16 @@
   },
   "dependencies": {
     "@gravity-ui/icons": "^2.17.0",
-    "@heroui/react": "^3.0.0-beta.5",
-    "@heroui/styles": "^3.0.0-beta.5",
+    "@heroui/react": "^3.0.0-beta.6",
+    "@heroui/styles": "^3.0.0-beta.6",
     "@reduxjs/toolkit": "^2.11.2",
+    "@tiptap/extension-bubble-menu": "^3.19.0",
     "@tiptap/extension-character-count": "^3.18.0",
+    "@tiptap/extension-drag-handle": "^3.19.0",
+    "@tiptap/extension-drag-handle-react": "^3.19.0",
     "@tiptap/extension-link": "^3.18.0",
+    "@tiptap/extension-node-range": "^3.19.0",
+    "@tiptap/extension-text-style": "^3.19.0",
     "@tiptap/pm": "^3.18.0",
     "@tiptap/react": "^3.18.0",
     "@tiptap/starter-kit": "^3.18.0",
@@ -29,6 +34,7 @@
     "redux-remember": "^5.4.0"
   },
   "devDependencies": {
+    "@iconify/react": "^6.0.2",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",

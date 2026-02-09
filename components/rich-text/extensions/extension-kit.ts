@@ -8,6 +8,7 @@ import {
   CheckboxGroup,
   Heading,
   Link,
+  TextStyleKit,
 } from '.';
 
 export const ExtensionKit = () => [
@@ -17,6 +18,7 @@ export const ExtensionKit = () => [
   CheckboxGroup,
   Checkbox,
   Heading,
+  TextStyleKit,
   Link.configure({
     openOnClick: false,
     autolink: true,

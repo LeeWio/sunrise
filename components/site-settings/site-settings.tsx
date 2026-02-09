@@ -16,7 +16,7 @@ export function SiteSettings({ className }: { className?: string }) {
     <Dropdown>
       <Button
         isIconOnly
-        variant="light"
+        variant="ghost"
         className={clsx('rounded-full', className)}
         aria-label="Open site settings"
       >
