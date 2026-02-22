@@ -64,4 +64,23 @@
   .modal__body {
     @apply bg-transparent;
   }
+
+  /* Ultra-Modern Acrylic Tooltip (Global) */
+  .tooltip {
+    /* Lower opacity (40%) and higher blur (xl) for a premium "Acrylic" feel */
+    @apply bg-background/40 shadow-2xl backdrop-blur-xl;
+    /* Ultra-subtle "Ghost Highlight" border */
+    @apply border border-white/10 dark:border-white/5;
+    /* Refined fluid animations */
+    @apply data-[entering]:duration-400 data-[entering]:ease-[cubic-bezier(0.34,1.56,0.64,1)];
+    @apply data-[exiting]:duration-200 data-[exiting]:ease-in;
+  }
+
+  /* Sync Tooltip Arrow with ultra-glass look */
+  .tooltip [data-slot="overlay-arrow"] {
+    /* Matching the ultra-subtle border */
+    @apply stroke-white/10 dark:stroke-white/5;
+    /* Matching the 40% background opacity */
+    fill: color-mix(in srgb, var(--background), transparent 60%);
+  }
 }
