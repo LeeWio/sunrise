@@ -28,15 +28,36 @@ Sunrise is a personal website system designed to record every aspect of life. It
 
 ## Development Rules (CRITICAL)
 
+### 0. AI Coding & Documentation (Mandatory)
+
+**STOP. Any code writing, refactoring, or component implementation MUST first consult `@AGENTS.md`.**
+
+- **Why**: Your internal memory of HeroUI v3 (Beta) might be outdated. `@AGENTS.md` provides the source of truth for the project's current architecture and official documentation index.
+- **Action**: Always search and read the relevant `.mdx` files in `.heroui-docs/react` (indexed in `AGENTS.md`) before proposing or implementing changes.
+- **Command**: If documentation is missing or outdated, run `bunx heroui-cli@latest agents-md --react --output AGENTS.md`.
+
 ### 1. UI Components (HeroUI v3)
 
 **NEVER write custom UI components from scratch if a HeroUI component exists.**
 
-- **Mandatory Skill**: Always refer to `@.gemini/skills/heroui-react/**`.
+- **Mandatory Resources**: Always refer to `@AGENTS.md` (the source of truth) and the `@.gemini/skills/heroui-react/**` expert guidance.
 - **Workflow**:
-  1.  **Search**: Check available components (`node scripts/list_components.mjs`).
-  2.  **Learn**: Read the documentation (`node scripts/get_component_docs.mjs ComponentName`).
-  3.  **Implement**: Use the component following v3 patterns (compound components, no provider).
+  1.  **Locate**: Search `@AGENTS.md` to find the component's category and documentation path (e.g., `components/(forms)/input.mdx`).
+  2.  **Learn**: Read the corresponding `.mdx` file in `./.heroui-docs/react/` to understand v3 compound patterns, props, and accessibility features.
+  3.  **Reference Demos**: Check the `demos/` directory indexed in `@AGENTS.md` for live implementation examples.
+  4.  **Implement**: Use the component following v3 patterns (compound components, no provider).
+
+#### HeroUI v3 Best Practices (Local Docs Summary)
+
+- **Compound Pattern (Preferred)**: Use components via their namespace (e.g., `<Alert.Title>`, `<Card.Header>`) instead of flat props. This provides better control over layout and slots.
+- **Polymorphism & Custom Rendering**:
+    - Use the `render` prop to swap the root DOM element (e.g., to integrate with `motion` or `next/link`).
+    - Use `buttonVariants` (from `@heroui/styles`) to apply button styling to any element (like a Next.js `Link`) without the overhead of a full React component.
+- **Styling with Tailwind v4 & BEM**:
+    - **Classes**: Prefer BEM classes (e.g., `button--primary`) for global consistency or standard Tailwind utilities for one-off tweaks.
+    - **States**: Use data attributes (e.g., `data-[hovered=true]`) for state-specific styling in Tailwind, or `render props` for dynamic class logic: `className={({ isPressed }) => isPressed ? '...' : '...'}`.
+    - **Transitions**: When animating, use the `render` prop to wrap the HeroUI component logic within a `motion` component for fluid interactions.
+- **Type Safety**: Prefer named type imports (e.g., `import type { ButtonRootProps } from "@heroui/react"`) or object-style syntax (`Button["RootProps"]`).
 
 **Animations with Motion & HeroUI:**
 
