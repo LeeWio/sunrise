@@ -1,6 +1,6 @@
 'use client';
 
-import { Editor } from '@tiptap/react';
+import { MenuProps } from '../types';
 import { useEffect, useState, useMemo, Fragment } from 'react';
 import { Button, Dropdown, Label, Tooltip, Header, Kbd, Separator } from '@heroui/react';
 import {
@@ -17,10 +17,6 @@ import DragHandle from '@tiptap/extension-drag-handle-react';
 import useContentItemActions from './hooks/use-content-item-actions';
 import { useData } from './hooks/use-data';
 
-export type ContentItemMenuProps = {
-  editor: Editor;
-};
-
 interface MenuItem {
   id: string;
   label: string;
@@ -35,7 +31,7 @@ interface MenuSection {
   items: MenuItem[];
 }
 
-export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
+export const ContentItemMenu = ({ editor ,appendTo}: MenuProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const data = useData();
   const actions = useContentItemActions(editor, data.currentNode, data.currentNodePos);

@@ -5,6 +5,7 @@ import { EditorState } from '@tiptap/pm/state';
 export interface MenuProps {
   editor: Editor;
   isEditable?: boolean;
+  appendTo?: React.RefObject<HTMLDivElement | null>;
 }
 
 export interface ShouldShowProps {

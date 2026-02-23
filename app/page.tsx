@@ -1,9 +1,21 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Card, Button, Chip, Separator } from '@heroui/react';
+import {
+  Card,
+  Button,
+  Chip,
+  Separator,
+  Checkbox,
+  Input,
+  SearchField,
+  Tabs,
+  Kbd,
+  Surface,
+  Tooltip,
+} from '@heroui/react';
 import NextLink from 'next/link';
-import { motion, Variants } from 'motion/react';
+import { motion, Variants, Reorder, AnimatePresence } from 'motion/react';
 import {
   ArrowRight,
   Code2,
@@ -13,36 +25,53 @@ import {
   PenLine,
   Calendar,
   BookOpen,
+  Plus,
+  GripVertical,
+  Trash2,
+  CalendarDays,
+  Tag as TagIcon,
+  AlertCircle,
+  LayoutGrid,
+  Circle,
+  Trophy,
+  Zap,
 } from 'lucide-react';
+import { useState, useCallback, useMemo } from 'react';
+import { cn } from 'tailwind-variants';
 
 const MotionButton = motion(Button);
 const MotionCard = motion(Card);
 const MotionChip = motion(Chip);
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
+// --- TYPES ---
+type Priority = 'high' | 'medium' | 'low';
+type Todo = {
+  id: string;
+  text: string;
+  completed: boolean;
+  priority: Priority;
+  tags: string[];
+  dueDate: string | null;
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
-  },
+type Game = {
+  id: string;
+  name: string;
+  platform: 'PC' | 'PS5' | 'Switch' | 'Mobile';
+  genre: string;
+  status: 'Active' | 'Completed' | 'On Hold';
+  rank?: string;
+  color: 'primary' | 'warning' | 'danger' | 'success' | 'secondary';
+  icon: React.ReactNode;
 };
 
+// --- CONFIG ---
+const MOCK_GAMES: Game[] = [
+  { id: 'lol', name: 'League of Legends', platform: 'PC', genre: 'MOBA', status: 'Active', rank: 'Emerald', color: 'primary', icon: <Trophy size={18} /> },
+  { id: 'wzry', name: 'Honor of Kings', platform: 'Mobile', genre: 'MOBA', status: 'Active', rank: 'Legend', color: 'warning', icon: <Zap size={18} /> },
+  { id: 'elden', name: 'Elden Ring', platform: 'PS5', genre: 'Action RPG', status: 'Completed', color: 'danger', icon: <Gamepad2 size={18} /> },
+  { id: 'zelda', name: 'Tears of the Kingdom', platform: 'Switch', genre: 'Adventure', status: 'On Hold', color: 'success', icon: <Gamepad2 size={18} /> },
+];
 const CATEGORIES = [
   { id: 'tech', label: 'Tech', desc: 'Notes and tutorials from building things.', icon: Code2, href: '/content', iconClass: 'bg-primary/10 text-primary' },
   { id: 'music', label: 'Music', desc: 'What I\'m listening to and why it sticks.', icon: Music, href: '/content', iconClass: 'bg-secondary/10 text-secondary' },
@@ -65,388 +94,448 @@ const MOCK_NOW = [
   { type: 'Playing', value: '—', icon: Gamepad2 },
 ];
 
+const INITIAL_TODOS: Todo[] = [
+  { id: '1', text: 'Refactor editor header using HeroUI v3', completed: true, priority: 'high', tags: ['work'], dueDate: '2026-02-21' },
+  { id: '2', text: 'Write about acrylic glassmorphism trend', completed: false, priority: 'medium', tags: ['blog'], dueDate: '2026-02-22' },
+  { id: '3', text: 'Design the timeline view for 2026', completed: false, priority: 'low', tags: ['design'], dueDate: '2026-02-25' },
+  { id: '4', text: 'Fix the backdrop-filter issue in BubbleMenu', completed: true, priority: 'high', tags: ['work', 'bug'], dueDate: null },
+  { id: '5', text: 'Gym session - Leg day', completed: false, priority: 'medium', tags: ['life'], dueDate: '2026-02-22' },
+];
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
+
+// --- HELPERS ---
+const getGroup = (todo: Todo) => {
+  if (!todo.dueDate) return 'Inbox';
+  const today = new Date().toISOString().split('T')[0];
+  if (todo.dueDate < today) return 'Overdue';
+  if (todo.dueDate === today) return 'Today';
+  return 'Upcoming';
+};
+
 export default function Home() {
   const router = useRouter();
+  
+  const [todos, setTodos] = useState<Todo[]>(INITIAL_TODOS);
+  const [newTodo, setNewTodo] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+
+  const addTodo = useCallback(() => {
+    if (!newTodo.trim()) return;
+    const item: Todo = {
+      id: Math.random().toString(36).substr(2, 9),
+      text: newTodo.trim(),
+      completed: false,
+      priority: 'medium',
+      tags: [],
+      dueDate: new Date().toISOString().split('T')[0],
+    };
+    setTodos([item, ...todos]);
+    setNewTodo('');
+  }, [newTodo, todos]);
+
+  const toggleTodo = useCallback((id: string) => {
+    setTodos(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+  }, []);
+
+  const removeTodo = useCallback((id: string) => {
+    setTodos(prev => prev.filter(t => t.id !== id));
+  }, []);
+
+  const filteredTodos = useMemo(() => {
+    return todos.filter(t => {
+      const matchesSearch = t.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           t.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesStatus = filterStatus === 'all' ? true : 
+                           filterStatus === 'active' ? !t.completed : t.completed;
+      return matchesSearch && matchesStatus;
+    });
+  }, [todos, searchQuery, filterStatus]);
+
+  const sortedTodos = useMemo(() => {
+    const groups = ['Overdue', 'Today', 'Upcoming', 'Inbox'];
+    const result: Todo[] = [];
+    groups.forEach(g => {
+      const items = filteredTodos.filter(t => getGroup(t) === g)
+        .sort((a, b) => {
+          if (a.completed !== b.completed) return a.completed ? 1 : -1;
+          const p: Record<string, number> = { high: 3, medium: 2, low: 1 };
+          return p[b.priority] - p[a.priority];
+        });
+      result.push(...items);
+    });
+    return result;
+  }, [filteredTodos]);
 
   return (
-    <div className="flex flex-col gap-16 px-6 pt-10 pb-16 md:px-12 md:gap-20 lg:px-24 xl:px-32 2xl:px-48">
-      {/* Hero */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="flex flex-col items-center justify-center gap-7 py-20 text-center md:py-28 md:gap-8"
-        aria-label="Welcome"
-      >
-        <MotionChip
-          variants={itemVariants}
-          color="accent"
-          variant="soft"
-          size="lg"
-          className="px-4"
-        >
-          Personal blog & life log
-        </MotionChip>
-
-        <motion.h1
-          variants={itemVariants}
-          className="text-foreground max-w-4xl text-5xl font-extrabold tracking-tight md:text-7xl"
-        >
-          Sunrise —{' '}
-          <span className="bg-gradient-to-r from-[var(--accent)] to-[var(--danger)] bg-clip-text text-transparent">
-            daily notes
-          </span>
+    <div className="flex flex-col gap-16 px-6 pt-10 pb-16 md:px-12 md:gap-20 lg:px-24 xl:px-32 2xl:px-48 overflow-x-hidden">
+      {/* Hero Section */}
+      <motion.section variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-center justify-center gap-7 py-20 text-center md:py-28">
+        <MotionChip variants={itemVariants} color="accent" variant="soft" size="lg" className="px-4 text-xs font-bold uppercase tracking-widest">Digital Sanctuary</MotionChip>
+        <motion.h1 variants={itemVariants} className="text-foreground max-w-4xl text-5xl font-extrabold tracking-tight md:text-7xl">
+          Sunrise — <span className="bg-gradient-to-r from-[var(--accent)] to-[var(--danger)] bg-clip-text text-transparent">daily flow</span>
         </motion.h1>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-default-600 max-w-2xl text-center text-xl font-medium md:text-2xl"
-        >
-          Tech, music, film, games, and whatever else I want to remember.
-        </motion.p>
-        <motion.p
-          variants={itemVariants}
-          className="text-default-500 max-w-lg text-center text-lg leading-relaxed"
-        >
-          Your story is yours. This is where I write mine—not for the crowd, but so I can look back and remember what I was listening to, thinking about, and building.
-        </motion.p>
-
-        <motion.p
-          variants={itemVariants}
-          className="text-default-400 max-w-md text-center text-sm"
-        >
-          What I’m listening to, watching, and playing right now will eventually become another point on the timeline.
-        </motion.p>
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-3"
-          role="list"
-          aria-label="Now"
-        >
-          {MOCK_NOW.map(({ type, value, icon: Icon }) => (
-            <Chip key={type} variant="soft" size="md" className="gap-2" role="listitem">
-              <Icon size={14} aria-hidden />
-              <span>{type}</span>
-              <span className="text-default-400">{value}</span>
-            </Chip>
-          ))}
-        </motion.div>
-
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-4 pt-2"
-        >
-          <MotionButton
-            onPress={() => router.push('/content')}
-            variant="primary"
-            size="lg"
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.98 }}
-            className="rounded-full"
-            aria-label="Go to content"
-          >
-            Enter
-            <ArrowRight size={18} aria-hidden />
-          </MotionButton>
-          <MotionButton
-            onPress={() => router.push('/timeline')}
-            variant="outline"
-            size="lg"
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.98 }}
-            className="rounded-full"
-            aria-label="Open timeline"
-          >
-            Timeline
-          </MotionButton>
-          <MotionButton
-            onPress={() => router.push('/about')}
-            variant="ghost"
-            size="lg"
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.98 }}
-            className="rounded-full"
-            aria-label="About this site"
-          >
-            About
-          </MotionButton>
+        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4 pt-2">
+          <MotionButton onPress={() => router.push('/content')} variant="primary" size="lg" className="rounded-full shadow-lg shadow-primary/20">Enter Workspace <ArrowRight size={18} /></MotionButton>
         </motion.div>
       </motion.section>
 
-      {/* What this is — story intro */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-        className="flex flex-col gap-6"
-        aria-labelledby="what-this-is"
-      >
-        <motion.div
-          variants={itemVariants}
-          className="rounded-2xl border border-default-200/60 bg-default-50/30 px-6 py-8 text-center dark:border-default-100/40 dark:bg-default-100/5 md:px-12 md:py-10"
-        >
-          <h2 id="what-this-is" className="sr-only">
-            What this place is
-          </h2>
-          <p className="text-default-600 mx-auto max-w-2xl leading-relaxed md:text-lg">
-            Different moments call for different kinds of writing. Tech is where work and curiosity meet; music and film are the soundtrack and highlights of life; games are other worlds; essays are the bits that fall out whenever. Put together, they’re a slice of who I am over time.
-          </p>
-          <p className="text-default-500 mt-4 max-w-xl mx-auto text-sm leading-relaxed">
-            If you like looking back through your own notes too, you might find something familiar here.
-          </p>
-        </motion.div>
-      </motion.section>
-
-      {/* Latest */}
+      {/* Gaming Archive — Digital Collector's Shelf */}
       <motion.section
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="flex flex-col gap-8"
-        aria-labelledby="latest-heading"
+        className="flex flex-col gap-10"
       >
         <div className="flex flex-col items-center gap-4 text-center">
-          <MotionChip variants={itemVariants} variant="soft" color="accent" className="px-4">
-            Latest
-          </MotionChip>
-          <motion.h2
-            id="latest-heading"
-            variants={itemVariants}
-            className="text-3xl font-bold tracking-tight md:text-5xl"
-          >
-            Recently written
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-default-500 max-w-2xl text-lg">
-            Like a few points on a timeline—together they tell a short story.
+          <MotionChip variants={itemVariants} variant="soft" color="secondary" className="px-4 text-[10px] font-black uppercase tracking-[0.3em]">The Library</MotionChip>
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight md:text-5xl text-foreground">Gaming Artifacts</motion.h2>
+          <motion.p variants={itemVariants} className="text-default-500 max-w-xl text-lg leading-relaxed">
+            From the Rift to the Lands Between. A curated log of digital adventures and competitive milestones.
           </motion.p>
         </div>
 
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
-          {MOCK_LATEST.map((item, idx) => (
-            <motion.li key={idx} variants={itemVariants} role="listitem">
-              <NextLink href={item.slug} className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-xl">
-                <MotionCard
-                  whileHover={{ y: -4, transition: { duration: 0.3, ease: 'easeOut' } }}
-                  className="from-default-100 h-full border-none bg-gradient-to-br to-transparent p-4 transition-shadow hover:shadow-md"
-                >
-                  <Card.Header className="flex-col items-start gap-2 px-0 pt-0 pb-0">
-                    <div className="flex w-full flex-row items-center gap-3">
-                      <time className="text-default-500 shrink-0 text-sm tabular-nums" dateTime={item.date}>
-                        {item.date}
-                      </time>
-                      <Chip size="sm" variant="soft" className="shrink-0">
-                        {item.category}
-                      </Chip>
-                    </div>
-                    <Card.Title className="text-base font-semibold leading-snug">{item.title}</Card.Title>
-                  </Card.Header>
-                  <Card.Content className="overflow-visible px-0 pt-0 pb-0">
-                    <p className="text-default-500 line-clamp-2 text-sm leading-relaxed">{item.excerpt}</p>
-                  </Card.Content>
-                </MotionCard>
-              </NextLink>
-            </motion.li>
-          ))}
-        </ul>
-
-        <motion.div variants={itemVariants} className="flex justify-center pt-2">
-          <Button
-            variant="outline"
-            size="lg"
-            onPress={() => router.push('/content')}
-            className="rounded-full"
-            aria-label="View all content"
-          >
-            View all
-            <ArrowRight size={18} aria-hidden />
-          </Button>
-        </motion.div>
-      </motion.section>
-
-      {/* Browse by category */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
-        className="flex flex-col gap-8"
-        aria-labelledby="categories-heading"
-      >
-        <div className="flex flex-col items-center gap-4 text-center">
-          <MotionChip variants={itemVariants} variant="soft" color="warning" className="px-4">
-            Categories
-          </MotionChip>
-          <motion.h2
-            id="categories-heading"
-            variants={itemVariants}
-            className="text-3xl font-bold tracking-tight md:text-5xl"
-          >
-            Browse by topic
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-default-500 max-w-2xl text-lg">
-            Each category is its own thread—click in and follow it backward.
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          {CATEGORIES.map(({ id, label, desc, icon: Icon, href, iconClass }) => (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {MOCK_GAMES.map((game) => (
             <MotionCard
-              key={id}
+              key={game.id}
               variants={itemVariants}
-              whileHover={{ y: -4, transition: { duration: 0.3, ease: 'easeOut' } }}
-              className="from-default-100 h-full border-none bg-gradient-to-br to-transparent p-4 transition-shadow hover:shadow-md"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className={`relative overflow-hidden border-none bg-default-50/50 p-1 dark:bg-default-100/5 shadow-sm transition-all hover:shadow-2xl`}
             >
-              <Card.Header className="flex-col items-start px-4 pt-2 pb-0">
-                <div className={`mb-3 rounded-full p-3 ${iconClass}`} aria-hidden>
-                  <Icon size={24} />
+              <Card.Header className="flex-col items-start gap-4 p-6">
+                <div className="flex w-full items-start justify-between">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-default-100 dark:bg-white/5 text-foreground shadow-inner`}>
+                    {game.icon}
+                  </div>
+                  <Tooltip delay={0} closeDelay={0}>
+                    <Tooltip.Trigger aria-label={game.platform}>
+                      <div className="bg-background/60 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-[10px] font-black shadow-sm backdrop-blur-md">
+                        {game.platform === 'PC' ? 'PC' : game.platform === 'Mobile' ? 'MOB' : game.platform === 'PS5' ? 'PS' : 'SW'}
+                      </div>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content showArrow className="text-[10px] font-bold uppercase tracking-widest px-2 py-1">
+                      <Tooltip.Arrow />
+                      Platform: {game.platform}
+                    </Tooltip.Content>
+                  </Tooltip>
                 </div>
-                <h3 className="text-large font-bold">{label}</h3>
+
+                <div className="flex flex-col gap-1">
+                  <Card.Title className="text-xl font-black tracking-tight">{game.name}</Card.Title>
+                  <div className="flex items-center gap-2">
+                    <span className="text-default-400 text-[10px] font-bold uppercase tracking-widest">{game.genre}</span>
+                    <Separator orientation="vertical" className="h-2" />
+                    <Chip size="sm" variant="soft" color={game.status === 'Active' ? 'success' : 'default'} className="h-4 px-1.5 text-[8px] font-black uppercase border-none">
+                      {game.status}
+                    </Chip>
+                  </div>
+                </div>
               </Card.Header>
-              <Card.Content className="overflow-visible py-2">
-                <p className="text-default-500 text-sm leading-relaxed">{desc}</p>
-              </Card.Content>
-              <Card.Footer className="pt-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onPress={() => router.push(href)}
-                  aria-label={`Go to ${label}`}
-                >
-                  Enter
-                  <ArrowRight size={14} aria-hidden />
+
+              {game.rank && (
+                <Card.Content className="px-6 pb-2">
+                  <div className={`bg-default-100/50 dark:bg-white/5 flex items-center justify-between rounded-xl border border-default-200/50 p-3`}>
+                    <div className="flex flex-col">
+                      <span className="text-default-400 text-[8px] font-black uppercase tracking-tighter">Current Rank</span>
+                      <span className={`text-foreground text-sm font-black tracking-widest uppercase`}>{game.rank}</span>
+                    </div>
+                    <Trophy size={16} className={`text-warning opacity-60`} />
+                  </div>
+                </Card.Content>
+              )}
+
+              <Card.Footer className="justify-between px-6 pb-6 pt-2">
+                <Button variant="ghost" size="sm" className="h-8 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-default-100">
+                  View Logs
                 </Button>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className={`h-1 w-3 rounded-full ${i <= 4 ? `bg-primary/40` : 'bg-default-200'}`} />
+                  ))}
+                </div>
               </Card.Footer>
             </MotionCard>
           ))}
         </div>
       </motion.section>
 
-      {/* How it works — extra content */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-        className="flex flex-col gap-8"
-        aria-labelledby="how-heading"
-      >
+      {/* TODO Workstation — Luxury Precision Design */}
+      <motion.section variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="flex flex-col gap-8 lg:gap-12">
         <div className="flex flex-col items-center gap-4 text-center">
-          <MotionChip variants={itemVariants} variant="soft" color="success" className="px-4">
-            How it works
-          </MotionChip>
-          <motion.h2
-            id="how-heading"
-            variants={itemVariants}
-            className="text-3xl font-bold tracking-tight md:text-5xl"
-          >
-            Write, then look back
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-default-500 max-w-2xl text-lg">
-            Everything you add lives on a timeline. No algorithms, no feeds—just a chronological record you can scroll through whenever you want to remember.
-          </motion.p>
+          <MotionChip variants={itemVariants} variant="soft" color="accent" className="px-4 text-[9px] font-black uppercase tracking-[0.3em]">Workbench v1.0</MotionChip>
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight md:text-5xl">Operational Flow</motion.h2>
         </div>
 
-        <motion.div
-          variants={itemVariants}
-          className="grid grid-cols-1 gap-6 md:grid-cols-3"
-        >
-          {[
-            { icon: PenLine, title: 'Write anything', body: 'Tech notes, album thoughts, film reviews, game logs, or random musings. One place for all of it.' },
-            { icon: Calendar, title: 'Timeline view', body: 'See your entries in order. Jump to a month or a year and see what was going on then.' },
-            { icon: BookOpen, title: 'Your archive', body: 'Your data stays yours. Local-first and self-hostable, so you keep control.' },
-          ].map(({ icon: Icon, title, body }, idx) => (
-            <motion.div
-              key={idx}
-              variants={itemVariants}
-              className="rounded-2xl border border-default-200/60 bg-default-50/30 px-6 py-6 dark:border-default-100/40 dark:bg-default-100/5"
-            >
-              <div className="bg-primary/10 text-primary mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl">
-                <Icon size={22} aria-hidden />
+        <motion.div variants={itemVariants} className="mx-auto w-full max-w-4xl">
+          <Surface className="bg-background/20 border-default-200/50 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-default-100/5 overflow-hidden rounded-[2.5rem]">
+            {/* Control Bar */}
+            <div className="flex flex-col border-b border-default-100/50">
+              <div className="flex flex-wrap items-center justify-between gap-4 p-6 pb-4 sm:px-8">
+                <SearchField className="w-full sm:w-72" value={searchQuery} onChange={setSearchQuery}>
+                  <SearchField.Group className="bg-default-100/20 border-none h-10 px-4 rounded-xl">
+                    <SearchField.SearchIcon className="text-default-400 size-4" />
+                    <SearchField.Input placeholder="Filter flow..." className="text-sm font-medium" />
+                    <SearchField.ClearButton />
+                  </SearchField.Group>
+                </SearchField>
+
+                <div className="flex items-center gap-3">
+                  <Tabs 
+                    variant="secondary" 
+                    selectedKey={filterStatus} 
+                    onSelectionChange={(k) => setFilterStatus(k as string)} 
+                    className="h-14"
+                  >
+                    <Tabs.ListContainer className="bg-default-100/50 dark:bg-white/5 rounded-full p-1.5 shadow-inner">
+                      <Tabs.List aria-label="Todo Status" className="gap-2 border-none">
+                        <Tabs.Tab 
+                          id="all" 
+                          className={cn(
+                            "relative flex items-center justify-center gap-2 px-4 transition-all duration-500 rounded-full h-11",
+                            filterStatus === 'all' ? "bg-background shadow-lg text-primary" : "w-11 px-0 text-default-500"
+                          )}
+                        >
+                          <div className={cn("flex items-center justify-center", filterStatus === 'all' ? "bg-primary/10 size-8 rounded-lg" : "size-11")}>
+                            <LayoutGrid size={filterStatus === 'all' ? 18 : 22} className={filterStatus === 'all' ? "text-primary" : "text-default-600"} />
+                          </div>
+                          <AnimatePresence mode="popLayout">
+                            {filterStatus === 'all' && (
+                              <motion.span 
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                className="text-sm font-black tracking-tight"
+                              >
+                                Inbox
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                          <Tabs.Indicator className="hidden" />
+                        </Tabs.Tab>
+
+                        <Tabs.Tab 
+                          id="active" 
+                          className={cn(
+                            "relative flex items-center justify-center gap-2 px-4 transition-all duration-500 rounded-full h-11",
+                            filterStatus === 'active' ? "bg-background shadow-lg text-primary" : "w-11 px-0 text-default-500"
+                          )}
+                        >
+                          <div className={cn("flex items-center justify-center", filterStatus === 'active' ? "bg-primary/10 size-8 rounded-lg" : "size-11")}>
+                            <Calendar size={filterStatus === 'active' ? 18 : 22} className={filterStatus === 'active' ? "text-primary" : "text-default-600"} />
+                          </div>
+                          <AnimatePresence mode="popLayout">
+                            {filterStatus === 'active' && (
+                              <motion.span 
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                className="text-sm font-black tracking-tight"
+                              >
+                                Focus
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </Tabs.Tab>
+
+                        <Tabs.Tab 
+                          id="completed" 
+                          className={cn(
+                            "relative flex items-center justify-center gap-2 px-4 transition-all duration-500 rounded-full h-11",
+                            filterStatus === 'completed' ? "bg-background shadow-lg text-primary" : "w-11 px-0 text-default-500"
+                          )}
+                        >
+                          <div className={cn("flex items-center justify-center", filterStatus === 'completed' ? "bg-primary/10 size-8 rounded-lg" : "size-11")}>
+                            <AlertCircle size={filterStatus === 'completed' ? 18 : 22} className={filterStatus === 'completed' ? "text-primary" : "text-default-600"} />
+                          </div>
+                          <AnimatePresence mode="popLayout">
+                            {filterStatus === 'completed' && (
+                              <motion.span 
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                className="text-sm font-black tracking-tight"
+                              >
+                                Secured
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </Tabs.Tab>
+                      </Tabs.List>
+                    </Tabs.ListContainer>
+                  </Tabs>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-foreground">{title}</h3>
-              <p className="text-default-500 mt-2 text-sm leading-relaxed">{body}</p>
-            </motion.div>
-          ))}
+            </div>
+
+            {/* List Engine */}
+            <div className="max-h-[500px] overflow-y-auto scrollbar-hide px-2">
+              {filteredTodos.length > 0 ? (
+                <Reorder.Group axis="y" values={todos} onReorder={setTodos} className="flex flex-col gap-1 py-4">
+                  {['Overdue', 'Today', 'Upcoming', 'Inbox'].map(groupName => {
+                    const items = sortedTodos.filter(t => getGroup(t) === groupName);
+                    if (items.length === 0) return null;
+
+                    return (
+                      <div key={groupName} className="flex flex-col gap-1 mb-4">
+                        <div className="flex items-center gap-3 px-6 py-2">
+                          <div className={`h-1.5 w-1.5 rounded-full ring-4 ring-offset-background dark:ring-offset-transparent ${
+                            groupName === 'Overdue' ? 'bg-danger ring-danger/20 animate-pulse' : 
+                            groupName === 'Today' ? 'bg-primary ring-primary/20' : 
+                            groupName === 'Upcoming' ? 'bg-success ring-success/20' : 'bg-default-400 ring-default-400/20'
+                          }`} />
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-default-400">{groupName}</span>
+                          <Separator className="flex-1 opacity-20" />
+                          <span className="text-default-300 text-[9px] font-black">{items.length}</span>
+                        </div>
+
+                        <AnimatePresence initial={false} mode="popLayout">
+                          {items.map((todo) => (
+                            <Reorder.Item 
+                              key={todo.id} 
+                              value={todo} 
+                              initial={{ opacity: 0, x: -10 }} 
+                              animate={{ opacity: 1, x: 0 }} 
+                              exit={{ opacity: 0, scale: 0.95 }}
+                              className="px-2"
+                            >
+                              <Card 
+                                variant="transparent"
+                                className={`group relative flex items-center gap-4 rounded-2xl px-4 py-3.5 transition-all hover:bg-default-100/40 dark:hover:bg-white/5 border border-transparent hover:border-white/10 ${
+                                  todo.completed ? 'opacity-40 grayscale pointer-events-none' : ''
+                                }`}
+                              >
+                                <div className="cursor-grab active:cursor-grabbing text-default-300 opacity-0 transition-opacity group-hover:opacity-100">
+                                  <GripVertical size={16} strokeWidth={2.5} />
+                                </div>
+
+                                <Checkbox 
+                                  isSelected={todo.completed} 
+                                  onChange={() => toggleTodo(todo.id)}
+                                >
+                                  <Checkbox.Control className="rounded-full border-2 size-5 transition-transform group-active:scale-90">
+                                    <Checkbox.Indicator />
+                                  </Checkbox.Control>
+                                </Checkbox>
+
+                                <div className="flex flex-1 flex-col gap-1">
+                                  <span className={`text-sm font-bold tracking-tight transition-all ${
+                                    todo.completed ? 'text-default-400 line-through' : 'text-default-800 dark:text-default-100'
+                                  }`}>
+                                    {todo.text}
+                                  </span>
+                                  <div className="flex items-center gap-3">
+                                    <div className={`flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider ${
+                                      getGroup(todo) === 'Overdue' ? 'text-danger' : 'text-default-400'
+                                    }`}>
+                                      <CalendarDays size={11} strokeWidth={2.5} /> 
+                                      {todo.dueDate === new Date().toISOString().split('T')[0] ? 'Today' : todo.dueDate || 'No Date'}
+                                    </div>
+                                    {todo.tags.map(tag => (
+                                      <Chip key={tag} size="sm" variant="soft" color="accent" className="h-4 px-1.5 text-[8px] font-black uppercase tracking-tighter opacity-80 border-none bg-primary/10">
+                                        #{tag}
+                                      </Chip>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                  {todo.priority !== 'low' && !todo.completed && (
+                                    <Chip 
+                                      size="sm" 
+                                      variant="soft" 
+                                      color={todo.priority === 'high' ? 'danger' : 'warning'} 
+                                      className="h-5 px-2 border-none"
+                                    >
+                                      <Circle className="size-1 mr-1 fill-current" />
+                                      <Chip.Label className="text-[9px] font-black uppercase tracking-tighter">
+                                        {todo.priority}
+                                      </Chip.Label>
+                                    </Chip>
+                                  )}
+                                  <Button 
+                                    isIconOnly 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    className="opacity-0 transition-all group-hover:opacity-100 hover:text-danger rounded-xl hover:bg-danger/10" 
+                                    onPress={() => removeTodo(todo.id)}
+                                  >
+                                    <Trash2 size={14} strokeWidth={2.5} />
+                                  </Button>
+                                </div>
+                              </Card>
+                            </Reorder.Item>
+                          ))}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
+                </Reorder.Group>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-24 text-center opacity-10">
+                  <LayoutGrid size={64} strokeWidth={1} className="mb-4" />
+                  <p className="text-[12px] font-black uppercase tracking-[0.5em]">Clear Mind</p>
+                </div>
+              )}
+            </div>
+
+            {/* Quick Command Footer */}
+            <div className="bg-default-50/20 border-t border-default-100/50 p-5 px-8 flex items-center gap-4">
+              <div className="bg-primary/20 text-primary flex h-8 w-8 items-center justify-center rounded-xl shadow-inner">
+                <Plus size={16} strokeWidth={3} />
+              </div>
+              <Input
+                fullWidth
+                placeholder="Initiate new sequence..."
+                variant="secondary"
+                value={newTodo}
+                onChange={(e) => setNewTodo(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addTodo()}
+                className="bg-transparent text-sm h-10 font-bold placeholder:text-default-300"
+              />
+              <Kbd variant="light" className="scale-90 opacity-40 hidden sm:inline-flex shadow-none border-none">
+                <Kbd.Abbr keyValue="enter" />
+              </Kbd>
+            </div>
+          </Surface>
         </motion.div>
       </motion.section>
 
-      {/* Quote */}
-      <motion.section
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        viewport={{ once: true }}
-        className="py-24 text-center"
-        aria-label="Quote"
-      >
-        <p className="text-default-500 mb-8 mx-auto max-w-xl text-sm md:text-base">
-          Writing it down is a way to taste life once in the moment, and again later.
-        </p>
-        <blockquote>
-          <h3 className="text-default-400 font-serif text-3xl leading-tight italic md:text-5xl">
-            &ldquo;We write to taste life twice, in the moment and in retrospect.&rdquo;
-          </h3>
-          <footer className="text-default-500 mt-6 font-medium">— Anaïs Nin</footer>
-        </blockquote>
-      </motion.section>
-
-      <Separator className="my-12" />
-
-      {/* Timeline CTA */}
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="flex flex-col gap-12 py-12"
-        aria-labelledby="timeline-heading"
-      >
+      {/* Categories & Latest (Visual Sync) */}
+      <motion.section variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center">
-          <MotionChip variants={itemVariants} variant="soft" color="default" className="px-4">
-            Look back
-          </MotionChip>
-          <motion.h2
-            id="timeline-heading"
-            variants={itemVariants}
-            className="text-3xl font-bold tracking-tight md:text-5xl"
-          >
-            Your timeline
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            className="text-default-500 max-w-2xl text-lg"
-          >
-            All your entries in one line. Pick a day, a month, or a year and see what you wrote and what was going on.
-          </motion.p>
+          <MotionChip variants={itemVariants} variant="soft" color="warning" className="px-4">Archives</MotionChip>
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tight md:text-5xl">Recent Logs</motion.h2>
         </div>
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {MOCK_LATEST.map((item, idx) => (
+            <motion.li key={idx} variants={itemVariants}>
+              <NextLink href={item.slug} className="block h-full">
+                <MotionCard whileHover={{ scale: 1.02 }} className="bg-default-50/50 dark:bg-default-100/5 border-none p-6 shadow-sm hover:shadow-xl transition-all">
+                  <div className="flex items-center gap-3 mb-4"><time className="text-default-400 text-[10px] font-black uppercase tracking-widest">{item.date}</time><Chip size="sm" variant="soft" className="text-[9px] font-black uppercase">{item.category}</Chip></div>
+                  <Card.Title className="text-lg font-bold mb-2">{item.title}</Card.Title>
+                  <p className="text-default-500 line-clamp-2 text-sm leading-relaxed">{item.excerpt}</p>
+                </MotionCard>
+              </NextLink>
+            </motion.li>
+          ))}
+        </ul>
+      </motion.section>
 
-        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4">
-          <MotionButton
-            onPress={() => router.push('/timeline')}
-            variant="primary"
-            size="lg"
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.98 }}
-            className="rounded-full"
-            aria-label="Open timeline"
-          >
-            Open timeline
-            <ArrowRight size={18} aria-hidden />
-          </MotionButton>
-          <MotionButton
-            onPress={() => router.push('/about')}
-            variant="outline"
-            size="lg"
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.98 }}
-            className="rounded-full"
-            aria-label="About this site"
-          >
-            About
-          </MotionButton>
-        </motion.div>
+      <Separator className="opacity-10" />
+
+      <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} viewport={{ once: true }} className="py-24 text-center">
+        <h3 className="text-default-300 font-serif text-4xl italic md:text-6xl tracking-tighter opacity-50 select-none">&ldquo;Write to taste life twice.&rdquo;</h3>
       </motion.section>
     </div>
   );

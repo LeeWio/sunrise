@@ -39,7 +39,7 @@ export const RichText = (props: RichTextProps) => {
     <Modal>
       <Modal.Backdrop variant="blur" isOpen={state.isOpen} onOpenChange={state.setOpen}>
         <Modal.Container scroll="inside">
-          <Modal.Dialog className="mx-auto flex h-full w-full max-w-5xl flex-col overflow-visible">
+          <Modal.Dialog className="mx-auto flex h-full w-full max-w-5xl flex-col overflow-visible z-50">
             <RichTextHeader editor={editor} />
             <RichTextBody editor={editor} />
             <RichTextFooter editor={editor} />

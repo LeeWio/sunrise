@@ -15,7 +15,7 @@ export const RichTextBody = ({ editor }: RichTextBodyProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Modal.Body className="p-0">
+    <Modal.Body className="p-0 z-50">
       <ScrollShadow hideScrollBar className="relative h-full w-full" size={60} ref={menuRef}>
         <EditorContent
           editor={editor}
@@ -24,8 +24,8 @@ export const RichTextBody = ({ editor }: RichTextBodyProps) => {
         {editor && (
           <>
             <ColumnsMenu editor={editor} appendTo={menuRef} />
-            <ContentItemMenu editor={editor} />
-            <TextMenu editor={editor} />
+            <ContentItemMenu editor={editor} appendTo={menuRef} />
+            <TextMenu editor={editor} appendTo={menuRef} />
           </>
         )}
       </ScrollShadow>

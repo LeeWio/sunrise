@@ -14,16 +14,12 @@ export const CheckboxView = ({ node, editor, getPos }: NodeViewProps) => {
       .focus(undefined, { scrollIntoView: false })
       .command(({ tr }) => {
         const position = getPos();
-
         if (typeof position !== 'number') return false;
-
         const currentNode = tr.doc.nodeAt(position);
-
         tr.setNodeMarkup(position, undefined, {
           ...currentNode?.attrs,
           checked,
         });
-
         return true;
       })
       .run();
