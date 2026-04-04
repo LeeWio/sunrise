@@ -1,2 +1,4 @@
+@reference "../globals.css";
+
 @import "./editor.css";
 @import "./placeholder.css";

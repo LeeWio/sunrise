@@ -1,3 +1,5 @@
+@reference "../globals.css";
+
 /* Core Tiptap ProseMirror overrides */
 .ProseMirror:focus {
   outline: none;
