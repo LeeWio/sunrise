@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTiptap } from "@tiptap/react";
 import DragHandle from "@tiptap/extension-drag-handle-react";
 import { Button, Dropdown, Header, Kbd, Label, Separator, SearchField } from "@heroui/react";
-import { motion } from "motion/react";
 import { 
   Grip, 
   TrashBin, 
@@ -30,27 +29,37 @@ import { useData } from "./hooks/use-data";
 import { useContentItemActions } from "./hooks/use-content-item-actions";
 import { useContentItemState } from "./hooks/use-content-item-state";
 
-// Create a motion-enabled button for the grip
+import { motion } from "motion/react";
 const MotionButton = motion.create(Button);
 
 /**
- * Advanced ContentItemMenu - Smooth Drag & Config-driven version.
+ * Advanced ContentItemMenu with precise separator logic and auto-focus search.
  */
 export function ContentItemMenu() {
   const { editor } = useTiptap();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
   
   const { currentNode, currentNodePos, handleNodeChange } = useData();
   const actions = useContentItemActions(editor, currentNode, currentNodePos);
   const { nodeType, alignment, blockStats, isMatch } = useContentItemState(editor, currentNode, searchQuery);
 
-  // Sync drag handle lock state
+  // Focus management and handle lock
   useEffect(() => {
     if (editor?.commands?.setMeta) {
       editor.commands.setMeta("lockDragHandle", menuOpen);
     }
-    if (!menuOpen) setSearchQuery("");
+    
+    if (menuOpen) {
+      // Use a micro-task to ensure Popover is fully rendered and accessible in DOM
+      const timer = setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      setSearchQuery("");
+    }
   }, [editor, menuOpen]);
 
   const handleAction = useCallback(async (key: React.Key) => {
@@ -76,6 +85,7 @@ export function ContentItemMenu() {
   const isTurnIntoVisible = isMatch("Text") || isMatch("Heading 1") || isMatch("Heading 2") || isMatch("Heading 3") || isMatch("Bullet List") || isMatch("Ordered List");
   const isAlignmentVisible = isMatch("Align Left") || isMatch("Align Center") || isMatch("Align Right");
   const isDangerVisible = isMatch("Delete");
+  const isInfoVisible = !searchQuery;
 
   if (!editor) return null;
 
@@ -88,11 +98,8 @@ export function ContentItemMenu() {
       className="flex items-center"
     >
       <Dropdown trigger="longPress" onOpenChange={setMenuOpen}>
-        {/* Animated Grip Button */}
         <MotionButton
-          isIconOnly 
-          size="sm" 
-          variant="ghost"
+          isIconOnly size="sm" variant="ghost"
           aria-label="Drag to move, long press for actions"
           className="text-default-400 hover:text-default-600 hover:bg-default-100 transition-all cursor-grab active:cursor-grabbing rounded-md"
           whileHover={{ scale: 1.15 }}
@@ -105,17 +112,21 @@ export function ContentItemMenu() {
         <Dropdown.Popover placement="bottom start" className="min-w-[260px] max-h-[80vh] overflow-y-auto scrollbar-hide flex flex-col">
           <SearchField 
             aria-label="Search actions" variant="secondary" value={searchQuery}
-            className="p-2 sticky" onChange={setSearchQuery} autoFocus
+            className="p-2 sticky" onChange={setSearchQuery}
           >
             <SearchField.Group className="h-8">
               <SearchField.SearchIcon className="size-3.5" />
-              <SearchField.Input placeholder="Search actions..." className="text-xs" />
+              <SearchField.Input 
+                ref={searchInputRef}
+                placeholder="Search actions..." 
+                className="text-xs" 
+              />
               <SearchField.ClearButton className="size-3.5" />
             </SearchField.Group>
           </SearchField>
 
           <Dropdown.Menu onAction={handleAction} aria-label="Block actions" className="p-1">
-            {/* General Actions */}
+            {/* General Section */}
             {isGeneralVisible && (
               <Dropdown.Section>
                 <Header>General</Header>
@@ -151,7 +162,7 @@ export function ContentItemMenu() {
               </Dropdown.Section>
             )}
 
-            <Separator />
+            {isGeneralVisible && (isTurnIntoVisible || isAlignmentVisible || isDangerVisible) && <Separator />}
 
             {/* Turn Into Section */}
             {isTurnIntoVisible && (
@@ -166,7 +177,7 @@ export function ContentItemMenu() {
               </Dropdown.Section>
             )}
 
-            <Separator />
+            {isTurnIntoVisible && (isAlignmentVisible || isDangerVisible) && <Separator />}
 
             {/* Alignment Section */}
             {isAlignmentVisible && (
@@ -178,11 +189,24 @@ export function ContentItemMenu() {
               </Dropdown.Section>
             )}
 
-            {/* Meta & Danger */}
-            {!searchQuery && <><Separator /><Dropdown.Section><Header>Block Info</Header><Dropdown.Item id="stats" textValue="Block stats" isDisabled className="opacity-100 cursor-default"><div className="flex flex-col gap-1"><div className="flex items-center gap-2 text-default-400"><CircleInfo className="size-3.5" /><span className="text-[10px] uppercase tracking-wider font-bold">Metadata</span></div><div className="flex gap-3 text-xs text-default-500 ml-5"><span>{blockStats.characters} chars</span><span>{blockStats.words} words</span></div></div></Dropdown.Item></Dropdown.Section></>}
-            
-            {isMatch("Delete") && (
-              <><Separator /><Dropdown.Section><Dropdown.Item id="delete" textValue="Delete" variant="danger" className="text-danger"><div className="flex items-center w-full gap-2"><TrashBin className="size-4" /><Label>Delete</Label><Kbd className="ms-auto" slot="keyboard" variant="light"><Kbd.Content>Del</Kbd.Content></Kbd></div></Dropdown.Item></Dropdown.Section></>
+            {/* Info Section */}
+            {isInfoVisible && <><Separator /><Dropdown.Section><Header>Block Info</Header><Dropdown.Item id="stats" textValue="Block stats" isDisabled className="opacity-100 cursor-default"><div className="flex flex-col gap-1"><div className="flex items-center gap-2 text-default-400"><CircleInfo className="size-3.5" /><span className="text-[10px] uppercase tracking-wider font-bold">Metadata</span></div><div className="flex gap-3 text-xs text-default-500 ml-5"><span>{blockStats.characters} chars</span><span>{blockStats.words} words</span></div></div></Dropdown.Item></Dropdown.Section></>}
+
+            {isDangerVisible && (isGeneralVisible || isTurnIntoVisible || isAlignmentVisible || isInfoVisible) && <Separator />}
+
+            {/* Danger Zone */}
+            {isDangerVisible && (
+              <Dropdown.Section>
+                <Dropdown.Item id="delete" textValue="Delete" variant="danger" className="text-danger">
+                  <div className="flex items-center w-full gap-2">
+                    <TrashBin className="size-4" />
+                    <Label>Delete</Label>
+                    <Kbd className="ms-auto" slot="keyboard" variant="light">
+                      <Kbd.Content>Del</Kbd.Content>
+                    </Kbd>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Section>
             )}
           </Dropdown.Menu>
         </Dropdown.Popover>

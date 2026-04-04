@@ -9,7 +9,6 @@
 .ProseMirror {
   min-height: 40vh;
   cursor: text;
-  /* Reduced padding to align better with toolbar while keeping room for drag handle */
   padding-left: 1.5rem; 
   padding-right: 1.5rem;
   padding-top: 1rem;
@@ -40,17 +39,22 @@
   pointer-events: none;
   z-index: -10;
   background-color: var(--heroui-primary-100, rgba(0, 111, 238, 0.1));
-  transition: background-color 0.2s ease;
 }
 
-/* Styling for the node being dragged */
+/* Styling for the node being dragged - More physical feedback */
 .ProseMirror-dragging {
-  opacity: 0.4;
-  outline: 2px dashed var(--heroui-primary-400, rgba(0, 111, 238, 0.4));
-  outline-offset: 4px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  background-color: var(--heroui-primary-50, rgba(0, 111, 238, 0.05));
+  opacity: 0.2;
+  filter: grayscale(1);
+  transform: scale(0.98); /* Slight shrink to suggest depth */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* HeroUI Skeleton Customization for Editor Context */
+.skeleton {
+  /* Smooth height transitions for the live preview */
+  transition: height 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              opacity 0.2s ease,
+              margin 0.2s ease;
 }
 
 /* Custom Drag Image styling */
@@ -63,7 +67,8 @@
   opacity: 0.8;
 }
 
-/* NodeView wrapper styling */
+/* Ensure placeholder nodes don't break flex layouts */
 [data-type="drop-placeholder"] {
   display: block;
+  width: 100%;
 }
