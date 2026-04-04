@@ -11,11 +11,9 @@ export function FileDropdown() {
 
   return (
     <Dropdown>
-      <Dropdown.Trigger>
-        <Button variant="light" isIconOnly aria-label="File Options" className="text-default-600">
-          <Bars className="size-5" />
-        </Button>
-      </Dropdown.Trigger>
+      <Button variant="light" isIconOnly aria-label="File Options" className="text-default-600">
+        <Bars className="size-5" />
+      </Button>
       
       <Dropdown.Popover placement="bottom start">
         <Dropdown.Menu onAction={handleAction} aria-label="File actions">

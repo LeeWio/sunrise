@@ -22,7 +22,6 @@ export function RichTextModal() {
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog>
-          <Modal.CloseTrigger />
           <Modal.Header>
             {/* Toolbar UI (Static for now) */}
             <RichTextToolbar />
