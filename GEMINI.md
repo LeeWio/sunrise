@@ -17,6 +17,8 @@ This is a web application bootstrapped with `create-next-app`. It is built using
 *   **Language:** [TypeScript](https://www.typescriptlang.org/) for strong typing and developer tooling.
 *   **Styling:** [Tailwind CSS](https://tailwindcss.com/) (v4) for utility-first styling.
 *   **Package Manager:** [Bun](https://bun.sh/) (indicated by the presence of `bun.lock`).
+*   **State Management:** [Redux Toolkit (RTK)](https://redux-toolkit.js.org/) MUST be used as the exclusive state management solution.
+*   **Data Fetching:** [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) MUST be used as the exclusive data fetching framework for backend communication.
 *   **Rich Text Editor:** [Tiptap](https://tiptap.dev/docs/editor/getting-started/overview) for the core text editing and rich content experience (Refer to its local skill in `.agents/skills/tiptap/SKILL.md`).
 
 ## Building and Running
