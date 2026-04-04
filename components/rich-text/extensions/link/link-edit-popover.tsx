@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Popover, Button, Input, Form } from "@heroui/react";
+import { Popover, Button, Input, Form, TextField, Label } from "@heroui/react";
 import { LinkSlash } from "@gravity-ui/icons";
 import { useTiptap } from "@tiptap/react";
 
@@ -44,16 +44,14 @@ export function LinkEditPopover({ children }: LinkEditPopoverProps) {
       </Popover.Trigger>
       <Popover.Content className="w-[320px]">
         <Popover.Dialog aria-label="Edit Link">
-          <Form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Input
-              autoFocus
-              label="URL"
-              placeholder="https://example.com"
-              value={url}
-              onValueChange={setUrl}
-              variant="bordered"
-              size="sm"
-            />
+          <Form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
+            <TextField value={url} onChange={setUrl} autoFocus>
+              <Label className="text-sm font-medium">URL</Label>
+              <Input
+                placeholder="https://example.com"
+                variant="primary"
+              />
+            </TextField>
             <div className="flex justify-between gap-2">
               <Button 
                 size="sm" 
