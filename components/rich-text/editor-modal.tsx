@@ -30,7 +30,7 @@ export function EditorModal() {
               <div className="min-h-[300px] w-full rounded-xl bg-zinc-100 p-4 dark:bg-zinc-900 cursor-text overflow-y-auto">
                 <EditorContent editor={editor} className="outline-none h-full" />
               </div>
-            </ModalBody>
+            </Modal.Body>
             <Modal.Footer>
               <Button onPress={() => dispatch(closeEditor())} className="bg-transparent text-danger hover:bg-danger/10">
                 Cancel
