@@ -1,6 +1,6 @@
 import { Editor, useEditorState } from "@tiptap/react";
 
-export function useRichTextState(editor: Editor | null) {
+export function useRichTextState(editor: Editor) {
   return useEditorState({
     editor,
     selector: (ctx) => {

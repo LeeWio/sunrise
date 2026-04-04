@@ -2,6 +2,7 @@
 
 import { Modal, Button } from "@heroui/react";
 import { Tiptap } from "@tiptap/react";
+import type { Editor } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
@@ -9,11 +10,21 @@ import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
 import "../../styles/rich-text/index.css";
 
+function RichTextStats({ editor }: { editor: Editor }) {
+  const state = useRichTextState(editor);
+  
+  return (
+    <div className="flex gap-4 text-xs text-default-400">
+      <span>{state.characters} characters</span>
+      <span>{state.words} words</span>
+    </div>
+  );
+}
+
 export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
   const dispatch = useAppDispatch();
   const editor = useRichText();
-  const state = useRichTextState(editor);
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
@@ -41,13 +52,8 @@ export function RichTextModal() {
             </Tiptap>
           )}
           <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
-            <div className="flex gap-4 text-xs text-default-400">
-              {state && (
-                <>
-                  <span>{state.characters} characters</span>
-                  <span>{state.words} words</span>
-                </>
-              )}
+            <div>
+              {editor && <RichTextStats editor={editor} />}
             </div>
             <div className="flex gap-2">
               <Button onPress={() => dispatch(closeRichText())} variant="secondary">

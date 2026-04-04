@@ -34,8 +34,6 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
   const state = useRichTextState(editor);
   const commands = useRichTextCommands(editor);
 
-  if (!state) return null;
-
   return (
     <ScrollShadow
       orientation="horizontal"
