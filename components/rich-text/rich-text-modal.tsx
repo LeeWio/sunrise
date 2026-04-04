@@ -5,6 +5,7 @@ import { Tiptap } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
+import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
 import "../../styles/rich-text/index.css";
 
