@@ -1,6 +1,5 @@
 "use client";
 
-import { HeroUIProvider } from "@heroui/react";
 import { Provider } from "react-redux";
 import { store } from "../store";
 import { useEditorShortcut } from "../hooks/use-editor-shortcut";
@@ -14,10 +13,8 @@ function GlobalHooks() {
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
-      <HeroUIProvider>
-        {children}
-        <GlobalHooks />
-      </HeroUIProvider>
+      {children}
+      <GlobalHooks />
     </Provider>
   );
 }
