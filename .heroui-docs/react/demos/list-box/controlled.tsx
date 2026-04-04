@@ -1,10 +1,10 @@
 "use client";
 
-import type {Selection} from "@heroui/react";
+import type { Selection } from "@heroui/react";
 
-import {Check} from "@gravity-ui/icons";
-import {Avatar, Description, Label, ListBox, Surface} from "@heroui/react";
-import {useState} from "react";
+import { Check } from "@gravity-ui/icons";
+import { Avatar, Description, Label, ListBox, Surface } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [selected, setSelected] = useState<Selection>(new Set(["1"]));
@@ -13,7 +13,7 @@ export function Controlled() {
 
   return (
     <div className="space-y-4">
-      <Surface className="w-[256px] rounded-3xl shadow-surface">
+      <Surface className="shadow-surface w-[256px] rounded-3xl">
         <ListBox
           aria-label="Users"
           selectedKeys={selected}
@@ -33,7 +33,7 @@ export function Controlled() {
               <Description>bob@heroui.com</Description>
             </div>
             <ListBox.ItemIndicator>
-              {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+              {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
             </ListBox.ItemIndicator>
           </ListBox.Item>
           <ListBox.Item id="2" textValue="Fred">
@@ -49,7 +49,7 @@ export function Controlled() {
               <Description>fred@heroui.com</Description>
             </div>
             <ListBox.ItemIndicator>
-              {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+              {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
             </ListBox.ItemIndicator>
           </ListBox.Item>
           <ListBox.Item id="3" textValue="Martha">
@@ -65,12 +65,12 @@ export function Controlled() {
               <Description>martha@heroui.com</Description>
             </div>
             <ListBox.ItemIndicator>
-              {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+              {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
             </ListBox.ItemIndicator>
           </ListBox.Item>
         </ListBox>
       </Surface>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected: {selectedItems.length > 0 ? selectedItems.join(", ") : "None"}
       </p>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import {Pagination} from "@heroui/react";
-import {useState} from "react";
+import { Pagination } from "@heroui/react";
+import { useState } from "react";
 
 export function PaginationDisabled() {
   const [page, setPage] = useState(1);
@@ -16,7 +16,7 @@ export function PaginationDisabled() {
             <span>Previous</span>
           </Pagination.Previous>
         </Pagination.Item>
-        {Array.from({length: totalPages}, (_, i) => i + 1).map((p) => (
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
           <Pagination.Item key={p}>
             <Pagination.Link isActive={p === page} onPress={() => setPage(p)}>
               {p}

@@ -11,7 +11,7 @@ links:
 ## Import
 
 ```tsx
-import { Chip } from '@heroui/react';
+import { Chip } from "@heroui/react";
 ```
 
 ## Anatomy
@@ -21,34 +21,24 @@ Import the Chip component and access all parts using dot notation.
 > Plain-text children are automatically wrapped in `<Chip.Label>`.
 
 ```tsx
-<Chip>
-  Label text
-</Chip>
+<Chip>Label text</Chip>
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="chip-basic"
-/>
+<ComponentPreview name="chip-basic" />
 
 ### Variants
 
-<ComponentPreview
-  name="chip-variants"
-/>
+<ComponentPreview name="chip-variants" />
 
 ### With Icons
 
-<ComponentPreview
-  name="chip-with-icon"
-/>
+<ComponentPreview name="chip-with-icon" />
 
 ### Statuses
 
-<ComponentPreview
-  name="chip-statuses"
-/>
+<ComponentPreview name="chip-statuses" />
 
 <RelatedComponents component="chip" />
 
@@ -59,14 +49,12 @@ Import the Chip component and access all parts using dot notation.
 You can style the root container and individual slots:
 
 ```tsx
-import {Chip} from '@heroui/react';
+import { Chip } from "@heroui/react";
 
 function CustomChip() {
   return (
     <Chip className="rounded-full px-4 py-2 font-bold">
-      <Chip.Label className="text-lg uppercase">
-        Custom Styled
-      </Chip.Label>
+      <Chip.Label className="text-lg uppercase">Custom Styled</Chip.Label>
     </Chip>
   );
 }
@@ -75,7 +63,9 @@ function CustomChip() {
 ### Customizing the component classes
 
 To customize the Chip component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -104,10 +94,12 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Chip component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/chip.css)):
 
 #### Base Classes
+
 - `.chip` - Base chip container styles
 - `.chip__label` - Label text slot styles
 
 #### Color Classes
+
 - `.chip--accent` - Accent color variant
 - `.chip--danger` - Danger color variant
 - `.chip--default` - Default color variant
@@ -115,12 +107,14 @@ The Chip component uses these CSS classes ([View source styles](https://github.c
 - `.chip--warning` - Warning color variant
 
 #### Variant Classes
+
 - `.chip--primary` - Primary variant with filled background
 - `.chip--secondary` - Secondary variant with border
 - `.chip--tertiary` - Tertiary variant with transparent background
 - `.chip--soft` - Soft variant with lighter background
 
 #### Size Classes
+
 - `.chip--sm` - Small size
 - `.chip--md` - Medium size (default)
 - `.chip--lg` - Large size
@@ -130,12 +124,14 @@ The Chip component uses these CSS classes ([View source styles](https://github.c
 Chips support combining variant and color classes (e.g., `.chip--secondary.chip--accent`). The following combinations have default styles defined:
 
 **Primary Variants:**
+
 - `.chip--primary.chip--accent` - Primary accent combination with filled background
 - `.chip--primary.chip--success` - Primary success combination with filled background
 - `.chip--primary.chip--warning` - Primary warning combination with filled background
 - `.chip--primary.chip--danger` - Primary danger combination with filled background
 
 **Soft Variants:**
+
 - `.chip--accent.chip--soft` - Soft accent combination with lighter background
 - `.chip--success.chip--soft` - Soft success combination with lighter background
 - `.chip--warning.chip--soft` - Soft warning combination with lighter background
@@ -147,17 +143,17 @@ Chips support combining variant and color classes (e.g., `.chip--secondary.chip-
 
 ### Chip Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Content to display inside the chip |
-| `className` | `string` | - | Additional CSS classes for the root element |
-| `color` | `"default" \| "accent" \| "success" \| "warning" \| "danger"` | `"default"` | Color variant of the chip |
-| `variant` | `"primary" \| "secondary" \| "tertiary" \| "soft"` | `"secondary"` | Visual style variant |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size of the chip |
+| Prop        | Type                                                          | Default       | Description                                 |
+| ----------- | ------------------------------------------------------------- | ------------- | ------------------------------------------- |
+| `children`  | `React.ReactNode`                                             | -             | Content to display inside the chip          |
+| `className` | `string`                                                      | -             | Additional CSS classes for the root element |
+| `color`     | `"default" \| "accent" \| "success" \| "warning" \| "danger"` | `"default"`   | Color variant of the chip                   |
+| `variant`   | `"primary" \| "secondary" \| "tertiary" \| "soft"`            | `"secondary"` | Visual style variant                        |
+| `size`      | `"sm" \| "md" \| "lg"`                                        | `"md"`        | Size of the chip                            |
 
 ### Chip.Label Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Label text content |
-| `className` | `string` | - | Additional CSS classes for the label slot |
+| Prop        | Type              | Default | Description                               |
+| ----------- | ----------------- | ------- | ----------------------------------------- |
+| `children`  | `React.ReactNode` | -       | Label text content                        |
+| `className` | `string`          | -       | Additional CSS classes for the label slot |

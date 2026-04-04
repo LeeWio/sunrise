@@ -1,6 +1,6 @@
 "use client";
 
-import {FieldError, Label, TimeField} from "@heroui/react";
+import { FieldError, Label, TimeField } from "@heroui/react";
 
 export function Invalid() {
   return (

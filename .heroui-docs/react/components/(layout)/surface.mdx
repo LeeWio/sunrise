@@ -10,14 +10,12 @@ links:
 ## Import
 
 ```tsx
-import { Surface } from '@heroui/react';
+import { Surface } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="surface-variants"
-/>
+<ComponentPreview name="surface-variants" />
 
 ## Overview
 
@@ -36,7 +34,7 @@ Surface comes in semantic variants that describe their prominence level:
 When using form components inside a Surface, use the `variant="secondary"` prop to apply the lower emphasis variant suitable for surface backgrounds.
 
 ```tsx
-import { Surface, Input, TextArea } from '@heroui/react';
+import { Surface, Input, TextArea } from "@heroui/react";
 
 function App() {
   return (
@@ -55,14 +53,11 @@ function App() {
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { Surface } from '@heroui/react';
+import { Surface } from "@heroui/react";
 
 function CustomSurface() {
   return (
-    <Surface
-      className="rounded-2xl p-8 shadow-lg"
-      variant="secondary"
-    >
+    <Surface className="rounded-2xl p-8 shadow-lg" variant="secondary">
       <h2>Custom Styled Surface</h2>
       <p>Content goes here</p>
     </Surface>
@@ -73,12 +68,14 @@ function CustomSurface() {
 ### Customizing the component classes
 
 To customize the Surface component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
   .surface {
-    @apply rounded-2xl border border-border;
+    @apply border-border rounded-2xl border;
   }
 
   .surface--secondary {
@@ -94,9 +91,11 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Surface component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/surface.css)):
 
 #### Base Classes
+
 - `.surface` - Base surface container
 
 #### Variant Classes
+
 - `.surface--default` - Default surface variant (bg-surface)
 - `.surface--secondary` - Secondary surface variant (bg-surface-secondary)
 - `.surface--tertiary` - Tertiary surface variant (bg-surface-tertiary)
@@ -105,11 +104,11 @@ The Surface component uses these CSS classes ([View source styles](https://githu
 
 ### Surface Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | ` "transparent" \| "default" \| "secondary" \| "tertiary"` | `"default"` | The visual variant of the surface |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | The surface content |
+| Prop        | Type                                                       | Default     | Description                       |
+| ----------- | ---------------------------------------------------------- | ----------- | --------------------------------- |
+| `variant`   | ` "transparent" \| "default" \| "secondary" \| "tertiary"` | `"default"` | The visual variant of the surface |
+| `className` | `string`                                                   | -           | Additional CSS classes            |
+| `children`  | `ReactNode`                                                | -           | The surface content               |
 
 ## Context API
 
@@ -118,12 +117,11 @@ The Surface component uses these CSS classes ([View source styles](https://githu
 Child components can access the Surface context to get the current variant:
 
 ```tsx
-import { useContext } from 'react';
-import { SurfaceContext } from '@heroui/react';
+import { useContext } from "react";
+import { SurfaceContext } from "@heroui/react";
 
 function MyComponent() {
   const { variant } = useContext(SurfaceContext);
   // variant will be "transparent" | "default" | "secondary" | "tertiary" | undefined
 }
 ```
-

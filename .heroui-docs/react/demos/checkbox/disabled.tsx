@@ -1,4 +1,4 @@
-import {Checkbox, Description, Label} from "@heroui/react";
+import { Checkbox, Description, Label } from "@heroui/react";
 
 export function Disabled() {
   return (

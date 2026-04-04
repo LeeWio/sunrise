@@ -1,5 +1,5 @@
-import {CircleXmark, Xmark} from "@gravity-ui/icons";
-import {CloseButton} from "@heroui/react";
+import { CircleXmark, Xmark } from "@gravity-ui/icons";
+import { CloseButton } from "@heroui/react";
 
 export function WithCustomIcon() {
   return (
@@ -8,13 +8,13 @@ export function WithCustomIcon() {
         <CloseButton>
           <CircleXmark />
         </CloseButton>
-        <span className="text-xs text-muted">Custom Icon</span>
+        <span className="text-muted text-xs">Custom Icon</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <CloseButton>
           <Xmark />
         </CloseButton>
-        <span className="text-xs text-muted">Alternative Icon</span>
+        <span className="text-muted text-xs">Alternative Icon</span>
       </div>
     </div>
   );

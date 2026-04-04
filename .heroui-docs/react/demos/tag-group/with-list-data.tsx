@@ -1,8 +1,8 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Avatar, Description, EmptyState, Label, Tag, TagGroup, useListData} from "@heroui/react";
+import { Avatar, Description, EmptyState, Label, Tag, TagGroup, useListData } from "@heroui/react";
 
 export function TagGroupWithListData() {
   type User = {
@@ -86,7 +86,7 @@ export function TagGroupWithListData() {
       </TagGroup>
       {list.selectedKeys !== "all" && Array.from(list.selectedKeys).length > 0 && (
         <div className="mt-4 flex flex-col gap-2">
-          <p className="text-sm font-medium text-muted">Selected:</p>
+          <p className="text-muted text-sm font-medium">Selected:</p>
           <div className="flex flex-wrap gap-2">
             {Array.from(list.selectedKeys).map((key) => {
               const user = list.getItem(key);
@@ -96,7 +96,7 @@ export function TagGroupWithListData() {
               return (
                 <div
                   key={`${user.id}-selected`}
-                  className="flex items-center gap-2 rounded-lg bg-surface-tertiary px-2 py-1"
+                  className="bg-surface-tertiary flex items-center gap-2 rounded-lg px-2 py-1"
                 >
                   <Avatar className="size-4" size="sm">
                     <Avatar.Image src={user.avatar} />

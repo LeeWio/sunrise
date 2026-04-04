@@ -26,24 +26,24 @@ export function Required() {
     alert("Form submitted successfully!");
   };
 
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const states = [
-    {id: "florida", name: "Florida"},
-    {id: "delaware", name: "Delaware"},
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "new-york", name: "New York"},
-    {id: "washington", name: "Washington"},
+    { id: "florida", name: "Florida" },
+    { id: "delaware", name: "Delaware" },
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "new-york", name: "New York" },
+    { id: "washington", name: "Washington" },
   ];
 
   const countries = [
-    {id: "usa", name: "United States"},
-    {id: "canada", name: "Canada"},
-    {id: "mexico", name: "Mexico"},
-    {id: "uk", name: "United Kingdom"},
-    {id: "france", name: "France"},
-    {id: "germany", name: "Germany"},
+    { id: "usa", name: "United States" },
+    { id: "canada", name: "Canada" },
+    { id: "mexico", name: "Mexico" },
+    { id: "uk", name: "United Kingdom" },
+    { id: "france", name: "France" },
+    { id: "germany", name: "Germany" },
   ];
 
   return (

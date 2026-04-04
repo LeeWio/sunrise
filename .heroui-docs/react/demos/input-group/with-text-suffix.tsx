@@ -1,6 +1,6 @@
 "use client";
 
-import {InputGroup, Label, TextField} from "@heroui/react";
+import { InputGroup, Label, TextField } from "@heroui/react";
 
 export function WithTextSuffix() {
   return (

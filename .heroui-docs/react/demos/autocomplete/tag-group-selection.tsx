@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -12,22 +12,22 @@ import {
   TagGroup,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function TagGroupSelection() {
   const tags = [
-    {id: "react", name: "React"},
-    {id: "typescript", name: "TypeScript"},
-    {id: "javascript", name: "JavaScript"},
-    {id: "nodejs", name: "Node.js"},
-    {id: "python", name: "Python"},
-    {id: "vue", name: "Vue"},
-    {id: "angular", name: "Angular"},
-    {id: "nextjs", name: "Next.js"},
+    { id: "react", name: "React" },
+    { id: "typescript", name: "TypeScript" },
+    { id: "javascript", name: "JavaScript" },
+    { id: "nodejs", name: "Node.js" },
+    { id: "python", name: "Python" },
+    { id: "vue", name: "Vue" },
+    { id: "angular", name: "Angular" },
+    { id: "nextjs", name: "Next.js" },
   ];
 
   const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const onRemoveTags = (keys: Set<Key>) => {
     setSelectedKeys((prev) => prev.filter((key) => !keys.has(key)));
@@ -44,7 +44,7 @@ export function TagGroupSelection() {
       <Label>Tags</Label>
       <Autocomplete.Trigger>
         <Autocomplete.Value>
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

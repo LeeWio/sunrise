@@ -1,6 +1,6 @@
 "use client";
 
-import type {ToastContentValue} from "@heroui/react";
+import type { ToastContentValue } from "@heroui/react";
 
 import {
   Button,
@@ -18,12 +18,12 @@ export function CustomToast() {
   return (
     <div className="flex h-full max-w-xl flex-col items-center justify-center">
       <Toast.Provider placement="bottom" queue={customQueue}>
-        {({toast: toastItem}) => {
+        {({ toast: toastItem }) => {
           const content = toastItem.content as ToastContentValue;
 
           return (
             <Toast
-              className="rounded-xl border border-border"
+              className="border-border rounded-xl border"
               toast={toastItem}
               variant={content.variant}
             >

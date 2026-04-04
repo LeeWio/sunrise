@@ -1,4 +1,4 @@
-import {Header, Label, ListBox, Select, Separator} from "@heroui/react";
+import { Header, Label, ListBox, Select, Separator } from "@heroui/react";
 
 export function WithSections() {
   return (

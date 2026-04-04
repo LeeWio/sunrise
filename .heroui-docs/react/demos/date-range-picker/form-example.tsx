@@ -1,6 +1,6 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
 import {
   Button,
@@ -12,8 +12,8 @@ import {
   Label,
   RangeCalendar,
 } from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 type DateRange = {
   start: DateValue;
@@ -91,7 +91,7 @@ export function FormExample() {
             </RangeCalendar.Grid>
             <RangeCalendar.YearPickerGrid>
               <RangeCalendar.YearPickerGridBody>
-                {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+                {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
               </RangeCalendar.YearPickerGridBody>
             </RangeCalendar.YearPickerGrid>
           </RangeCalendar>

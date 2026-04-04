@@ -1,11 +1,11 @@
 "use client";
 
-import {Button} from "@heroui/react";
+import { Button } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (
     <Button
-      render={(props, {isPressed}) => (
+      render={(props, { isPressed }) => (
         <button {...props} data-custom={isPressed ? "pressed" : "bar"} />
       )}
     >

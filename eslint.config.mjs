@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import prettierConfig from "eslint-config-prettier";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -13,8 +14,9 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     ".heroui-docs/**",
-    ".agents/**"
+    ".agents/**",
   ]),
+  prettierConfig, // Ensure this is at the end to turn off conflicting rules
 ]);
 
 export default eslintConfig;

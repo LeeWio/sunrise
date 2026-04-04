@@ -1,4 +1,4 @@
-import {FieldError, Label, NumberField} from "@heroui/react";
+import { FieldError, Label, NumberField } from "@heroui/react";
 
 export function Validation() {
   return (
@@ -14,7 +14,7 @@ export function Validation() {
       </NumberField>
       <NumberField
         isInvalid
-        formatOptions={{style: "percent"}}
+        formatOptions={{ style: "percent" }}
         maxValue={1}
         minValue={0}
         name="percentage"

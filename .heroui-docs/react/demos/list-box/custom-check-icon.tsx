@@ -1,11 +1,11 @@
 "use client";
 
-import {Check} from "@gravity-ui/icons";
-import {Avatar, Description, Label, ListBox, Surface} from "@heroui/react";
+import { Check } from "@gravity-ui/icons";
+import { Avatar, Description, Label, ListBox, Surface } from "@heroui/react";
 
 export function CustomCheckIcon() {
   return (
-    <Surface className="w-[256px] rounded-3xl shadow-surface">
+    <Surface className="shadow-surface w-[256px] rounded-3xl">
       <ListBox aria-label="Users" selectionMode="multiple">
         <ListBox.Item id="1" textValue="Bob">
           <Avatar size="sm">
@@ -20,7 +20,7 @@ export function CustomCheckIcon() {
             <Description>bob@heroui.com</Description>
           </div>
           <ListBox.ItemIndicator>
-            {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+            {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
           </ListBox.ItemIndicator>
         </ListBox.Item>
         <ListBox.Item id="2" textValue="Fred">
@@ -36,7 +36,7 @@ export function CustomCheckIcon() {
             <Description>fred@heroui.com</Description>
           </div>
           <ListBox.ItemIndicator>
-            {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+            {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
           </ListBox.ItemIndicator>
         </ListBox.Item>
         <ListBox.Item id="3" textValue="Martha">
@@ -52,7 +52,7 @@ export function CustomCheckIcon() {
             <Description>martha@heroui.com</Description>
           </div>
           <ListBox.ItemIndicator>
-            {({isSelected}) => (isSelected ? <Check className="size-4 text-accent" /> : null)}
+            {({ isSelected }) => (isSelected ? <Check className="text-accent size-4" /> : null)}
           </ListBox.ItemIndicator>
         </ListBox.Item>
       </ListBox>

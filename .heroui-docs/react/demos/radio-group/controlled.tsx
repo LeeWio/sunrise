@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, Label, Radio, RadioGroup} from "@heroui/react";
+import { Description, Label, Radio, RadioGroup } from "@heroui/react";
 import React from "react";
 
 export function Controlled() {
@@ -38,7 +38,7 @@ export function Controlled() {
           </Radio.Content>
         </Radio>
       </RadioGroup>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected plan: <span className="font-medium">{value}</span>
       </p>
     </div>

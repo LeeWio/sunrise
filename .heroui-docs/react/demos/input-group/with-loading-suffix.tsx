@@ -1,6 +1,6 @@
 "use client";
 
-import {InputGroup, Spinner, TextField} from "@heroui/react";
+import { InputGroup, Spinner, TextField } from "@heroui/react";
 
 export function WithLoadingSuffix() {
   return (

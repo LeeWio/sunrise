@@ -1,18 +1,18 @@
 "use client";
 
-import {TrashBin} from "@gravity-ui/icons";
-import {AlertDialog, Button} from "@heroui/react";
+import { TrashBin } from "@gravity-ui/icons";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function CustomTrigger() {
   return (
     <AlertDialog>
-      <AlertDialog.Trigger className="group flex items-center gap-3 rounded-2xl bg-surface p-4 shadow-xs select-none hover:bg-surface-secondary">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-danger-soft text-danger-soft-foreground">
+      <AlertDialog.Trigger className="group bg-surface hover:bg-surface-secondary flex items-center gap-3 rounded-2xl p-4 shadow-xs select-none">
+        <div className="bg-danger-soft text-danger-soft-foreground flex size-12 shrink-0 items-center justify-center rounded-xl">
           <TrashBin className="size-6" />
         </div>
         <div className="flex flex-1 flex-col gap-0.5">
           <p className="text-sm font-semibold">Delete Item</p>
-          <p className="text-xs text-muted">Permanently remove this item</p>
+          <p className="text-muted text-xs">Permanently remove this item</p>
         </div>
       </AlertDialog.Trigger>
       <AlertDialog.Backdrop>

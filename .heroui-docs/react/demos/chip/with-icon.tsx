@@ -1,5 +1,5 @@
-import {ChevronDown, CircleCheckFill, CircleFill, Clock, Xmark} from "@gravity-ui/icons";
-import {Chip} from "@heroui/react";
+import { ChevronDown, CircleCheckFill, CircleFill, Clock, Xmark } from "@gravity-ui/icons";
+import { Chip } from "@heroui/react";
 
 export function ChipWithIcon() {
   return (

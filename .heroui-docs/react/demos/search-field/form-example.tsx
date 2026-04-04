@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, Description, FieldError, Form, Label, SearchField, Spinner} from "@heroui/react";
+import { Button, Description, FieldError, Form, Label, SearchField, Spinner } from "@heroui/react";
 import React from "react";
 
 export function FormExample() {
@@ -20,7 +20,7 @@ export function FormExample() {
 
     // Simulate API call
     setTimeout(() => {
-      console.log("Search submitted:", {query: value});
+      console.log("Search submitted:", { query: value });
       setValue("");
       setIsSubmitting(false);
     }, 1500);

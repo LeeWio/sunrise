@@ -1,8 +1,8 @@
 "use client";
 
-import {ColorSlider, ColorSwatch, Label} from "@heroui/react";
-import {useState} from "react";
-import {parseColor} from "react-aria-components";
+import { ColorSlider, ColorSwatch, Label } from "@heroui/react";
+import { useState } from "react";
+import { parseColor } from "react-aria-components";
 
 export function Controlled() {
   const [color, setColor] = useState(parseColor("hsl(200, 100%, 50%)"));
@@ -18,7 +18,7 @@ export function Controlled() {
       </ColorSlider>
       <div className="flex items-center gap-2">
         <ColorSwatch color={color} size="sm" />
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Current color: <code className="font-mono">{color.toString("hsl")}</code>
         </p>
       </div>

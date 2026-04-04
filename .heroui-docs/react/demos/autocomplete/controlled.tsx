@@ -1,22 +1,22 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter} from "@heroui/react";
-import {useState} from "react";
+import { Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const states = [
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "florida", name: "Florida"},
-    {id: "new-york", name: "New York"},
-    {id: "illinois", name: "Illinois"},
-    {id: "pennsylvania", name: "Pennsylvania"},
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "florida", name: "Florida" },
+    { id: "new-york", name: "New York" },
+    { id: "illinois", name: "Illinois" },
+    { id: "pennsylvania", name: "Pennsylvania" },
   ];
 
   const [state, setState] = useState<Key | null>("california");
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const selectedState = states.find((s) => s.id === state);
 
@@ -55,7 +55,7 @@ export function Controlled() {
           </Autocomplete.Filter>
         </Autocomplete.Popover>
       </Autocomplete>
-      <p className="text-sm text-muted">Selected: {selectedState?.name || "None"}</p>
+      <p className="text-muted text-sm">Selected: {selectedState?.name || "None"}</p>
     </div>
   );
 }

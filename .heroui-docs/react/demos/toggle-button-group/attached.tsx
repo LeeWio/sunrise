@@ -1,11 +1,11 @@
-import {Bold, Italic, Strikethrough, Underline} from "@gravity-ui/icons";
-import {ToggleButton, ToggleButtonGroup} from "@heroui/react";
+import { Bold, Italic, Strikethrough, Underline } from "@gravity-ui/icons";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 
 export function Attached() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Attached (default)</span>
+        <span className="text-muted text-sm">Attached (default)</span>
         <ToggleButtonGroup selectionMode="multiple">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />
@@ -25,7 +25,7 @@ export function Attached() {
         </ToggleButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Detached</span>
+        <span className="text-muted text-sm">Detached</span>
         <ToggleButtonGroup isDetached selectionMode="multiple">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />

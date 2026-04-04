@@ -1,11 +1,11 @@
 "use client";
 
-import type {Time} from "@internationalized/date";
+import type { Time } from "@internationalized/date";
 
-import {Clock} from "@gravity-ui/icons";
-import {Button, Description, FieldError, Form, Label, TimeField} from "@heroui/react";
-import {parseTime} from "@internationalized/date";
-import {useState} from "react";
+import { Clock } from "@gravity-ui/icons";
+import { Button, Description, FieldError, Form, Label, TimeField } from "@heroui/react";
+import { parseTime } from "@internationalized/date";
+import { useState } from "react";
 
 export function FormExample() {
   const [value, setValue] = useState<Time | null>(null);
@@ -25,7 +25,7 @@ export function FormExample() {
 
     // Simulate API call
     setTimeout(() => {
-      console.log("Time submitted:", {time: value});
+      console.log("Time submitted:", { time: value });
       setValue(null);
       setIsSubmitting(false);
     }, 1500);
@@ -46,7 +46,7 @@ export function FormExample() {
         <Label>Appointment time</Label>
         <TimeField.Group>
           <TimeField.Prefix>
-            <Clock className="size-4 text-muted" />
+            <Clock className="text-muted size-4" />
           </TimeField.Prefix>
           <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
         </TimeField.Group>

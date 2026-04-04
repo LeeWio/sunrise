@@ -1,6 +1,6 @@
 "use client";
 
-import {Checkbox, CheckboxGroup, Description, Label} from "@heroui/react";
+import { Checkbox, CheckboxGroup, Description, Label } from "@heroui/react";
 
 export function WithCustomIndicator() {
   return (
@@ -10,7 +10,7 @@ export function WithCustomIndicator() {
       <Checkbox value="notifications">
         <Checkbox.Control>
           <Checkbox.Indicator>
-            {({isSelected}) =>
+            {({ isSelected }) =>
               isSelected ? (
                 <svg
                   aria-hidden="true"
@@ -34,7 +34,7 @@ export function WithCustomIndicator() {
       <Checkbox value="newsletter">
         <Checkbox.Control>
           <Checkbox.Indicator>
-            {({isSelected}) =>
+            {({ isSelected }) =>
               isSelected ? (
                 <svg
                   aria-hidden="true"

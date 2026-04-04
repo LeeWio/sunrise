@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
-import {parseDate} from "@internationalized/date";
+import { Calendar } from "@heroui/react";
+import { parseDate } from "@internationalized/date";
 
 export function DefaultValue() {
   return (

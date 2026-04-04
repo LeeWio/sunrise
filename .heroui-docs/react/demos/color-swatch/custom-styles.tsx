@@ -1,6 +1,6 @@
 "use client";
 
-import {ColorSwatch} from "@heroui/react";
+import { ColorSwatch } from "@heroui/react";
 
 export function ColorSwatchCustomStyles() {
   const colors = ["#0485F7", "#EF4444", "#F59E0B", "#10B981", "#D946EF"];
@@ -9,7 +9,7 @@ export function ColorSwatchCustomStyles() {
     <div className="flex flex-col gap-8">
       {/* Glow effect */}
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Glow Effect</span>
+        <span className="text-muted text-sm">Glow Effect</span>
         <div className="flex items-center gap-4">
           {colors.map((color) => (
             <ColorSwatch
@@ -26,14 +26,14 @@ export function ColorSwatchCustomStyles() {
 
       {/* Gradient swatch */}
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Gradient</span>
+        <span className="text-muted text-sm">Gradient</span>
         <div className="flex items-center gap-4">
           {colors.map((color) => (
             <ColorSwatch
               key={color}
               color={color}
               size="xl"
-              style={({color: c}) => ({
+              style={({ color: c }) => ({
                 background: `linear-gradient(135deg, ${c.toString("css")}, white)`,
               })}
             />

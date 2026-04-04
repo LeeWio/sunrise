@@ -3,7 +3,7 @@ import TiptapLink from "@tiptap/extension-link";
 
 /**
  * Optimized Link extension that extends the default Tiptap Link extension.
- * 
+ *
  * Improvements:
  * 1. Uses idiomatic `addKeyboardShortcuts` instead of manual ProseMirror plugins.
  * 2. Adds `data-type` attribute support to the schema.
@@ -12,7 +12,7 @@ import TiptapLink from "@tiptap/extension-link";
  */
 export const Link = TiptapLink.extend({
   /**
-   * We override inclusive to false to ensure that typing after a link 
+   * We override inclusive to false to ensure that typing after a link
    * doesn't continue the link, regardless of autolink settings.
    */
   inclusive() {
@@ -72,11 +72,7 @@ export const Link = TiptapLink.extend({
     }
 
     return (
-      this.parent?.(args) || [
-        "a",
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ]
+      this.parent?.(args) || ["a", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
     );
   },
 

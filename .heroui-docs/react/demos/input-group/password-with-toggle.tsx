@@ -1,8 +1,8 @@
 "use client";
 
-import {Eye, EyeSlash} from "@gravity-ui/icons";
-import {Button, InputGroup, Label, TextField} from "@heroui/react";
-import {useState} from "react";
+import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { Button, InputGroup, Label, TextField } from "@heroui/react";
+import { useState } from "react";
 
 export function PasswordWithToggle() {
   const [isVisible, setIsVisible] = useState(false);

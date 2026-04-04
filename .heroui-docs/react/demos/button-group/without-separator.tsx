@@ -1,4 +1,4 @@
-import {Button, ButtonGroup} from "@heroui/react";
+import { Button, ButtonGroup } from "@heroui/react";
 
 export function WithoutSeparator() {
   return (

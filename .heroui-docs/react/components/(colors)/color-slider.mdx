@@ -13,21 +13,19 @@ links:
 ## Import
 
 ```tsx
-import { ColorSlider, Label } from '@heroui/react';
+import { ColorSlider, Label } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="color-slider-basic"
-/>
+<ComponentPreview name="color-slider-basic" />
 
 ### Anatomy
 
 Import the ColorSlider component and access all parts using dot notation.
 
 ```tsx
-import { ColorSlider, Label } from '@heroui/react';
+import { ColorSlider, Label } from "@heroui/react";
 
 export default () => (
   <ColorSlider channel="hue" defaultValue="hsl(0, 100%, 50%)">
@@ -37,55 +35,42 @@ export default () => (
       <ColorSlider.Thumb />
     </ColorSlider.Track>
   </ColorSlider>
-)
+);
 ```
+
 ### Vertical
 
-<ComponentPreview
-  name="color-slider-vertical"
-/>
+<ComponentPreview name="color-slider-vertical" />
 
 ### Disabled
 
-<ComponentPreview
-  name="color-slider-disabled"
-/>
+<ComponentPreview name="color-slider-disabled" />
 
 ### Controlled
 
-<ComponentPreview
-  name="color-slider-controlled"
-/>
+<ComponentPreview name="color-slider-controlled" />
 
 ### HSL Channels
 
 Use multiple ColorSliders to control different channels of a color value. The sliders can share the same color value to create a complete color picker.
 
-<ComponentPreview
-  name="color-slider-channels"
-/>
+<ComponentPreview name="color-slider-channels" />
 
 ### Alpha Channel
 
 The alpha channel slider shows a transparency checkerboard pattern to help visualize the transparency level.
 
-<ComponentPreview
-  name="color-slider-alpha-channel"
-/>
+<ComponentPreview name="color-slider-alpha-channel" />
 
 ### RGB Channels
 
 You can also use RGB color space with red, green, and blue channels.
 
-<ComponentPreview
-  name="color-slider-rgb-channels"
-/>
+<ComponentPreview name="color-slider-rgb-channels" />
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="color-slider-custom-render-function"
-/>
+<ComponentPreview name="color-slider-custom-render-function" />
 
 <RelatedComponents component="color-slider" />
 
@@ -94,7 +79,7 @@ You can also use RGB color space with red, green, and blue channels.
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { ColorSlider, Label } from '@heroui/react';
+import { ColorSlider, Label } from "@heroui/react";
 
 function CustomColorSlider() {
   return (
@@ -112,7 +97,9 @@ function CustomColorSlider() {
 ### Customizing the component classes
 
 To customize the ColorSlider component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -129,7 +116,7 @@ To customize the ColorSlider component classes, you can use the `@layer componen
   }
 
   .color-slider__thumb {
-    @apply size-4 rounded-full border-3 border-white shadow-overlay;
+    @apply shadow-overlay size-4 rounded-full border-3 border-white;
   }
 }
 ```
@@ -141,12 +128,14 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The ColorSlider component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/color-slider.css)):
 
 #### Base Classes
+
 - `.color-slider` - Base slider container
 - `.color-slider__output` - Output element displaying current value
 - `.color-slider__track` - Track element with color gradient
 - `.color-slider__thumb` - Thumb element showing current color
 
 #### State Classes
+
 - `.color-slider[data-disabled="true"]` - Disabled slider state
 - `.color-slider[data-orientation="vertical"]` - Vertical orientation
 - `.color-slider__thumb[data-dragging="true"]` - Thumb being dragged
@@ -168,55 +157,55 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 Inherits from [React Aria ColorSlider](https://react-spectrum.adobe.com/react-aria/ColorSlider.html).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `channel` | `ColorChannel` | - | The color channel that the slider manipulates (hue, saturation, lightness, brightness, alpha, red, green, blue) |
-| `colorSpace` | `ColorSpace` | - | The color space (hsl, hsb, rgb). Defaults to the color space of the value |
-| `value` | `string \| Color` | - | The current color value (controlled) |
-| `defaultValue` | `string \| Color` | - | The default color value (uncontrolled) |
-| `onChange` | `(value: Color) => void` | - | Handler called when the value changes during dragging |
-| `onChangeEnd` | `(value: Color) => void` | - | Handler called when dragging ends |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | The orientation of the slider |
-| `isDisabled` | `boolean` | - | Whether the slider is disabled |
-| `name` | `string` | - | The name of the input element for form submission |
-| `aria-label` | `string` | - | Accessibility label for the slider |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode \| RenderFunction` | - | Slider content or render function |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ColorSliderRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop           | Type                                                                           | Default        | Description                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------ | -------------- | --------------------------------------------------------------------------------------------------------------- |
+| `channel`      | `ColorChannel`                                                                 | -              | The color channel that the slider manipulates (hue, saturation, lightness, brightness, alpha, red, green, blue) |
+| `colorSpace`   | `ColorSpace`                                                                   | -              | The color space (hsl, hsb, rgb). Defaults to the color space of the value                                       |
+| `value`        | `string \| Color`                                                              | -              | The current color value (controlled)                                                                            |
+| `defaultValue` | `string \| Color`                                                              | -              | The default color value (uncontrolled)                                                                          |
+| `onChange`     | `(value: Color) => void`                                                       | -              | Handler called when the value changes during dragging                                                           |
+| `onChangeEnd`  | `(value: Color) => void`                                                       | -              | Handler called when dragging ends                                                                               |
+| `orientation`  | `"horizontal" \| "vertical"`                                                   | `"horizontal"` | The orientation of the slider                                                                                   |
+| `isDisabled`   | `boolean`                                                                      | -              | Whether the slider is disabled                                                                                  |
+| `name`         | `string`                                                                       | -              | The name of the input element for form submission                                                               |
+| `aria-label`   | `string`                                                                       | -              | Accessibility label for the slider                                                                              |
+| `className`    | `string`                                                                       | -              | Additional CSS classes                                                                                          |
+| `children`     | `ReactNode \| RenderFunction`                                                  | -              | Slider content or render function                                                                               |
+| `render`       | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ColorSliderRenderProps>` | -              | Overrides the default DOM element with a custom render function.                                                |
 
 ### ColorSlider.Output Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode \| RenderFunction` | - | Output content or render function |
+| Prop        | Type                          | Default | Description                       |
+| ----------- | ----------------------------- | ------- | --------------------------------- |
+| `className` | `string`                      | -       | Additional CSS classes            |
+| `children`  | `ReactNode \| RenderFunction` | -       | Output content or render function |
 
 ### ColorSlider.Track Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties \| RenderFunction` | - | Inline styles or render function |
-| `children` | `ReactNode \| RenderFunction` | - | Track content or render function |
+| Prop        | Type                              | Default | Description                      |
+| ----------- | --------------------------------- | ------- | -------------------------------- |
+| `className` | `string`                          | -       | Additional CSS classes           |
+| `style`     | `CSSProperties \| RenderFunction` | -       | Inline styles or render function |
+| `children`  | `ReactNode \| RenderFunction`     | -       | Track content or render function |
 
 ### ColorSlider.Thumb Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties \| RenderFunction` | - | Inline styles or render function |
-| `children` | `ReactNode \| RenderFunction` | - | Thumb content or render function |
+| Prop        | Type                              | Default | Description                      |
+| ----------- | --------------------------------- | ------- | -------------------------------- |
+| `className` | `string`                          | -       | Additional CSS classes           |
+| `style`     | `CSSProperties \| RenderFunction` | -       | Inline styles or render function |
+| `children`  | `ReactNode \| RenderFunction`     | -       | Thumb content or render function |
 
 ### RenderProps
 
 When using render functions, these values are provided:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `state` | `ColorSliderState` | The state of the color slider |
-| `color` | `Color` | The current color value |
-| `orientation` | `"horizontal" \| "vertical"` | The orientation of the slider |
-| `isDisabled` | `boolean` | Whether the slider is disabled |
+| Prop          | Type                         | Description                    |
+| ------------- | ---------------------------- | ------------------------------ |
+| `state`       | `ColorSliderState`           | The state of the color slider  |
+| `color`       | `Color`                      | The current color value        |
+| `orientation` | `"horizontal" \| "vertical"` | The orientation of the slider  |
+| `isDisabled`  | `boolean`                    | Whether the slider is disabled |
 
 ## Accessibility
 

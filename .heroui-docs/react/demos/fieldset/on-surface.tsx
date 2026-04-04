@@ -1,6 +1,6 @@
 "use client";
 
-import {FloppyDisk} from "@gravity-ui/icons";
+import { FloppyDisk } from "@gravity-ui/icons";
 import {
   Button,
   Description,
@@ -30,7 +30,7 @@ export function OnSurface() {
   };
 
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-surface p-6">
+    <div className="bg-surface flex items-center justify-center rounded-3xl p-6">
       <Surface className="w-full min-w-[380px]">
         <Form onSubmit={onSubmit}>
           <Fieldset className="w-full">

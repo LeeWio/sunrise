@@ -1,7 +1,7 @@
 "use client";
 
-import {EmptyState, Table} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { EmptyState, Table } from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 export function EmptyStateDemo() {
   return (
@@ -17,8 +17,8 @@ export function EmptyStateDemo() {
           <Table.Body
             renderEmptyState={() => (
               <EmptyState className="flex h-full w-full flex-col items-center justify-center gap-4 text-center">
-                <Icon className="size-6 text-muted" icon="gravity-ui:tray" />
-                <span className="text-sm text-muted">No results found</span>
+                <Icon className="text-muted size-6" icon="gravity-ui:tray" />
+                <span className="text-muted text-sm">No results found</span>
               </EmptyState>
             )}
           >

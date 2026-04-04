@@ -1,26 +1,26 @@
 "use client";
 
-import {Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter} from "@heroui/react";
+import { Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter } from "@heroui/react";
 
 export function Disabled() {
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const items = [
-    {id: "florida", name: "Florida"},
-    {id: "delaware", name: "Delaware"},
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "new-york", name: "New York"},
-    {id: "washington", name: "Washington"},
+    { id: "florida", name: "Florida" },
+    { id: "delaware", name: "Delaware" },
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "new-york", name: "New York" },
+    { id: "washington", name: "Washington" },
   ];
 
   const countries = [
-    {id: "argentina", name: "Argentina"},
-    {id: "venezuela", name: "Venezuela"},
-    {id: "japan", name: "Japan"},
-    {id: "france", name: "France"},
-    {id: "italy", name: "Italy"},
-    {id: "spain", name: "Spain"},
+    { id: "argentina", name: "Argentina" },
+    { id: "venezuela", name: "Venezuela" },
+    { id: "japan", name: "Japan" },
+    { id: "france", name: "France" },
+    { id: "italy", name: "Italy" },
+    { id: "spain", name: "Spain" },
   ];
 
   return (

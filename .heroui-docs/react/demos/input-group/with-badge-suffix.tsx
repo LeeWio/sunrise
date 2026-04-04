@@ -1,6 +1,6 @@
 "use client";
 
-import {Chip, InputGroup, TextField} from "@heroui/react";
+import { Chip, InputGroup, TextField } from "@heroui/react";
 
 export function WithBadgeSuffix() {
   return (

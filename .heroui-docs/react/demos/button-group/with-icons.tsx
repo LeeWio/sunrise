@@ -1,11 +1,11 @@
-import {Globe, Plus, TrashBin} from "@gravity-ui/icons";
-import {Button, ButtonGroup} from "@heroui/react";
+import { Globe, Plus, TrashBin } from "@gravity-ui/icons";
+import { Button, ButtonGroup } from "@heroui/react";
 
 export function WithIcons() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm text-muted">With icons</p>
+        <p className="text-muted text-sm">With icons</p>
         <ButtonGroup variant="secondary">
           <Button>
             <Globe />
@@ -24,7 +24,7 @@ export function WithIcons() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm text-muted">Icon only buttons</p>
+        <p className="text-muted text-sm">Icon only buttons</p>
         <ButtonGroup variant="tertiary">
           <Button isIconOnly>
             <Globe />

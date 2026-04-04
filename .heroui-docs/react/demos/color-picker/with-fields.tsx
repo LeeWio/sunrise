@@ -1,6 +1,6 @@
 "use client";
 
-import type {ColorChannel, ColorSpace} from "@heroui/react";
+import type { ColorChannel, ColorSpace } from "@heroui/react";
 
 import {
   ColorArea,
@@ -12,7 +12,7 @@ import {
   ListBox,
   Select,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function WithFields() {
   const [colorSpace, setColorSpace] = useState<ColorSpace>("hsl");

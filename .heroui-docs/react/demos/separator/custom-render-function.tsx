@@ -1,6 +1,6 @@
 "use client";
 
-import {Separator} from "@heroui/react";
+import { Separator } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

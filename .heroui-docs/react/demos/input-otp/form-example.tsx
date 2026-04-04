@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, Description, Form, InputOTP, Label, Link, Spinner} from "@heroui/react";
+import { Button, Description, Form, InputOTP, Label, Link, Spinner } from "@heroui/react";
 import React from "react";
 
 export function FormExample() {
@@ -79,8 +79,8 @@ export function FormExample() {
         )}
       </Button>
       <div className="flex items-center justify-center gap-1">
-        <p className="text-sm text-muted">Having trouble?</p>
-        <Link className="text-sm text-foreground underline" href="#">
+        <p className="text-muted text-sm">Having trouble?</p>
+        <Link className="text-foreground text-sm underline" href="#">
           Use backup code
         </Link>
       </div>

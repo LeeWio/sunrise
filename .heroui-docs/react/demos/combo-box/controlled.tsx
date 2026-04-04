@@ -1,9 +1,9 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {ComboBox, Input, Label, ListBox} from "@heroui/react";
-import {useState} from "react";
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const animals = [
@@ -56,7 +56,7 @@ export function Controlled() {
           </ListBox>
         </ComboBox.Popover>
       </ComboBox>
-      <p className="text-sm text-muted">Selected: {selectedAnimal?.name || "None"}</p>
+      <p className="text-muted text-sm">Selected: {selectedAnimal?.name || "None"}</p>
     </div>
   );
 }

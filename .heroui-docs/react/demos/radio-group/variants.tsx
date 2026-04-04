@@ -1,10 +1,10 @@
-import {Description, Label, Radio, RadioGroup} from "@heroui/react";
+import { Description, Label, Radio, RadioGroup } from "@heroui/react";
 
 export function Variants() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Primary variant</p>
+        <p className="text-muted text-sm font-medium">Primary variant</p>
         <RadioGroup defaultValue="option1" name="primary-plan" variant="primary">
           <Radio value="option1">
             <Radio.Control>
@@ -27,7 +27,7 @@ export function Variants() {
         </RadioGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Secondary variant</p>
+        <p className="text-muted text-sm font-medium">Secondary variant</p>
         <RadioGroup defaultValue="option1" name="secondary-plan" variant="secondary">
           <Radio value="option1">
             <Radio.Control>

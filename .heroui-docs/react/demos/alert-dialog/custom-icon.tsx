@@ -1,7 +1,7 @@
 "use client";
 
-import {LockOpen} from "@gravity-ui/icons";
-import {AlertDialog, Button} from "@heroui/react";
+import { LockOpen } from "@gravity-ui/icons";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function CustomIcon() {
   return (

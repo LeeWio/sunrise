@@ -1,7 +1,7 @@
 "use client";
 
-import {DateField, DateRangePicker, Description, Label, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { DateField, DateRangePicker, Description, Label, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export function Disabled() {
   const start = today(getLocalTimeZone());
@@ -12,7 +12,7 @@ export function Disabled() {
       className="w-72"
       endName="endDate"
       startName="startDate"
-      value={{end: start.add({days: 4}), start}}
+      value={{ end: start.add({ days: 4 }), start }}
     >
       <Label>Trip dates</Label>
       <DateField.Group fullWidth>
@@ -50,7 +50,7 @@ export function Disabled() {
           </RangeCalendar.Grid>
           <RangeCalendar.YearPickerGrid>
             <RangeCalendar.YearPickerGridBody>
-              {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+              {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
             </RangeCalendar.YearPickerGridBody>
           </RangeCalendar.YearPickerGrid>
         </RangeCalendar>

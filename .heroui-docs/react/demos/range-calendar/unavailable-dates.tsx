@@ -1,15 +1,15 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Description, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { Description, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export function UnavailableDates() {
   const now = today(getLocalTimeZone());
   const blockedRanges = [
-    [now.add({days: 2}), now.add({days: 5})],
-    [now.add({days: 12}), now.add({days: 13})],
+    [now.add({ days: 2 }), now.add({ days: 5 })],
+    [now.add({ days: 12 }), now.add({ days: 13 })],
   ] as const;
 
   const isDateUnavailable = (date: DateValue) => {
@@ -20,7 +20,7 @@ export function UnavailableDates() {
     <div className="flex flex-col items-center gap-4">
       <RangeCalendar
         aria-label="Trip dates"
-        defaultValue={{end: now.add({days: 9}), start: now.add({days: 6})}}
+        defaultValue={{ end: now.add({ days: 9 }), start: now.add({ days: 6 }) }}
         firstDayOfWeek="mon"
         isDateUnavailable={isDateUnavailable}
       >

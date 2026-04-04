@@ -1,10 +1,10 @@
-import {Button, ButtonGroup} from "@heroui/react";
+import { Button, ButtonGroup } from "@heroui/react";
 
 export function Variants() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Primary</p>
+        <p className="text-muted text-sm">Primary</p>
         <ButtonGroup variant="primary">
           <Button>First</Button>
           <Button>
@@ -18,7 +18,7 @@ export function Variants() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Secondary</p>
+        <p className="text-muted text-sm">Secondary</p>
         <ButtonGroup variant="secondary">
           <Button>First</Button>
           <Button>
@@ -32,7 +32,7 @@ export function Variants() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Tertiary</p>
+        <p className="text-muted text-sm">Tertiary</p>
         <ButtonGroup variant="tertiary">
           <Button>First</Button>
           <Button>
@@ -46,7 +46,7 @@ export function Variants() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Outline</p>
+        <p className="text-muted text-sm">Outline</p>
         <ButtonGroup variant="outline">
           <Button>First</Button>
           <Button>
@@ -60,7 +60,7 @@ export function Variants() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Ghost</p>
+        <p className="text-muted text-sm">Ghost</p>
         <ButtonGroup variant="ghost">
           <Button>First</Button>
           <Button>
@@ -74,7 +74,7 @@ export function Variants() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted">Danger</p>
+        <p className="text-muted text-sm">Danger</p>
         <ButtonGroup variant="danger">
           <Button>First</Button>
           <Button>

@@ -1,7 +1,7 @@
 "use client";
 
-import {PlanetEarth, Rocket, ShoppingBag, SquareArticle} from "@gravity-ui/icons";
-import {Tag, TagGroup} from "@heroui/react";
+import { PlanetEarth, Rocket, ShoppingBag, SquareArticle } from "@gravity-ui/icons";
+import { Tag, TagGroup } from "@heroui/react";
 
 export function TagGroupBasic() {
   return (

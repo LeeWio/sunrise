@@ -1,7 +1,7 @@
 "use client";
 
-import {Bars, Pencil, SquarePlus, TrashBin} from "@gravity-ui/icons";
-import {Button, Description, Dropdown, Header, Kbd, Label, Separator} from "@heroui/react";
+import { Bars, Pencil, SquarePlus, TrashBin } from "@gravity-ui/icons";
+import { Button, Description, Dropdown, Header, Kbd, Label, Separator } from "@heroui/react";
 
 export function WithDisabledItems() {
   return (
@@ -18,7 +18,7 @@ export function WithDisabledItems() {
             <Header>Actions</Header>
             <Dropdown.Item id="new-file" textValue="New file">
               <div className="flex h-8 items-start justify-center pt-px">
-                <SquarePlus className="size-4 shrink-0 text-muted" />
+                <SquarePlus className="text-muted size-4 shrink-0" />
               </div>
               <div className="flex flex-col">
                 <Label>New file</Label>
@@ -31,7 +31,7 @@ export function WithDisabledItems() {
             </Dropdown.Item>
             <Dropdown.Item id="edit-file" textValue="Edit file">
               <div className="flex h-8 items-start justify-center pt-px">
-                <Pencil className="size-4 shrink-0 text-muted" />
+                <Pencil className="text-muted size-4 shrink-0" />
               </div>
               <div className="flex flex-col">
                 <Label>Edit file</Label>
@@ -48,7 +48,7 @@ export function WithDisabledItems() {
             <Header>Danger zone</Header>
             <Dropdown.Item id="delete-file" textValue="Delete file" variant="danger">
               <div className="flex h-8 items-start justify-center pt-px">
-                <TrashBin className="size-4 shrink-0 text-danger" />
+                <TrashBin className="text-danger size-4 shrink-0" />
               </div>
               <div className="flex flex-col">
                 <Label>Delete file</Label>

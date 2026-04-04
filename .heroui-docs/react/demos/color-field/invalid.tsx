@@ -1,4 +1,4 @@
-import {ColorField, FieldError, Label} from "@heroui/react";
+import { ColorField, FieldError, Label } from "@heroui/react";
 
 export function Invalid() {
   return (

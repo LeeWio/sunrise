@@ -1,6 +1,6 @@
 "use client";
 
-import {Checkbox, Label} from "@heroui/react";
+import { Checkbox, Label } from "@heroui/react";
 
 export function CustomIndicator() {
   return (
@@ -8,7 +8,7 @@ export function CustomIndicator() {
       <Checkbox defaultSelected name="heart">
         <Checkbox.Control>
           <Checkbox.Indicator>
-            {({isSelected}) =>
+            {({ isSelected }) =>
               isSelected ? (
                 <svg fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -27,7 +27,7 @@ export function CustomIndicator() {
       <Checkbox defaultSelected name="plus">
         <Checkbox.Control>
           <Checkbox.Indicator>
-            {({isSelected}) =>
+            {({ isSelected }) =>
               isSelected ? (
                 <svg fill="none" viewBox="0 0 24 24">
                   <path
@@ -56,7 +56,7 @@ export function CustomIndicator() {
       <Checkbox isIndeterminate name="indeterminate">
         <Checkbox.Control>
           <Checkbox.Indicator>
-            {({isIndeterminate}) =>
+            {({ isIndeterminate }) =>
               isIndeterminate ? (
                 <svg stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
                   <line x1="21" x2="3" y1="12" y2="12" />

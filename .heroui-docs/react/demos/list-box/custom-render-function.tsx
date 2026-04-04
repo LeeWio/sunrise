@@ -1,6 +1,6 @@
 "use client";
 
-import {Avatar, Description, Label, ListBox} from "@heroui/react";
+import { Avatar, Description, Label, ListBox } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

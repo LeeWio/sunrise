@@ -1,10 +1,10 @@
-import {Button, ButtonGroup} from "@heroui/react";
+import { Button, ButtonGroup } from "@heroui/react";
 
 export function Sizes() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm text-muted">Small</p>
+        <p className="text-muted text-sm">Small</p>
         <ButtonGroup size="sm" variant="secondary">
           <Button>First</Button>
           <Button>
@@ -18,7 +18,7 @@ export function Sizes() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm text-muted">Medium (default)</p>
+        <p className="text-muted text-sm">Medium (default)</p>
         <ButtonGroup size="md" variant="secondary">
           <Button>First</Button>
           <Button>
@@ -32,7 +32,7 @@ export function Sizes() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col items-start gap-2">
-        <p className="text-sm text-muted">Large</p>
+        <p className="text-muted text-sm">Large</p>
         <ButtonGroup size="lg" variant="secondary">
           <Button>First</Button>
           <Button>

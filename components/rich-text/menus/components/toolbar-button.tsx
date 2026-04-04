@@ -30,7 +30,7 @@ export interface ToolbarButtonProps extends Omit<ButtonProps, "children"> {
 export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(
   ({ icon, tooltip, active, className, variant, hideTooltip = false, ...props }, ref) => {
     // This leverages HeroUI's internal styling and state management.
-    const currentVariant = active ? "tertiary" : (variant || "ghost");
+    const currentVariant = active ? "tertiary" : variant || "ghost";
 
     const button = (
       <Button
@@ -38,9 +38,7 @@ export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonPr
         isIconOnly
         size="sm"
         variant={currentVariant}
-        className={cn(
-          className
-        )}
+        className={cn(className)}
         {...props}
       >
         {icon}
@@ -50,18 +48,14 @@ export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonPr
     if (tooltip && !hideTooltip) {
       return (
         <Tooltip closeDelay={0}>
-          <Tooltip.Trigger>
-            {button}
-          </Tooltip.Trigger>
-          <Tooltip.Content>
-            {tooltip}
-          </Tooltip.Content>
+          <Tooltip.Trigger>{button}</Tooltip.Trigger>
+          <Tooltip.Content>{tooltip}</Tooltip.Content>
         </Tooltip>
       );
     }
 
     return button;
-  }
+  },
 );
 
 ToolbarButton.displayName = "ToolbarButton";

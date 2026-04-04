@@ -1,4 +1,4 @@
-import {Avatar, Badge} from "@heroui/react";
+import { Avatar, Badge } from "@heroui/react";
 
 const GREEN_AVATAR_URL = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg";
 const ORANGE_AVATAR_URL =

@@ -1,10 +1,10 @@
 "use client";
 
-import type {SortDescriptor} from "@heroui/react";
+import type { SortDescriptor } from "@heroui/react";
 
-import {Table, cn} from "@heroui/react";
-import {Icon} from "@iconify/react";
-import {useMemo, useState} from "react";
+import { Table, cn } from "@heroui/react";
+import { Icon } from "@iconify/react";
+import { useMemo, useState } from "react";
 
 interface User {
   id: number;
@@ -15,10 +15,10 @@ interface User {
 }
 
 const users: User[] = [
-  {email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active"},
-  {email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active"},
-  {email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave"},
-  {email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active"},
+  { email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active" },
+  { email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active" },
+  { email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave" },
+  { email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active" },
   {
     email: "emily@acme.com",
     id: 5,
@@ -83,22 +83,22 @@ export function Sorting() {
         >
           <Table.Header>
             <Table.Column allowsSorting isRowHeader id="name">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Name</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="role">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Role</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="status">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Status</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="email">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Email</SortableColumnHeader>
               )}
             </Table.Column>

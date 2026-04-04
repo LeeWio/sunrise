@@ -23,7 +23,7 @@ import { Modal } from "@heroui/react";
 Import the Modal component and access all parts using dot notation.
 
 ```tsx
-import {Modal, Button} from "@heroui/react";
+import { Modal, Button } from "@heroui/react";
 
 export default () => (
   <Modal>
@@ -98,7 +98,7 @@ export default () => (
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Modal, Button} from "@heroui/react";
+import { Modal, Button } from "@heroui/react";
 
 function CustomModal() {
   return (
@@ -222,12 +222,12 @@ The component supports these interactive states:
 
 ### Modal.Container
 
-| Prop        | Type                                      | Default    | Description               |
-| ----------- | ----------------------------------------- | ---------- | ------------------------- |
-| `placement` | `"auto" \| "center" \| "top" \| "bottom"` | `"auto"`   | Modal position on screen  |
-| `scroll`    | `"inside" \| "outside"`                   | `"inside"` | Scroll behavior           |
-| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "cover" \| "full"` | `"md"` | Modal size variant        |
-| `className` | `string \| (values) => string`            | -          | Container CSS classes     |
+| Prop        | Type                                                | Default    | Description              |
+| ----------- | --------------------------------------------------- | ---------- | ------------------------ |
+| `placement` | `"auto" \| "center" \| "top" \| "bottom"`           | `"auto"`   | Modal position on screen |
+| `scroll`    | `"inside" \| "outside"`                             | `"inside"` | Scroll behavior          |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "cover" \| "full"` | `"md"`     | Modal size variant       |
+| `className` | `string \| (values) => string`                      | -          | Container CSS classes    |
 
 ### Modal.Dialog
 
@@ -271,7 +271,7 @@ The component supports these interactive states:
 ### useOverlayState Hook
 
 ```tsx
-import {useOverlayState} from "@heroui/react";
+import { useOverlayState } from "@heroui/react";
 
 const state = useOverlayState({
   defaultOpen: false,

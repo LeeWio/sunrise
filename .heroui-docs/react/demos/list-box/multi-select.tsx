@@ -1,8 +1,8 @@
-import {Avatar, Description, Label, ListBox, Surface} from "@heroui/react";
+import { Avatar, Description, Label, ListBox, Surface } from "@heroui/react";
 
 export function MultiSelect() {
   return (
-    <Surface className="w-[256px] rounded-3xl shadow-surface">
+    <Surface className="shadow-surface w-[256px] rounded-3xl">
       <ListBox aria-label="Users" selectionMode="multiple">
         <ListBox.Item id="1" textValue="Bob">
           <Avatar size="sm">

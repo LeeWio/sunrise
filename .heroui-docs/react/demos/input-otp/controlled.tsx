@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, InputOTP, Label} from "@heroui/react";
+import { Description, InputOTP, Label } from "@heroui/react";
 import React from "react";
 
 export function Controlled() {
@@ -26,7 +26,7 @@ export function Controlled() {
         {value.length > 0 ? (
           <>
             Value: {value} ({value.length}/6) •{" "}
-            <button className="font-medium text-foreground underline" onClick={() => setValue("")}>
+            <button className="text-foreground font-medium underline" onClick={() => setValue("")}>
               Clear
             </button>
           </>

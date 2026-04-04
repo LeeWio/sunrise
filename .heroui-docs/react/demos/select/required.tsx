@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, FieldError, Form, Label, ListBox, Select} from "@heroui/react";
+import { Button, FieldError, Form, Label, ListBox, Select } from "@heroui/react";
 
 export function Required() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

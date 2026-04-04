@@ -1,4 +1,4 @@
-import {ColorSlider, Label} from "@heroui/react";
+import { ColorSlider, Label } from "@heroui/react";
 
 export function Disabled() {
   return (

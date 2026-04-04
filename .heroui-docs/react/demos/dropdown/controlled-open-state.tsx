@@ -1,14 +1,14 @@
 "use client";
 
-import {Button, Dropdown, Label} from "@heroui/react";
-import {useState} from "react";
+import { Button, Dropdown, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function ControlledOpenState() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex min-w-sm flex-col items-center justify-center gap-4">
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Dropdown is: <strong>{open ? "open" : "closed"}</strong>
       </p>
       <Dropdown isOpen={open} onOpenChange={setOpen}>

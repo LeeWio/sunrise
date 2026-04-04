@@ -1,4 +1,4 @@
-import {Accordion} from "@heroui/react";
+import { Accordion } from "@heroui/react";
 
 export function Multiple() {
   return (

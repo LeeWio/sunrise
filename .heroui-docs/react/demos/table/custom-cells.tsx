@@ -1,10 +1,10 @@
 "use client";
 
-import type {Selection, SortDescriptor} from "@heroui/react";
+import type { Selection, SortDescriptor } from "@heroui/react";
 
-import {Avatar, Button, Checkbox, Chip, Table, cn} from "@heroui/react";
-import {Icon} from "@iconify/react";
-import {useMemo, useState} from "react";
+import { Avatar, Button, Checkbox, Chip, Table, cn } from "@heroui/react";
+import { Icon } from "@iconify/react";
+import { useMemo, useState } from "react";
 
 interface User {
   id: number;
@@ -130,22 +130,22 @@ export function CustomCells() {
               </Checkbox>
             </Table.Column>
             <Table.Column allowsSorting isRowHeader className="after:hidden" id="id">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Worker ID</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="name">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Member</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="role">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Role</SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="status">
-              {({sortDirection}) => (
+              {({ sortDirection }) => (
                 <SortableColumnHeader sortDirection={sortDirection}>Status</SortableColumnHeader>
               )}
             </Table.Column>
@@ -165,7 +165,7 @@ export function CustomCells() {
                   <div className="flex items-center gap-2">
                     #{user.id.toString()}{" "}
                     <Button isIconOnly size="sm" variant="ghost">
-                      <Icon className="size-4 text-muted" icon="gravity-ui:copy" />
+                      <Icon className="text-muted size-4" icon="gravity-ui:copy" />
                     </Button>
                   </div>
                 </Table.Cell>
@@ -182,7 +182,7 @@ export function CustomCells() {
                     </Avatar>
                     <div className="flex flex-col">
                       <span className="text-xs">{user.name}</span>
-                      <span className="text-xs text-muted">{user.email}</span>
+                      <span className="text-muted text-xs">{user.email}</span>
                     </div>
                   </div>
                 </Table.Cell>

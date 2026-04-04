@@ -1,7 +1,7 @@
 "use client";
 
-import {FieldError, Input, Label, TextField} from "@heroui/react";
-import {useState} from "react";
+import { FieldError, Input, Label, TextField } from "@heroui/react";
+import { useState } from "react";
 
 export function Basic() {
   const [value, setValue] = useState("jr");

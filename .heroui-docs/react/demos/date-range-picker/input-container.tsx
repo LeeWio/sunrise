@@ -1,9 +1,9 @@
 "use client";
 
-import type {TimeValue} from "@heroui/react";
+import type { TimeValue } from "@heroui/react";
 
-import {DateField, DateRangePicker, Label, RangeCalendar, TimeField} from "@heroui/react";
-import {getLocalTimeZone, parseZonedDateTime} from "@internationalized/date";
+import { DateField, DateRangePicker, Label, RangeCalendar, TimeField } from "@heroui/react";
+import { getLocalTimeZone, parseZonedDateTime } from "@internationalized/date";
 
 export function InputContainer() {
   const localTimeZone = getLocalTimeZone();
@@ -21,7 +21,7 @@ export function InputContainer() {
       granularity="second"
       hourCycle={12}
     >
-      {({state}) => (
+      {({ state }) => (
         <>
           <Label>Date range</Label>
           <DateField.Group>
@@ -60,7 +60,7 @@ export function InputContainer() {
               </RangeCalendar.Grid>
               <RangeCalendar.YearPickerGrid>
                 <RangeCalendar.YearPickerGridBody>
-                  {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+                  {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
                 </RangeCalendar.YearPickerGridBody>
               </RangeCalendar.YearPickerGrid>
             </RangeCalendar>

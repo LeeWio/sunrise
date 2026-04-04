@@ -10,16 +10,14 @@ links:
 ## Import
 
 ```tsx
-import { FieldError } from '@heroui/react';
+import { FieldError } from "@heroui/react";
 ```
 
 ## Usage
 
 The FieldError component displays validation error messages for form fields. It automatically appears when the parent field is marked as invalid and provides smooth opacity transitions.
 
-<ComponentPreview
-  name="field-error-basic"
-/>
+<ComponentPreview name="field-error-basic" />
 
 <RelatedComponents component="fielderror" />
 
@@ -27,10 +25,10 @@ The FieldError component displays validation error messages for form fields. It 
 
 ### FieldError Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode \| ((validation: ValidationResult) => ReactNode)` | - | Error message content or render function |
+| Prop        | Type                                                         | Default | Description                              |
+| ----------- | ------------------------------------------------------------ | ------- | ---------------------------------------- |
+| `className` | `string`                                                     | -       | Additional CSS classes                   |
+| `children`  | `ReactNode \| ((validation: ValidationResult) => ReactNode)` | -       | Error message content or render function |
 
 ## Accessibility
 
@@ -79,9 +77,7 @@ export function Basic() {
 <TextField isInvalid={errors.length > 0}>
   <Label>Password</Label>
   <Input type="password" />
-  <FieldError>
-    {(validation) => validation.validationErrors.join(', ')}
-  </FieldError>
+  <FieldError>{(validation) => validation.validationErrors.join(", ")}</FieldError>
 </TextField>
 ```
 
@@ -89,17 +85,13 @@ export function Basic() {
 
 ```tsx
 function EmailField() {
-  const [email, setEmail] = useState('');
-  const isInvalid = email.length > 0 && !email.includes('@');
+  const [email, setEmail] = useState("");
+  const isInvalid = email.length > 0 && !email.includes("@");
 
   return (
     <TextField isInvalid={isInvalid}>
       <Label>Email</Label>
-      <Input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <FieldError>Email must include @ symbol</FieldError>
     </TextField>
   );

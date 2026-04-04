@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -14,7 +14,7 @@ import {
   SearchField,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function UserSelection() {
   const users = [
@@ -56,7 +56,7 @@ export function UserSelection() {
   ];
 
   const [selectedKey, setSelectedKey] = useState<Key | null>(null);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   return (
     <Autocomplete
@@ -69,7 +69,7 @@ export function UserSelection() {
       <Label>User</Label>
       <Autocomplete.Trigger>
         <Autocomplete.Value>
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

@@ -11,7 +11,7 @@ links:
 ## Import
 
 ```tsx
-import { ColorField, parseColor } from '@heroui/react';
+import { ColorField, parseColor } from "@heroui/react";
 ```
 
 ### Usage
@@ -21,7 +21,7 @@ import { ColorField, parseColor } from '@heroui/react';
 ### Anatomy
 
 ```tsx
-import {ColorField, Label, ColorSwatch, Description, FieldError, parseColor} from '@heroui/react';
+import { ColorField, Label, ColorSwatch, Description, FieldError, parseColor } from "@heroui/react";
 
 export default () => (
   <ColorField>
@@ -35,7 +35,7 @@ export default () => (
     <Description />
     <FieldError />
   </ColorField>
-)
+);
 ```
 
 > **ColorField** combines label, color input, description, and error into a single accessible component.
@@ -97,9 +97,7 @@ Complete form example with validation and submission handling.
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="color-field-custom-render-function"
-/>
+<ComponentPreview name="color-field-custom-render-function" />
 
 <RelatedComponents component="colorfield" />
 
@@ -108,21 +106,19 @@ Complete form example with validation and submission handling.
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {ColorField, Label, ColorSwatch, Description} from '@heroui/react';
+import { ColorField, Label, ColorSwatch, Description } from "@heroui/react";
 
 function CustomColorField() {
   return (
-    <ColorField className="gap-2 rounded-xl border border-border/60 bg-surface p-4 shadow-sm">
-      <Label className="text-sm font-semibold text-default-700">
-        Brand Color
-      </Label>
-      <ColorField.Group className="rounded-lg border border-border/60 bg-surface px-3 py-2">
+    <ColorField className="border-border/60 bg-surface gap-2 rounded-xl border p-4 shadow-sm">
+      <Label className="text-default-700 text-sm font-semibold">Brand Color</Label>
+      <ColorField.Group className="border-border/60 bg-surface rounded-lg border px-3 py-2">
         <ColorField.Prefix>
           <ColorSwatch color="#3B82F6" />
         </ColorField.Prefix>
         <ColorField.Input />
       </ColorField.Group>
-      <Description className="text-xs text-default-500">
+      <Description className="text-default-500 text-xs">
         Select your brand's primary color.
       </Description>
     </ColorField>
@@ -180,62 +176,62 @@ ColorField inherits all props from React Aria's [ColorField](https://react-aria.
 
 #### Base Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode \| (values: ColorFieldRenderProps) => React.ReactNode` | - | Child components (Label, ColorField.Group, etc.) or render function. |
-| `className` | `string \| (values: ColorFieldRenderProps) => string` | - | CSS classes for styling, supports render props. |
-| `style` | `React.CSSProperties \| (values: ColorFieldRenderProps) => React.CSSProperties` | - | Inline styles, supports render props. |
-| `fullWidth` | `boolean` | `false` | Whether the color field should take full width of its container |
-| `id` | `string` | - | The element's unique identifier. |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ColorFieldRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop        | Type                                                                            | Default | Description                                                          |
+| ----------- | ------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------- |
+| `children`  | `React.ReactNode \| (values: ColorFieldRenderProps) => React.ReactNode`         | -       | Child components (Label, ColorField.Group, etc.) or render function. |
+| `className` | `string \| (values: ColorFieldRenderProps) => string`                           | -       | CSS classes for styling, supports render props.                      |
+| `style`     | `React.CSSProperties \| (values: ColorFieldRenderProps) => React.CSSProperties` | -       | Inline styles, supports render props.                                |
+| `fullWidth` | `boolean`                                                                       | `false` | Whether the color field should take full width of its container      |
+| `id`        | `string`                                                                        | -       | The element's unique identifier.                                     |
+| `render`    | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ColorFieldRenderProps>`   | -       | Overrides the default DOM element with a custom render function.     |
 
 #### Value Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `Color \| null` | - | Current value (controlled). |
-| `defaultValue` | `Color \| null` | - | Default value (uncontrolled). |
-| `onChange` | `(color: Color \| null) => void` | - | Handler called when the value changes. |
+| Prop           | Type                             | Default | Description                            |
+| -------------- | -------------------------------- | ------- | -------------------------------------- |
+| `value`        | `Color \| null`                  | -       | Current value (controlled).            |
+| `defaultValue` | `Color \| null`                  | -       | Default value (uncontrolled).          |
+| `onChange`     | `(color: Color \| null) => void` | -       | Handler called when the value changes. |
 
 #### Channel Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `colorSpace` | `ColorSpace` | - | The color space that the color field operates in when `channel` is provided. |
-| `channel` | `ColorChannel` | - | The color channel to edit. If not provided, edits hex value. |
+| Prop         | Type           | Default | Description                                                                  |
+| ------------ | -------------- | ------- | ---------------------------------------------------------------------------- |
+| `colorSpace` | `ColorSpace`   | -       | The color space that the color field operates in when `channel` is provided. |
+| `channel`    | `ColorChannel` | -       | The color channel to edit. If not provided, edits hex value.                 |
 
 #### Validation Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isRequired` | `boolean` | `false` | Whether user input is required before form submission. |
-| `isInvalid` | `boolean` | - | Whether the value is invalid. |
-| `validate` | `(value: Color) => ValidationError \| true \| null \| undefined` | - | Custom validation function. |
-| `validationBehavior` | `'native' \| 'aria'` | `'native'` | Whether to use native HTML form validation or ARIA attributes. |
+| Prop                 | Type                                                             | Default    | Description                                                    |
+| -------------------- | ---------------------------------------------------------------- | ---------- | -------------------------------------------------------------- |
+| `isRequired`         | `boolean`                                                        | `false`    | Whether user input is required before form submission.         |
+| `isInvalid`          | `boolean`                                                        | -          | Whether the value is invalid.                                  |
+| `validate`           | `(value: Color) => ValidationError \| true \| null \| undefined` | -          | Custom validation function.                                    |
+| `validationBehavior` | `'native' \| 'aria'`                                             | `'native'` | Whether to use native HTML form validation or ARIA attributes. |
 
 #### State Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isDisabled` | `boolean` | - | Whether the input is disabled. |
-| `isReadOnly` | `boolean` | - | Whether the input can be selected but not changed. |
-| `isWheelDisabled` | `boolean` | - | Whether to disable changing the value with scroll. |
+| Prop              | Type      | Default | Description                                        |
+| ----------------- | --------- | ------- | -------------------------------------------------- |
+| `isDisabled`      | `boolean` | -       | Whether the input is disabled.                     |
+| `isReadOnly`      | `boolean` | -       | Whether the input can be selected but not changed. |
+| `isWheelDisabled` | `boolean` | -       | Whether to disable changing the value with scroll. |
 
 #### Form Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | - | Name of the input element, for HTML form submission. |
-| `autoFocus` | `boolean` | - | Whether the element should receive focus on render. |
+| Prop        | Type      | Default | Description                                          |
+| ----------- | --------- | ------- | ---------------------------------------------------- |
+| `name`      | `string`  | -       | Name of the input element, for HTML form submission. |
+| `autoFocus` | `boolean` | -       | Whether the element should receive focus on render.  |
 
 #### Accessibility Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `aria-label` | `string` | - | Accessibility label when no visible label is present. |
-| `aria-labelledby` | `string` | - | ID of elements that label this field. |
-| `aria-describedby` | `string` | - | ID of elements that describe this field. |
-| `aria-details` | `string` | - | ID of elements with additional details. |
+| Prop               | Type     | Default | Description                                           |
+| ------------------ | -------- | ------- | ----------------------------------------------------- |
+| `aria-label`       | `string` | -       | Accessibility label when no visible label is present. |
+| `aria-labelledby`  | `string` | -       | ID of elements that label this field.                 |
+| `aria-describedby` | `string` | -       | ID of elements that describe this field.              |
+| `aria-details`     | `string` | -       | ID of elements with additional details.               |
 
 ### Composition Components
 
@@ -252,14 +248,9 @@ ColorField works with these separate components that should be imported and used
 Each of these components has its own props API. Use them directly within ColorField for composition:
 
 ```tsx
-import {ColorField, Label, ColorSwatch, Description, FieldError, parseColor} from '@heroui/react';
+import { ColorField, Label, ColorSwatch, Description, FieldError, parseColor } from "@heroui/react";
 
-<ColorField
-  isRequired
-  isInvalid={hasError}
-  value={color}
-  onChange={setColor}
->
+<ColorField isRequired isInvalid={hasError} value={color} onChange={setColor}>
   <Label>Brand Color</Label>
   <ColorField.Group>
     <ColorField.Prefix>
@@ -269,7 +260,7 @@ import {ColorField, Label, ColorSwatch, Description, FieldError, parseColor} fro
   </ColorField.Group>
   <Description>Select your brand's primary color.</Description>
   <FieldError>Please enter a valid color.</FieldError>
-</ColorField>
+</ColorField>;
 ```
 
 ### Color Types
@@ -277,74 +268,74 @@ import {ColorField, Label, ColorSwatch, Description, FieldError, parseColor} fro
 ColorField uses `Color` objects from React Aria Components:
 
 ```tsx
-import {parseColor} from '@heroui/react';
+import { parseColor } from "@heroui/react";
 
 // Parse from hex string
-const color = parseColor('#3B82F6');
+const color = parseColor("#3B82F6");
 
 // Get hex string from color
-const hex = color.toString('hex'); // "#3b82f6"
+const hex = color.toString("hex"); // "#3b82f6"
 
 // Get RGB values
-const rgb = color.toString('rgb'); // "rgb(59, 130, 246)"
+const rgb = color.toString("rgb"); // "rgb(59, 130, 246)"
 
 // Use in ColorField
 <ColorField value={color} onChange={setColor}>
   {/* ... */}
-</ColorField>
+</ColorField>;
 ```
 
 ### ColorFieldRenderProps
 
 When using render props with `className`, `style`, or `children`, these values are available:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `isDisabled` | `boolean` | Whether the field is disabled. |
-| `isInvalid` | `boolean` | Whether the field is currently invalid. |
-| `isReadOnly` | `boolean` | Whether the field is read-only. |
-| `isRequired` | `boolean` | Whether the field is required. |
-| `isFocused` | `boolean` | Whether the field is currently focused. |
-| `isFocusWithin` | `boolean` | Whether any child element is focused. |
+| Prop             | Type      | Description                                     |
+| ---------------- | --------- | ----------------------------------------------- |
+| `isDisabled`     | `boolean` | Whether the field is disabled.                  |
+| `isInvalid`      | `boolean` | Whether the field is currently invalid.         |
+| `isReadOnly`     | `boolean` | Whether the field is read-only.                 |
+| `isRequired`     | `boolean` | Whether the field is required.                  |
+| `isFocused`      | `boolean` | Whether the field is currently focused.         |
+| `isFocusWithin`  | `boolean` | Whether any child element is focused.           |
 | `isFocusVisible` | `boolean` | Whether focus is visible (keyboard navigation). |
 
 ### ColorField.Group Props
 
 ColorField.Group accepts all props from React Aria's `Group` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `fullWidth` | `boolean` | `false` | Whether the color input group should take full width of its container |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, GroupRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop        | Type                                                                     | Default     | Description                                                                                                                                                        |
+| ----------- | ------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `className` | `string`                                                                 | -           | Tailwind classes merged with the component styles.                                                                                                                 |
+| `fullWidth` | `boolean`                                                                | `false`     | Whether the color input group should take full width of its container                                                                                              |
+| `variant`   | `"primary" \| "secondary"`                                               | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| `render`    | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, GroupRenderProps>` | -           | Overrides the default DOM element with a custom render function.                                                                                                   |
 
 ### ColorField.Input Props
 
 ColorField.Input accepts all props from React Aria's `Input` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `placeholder` | `string` | - | Placeholder text shown when empty. |
+| Prop          | Type     | Default | Description                                        |
+| ------------- | -------- | ------- | -------------------------------------------------- |
+| `className`   | `string` | -       | Tailwind classes merged with the component styles. |
+| `placeholder` | `string` | -       | Placeholder text shown when empty.                 |
 
 ### ColorField.Prefix Props
 
 ColorField.Prefix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the prefix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the prefix slot.             |
 
 ### ColorField.Suffix Props
 
 ColorField.Suffix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the suffix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the suffix slot.             |
 
 ## ColorField.Group Styling
 
@@ -355,7 +346,7 @@ The base classes power every instance. Override them once with `@layer component
 ```css
 @layer components {
   .color-input-group {
-    @apply inline-flex h-9 items-center overflow-hidden rounded-field border bg-field text-sm text-field-foreground shadow-field outline-none;
+    @apply rounded-field bg-field text-field-foreground shadow-field inline-flex h-9 items-center overflow-hidden border text-sm outline-none;
 
     &:hover,
     &[data-hovered="true"] {
@@ -383,7 +374,7 @@ The base classes power every instance. Override them once with `@layer component
 
   .color-input-group__prefix,
   .color-input-group__suffix {
-    @apply shrink-0 text-field-placeholder flex items-center;
+    @apply text-field-placeholder flex shrink-0 items-center;
   }
 }
 ```

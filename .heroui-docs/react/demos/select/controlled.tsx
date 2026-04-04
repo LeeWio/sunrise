@@ -1,9 +1,9 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Label, ListBox, Select} from "@heroui/react";
-import {useState} from "react";
+import { Label, ListBox, Select } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const states = [
@@ -61,7 +61,7 @@ export function Controlled() {
           </ListBox>
         </Select.Popover>
       </Select>
-      <p className="text-sm text-muted">Selected: {selectedState?.name || "None"}</p>
+      <p className="text-muted text-sm">Selected: {selectedState?.name || "None"}</p>
     </div>
   );
 }

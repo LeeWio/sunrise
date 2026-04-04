@@ -1,7 +1,7 @@
 "use client";
 
-import {ChevronDown, ChevronUp} from "@gravity-ui/icons";
-import {Accordion, Button, useDisclosureGroupNavigation} from "@heroui/react";
+import { ChevronDown, ChevronUp } from "@gravity-ui/icons";
+import { Accordion, Button, useDisclosureGroupNavigation } from "@heroui/react";
 import React from "react";
 
 const items = [
@@ -31,7 +31,7 @@ export function Controlled() {
   );
   const itemIds = items.map((item) => item.id);
 
-  const {isNextDisabled, isPrevDisabled, onNext, onPrevious} = useDisclosureGroupNavigation({
+  const { isNextDisabled, isPrevDisabled, onNext, onPrevious } = useDisclosureGroupNavigation({
     expandedKeys,
     itemIds,
     onExpandedChange: setExpandedKeys,
@@ -40,7 +40,7 @@ export function Controlled() {
   return (
     <div className="w-full max-w-md">
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Expanded: <strong>{[...expandedKeys].join(", ") || "none"}</strong>
         </p>
         <div className="flex gap-2">

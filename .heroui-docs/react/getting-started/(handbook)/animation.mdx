@@ -33,6 +33,7 @@ HeroUI components use data attributes to expose their state for animation:
 ```
 
 **State attributes for styling:**
+
 - `[data-hovered="true"]` - Hover state
 - `[data-pressed="true"]` - Active/pressed state
 - `[data-focus-visible="true"]` - Keyboard focus
@@ -76,7 +77,9 @@ HeroUI components use data attributes to expose their state for animation:
 }
 
 @keyframes bounce {
-  50% { transform: scale(0.95); }
+  50% {
+    transform: scale(0.95);
+  }
 }
 ```
 
@@ -87,17 +90,14 @@ HeroUI components work seamlessly with Framer Motion for advanced animations.
 **Basic usage:**
 
 ```tsx
-import { motion } from 'framer-motion';
-import { Button } from '@heroui/react';
+import { motion } from "framer-motion";
+import { Button } from "@heroui/react";
 
 const MotionButton = motion(Button);
 
-<MotionButton
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
+<MotionButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
   Animated Button
-</MotionButton>
+</MotionButton>;
 ```
 
 **Entrance animations:**
@@ -117,7 +117,7 @@ const MotionButton = motion(Button);
 **Layout animations:**
 
 ```tsx
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from "framer-motion";
 
 function Tabs({ items, selected }) {
   return (
@@ -128,7 +128,7 @@ function Tabs({ items, selected }) {
           {selected === i && (
             <motion.div
               layoutId="active"
-              className="absolute inset-0 bg-accent"
+              className="bg-accent absolute inset-0"
               transition={{ type: "spring", bounce: 0.2 }}
             />
           )}
@@ -148,7 +148,7 @@ Apply dynamic animations based on component state:
   {({ isPressed, isHovered }) => (
     <motion.span
       animate={{
-        scale: isPressed ? 0.95 : isHovered ? 1.05 : 1
+        scale: isPressed ? 0.95 : isHovered ? 1.05 : 1,
       }}
     >
       Interactive Button
@@ -184,7 +184,7 @@ HeroUI extends Tailwind's `motion-reduce:` variant to support both the native `p
 With Framer Motion:
 
 ```tsx
-import { useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from "framer-motion";
 
 function AnimatedCard() {
   const shouldReduceMotion = useReducedMotion();

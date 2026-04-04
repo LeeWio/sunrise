@@ -1,7 +1,7 @@
 "use client";
 
-import {Checkbox, CheckboxGroup, Label} from "@heroui/react";
-import {useState} from "react";
+import { Checkbox, CheckboxGroup, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [selected, setSelected] = useState(["coding", "design"]);
@@ -33,7 +33,7 @@ export function Controlled() {
           <Label>Writing</Label>
         </Checkbox.Content>
       </Checkbox>
-      <Label className="my-4 text-sm text-muted">Selected: {selected.join(", ") || "None"}</Label>
+      <Label className="text-muted my-4 text-sm">Selected: {selected.join(", ") || "None"}</Label>
     </CheckboxGroup>
   );
 }

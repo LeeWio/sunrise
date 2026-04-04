@@ -7,13 +7,13 @@ import {
   TextAlignRight,
   Underline,
 } from "@gravity-ui/icons";
-import {ToggleButton, ToggleButtonGroup} from "@heroui/react";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 
 export function SelectionMode() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Single selection</span>
+        <span className="text-muted text-sm">Single selection</span>
         <ToggleButtonGroup defaultSelectedKeys={["center"]} selectionMode="single">
           <ToggleButton id="left">
             <TextAlignLeft />
@@ -32,7 +32,7 @@ export function SelectionMode() {
         </ToggleButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Multiple selection</span>
+        <span className="text-muted text-sm">Multiple selection</span>
         <ToggleButtonGroup defaultSelectedKeys={["bold", "underline"]} selectionMode="multiple">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />

@@ -1,18 +1,18 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
-import {getLocalTimeZone} from "@internationalized/date";
+import { Calendar } from "@heroui/react";
+import { getLocalTimeZone } from "@internationalized/date";
 import React from "react";
-import {CalendarStateContext, useLocale} from "react-aria-components";
+import { CalendarStateContext, useLocale } from "react-aria-components";
 
-function CalendarMonthHeading({offset = 0}: {offset?: number}) {
+function CalendarMonthHeading({ offset = 0 }: { offset?: number }) {
   const state = React.useContext(CalendarStateContext)!;
-  const {locale} = useLocale();
+  const { locale } = useLocale();
 
   const startDate = state.visibleRange.start;
-  const monthDate = startDate.add({months: offset});
+  const monthDate = startDate.add({ months: offset });
   const dateObj = monthDate.toDate(getLocalTimeZone());
-  const monthYear = new Intl.DateTimeFormat(locale, {month: "long", year: "numeric"}).format(
+  const monthYear = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(
     dateObj,
   );
 
@@ -24,7 +24,7 @@ export function MultipleMonths() {
     <Calendar
       aria-label="Trip dates"
       className="@container-normal w-auto overflow-x-auto"
-      visibleDuration={{months: 2}}
+      visibleDuration={{ months: 2 }}
     >
       <Calendar.Heading className="sr-only" />
       <div className="flex w-max gap-8">
@@ -47,7 +47,7 @@ export function MultipleMonths() {
             <CalendarMonthHeading offset={1} />
             <Calendar.NavButton slot="next" />
           </Calendar.Header>
-          <Calendar.Grid offset={{months: 1}}>
+          <Calendar.Grid offset={{ months: 1 }}>
             <Calendar.GridHeader>
               {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
             </Calendar.GridHeader>

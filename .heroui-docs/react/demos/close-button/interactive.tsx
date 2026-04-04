@@ -1,7 +1,7 @@
 "use client";
 
-import {CloseButton} from "@heroui/react";
-import {useState} from "react";
+import { CloseButton } from "@heroui/react";
+import { useState } from "react";
 
 export function Interactive() {
   const [count, setCount] = useState(0);
@@ -12,7 +12,7 @@ export function Interactive() {
         aria-label={`Close (clicked ${count} times)`}
         onPress={() => setCount(count + 1)}
       />
-      <span className="text-sm text-muted">Clicked: {count} times</span>
+      <span className="text-muted text-sm">Clicked: {count} times</span>
     </div>
   );
 }

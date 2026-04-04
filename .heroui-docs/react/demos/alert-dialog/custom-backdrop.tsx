@@ -1,7 +1,7 @@
 "use client";
 
-import {TriangleExclamation} from "@gravity-ui/icons";
-import {AlertDialog, Button} from "@heroui/react";
+import { TriangleExclamation } from "@gravity-ui/icons";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function CustomBackdrop() {
   return (

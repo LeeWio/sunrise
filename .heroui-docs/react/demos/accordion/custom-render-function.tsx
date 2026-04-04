@@ -9,7 +9,7 @@ import {
   Receipt,
   ShoppingBag,
 } from "@gravity-ui/icons";
-import {Accordion} from "@heroui/react";
+import { Accordion } from "@heroui/react";
 
 const items = [
   {
@@ -60,7 +60,7 @@ export function CustomRenderFunction() {
           <Accordion.Heading render={(props) => <div data-custom="heading" {...props} />}>
             <Accordion.Trigger render={(props) => <button data-custom="trigger" {...props} />}>
               {item.icon ? (
-                <span className="mr-3 size-4 shrink-0 text-muted">{item.icon}</span>
+                <span className="text-muted mr-3 size-4 shrink-0">{item.icon}</span>
               ) : null}
               {item.title}
               <Accordion.Indicator>

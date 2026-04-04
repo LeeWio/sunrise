@@ -1,26 +1,26 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {CircleXmarkFill} from "@gravity-ui/icons";
-import {Description, EmptyState, Label, Tag, TagGroup} from "@heroui/react";
-import {useState} from "react";
+import { CircleXmarkFill } from "@gravity-ui/icons";
+import { Description, EmptyState, Label, Tag, TagGroup } from "@heroui/react";
+import { useState } from "react";
 
 export function TagGroupWithRemoveButton() {
-  type TagItem = {id: string; name: string};
+  type TagItem = { id: string; name: string };
 
   const [tags, setTags] = useState<TagItem[]>([
-    {id: "news", name: "News"},
-    {id: "travel", name: "Travel"},
-    {id: "gaming", name: "Gaming"},
-    {id: "shopping", name: "Shopping"},
+    { id: "news", name: "News" },
+    { id: "travel", name: "Travel" },
+    { id: "gaming", name: "Gaming" },
+    { id: "shopping", name: "Shopping" },
   ]);
 
   const [frameworks, setFrameworks] = useState<TagItem[]>([
-    {id: "react", name: "React"},
-    {id: "vue", name: "Vue"},
-    {id: "angular", name: "Angular"},
-    {id: "svelte", name: "Svelte"},
+    { id: "react", name: "React" },
+    { id: "vue", name: "Vue" },
+    { id: "angular", name: "Angular" },
+    { id: "svelte", name: "Svelte" },
   ]);
 
   const onRemoveTags = (keys: Set<Key>) => {

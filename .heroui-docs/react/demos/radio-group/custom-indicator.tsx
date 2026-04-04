@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, Label, Radio, RadioGroup} from "@heroui/react";
+import { Description, Label, Radio, RadioGroup } from "@heroui/react";
 
 export function CustomIndicator() {
   return (
@@ -10,8 +10,8 @@ export function CustomIndicator() {
       <Radio value="basic">
         <Radio.Control>
           <Radio.Indicator>
-            {({isSelected}) =>
-              isSelected ? <span className="text-xs leading-none text-background">✓</span> : null
+            {({ isSelected }) =>
+              isSelected ? <span className="text-background text-xs leading-none">✓</span> : null
             }
           </Radio.Indicator>
         </Radio.Control>
@@ -23,8 +23,8 @@ export function CustomIndicator() {
       <Radio value="premium">
         <Radio.Control>
           <Radio.Indicator>
-            {({isSelected}) =>
-              isSelected ? <span className="text-xs leading-none text-background">✓</span> : null
+            {({ isSelected }) =>
+              isSelected ? <span className="text-background text-xs leading-none">✓</span> : null
             }
           </Radio.Indicator>
         </Radio.Control>
@@ -36,8 +36,8 @@ export function CustomIndicator() {
       <Radio value="business">
         <Radio.Control>
           <Radio.Indicator>
-            {({isSelected}) =>
-              isSelected ? <span className="text-xs leading-none text-background">✓</span> : null
+            {({ isSelected }) =>
+              isSelected ? <span className="text-background text-xs leading-none">✓</span> : null
             }
           </Radio.Indicator>
         </Radio.Control>

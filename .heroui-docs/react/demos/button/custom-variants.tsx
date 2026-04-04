@@ -1,8 +1,8 @@
-import type {ButtonProps} from "@heroui/react";
-import type {VariantProps} from "tailwind-variants";
+import type { ButtonProps } from "@heroui/react";
+import type { VariantProps } from "tailwind-variants";
 
-import {Button, buttonVariants} from "@heroui/react";
-import {tv} from "tailwind-variants";
+import { Button, buttonVariants } from "@heroui/react";
+import { tv } from "tailwind-variants";
 
 const myButtonVariants = tv({
   base: "text-md font-semibold shadow-md text-shadow-lg data-[pending=true]:opacity-40",
@@ -32,10 +32,10 @@ const myButtonVariants = tv({
 
 type MyButtonVariants = VariantProps<typeof myButtonVariants>;
 export type MyButtonProps = Omit<ButtonProps, "className"> &
-  MyButtonVariants & {className?: string};
+  MyButtonVariants & { className?: string };
 
-function CustomButton({className, radius, variant, ...props}: MyButtonProps) {
-  return <Button className={myButtonVariants({className, radius, variant})} {...props} />;
+function CustomButton({ className, radius, variant, ...props }: MyButtonProps) {
+  return <Button className={myButtonVariants({ className, radius, variant })} {...props} />;
 }
 
 export function CustomVariants() {

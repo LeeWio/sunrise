@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, FieldError, Label, NumberField} from "@heroui/react";
+import { Description, FieldError, Label, NumberField } from "@heroui/react";
 import React from "react";
 
 export function WithValidation() {
@@ -11,7 +11,7 @@ export function WithValidation() {
     <div className="flex w-full max-w-64 flex-col gap-4">
       <NumberField
         isRequired
-        formatOptions={{style: "percent"}}
+        formatOptions={{ style: "percent" }}
         isInvalid={isInvalid}
         maxValue={1}
         minValue={0}

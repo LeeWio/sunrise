@@ -11,7 +11,7 @@ links:
 ## Import
 
 ```tsx
-import { Input } from '@heroui/react';
+import { Input } from "@heroui/react";
 ```
 
 <Callout>
@@ -56,7 +56,7 @@ When used inside a [Surface](/docs/components/surface) component, use `variant="
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Input, Label} from '@heroui/react';
+import { Input, Label } from "@heroui/react";
 
 function CustomInput() {
   return (
@@ -64,7 +64,7 @@ function CustomInput() {
       <Label htmlFor="custom-input">Project name</Label>
       <Input
         id="custom-input"
-        className="rounded-xl border border-border/70 bgsurface px-4 py-2 text-sm shadow-sm focus-visible:border-primary"
+        className="border-border/70 bgsurface focus-visible:border-primary rounded-xl border px-4 py-2 text-sm shadow-sm"
         placeholder="New web app"
       />
     </div>
@@ -79,7 +79,7 @@ The base class `.input` powers every instance. Override it once with `@layer com
 ```css
 @layer components {
   .input {
-    @apply rounded-lg border border-border bgsurface px-4 py-2 text-sm shadow-sm transition-colors;
+    @apply border-border bgsurface rounded-lg border px-4 py-2 text-sm shadow-sm transition-colors;
 
     &:hover,
     &[data-hovered="true"] {
@@ -88,7 +88,7 @@ The base class `.input` powers every instance. Override it once with `@layer com
 
     &:focus-visible,
     &[data-focus-visible="true"] {
-      @apply border-primary ring-2 ring-primary/20;
+      @apply border-primary ring-primary/20 ring-2;
     }
 
     &[data-invalid="true"] {
@@ -116,26 +116,26 @@ The base class `.input` powers every instance. Override it once with `@layer com
 
 Input accepts all standard HTML `<input>` attributes plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `type` | `string` | `"text"` | Input type (text, email, password, number, etc.). |
-| `value` | `string` | - | Controlled value. |
-| `defaultValue` | `string` | - | Uncontrolled initial value. |
-| `onChange` | `(event: React.ChangeEvent<HTMLInputElement>) => void` | - | Change handler. |
-| `placeholder` | `string` | - | Placeholder text. |
-| `disabled` | `boolean` | `false` | Disables the input. |
-| `readOnly` | `boolean` | `false` | Makes the input read-only. |
-| `required` | `boolean` | `false` | Marks the input as required. |
-| `name` | `string` | - | Name for form submission. |
-| `autoComplete` | `string` | - | Autocomplete hint for the browser. |
-| `maxLength` | `number` | - | Maximum number of characters. |
-| `minLength` | `number` | - | Minimum number of characters. |
-| `pattern` | `string` | - | Regex pattern for validation. |
-| `min` | `number \| string` | - | Minimum value (for number/date inputs). |
-| `max` | `number \| string` | - | Maximum value (for number/date inputs). |
-| `step` | `number \| string` | - | Stepping interval (for number inputs). |
-| `fullWidth` | `boolean` | `false` | Whether the input should take full width of its container |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop           | Type                                                   | Default     | Description                                                                                                                                                        |
+| -------------- | ------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `className`    | `string`                                               | -           | Tailwind classes merged with the component styles.                                                                                                                 |
+| `type`         | `string`                                               | `"text"`    | Input type (text, email, password, number, etc.).                                                                                                                  |
+| `value`        | `string`                                               | -           | Controlled value.                                                                                                                                                  |
+| `defaultValue` | `string`                                               | -           | Uncontrolled initial value.                                                                                                                                        |
+| `onChange`     | `(event: React.ChangeEvent<HTMLInputElement>) => void` | -           | Change handler.                                                                                                                                                    |
+| `placeholder`  | `string`                                               | -           | Placeholder text.                                                                                                                                                  |
+| `disabled`     | `boolean`                                              | `false`     | Disables the input.                                                                                                                                                |
+| `readOnly`     | `boolean`                                              | `false`     | Makes the input read-only.                                                                                                                                         |
+| `required`     | `boolean`                                              | `false`     | Marks the input as required.                                                                                                                                       |
+| `name`         | `string`                                               | -           | Name for form submission.                                                                                                                                          |
+| `autoComplete` | `string`                                               | -           | Autocomplete hint for the browser.                                                                                                                                 |
+| `maxLength`    | `number`                                               | -           | Maximum number of characters.                                                                                                                                      |
+| `minLength`    | `number`                                               | -           | Minimum number of characters.                                                                                                                                      |
+| `pattern`      | `string`                                               | -           | Regex pattern for validation.                                                                                                                                      |
+| `min`          | `number \| string`                                     | -           | Minimum value (for number/date inputs).                                                                                                                            |
+| `max`          | `number \| string`                                     | -           | Maximum value (for number/date inputs).                                                                                                                            |
+| `step`         | `number \| string`                                     | -           | Stepping interval (for number inputs).                                                                                                                             |
+| `fullWidth`    | `boolean`                                              | `false`     | Whether the input should take full width of its container                                                                                                          |
+| `variant`      | `"primary" \| "secondary"`                             | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 > For validation props like `isInvalid`, `isRequired`, and error handling, use **[TextField](/docs/components/text-field)** with Input as a child component.

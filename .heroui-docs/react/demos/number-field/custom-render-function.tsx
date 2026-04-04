@@ -1,6 +1,6 @@
 "use client";
 
-import {Label, NumberField} from "@heroui/react";
+import { Label, NumberField } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

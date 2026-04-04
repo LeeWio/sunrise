@@ -12,7 +12,7 @@ links:
 ## Import
 
 ```tsx
-import { DateField } from '@heroui/react';
+import { DateField } from "@heroui/react";
 ```
 
 ### Usage
@@ -22,20 +22,18 @@ import { DateField } from '@heroui/react';
 ### Anatomy
 
 ```tsx
-import {DateField, Label, Description, FieldError} from '@heroui/react';
+import { DateField, Label, Description, FieldError } from "@heroui/react";
 
 export default () => (
   <DateField>
     <Label />
     <DateField.Group>
-      <DateField.Input>
-        {(segment) => <DateField.Segment segment={segment} />}
-      </DateField.Input>
+      <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
     </DateField.Group>
     <Description />
     <FieldError />
   </DateField>
-)
+);
 ```
 
 > **DateField** combines label, date input, description, and error into a single accessible component.
@@ -113,29 +111,23 @@ Complete form example with validation and submission handling.
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="date-field-custom-render-function"
-/>
+<ComponentPreview name="date-field-custom-render-function" />
 
 ## Styling
 
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {DateField, Label, Description} from '@heroui/react';
+import { DateField, Label, Description } from "@heroui/react";
 
 function CustomDateField() {
   return (
-    <DateField className="gap-2 rounded-xl border border-border/60 bg-surface p-4 shadow-sm">
-      <Label className="text-sm font-semibold text-default-700">
-        Appointment date
-      </Label>
-      <DateField.Group className="rounded-lg border border-border/60 bg-surface px-3 py-2">
-        <DateField.Input>
-          {(segment) => <DateField.Segment segment={segment} />}
-        </DateField.Input>
+    <DateField className="border-border/60 bg-surface gap-2 rounded-xl border p-4 shadow-sm">
+      <Label className="text-default-700 text-sm font-semibold">Appointment date</Label>
+      <DateField.Group className="border-border/60 bg-surface rounded-lg border px-3 py-2">
+        <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
       </DateField.Group>
-      <Description className="text-xs text-default-500">
+      <Description className="text-default-500 text-xs">
         Select a date for your appointment.
       </Description>
     </DateField>
@@ -193,68 +185,68 @@ DateField inherits all props from React Aria's [DateField](https://react-aria.ad
 
 #### Base Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode \| (values: DateFieldRenderProps) => React.ReactNode` | - | Child components (Label, DateField.Group, etc.) or render function. |
-| `className` | `string \| (values: DateFieldRenderProps) => string` | - | CSS classes for styling, supports render props. |
-| `style` | `React.CSSProperties \| (values: DateFieldRenderProps) => React.CSSProperties` | - | Inline styles, supports render props. |
-| `fullWidth` | `boolean` | `false` | Whether the date field should take full width of its container |
-| `id` | `string` | - | The element's unique identifier. |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, DateFieldRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop        | Type                                                                           | Default | Description                                                         |
+| ----------- | ------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------- |
+| `children`  | `React.ReactNode \| (values: DateFieldRenderProps) => React.ReactNode`         | -       | Child components (Label, DateField.Group, etc.) or render function. |
+| `className` | `string \| (values: DateFieldRenderProps) => string`                           | -       | CSS classes for styling, supports render props.                     |
+| `style`     | `React.CSSProperties \| (values: DateFieldRenderProps) => React.CSSProperties` | -       | Inline styles, supports render props.                               |
+| `fullWidth` | `boolean`                                                                      | `false` | Whether the date field should take full width of its container      |
+| `id`        | `string`                                                                       | -       | The element's unique identifier.                                    |
+| `render`    | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, DateFieldRenderProps>`   | -       | Overrides the default DOM element with a custom render function.    |
 
 #### Value Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `DateValue \| null` | - | Current value (controlled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `defaultValue` | `DateValue \| null` | - | Default value (uncontrolled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `onChange` | `(value: DateValue \| null) => void` | - | Handler called when the value changes. |
-| `placeholderValue` | `DateValue \| null` | - | Placeholder date that influences the format of the placeholder. |
+| Prop               | Type                                 | Default | Description                                                                                                                 |
+| ------------------ | ------------------------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `value`            | `DateValue \| null`                  | -       | Current value (controlled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types.   |
+| `defaultValue`     | `DateValue \| null`                  | -       | Default value (uncontrolled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `onChange`         | `(value: DateValue \| null) => void` | -       | Handler called when the value changes.                                                                                      |
+| `placeholderValue` | `DateValue \| null`                  | -       | Placeholder date that influences the format of the placeholder.                                                             |
 
 #### Validation Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isRequired` | `boolean` | `false` | Whether user input is required before form submission. |
-| `isInvalid` | `boolean` | - | Whether the value is invalid. |
-| `minValue` | `DateValue \| null` | - | The minimum allowed date that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `maxValue` | `DateValue \| null` | - | The maximum allowed date that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `isDateUnavailable` | `(date: DateValue) => boolean` | - | Callback that is called for each date. If it returns true, the date is unavailable. |
-| `validate` | `(value: DateValue) => ValidationError \| true \| null \| undefined` | - | Custom validation function. |
-| `validationBehavior` | `'native' \| 'aria'` | `'native'` | Whether to use native HTML form validation or ARIA attributes. |
+| Prop                 | Type                                                                 | Default    | Description                                                                                                                                    |
+| -------------------- | -------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isRequired`         | `boolean`                                                            | `false`    | Whether user input is required before form submission.                                                                                         |
+| `isInvalid`          | `boolean`                                                            | -          | Whether the value is invalid.                                                                                                                  |
+| `minValue`           | `DateValue \| null`                                                  | -          | The minimum allowed date that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `maxValue`           | `DateValue \| null`                                                  | -          | The maximum allowed date that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `isDateUnavailable`  | `(date: DateValue) => boolean`                                       | -          | Callback that is called for each date. If it returns true, the date is unavailable.                                                            |
+| `validate`           | `(value: DateValue) => ValidationError \| true \| null \| undefined` | -          | Custom validation function.                                                                                                                    |
+| `validationBehavior` | `'native' \| 'aria'`                                                 | `'native'` | Whether to use native HTML form validation or ARIA attributes.                                                                                 |
 
 #### Format Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `granularity` | `Granularity` | - | Determines the smallest unit displayed. Defaults to `"day"` for dates, `"minute"` for times. |
-| `hourCycle` | `12 \| 24` | - | Whether to display time in 12 or 24 hour format. By default, determined by locale. |
-| `hideTimeZone` | `boolean` | `false` | Whether to hide the time zone abbreviation. |
-| `shouldForceLeadingZeros` | `boolean` | - | Whether to always show leading zeros in month, day, and hour fields. |
+| Prop                      | Type          | Default | Description                                                                                  |
+| ------------------------- | ------------- | ------- | -------------------------------------------------------------------------------------------- |
+| `granularity`             | `Granularity` | -       | Determines the smallest unit displayed. Defaults to `"day"` for dates, `"minute"` for times. |
+| `hourCycle`               | `12 \| 24`    | -       | Whether to display time in 12 or 24 hour format. By default, determined by locale.           |
+| `hideTimeZone`            | `boolean`     | `false` | Whether to hide the time zone abbreviation.                                                  |
+| `shouldForceLeadingZeros` | `boolean`     | -       | Whether to always show leading zeros in month, day, and hour fields.                         |
 
 #### State Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isDisabled` | `boolean` | - | Whether the input is disabled. |
-| `isReadOnly` | `boolean` | - | Whether the input can be selected but not changed. |
+| Prop         | Type      | Default | Description                                        |
+| ------------ | --------- | ------- | -------------------------------------------------- |
+| `isDisabled` | `boolean` | -       | Whether the input is disabled.                     |
+| `isReadOnly` | `boolean` | -       | Whether the input can be selected but not changed. |
 
 #### Form Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | - | Name of the input element, for HTML form submission. Submits as ISO 8601 string. |
-| `autoFocus` | `boolean` | - | Whether the element should receive focus on render. |
-| `autoComplete` | `string` | - | Type of autocomplete functionality the input should provide. |
+| Prop           | Type      | Default | Description                                                                      |
+| -------------- | --------- | ------- | -------------------------------------------------------------------------------- |
+| `name`         | `string`  | -       | Name of the input element, for HTML form submission. Submits as ISO 8601 string. |
+| `autoFocus`    | `boolean` | -       | Whether the element should receive focus on render.                              |
+| `autoComplete` | `string`  | -       | Type of autocomplete functionality the input should provide.                     |
 
 #### Accessibility Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `aria-label` | `string` | - | Accessibility label when no visible label is present. |
-| `aria-labelledby` | `string` | - | ID of elements that label this field. |
-| `aria-describedby` | `string` | - | ID of elements that describe this field. |
-| `aria-details` | `string` | - | ID of elements with additional details. |
+| Prop               | Type     | Default | Description                                           |
+| ------------------ | -------- | ------- | ----------------------------------------------------- |
+| `aria-label`       | `string` | -       | Accessibility label when no visible label is present. |
+| `aria-labelledby`  | `string` | -       | ID of elements that label this field.                 |
+| `aria-describedby` | `string` | -       | ID of elements that describe this field.              |
+| `aria-details`     | `string` | -       | ID of elements with additional details.               |
 
 ### Composition Components
 
@@ -272,8 +264,8 @@ DateField works with these separate components that should be imported and used 
 Each of these components has its own props API. Use them directly within DateField for composition:
 
 ```tsx
-import {parseDate} from '@internationalized/date';
-import {DateField, Label, Description, FieldError} from '@heroui/react';
+import { parseDate } from "@internationalized/date";
+import { DateField, Label, Description, FieldError } from "@heroui/react";
 
 <DateField
   isRequired
@@ -284,13 +276,11 @@ import {DateField, Label, Description, FieldError} from '@heroui/react';
 >
   <Label>Appointment Date</Label>
   <DateField.Group>
-    <DateField.Input>
-      {(segment) => <DateField.Segment segment={segment} />}
-    </DateField.Input>
+    <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
   </DateField.Group>
   <Description>Select a date from today onwards.</Description>
   <FieldError>Please select a valid date.</FieldError>
-</DateField>
+</DateField>;
 ```
 
 ### DateValue Types
@@ -305,10 +295,10 @@ DateField uses types from [`@internationalized/date`](https://react-aria.adobe.c
 Example:
 
 ```tsx
-import {parseDate, today, getLocalTimeZone} from '@internationalized/date';
+import { parseDate, today, getLocalTimeZone } from "@internationalized/date";
 
 // Parse from string
-const date = parseDate('2024-01-15');
+const date = parseDate("2024-01-15");
 
 // Today's date
 const todayDate = today(getLocalTimeZone());
@@ -316,7 +306,7 @@ const todayDate = today(getLocalTimeZone());
 // Use in DateField
 <DateField value={date} onChange={setDate}>
   {/* ... */}
-</DateField>
+</DateField>;
 ```
 
 > **Note:** DateField uses the [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) package for date manipulation, parsing, and type definitions. See the [Internationalized Date documentation](https://react-aria.adobe.com/internationalized/date/) for more information about available types and functions.
@@ -325,34 +315,34 @@ const todayDate = today(getLocalTimeZone());
 
 When using render props with `className`, `style`, or `children`, these values are available:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `isDisabled` | `boolean` | Whether the field is disabled. |
-| `isInvalid` | `boolean` | Whether the field is currently invalid. |
-| `isReadOnly` | `boolean` | Whether the field is read-only. |
-| `isRequired` | `boolean` | Whether the field is required. |
-| `isFocused` | `boolean` | Whether the field is currently focused. |
-| `isFocusWithin` | `boolean` | Whether any child element is focused. |
+| Prop             | Type      | Description                                     |
+| ---------------- | --------- | ----------------------------------------------- |
+| `isDisabled`     | `boolean` | Whether the field is disabled.                  |
+| `isInvalid`      | `boolean` | Whether the field is currently invalid.         |
+| `isReadOnly`     | `boolean` | Whether the field is read-only.                 |
+| `isRequired`     | `boolean` | Whether the field is required.                  |
+| `isFocused`      | `boolean` | Whether the field is currently focused.         |
+| `isFocusWithin`  | `boolean` | Whether any child element is focused.           |
 | `isFocusVisible` | `boolean` | Whether focus is visible (keyboard navigation). |
 
 ### DateField.Group Props
 
 DateField.Group accepts all props from React Aria's `Group` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `fullWidth` | `boolean` | `false` | Whether the date input group should take full width of its container |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop        | Type                       | Default     | Description                                                                                                                                                        |
+| ----------- | -------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `className` | `string`                   | -           | Tailwind classes merged with the component styles.                                                                                                                 |
+| `fullWidth` | `boolean`                  | `false`     | Whether the date input group should take full width of its container                                                                                               |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 ### DateField.Input Props
 
 DateField.Input accepts all props from React Aria's `DateInput` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the input. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop        | Type                       | Default     | Description                                                                                                                                                    |
+| ----------- | -------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `className` | `string`                   | -           | Tailwind classes merged with the component styles.                                                                                                             |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` | Visual variant of the input. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 The `DateField.Input` component accepts a render prop function that receives date segments. Each segment represents a part of the date (year, month, day, etc.).
 
@@ -360,37 +350,37 @@ The `DateField.Input` component accepts a render prop function that receives dat
 
 DateField.Segment accepts all props from React Aria's `DateSegment` component:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `segment` | `DateSegment` | - | The date segment object from the DateField.Input render prop. |
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
+| Prop        | Type          | Default | Description                                                   |
+| ----------- | ------------- | ------- | ------------------------------------------------------------- |
+| `segment`   | `DateSegment` | -       | The date segment object from the DateField.Input render prop. |
+| `className` | `string`      | -       | Tailwind classes merged with the component styles.            |
 
 ### DateField.InputContainer Props
 
 DateField.InputContainer accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display inside the scrollable container (typically multiple `DateField.Input` components). |
+| Prop        | Type        | Default | Description                                                                                           |
+| ----------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles.                                                    |
+| `children`  | `ReactNode` | -       | Content to display inside the scrollable container (typically multiple `DateField.Input` components). |
 
 ### DateField.Prefix Props
 
 DateField.Prefix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the prefix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the prefix slot.             |
 
 ### DateField.Suffix Props
 
 DateField.Suffix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the suffix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the suffix slot.             |
 
 ## DateField.Group Styling
 
@@ -401,7 +391,7 @@ The base classes power every instance. Override them once with `@layer component
 ```css
 @layer components {
   .date-input-group {
-    @apply inline-flex h-9 items-center overflow-hidden rounded-field border bg-field text-sm text-field-foreground shadow-field outline-none;
+    @apply rounded-field bg-field text-field-foreground shadow-field inline-flex h-9 items-center overflow-hidden border text-sm outline-none;
 
     &:hover,
     &[data-hovered="true"] {
@@ -445,7 +435,7 @@ The base classes power every instance. Override them once with `@layer component
 
   .date-input-group__prefix,
   .date-input-group__suffix {
-    @apply pointer-events-none shrink-0 text-field-placeholder flex items-center;
+    @apply text-field-placeholder pointer-events-none flex shrink-0 items-center;
   }
 }
 ```

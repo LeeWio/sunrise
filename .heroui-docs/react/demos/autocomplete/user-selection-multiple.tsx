@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -16,7 +16,7 @@ import {
   TagGroup,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function UserSelectionMultiple() {
   const users = [
@@ -58,7 +58,7 @@ export function UserSelectionMultiple() {
   ];
 
   const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const onRemoveTags = (keys: Set<Key>) => {
     setSelectedKeys((prev) => prev.filter((key) => !keys.has(key)));
@@ -76,7 +76,7 @@ export function UserSelectionMultiple() {
       <Label>Users</Label>
       <Autocomplete.Trigger>
         <Autocomplete.Value>
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

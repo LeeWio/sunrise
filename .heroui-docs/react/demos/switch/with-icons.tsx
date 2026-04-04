@@ -12,7 +12,7 @@ import {
   VolumeFill,
   VolumeSlashFill,
 } from "@gravity-ui/icons";
-import {Switch} from "@heroui/react";
+import { Switch } from "@heroui/react";
 
 export function WithIcons() {
   const icons = {
@@ -47,7 +47,7 @@ export function WithIcons() {
     <div className="flex gap-3">
       {Object.entries(icons).map(([key, value]) => (
         <Switch key={key} defaultSelected size="lg">
-          {({isSelected}) => (
+          {({ isSelected }) => (
             <>
               <Switch.Control className={isSelected ? value.selectedControlClass : ""}>
                 <Switch.Thumb>

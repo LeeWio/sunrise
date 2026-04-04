@@ -1,6 +1,6 @@
 "use client";
 
-import {Label, Switch} from "@heroui/react";
+import { Label, Switch } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

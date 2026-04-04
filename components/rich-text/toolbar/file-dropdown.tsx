@@ -1,14 +1,14 @@
 "use client";
 
 import { Dropdown, Button, Label, Description, Header, Separator, Kbd } from "@heroui/react";
-import { 
-  Bars, 
-  FileArrowDown, 
-  FileArrowRightOut, 
-  LogoMarkdown, 
-  FileCode, 
+import {
+  Bars,
+  FileArrowDown,
+  FileArrowRightOut,
+  LogoMarkdown,
+  FileCode,
   FileArrowUp,
-  TrashBin
+  TrashBin,
 } from "@gravity-ui/icons";
 
 export function FileDropdown() {
@@ -19,20 +19,24 @@ export function FileDropdown() {
 
   return (
     <Dropdown>
-      <Button variant="ghost" isIconOnly aria-label="File Options" className="text-default-600 border-none">
+      <Button
+        variant="ghost"
+        isIconOnly
+        aria-label="File Options"
+        className="text-default-600 border-none"
+      >
         <Bars className="size-5" />
       </Button>
-      
+
       <Dropdown.Popover placement="bottom start" className="min-w-[280px]">
         <Dropdown.Menu onAction={handleAction} aria-label="File actions">
-          
           <Dropdown.Section>
             <Header>File</Header>
-            
+
             {/* Import Item with Description and Keyboard Shortcut */}
             <Dropdown.Item id="import-md" textValue="Import Markdown">
               <div className="flex h-8 items-start justify-center pt-px">
-                <FileArrowDown className="size-4 shrink-0 text-muted" />
+                <FileArrowDown className="text-muted size-4 shrink-0" />
               </div>
               <div className="flex flex-col">
                 <Label>Import Markdown</Label>
@@ -48,7 +52,7 @@ export function FileDropdown() {
             <Dropdown.SubmenuTrigger>
               <Dropdown.Item id="export-submenu" textValue="Export As...">
                 <div className="flex h-8 items-start justify-center pt-px">
-                  <FileArrowRightOut className="size-4 shrink-0 text-muted" />
+                  <FileArrowRightOut className="text-muted size-4 shrink-0" />
                 </div>
                 <div className="flex flex-col">
                   <Label>Export As...</Label>
@@ -56,25 +60,24 @@ export function FileDropdown() {
                 </div>
                 <Dropdown.SubmenuIndicator />
               </Dropdown.Item>
-              
+
               <Dropdown.Popover>
                 <Dropdown.Menu onAction={handleAction} aria-label="Export Formats">
                   <Dropdown.Item id="export-md" textValue="Markdown">
-                    <LogoMarkdown className="size-4 shrink-0 text-muted" />
+                    <LogoMarkdown className="text-muted size-4 shrink-0" />
                     <Label>Markdown (.md)</Label>
                   </Dropdown.Item>
                   <Dropdown.Item id="export-html" textValue="HTML Document">
-                    <FileCode className="size-4 shrink-0 text-muted" />
+                    <FileCode className="text-muted size-4 shrink-0" />
                     <Label>HTML Document</Label>
                   </Dropdown.Item>
                   <Dropdown.Item id="export-json" textValue="Raw JSON">
-                    <FileArrowUp className="size-4 shrink-0 text-muted" />
+                    <FileArrowUp className="text-muted size-4 shrink-0" />
                     <Label>Raw JSON (Tiptap)</Label>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown.Popover>
             </Dropdown.SubmenuTrigger>
-
           </Dropdown.Section>
 
           <Separator />
@@ -82,7 +85,7 @@ export function FileDropdown() {
           <Dropdown.Section>
             <Header>Danger Zone</Header>
             <Dropdown.Item id="clear-content" textValue="Clear Content" variant="danger">
-              <TrashBin className="size-4 shrink-0 text-danger" />
+              <TrashBin className="text-danger size-4 shrink-0" />
               <Label>Clear Content</Label>
               <Kbd className="ms-auto" slot="keyboard" variant="light">
                 <Kbd.Abbr keyValue="command" />
@@ -91,7 +94,6 @@ export function FileDropdown() {
               </Kbd>
             </Dropdown.Item>
           </Dropdown.Section>
-
         </Dropdown.Menu>
       </Dropdown.Popover>
     </Dropdown>

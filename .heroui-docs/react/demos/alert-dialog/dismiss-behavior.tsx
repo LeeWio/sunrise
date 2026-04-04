@@ -1,14 +1,14 @@
 "use client";
 
-import {CircleInfo} from "@gravity-ui/icons";
-import {AlertDialog, Button} from "@heroui/react";
+import { CircleInfo } from "@gravity-ui/icons";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function DismissBehavior() {
   return (
     <div className="flex max-w-sm flex-col gap-6">
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">isDismissable</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Controls whether the alert dialog can be dismissed by clicking the overlay backdrop. Alert
           dialogs typically require explicit action, so this defaults to <code>false</code>. Set to{" "}
           <code>true</code> for less critical confirmations.
@@ -24,7 +24,7 @@ export function DismissBehavior() {
                     <CircleInfo className="size-5" />
                   </AlertDialog.Icon>
                   <AlertDialog.Heading>isDismissable = false</AlertDialog.Heading>
-                  <p className="text-sm leading-5 text-muted">
+                  <p className="text-muted text-sm leading-5">
                     Clicking the backdrop won't close this alert dialog
                   </p>
                 </AlertDialog.Header>
@@ -48,7 +48,7 @@ export function DismissBehavior() {
 
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">isKeyboardDismissDisabled</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Controls whether the ESC key can dismiss the alert dialog. Alert dialogs typically require
           explicit action, so this defaults to <code>true</code>. When set to <code>false</code>,
           the ESC key will be enabled.
@@ -64,7 +64,7 @@ export function DismissBehavior() {
                     <CircleInfo className="size-5" />
                   </AlertDialog.Icon>
                   <AlertDialog.Heading>isKeyboardDismissDisabled = true</AlertDialog.Heading>
-                  <p className="text-sm leading-5 text-muted">ESC key is disabled</p>
+                  <p className="text-muted text-sm leading-5">ESC key is disabled</p>
                 </AlertDialog.Header>
                 <AlertDialog.Body>
                   <p>

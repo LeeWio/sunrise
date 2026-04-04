@@ -1,7 +1,7 @@
 "use client";
 
-import {ColorSwatchPicker, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { ColorSwatchPicker, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 const colors = ["#F43F5E", "#D946EF", "#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#84CC16"];
 
@@ -18,7 +18,7 @@ export function Controlled() {
           </ColorSwatchPicker.Item>
         ))}
       </ColorSwatchPicker>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected: <span className="font-medium">{value.toString("hex")}</span>
       </p>
     </div>

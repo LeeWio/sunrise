@@ -1,7 +1,7 @@
 "use client";
 
-import {Copy, Globe} from "@gravity-ui/icons";
-import {Button, InputGroup, Label, TextField} from "@heroui/react";
+import { Copy, Globe } from "@gravity-ui/icons";
+import { Button, InputGroup, Label, TextField } from "@heroui/react";
 
 export function WithIconPrefixAndCopySuffix() {
   return (
@@ -9,7 +9,7 @@ export function WithIconPrefixAndCopySuffix() {
       <Label>Website</Label>
       <InputGroup>
         <InputGroup.Prefix>
-          <Globe className="size-4 text-muted" />
+          <Globe className="text-muted size-4" />
         </InputGroup.Prefix>
         <InputGroup.Input className="w-full max-w-[280px]" />
         <InputGroup.Suffix className="pr-0">

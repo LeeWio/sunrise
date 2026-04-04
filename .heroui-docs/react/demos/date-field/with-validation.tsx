@@ -1,10 +1,10 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {DateField, Description, FieldError, Label} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { DateField, Description, FieldError, Label } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 export function WithValidation() {
   const [value, setValue] = useState<DateValue | null>(null);

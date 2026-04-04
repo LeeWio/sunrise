@@ -1,4 +1,4 @@
-import {Description, Label, NumberField} from "@heroui/react";
+import { Description, Label, NumberField } from "@heroui/react";
 
 export function CustomIcons() {
   return (

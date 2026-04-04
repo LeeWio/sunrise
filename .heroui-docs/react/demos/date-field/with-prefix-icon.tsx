@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar} from "@gravity-ui/icons";
-import {DateField, Label} from "@heroui/react";
+import { Calendar } from "@gravity-ui/icons";
+import { DateField, Label } from "@heroui/react";
 
 export function WithPrefixIcon() {
   return (
@@ -9,7 +9,7 @@ export function WithPrefixIcon() {
       <Label>Date</Label>
       <DateField.Group>
         <DateField.Prefix>
-          <Calendar className="size-4 text-muted" />
+          <Calendar className="text-muted size-4" />
         </DateField.Prefix>
         <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
       </DateField.Group>

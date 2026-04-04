@@ -1,22 +1,22 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter} from "@heroui/react";
-import {useState} from "react";
+import { Autocomplete, EmptyState, Label, ListBox, SearchField, useFilter } from "@heroui/react";
+import { useState } from "react";
 
 export default function SingleSelect() {
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const [selectedKey, setSelectedKey] = useState<Key | null>(null);
 
   const items = [
-    {id: "cat", name: "Cat"},
-    {id: "dog", name: "Dog"},
-    {id: "elephant", name: "Elephant"},
-    {id: "lion", name: "Lion"},
-    {id: "tiger", name: "Tiger"},
-    {id: "giraffe", name: "Giraffe"},
+    { id: "cat", name: "Cat" },
+    { id: "dog", name: "Dog" },
+    { id: "elephant", name: "Elephant" },
+    { id: "lion", name: "Lion" },
+    { id: "tiger", name: "Tiger" },
+    { id: "giraffe", name: "Giraffe" },
   ];
 
   return (

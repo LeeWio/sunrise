@@ -1,4 +1,4 @@
-import {Table} from "@heroui/react";
+import { Table } from "@heroui/react";
 
 export function SecondaryVariant() {
   return (

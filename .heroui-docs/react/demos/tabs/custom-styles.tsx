@@ -1,4 +1,4 @@
-import {Tabs} from "@heroui/react";
+import { Tabs } from "@heroui/react";
 
 export function CustomStyles() {
   return (
@@ -6,7 +6,7 @@ export function CustomStyles() {
       <Tabs.ListContainer>
         <Tabs.List
           aria-label="Options"
-          className="w-fit *:h-6 *:w-fit *:px-3 *:text-sm *:font-normal *:data-[selected=true]:text-accent-foreground"
+          className="*:data-[selected=true]:text-accent-foreground w-fit *:h-6 *:w-fit *:px-3 *:text-sm *:font-normal"
         >
           <Tabs.Tab id="daily">
             Daily

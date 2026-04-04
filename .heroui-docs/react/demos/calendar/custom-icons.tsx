@@ -1,6 +1,6 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
+import { Calendar } from "@heroui/react";
 
 export function CustomIcons() {
   return (

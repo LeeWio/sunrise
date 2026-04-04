@@ -1,8 +1,8 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Button, ButtonGroup, Calendar, Description} from "@heroui/react";
+import { Button, ButtonGroup, Calendar, Description } from "@heroui/react";
 import {
   getLocalTimeZone,
   parseDate,
@@ -10,13 +10,13 @@ import {
   startOfWeek,
   today,
 } from "@internationalized/date";
-import {useState} from "react";
-import {useLocale} from "react-aria-components";
+import { useState } from "react";
+import { useLocale } from "react-aria-components";
 
 export function Controlled() {
   const [value, setValue] = useState<DateValue | null>(null);
   const [focusedDate, setFocusedDate] = useState<DateValue>(parseDate("2025-12-25"));
-  const {locale} = useLocale();
+  const { locale } = useLocale();
 
   return (
     <div className="flex flex-col items-center gap-4">

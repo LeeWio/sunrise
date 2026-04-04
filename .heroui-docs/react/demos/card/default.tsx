@@ -1,5 +1,5 @@
-import {CircleDollar} from "@gravity-ui/icons";
-import {Card, Link} from "@heroui/react";
+import { CircleDollar } from "@gravity-ui/icons";
+import { Card, Link } from "@heroui/react";
 
 export function Default() {
   return (

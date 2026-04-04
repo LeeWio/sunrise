@@ -1,5 +1,5 @@
-import {CircleDollar} from "@gravity-ui/icons";
-import {Avatar, Button, Card, CloseButton, Link} from "@heroui/react";
+import { CircleDollar } from "@gravity-ui/icons";
+import { Avatar, Button, Card, CloseButton, Link } from "@heroui/react";
 
 export function WithImages() {
   return (
@@ -26,8 +26,8 @@ export function WithImages() {
             </Card.Header>
             <Card.Footer className="mt-auto flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-foreground">Only 10 spots</span>
-                <span className="text-xs text-muted">Submission ends Oct 10.</span>
+                <span className="text-foreground text-sm font-medium">Only 10 spots</span>
+                <span className="text-muted text-xs">Submission ends Oct 10.</span>
               </div>
               <Button className="w-full sm:w-auto">Apply Now</Button>
             </Card.Footer>
@@ -50,7 +50,7 @@ export function WithImages() {
                   role="img"
                 />
                 <div className="flex flex-col gap-1">
-                  <span className="text-xs font-medium text-muted uppercase">PAYMENT</span>
+                  <span className="text-muted text-xs font-medium uppercase">PAYMENT</span>
                   <Card.Title className="pr-8 text-sm sm:text-base">
                     You can now withdraw on crypto
                   </Card.Title>
@@ -81,7 +81,7 @@ export function WithImages() {
                 </Card.Header>
                 <Card.Content className="mt-1">
                   <p className="text-sm leading-4 font-medium">Indie Hackers</p>
-                  <p className="text-xs text-muted">148 members</p>
+                  <p className="text-muted text-xs">148 members</p>
                 </Card.Content>
                 <Card.Footer className="flex items-center gap-2">
                   <Avatar className="size-4">
@@ -91,7 +91,7 @@ export function WithImages() {
                     />
                     <Avatar.Fallback>JK</Avatar.Fallback>
                   </Avatar>
-                  <p className="text-xs text-muted">By John</p>
+                  <p className="text-muted text-xs">By John</p>
                 </Card.Footer>
               </Card>
               {/* Right Card */}
@@ -107,7 +107,7 @@ export function WithImages() {
                 </Card.Header>
                 <Card.Content className="mt-1">
                   <p className="text-sm leading-4 font-medium">AI Builders</p>
-                  <p className="text-xs text-muted">362 members</p>
+                  <p className="text-muted text-xs">362 members</p>
                 </Card.Content>
                 <Card.Footer className="flex items-center gap-2">
                   <Avatar className="size-4">
@@ -117,7 +117,7 @@ export function WithImages() {
                     />
                     <Avatar.Fallback>M</Avatar.Fallback>
                   </Avatar>
-                  <p className="text-xs text-muted">By Martha</p>
+                  <p className="text-muted text-xs">By Martha</p>
                 </Card.Footer>
               </Card>
             </div>

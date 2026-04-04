@@ -1,12 +1,12 @@
 "use client";
 
-import {ComboBox, Description, Input, Label, ListBox} from "@heroui/react";
+import { ComboBox, Description, Input, Label, ListBox } from "@heroui/react";
 
 export function MenuTrigger() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Focus (default)</p>
+        <p className="text-muted text-sm font-medium">Focus (default)</p>
         <ComboBox className="w-[256px]" menuTrigger="focus">
           <Label>Favorite Animal</Label>
           <ComboBox.InputGroup>
@@ -46,7 +46,7 @@ export function MenuTrigger() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Input</p>
+        <p className="text-muted text-sm font-medium">Input</p>
         <ComboBox className="w-[256px]" menuTrigger="input">
           <Label>Favorite Animal</Label>
           <ComboBox.InputGroup>
@@ -86,7 +86,7 @@ export function MenuTrigger() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Manual</p>
+        <p className="text-muted text-sm font-medium">Manual</p>
         <ComboBox className="w-[256px]" menuTrigger="manual">
           <Label>Favorite Animal</Label>
           <ComboBox.InputGroup>

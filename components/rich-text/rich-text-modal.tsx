@@ -18,9 +18,9 @@ import "../../styles/rich-text/index.css";
  */
 function RichTextStats() {
   const state = useRichTextState();
-  
+
   return (
-    <div className="flex gap-4 text-xs text-default-400">
+    <div className="text-default-400 flex gap-4 text-xs">
       <span>{state.characters} characters</span>
       <span>{state.words} words</span>
     </div>
@@ -35,7 +35,7 @@ export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
   const dispatch = useAppDispatch();
   const editor = useRichText();
-  
+
   // Using a dedicated ref for the menu container (BubbleMenu, LinkMenu, etc.)
   const menuContainerRef = useRef<HTMLDivElement>(null);
 
@@ -61,14 +61,14 @@ export function RichTextModal() {
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog aria-label="Rich Text Editor">
           {/* We wrap the content in a div to provide a stable ref for BubbleMenus */}
-          <div ref={menuContainerRef} className="relative flex flex-col h-full w-full">
+          <div ref={menuContainerRef} className="relative flex h-full w-full flex-col">
             {!editor ? (
               <>
                 <Modal.Body>
                   <div className="skeleton--shimmer flex flex-col gap-8">
                     {/* Toolbar Placeholder */}
                     <Skeleton animationType="none" className="h-12 w-full rounded-xl" />
-                    
+
                     {/* Content Placeholder (Simulated text paragraphs) */}
                     <div className="flex flex-col gap-4 px-2">
                       <div className="space-y-3">
@@ -84,7 +84,7 @@ export function RichTextModal() {
                     </div>
                   </div>
                 </Modal.Body>
-                <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+                <Modal.Footer className="border-border/50 flex items-center justify-between border-t pt-4">
                   <div className="skeleton--shimmer flex gap-4">
                     <Skeleton animationType="none" className="h-3 w-20 rounded-full" />
                     <Skeleton animationType="none" className="h-3 w-16 rounded-full" />
@@ -107,7 +107,7 @@ export function RichTextModal() {
                 <Modal.Body>
                   <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
                 </Modal.Body>
-                <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+                <Modal.Footer className="border-border/50 flex items-center justify-between border-t pt-4">
                   <div>
                     <RichTextStats />
                   </div>
@@ -115,8 +115,10 @@ export function RichTextModal() {
                     <Button onPress={() => dispatch(closeRichText())} variant="secondary">
                       Cancel
                     </Button>
-                    <Button 
-                      onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} 
+                    <Button
+                      onPress={() => {
+                        /* TODO: Post Action */ dispatch(closeRichText());
+                      }}
                       className="bg-primary text-primary-foreground font-medium"
                     >
                       Publish

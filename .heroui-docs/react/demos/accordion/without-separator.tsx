@@ -1,5 +1,5 @@
-import {ChevronDown, CreditCard, Receipt, ShoppingBag} from "@gravity-ui/icons";
-import {Accordion} from "@heroui/react";
+import { ChevronDown, CreditCard, Receipt, ShoppingBag } from "@gravity-ui/icons";
+import { Accordion } from "@heroui/react";
 
 const items = [
   {
@@ -29,7 +29,7 @@ export function WithoutSeparator() {
           <Accordion.Heading>
             <Accordion.Trigger>
               {item.icon ? (
-                <span className="mr-3 size-4 shrink-0 text-muted">{item.icon}</span>
+                <span className="text-muted mr-3 size-4 shrink-0">{item.icon}</span>
               ) : null}
               {item.title}
               <Accordion.Indicator>

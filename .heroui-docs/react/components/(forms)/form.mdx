@@ -9,7 +9,7 @@ links:
 ## Import
 
 ```tsx
-import { Form } from '@heroui/react';
+import { Form } from "@heroui/react";
 ```
 
 ### Usage
@@ -21,22 +21,20 @@ import { Form } from '@heroui/react';
 Import all parts and piece them together.
 
 ```tsx
-import {Form, Button} from '@heroui/react';
+import { Form, Button } from "@heroui/react";
 
 export default () => (
   <Form>
     {/* Form fields go here */}
-    <Button type="submit"/>
-    <Button type="reset"/>
+    <Button type="submit" />
+    <Button type="reset" />
   </Form>
-)
+);
 ```
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="form-custom-render-function"
-/>
+<ComponentPreview name="form-custom-render-function" />
 
 <RelatedComponents component="form" />
 
@@ -47,14 +45,14 @@ export default () => (
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Form, TextField, Label, Input, FieldError, Button} from '@heroui/react';
+import { Form, TextField, Label, Input, FieldError, Button } from "@heroui/react";
 
 function CustomForm() {
   return (
-    <Form className="w-full max-w-md space-y-4 rounded-lg border border-border bg-surface p-6">
+    <Form className="border-border bg-surface w-full max-w-md space-y-4 rounded-lg border p-6">
       <TextField>
         <Label className="text-sm font-medium">Email</Label>
-        <Input className="rounded-full border-border/60" placeholder="Enter your email" />
+        <Input className="border-border/60 rounded-full" placeholder="Enter your email" />
         <FieldError className="text-xs" />
       </TextField>
       <Button type="submit" className="w-full">
@@ -71,22 +69,22 @@ function CustomForm() {
 
 The Form component is a wrapper around React Aria's Form primitive that provides form validation and submission handling capabilities.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `action` | `string \| FormHTMLAttributes['action']` | - | The URL to submit the form data to. |
-| `className` | `string` | - | Tailwind CSS classes applied to the form element. |
-| `children` | `React.ReactNode` | - | Form content (fields, buttons, etc.). |
-| `encType` | `'application/x-www-form-urlencoded' \| 'multipart/form-data' \| 'text/plain'` | - | The encoding type for form data submission. |
-| `method` | `'get' \| 'post'` | - | The HTTP method to use when submitting the form. |
-| `onInvalid` | `(event: FormEvent<HTMLFormElement>) => void` | - | Handler called when the form validation fails. By default, the first invalid field will be focused. Use `preventDefault()` to customize focus behavior. |
-| `onReset` | `(event: FormEvent<HTMLFormElement>) => void` | - | Handler called when the form is reset. |
-| `onSubmit` | `(event: FormEvent<HTMLFormElement>) => void` | - | Handler called when the form is submitted. |
-| `target` | `'_self' \| '_blank' \| '_parent' \| '_top'` | - | Where to display the response after submitting the form. |
-| `validationBehavior` | `'native' \| 'aria'` | `'native'` | Whether to use native HTML validation or ARIA validation. 'native' blocks form submission, 'aria' displays errors in realtime. |
-| `validationErrors` | `ValidationErrors` | - | Server-side validation errors mapped by field name. Displayed immediately and cleared when user modifies the field. |
-| `aria-label` | `string` | - | Accessibility label for the form. |
-| `aria-labelledby` | `string` | - | ID of element that labels the form. Creates a form landmark when provided. |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, undefined>` | - | Overrides the default DOM element with a custom render function.|
+| Prop                 | Type                                                                           | Default    | Description                                                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `action`             | `string \| FormHTMLAttributes['action']`                                       | -          | The URL to submit the form data to.                                                                                                                     |
+| `className`          | `string`                                                                       | -          | Tailwind CSS classes applied to the form element.                                                                                                       |
+| `children`           | `React.ReactNode`                                                              | -          | Form content (fields, buttons, etc.).                                                                                                                   |
+| `encType`            | `'application/x-www-form-urlencoded' \| 'multipart/form-data' \| 'text/plain'` | -          | The encoding type for form data submission.                                                                                                             |
+| `method`             | `'get' \| 'post'`                                                              | -          | The HTTP method to use when submitting the form.                                                                                                        |
+| `onInvalid`          | `(event: FormEvent<HTMLFormElement>) => void`                                  | -          | Handler called when the form validation fails. By default, the first invalid field will be focused. Use `preventDefault()` to customize focus behavior. |
+| `onReset`            | `(event: FormEvent<HTMLFormElement>) => void`                                  | -          | Handler called when the form is reset.                                                                                                                  |
+| `onSubmit`           | `(event: FormEvent<HTMLFormElement>) => void`                                  | -          | Handler called when the form is submitted.                                                                                                              |
+| `target`             | `'_self' \| '_blank' \| '_parent' \| '_top'`                                   | -          | Where to display the response after submitting the form.                                                                                                |
+| `validationBehavior` | `'native' \| 'aria'`                                                           | `'native'` | Whether to use native HTML validation or ARIA validation. 'native' blocks form submission, 'aria' displays errors in realtime.                          |
+| `validationErrors`   | `ValidationErrors`                                                             | -          | Server-side validation errors mapped by field name. Displayed immediately and cleared when user modifies the field.                                     |
+| `aria-label`         | `string`                                                                       | -          | Accessibility label for the form.                                                                                                                       |
+| `aria-labelledby`    | `string`                                                                       | -          | ID of element that labels the form. Creates a form landmark when provided.                                                                              |
+| `render`             | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, undefined>`              | -          | Overrides the default DOM element with a custom render function.                                                                                        |
 
 ### Form Validation
 
@@ -122,7 +120,7 @@ function handleSubmit(e: FormEvent<HTMLFormElement>) {
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
   const data = Object.fromEntries(formData);
-  console.log('Form data:', data);
+  console.log("Form data:", data);
 }
 ```
 
@@ -150,6 +148,7 @@ Forms are accessible by default when using React Aria components. Key features i
 ### Advanced Usage
 
 For more advanced use cases including:
+
 - Custom validation context
 - Form context providers
 - Integration with third-party libraries

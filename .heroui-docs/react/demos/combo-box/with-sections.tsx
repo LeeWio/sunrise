@@ -1,6 +1,6 @@
 "use client";
 
-import {ComboBox, Header, Input, Label, ListBox, Separator} from "@heroui/react";
+import { ComboBox, Header, Input, Label, ListBox, Separator } from "@heroui/react";
 
 export function WithSections() {
   return (

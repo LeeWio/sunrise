@@ -1,6 +1,6 @@
 "use client";
 
-import {Label, SearchField} from "@heroui/react";
+import { Label, SearchField } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

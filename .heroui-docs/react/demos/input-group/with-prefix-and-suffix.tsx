@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, InputGroup, Label, TextField} from "@heroui/react";
+import { Description, InputGroup, Label, TextField } from "@heroui/react";
 
 export function WithPrefixAndSuffix() {
   return (

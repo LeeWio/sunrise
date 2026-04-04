@@ -8,7 +8,7 @@ import { useCallback } from "react";
 export const useContentItemActions = (
   editor: Editor | null,
   currentNode: Node | null,
-  currentNodePos: number
+  currentNodePos: number,
 ) => {
   const deleteNode = useCallback(() => {
     if (!editor || currentNodePos === -1) return;
@@ -17,13 +17,8 @@ export const useContentItemActions = (
 
   const copyNodeToClipboard = useCallback(async () => {
     if (!editor || currentNodePos === -1 || !currentNode) return;
-    
-    editor
-      .chain()
-      .focus()
-      .setMeta("hideDragHandle", true)
-      .setNodeSelection(currentNodePos)
-      .run();
+
+    editor.chain().focus().setMeta("hideDragHandle", true).setNodeSelection(currentNodePos).run();
 
     try {
       const html = editor.getHTML();
@@ -60,12 +55,16 @@ export const useContentItemActions = (
 
   const addBelow = useCallback(() => {
     if (!editor || currentNodePos === -1 || !currentNode) return;
-    editor.chain().focus().insertContentAt(currentNodePos + currentNode.nodeSize, { type: "paragraph" }).run();
+    editor
+      .chain()
+      .focus()
+      .insertContentAt(currentNodePos + currentNode.nodeSize, { type: "paragraph" })
+      .run();
   }, [editor, currentNode, currentNodePos]);
 
   const resetTextFormatting = useCallback(() => {
     if (!editor || currentNodePos === -1) return;
-    
+
     const chain = editor.chain().focus();
     chain.setNodeSelection(currentNodePos).unsetAllMarks();
 
@@ -81,7 +80,7 @@ export const useContentItemActions = (
       if (!editor || currentNodePos === -1) return;
       editor.chain().focus().setNodeSelection(currentNodePos).setTextAlign(alignment).run();
     },
-    [editor, currentNodePos]
+    [editor, currentNodePos],
   );
 
   const toggleNodeType = useCallback(
@@ -104,7 +103,7 @@ export const useContentItemActions = (
           break;
       }
     },
-    [editor, currentNodePos]
+    [editor, currentNodePos],
   );
 
   return {

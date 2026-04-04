@@ -10,7 +10,7 @@ import {
   ListBoxLoadMoreItem,
   Spinner,
 } from "@heroui/react";
-import {useAsyncList} from "@react-stately/data";
+import { useAsyncList } from "@react-stately/data";
 
 interface Character {
   name: string;
@@ -18,7 +18,7 @@ interface Character {
 
 export function AsynchronousLoading() {
   const list = useAsyncList<Character>({
-    async load({cursor, filterText, signal}) {
+    async load({ cursor, filterText, signal }) {
       if (cursor) {
         cursor = cursor.replace(/^http:\/\//i, "https://");
       }

@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar, ChevronDown} from "@gravity-ui/icons";
-import {DateField, Description, Label} from "@heroui/react";
+import { Calendar, ChevronDown } from "@gravity-ui/icons";
+import { DateField, Description, Label } from "@heroui/react";
 
 export function WithPrefixAndSuffix() {
   return (
@@ -9,11 +9,11 @@ export function WithPrefixAndSuffix() {
       <Label>Date</Label>
       <DateField.Group>
         <DateField.Prefix>
-          <Calendar className="size-4 text-muted" />
+          <Calendar className="text-muted size-4" />
         </DateField.Prefix>
         <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
         <DateField.Suffix>
-          <ChevronDown className="size-4 text-muted" />
+          <ChevronDown className="text-muted size-4" />
         </DateField.Suffix>
       </DateField.Group>
       <Description>Enter a date</Description>

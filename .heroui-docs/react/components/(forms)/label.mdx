@@ -10,14 +10,12 @@ links:
 ## Import
 
 ```tsx
-import { Label } from '@heroui/react';
+import { Label } from "@heroui/react";
 ```
 
 ## Usage
 
-<ComponentPreview
-  name="label-basic"
-/>
+<ComponentPreview name="label-basic" />
 
 <RelatedComponents component="label" />
 
@@ -25,14 +23,14 @@ import { Label } from '@heroui/react';
 
 ### Label Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `htmlFor` | `string` | - | The id of the element the label is associated with |
-| `isRequired` | `boolean` | `false` | Whether to display a required indicator |
-| `isDisabled` | `boolean` | `false` | Whether the label is in a disabled state |
-| `isInvalid` | `boolean` | `false` | Whether the label is in an invalid state |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | The content of the label |
+| Prop         | Type        | Default | Description                                        |
+| ------------ | ----------- | ------- | -------------------------------------------------- |
+| `htmlFor`    | `string`    | -       | The id of the element the label is associated with |
+| `isRequired` | `boolean`   | `false` | Whether to display a required indicator            |
+| `isDisabled` | `boolean`   | `false` | Whether the label is in a disabled state           |
+| `isInvalid`  | `boolean`   | `false` | Whether the label is in an invalid state           |
+| `className`  | `string`    | -       | Additional CSS classes                             |
+| `children`   | `ReactNode` | -       | The content of the label                           |
 
 ## Accessibility
 
@@ -53,14 +51,17 @@ The Label component is built on the native HTML `<label>` element ([MDN Referenc
 The Label component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/label.css)):
 
 #### Base Classes
+
 - `.label` - Base label styles with text styling
 
 #### State Modifier Classes
+
 - `.label--required` or `[data-required="true"] > .label` - Shows required asterisk indicator
 - `.label--disabled` or `[data-disabled="true"] .label` - Disabled state styling
 - `.label--invalid` or `[data-invalid="true"] .label` or `[aria-invalid="true"] .label` - Invalid state styling (danger/red text color)
- 
+
 **Note**: The required asterisk is smartly applied using role and data-slot detection. It excludes:
+
 - Elements with `role="group"`, `role="radiogroup"`, or `role="checkboxgroup"`
 - Elements with `data-slot="radio"` or `data-slot="checkbox"`
 

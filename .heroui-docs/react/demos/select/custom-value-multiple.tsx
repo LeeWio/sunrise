@@ -60,7 +60,7 @@ export function CustomValueMultiple() {
       <Label>Users</Label>
       <Select.Trigger>
         <Select.Value className="no-truncate flex flex-wrap gap-2">
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

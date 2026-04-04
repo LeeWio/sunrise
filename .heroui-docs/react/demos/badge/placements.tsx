@@ -1,4 +1,4 @@
-import {Avatar, Badge} from "@heroui/react";
+import { Avatar, Badge } from "@heroui/react";
 
 const AVATAR_URL = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg";
 
@@ -16,7 +16,7 @@ export function BadgePlacements() {
             </Avatar>
             <Badge color="accent" placement={placement} size="sm" />
           </Badge.Anchor>
-          <span className="text-xs text-muted">{placement}</span>
+          <span className="text-muted text-xs">{placement}</span>
         </div>
       ))}
     </div>

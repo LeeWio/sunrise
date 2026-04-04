@@ -1,5 +1,5 @@
-import {ChevronDown} from "@gravity-ui/icons";
-import {Accordion, cn} from "@heroui/react";
+import { ChevronDown } from "@gravity-ui/icons";
+import { Accordion, cn } from "@heroui/react";
 
 const items = [
   {
@@ -47,7 +47,7 @@ export function CustomStyles() {
               ) : null}
               <div className="flex flex-col gap-0">
                 <span className="leading-5 font-medium">{item.title}</span>
-                <span className="leading-6 font-normal text-muted/80">{item.subtitle}</span>
+                <span className="text-muted/80 leading-6 font-normal">{item.subtitle}</span>
               </div>
               <Accordion.Indicator className="text-muted/50 [&>svg]:size-4">
                 <ChevronDown />

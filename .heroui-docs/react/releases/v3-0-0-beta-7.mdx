@@ -5,8 +5,8 @@ github:
   pull: 6237
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">February 19, 2026</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">February 19, 2026</span>
 </div>
 
 This release adds 4 new components: [Calendar](/docs/components/calendar), [RangeCalendar](/docs/components/range-calendar), [DatePicker](/docs/components/date-picker), and [DateRangePicker](/docs/components/date-range-picker). Also new: [Switch.Content](#switchcontent) for grouping label and description, and [Tabs.Separator](#tabsseparator) for opt-in separator lines between tabs.
@@ -25,30 +25,16 @@ This release adds 4 new components: [Calendar](/docs/components/calendar), [Rang
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -58,6 +44,7 @@ Update to the latest version:
 **Date & Time** — Calendar, DatePicker, RangeCalendar, and DateRangePicker built on React Aria date primitives. Supports i18n, time zones, and full keyboard/ARIA accessibility.
 
 **Key features:**
+
 - **Calendar systems**: Gregorian, Buddhist, Persian, and others
 - **Year picker**: Overlay for quick year navigation
 - **Cell indicators**: Events, availability, or status dots on cells
@@ -77,58 +64,41 @@ All date values use [`@internationalized/date`](https://react-aria.adobe.com/int
 
 Single-date calendar with year picker, cell indicators, multi-month view, and i18n calendars.
 
-<ComponentPreview
-  name="calendar-basic"
-/>
+<ComponentPreview name="calendar-basic" />
 
 **Year Picker:**
 
-<ComponentPreview
-  name="calendar-year-picker"
-/>
-
+<ComponentPreview name="calendar-year-picker" />
 
 **International Calendars:**
 
-<ComponentPreview
-  name="calendar-international-calendar"
-/>
+<ComponentPreview name="calendar-international-calendar" />
 
 ### RangeCalendar
 
 Date range selection with range highlighting and multi-month views.
 
-<ComponentPreview
-  name="range-calendar-basic"
-/>
+<ComponentPreview name="range-calendar-basic" />
 
 **Multiple Months:**
 
-<ComponentPreview
-  name="range-calendar-multiple-months"
-/>
+<ComponentPreview name="range-calendar-multiple-months" />
 
 ### DatePicker
 
 Date field + popover calendar. Format options, i18n, custom indicators, validation.
 
-<ComponentPreview
-  name="date-picker-basic"
-/>
+<ComponentPreview name="date-picker-basic" />
 
 **Date and Time (with TimeField):**
 
-<ComponentPreview
-  name="date-picker-format-options"
-/>
+<ComponentPreview name="date-picker-format-options" />
 
 ### DateRangePicker
 
 Two date fields + popover range calendar.
 
-<ComponentPreview
-  name="date-range-picker-basic"
-/>
+<ComponentPreview name="date-range-picker-basic" />
 
 ## API Improvements
 
@@ -137,8 +107,9 @@ Two date fields + popover range calendar.
 `Switch.Content` groups label and description next to the switch control ([#6240](https://github.com/heroui-inc/heroui/pull/6240)).
 
 **Before:**
+
 ```tsx
-import { Switch, Label, Description } from '@heroui/react';
+import { Switch, Label, Description } from "@heroui/react";
 
 <Switch>
   <Switch.Control>
@@ -148,7 +119,7 @@ import { Switch, Label, Description } from '@heroui/react';
     <Label>Email notifications</Label>
     <Description>Get notified when someone mentions you</Description>
   </Switch.Content>
-</Switch>
+</Switch>;
 ```
 
 ### Tabs.Separator
@@ -157,10 +128,7 @@ The [Tabs](/docs/components/tabs) component now includes an explicit `Tabs.Separ
 
 Separators are now **opt-in** — add `<Tabs.Separator />` inside each `<Tabs.Tab>` where you want a separator line.
 
-<ComponentPreview
-  isBgSolid
-  name="tabs-with-separator"
-/>
+<ComponentPreview isBgSolid name="tabs-with-separator" />
 
 ### Field Sub-Component Consolidation
 
@@ -191,28 +159,46 @@ Props passed to `Breadcrumbs.Item` are now forwarded to the underlying `Link` ([
 The `hideSeparator` prop has been removed from the Tabs component. Separators are now **opt-in** using the new `<Tabs.Separator />` sub-component instead of being automatically generated via CSS pseudo-elements ([#6243](https://github.com/heroui-inc/heroui/pull/6243)).
 
 **Before:**
+
 ```tsx
-{/* Separators shown by default, hidden via prop */}
+{
+  /* Separators shown by default, hidden via prop */
+}
 <Tabs hideSeparator>
   <Tabs.List>
-    <Tabs.Tab id="tab1">Tab 1<Tabs.Indicator /></Tabs.Tab>
-    <Tabs.Tab id="tab2">Tab 2<Tabs.Indicator /></Tabs.Tab>
+    <Tabs.Tab id="tab1">
+      Tab 1<Tabs.Indicator />
+    </Tabs.Tab>
+    <Tabs.Tab id="tab2">
+      Tab 2<Tabs.Indicator />
+    </Tabs.Tab>
   </Tabs.List>
-</Tabs>
+</Tabs>;
 ```
 
 **After:**
+
 ```tsx
-{/* No separators by default — explicitly add them where needed */}
+{
+  /* No separators by default — explicitly add them where needed */
+}
 <Tabs>
   <Tabs.List>
-    <Tabs.Tab id="tab1"><Tabs.Indicator />Tab 1</Tabs.Tab>
-    <Tabs.Tab id="tab2"><Tabs.Separator /><Tabs.Indicator />Tab 2</Tabs.Tab>
+    <Tabs.Tab id="tab1">
+      <Tabs.Indicator />
+      Tab 1
+    </Tabs.Tab>
+    <Tabs.Tab id="tab2">
+      <Tabs.Separator />
+      <Tabs.Indicator />
+      Tab 2
+    </Tabs.Tab>
   </Tabs.List>
-</Tabs>
+</Tabs>;
 ```
 
 **CSS Changes:**
+
 - Tab separator styles moved from pseudo-element (`.tabs__tab:not(:first-child):before`) to a dedicated `.tabs__separator` class
 - The `[data-hide-separator]` data attribute has been removed
 
@@ -223,8 +209,9 @@ The `hideSeparator` prop has been removed from the Tabs component. Separators ar
 #### DateField Changes
 
 **Before:**
+
 ```tsx
-import {DateField, Label, DateInputGroup, Description} from '@heroui/react';
+import { DateField, Label, DateInputGroup, Description } from "@heroui/react";
 
 <DateField>
   <Label>Date</Label>
@@ -236,51 +223,50 @@ import {DateField, Label, DateInputGroup, Description} from '@heroui/react';
     <DateInputGroup.Suffix>...</DateInputGroup.Suffix>
   </DateInputGroup>
   <Description>Pick a date</Description>
-</DateField>
+</DateField>;
 ```
 
 **After:**
+
 ```tsx
-import {DateField, Label, Description} from '@heroui/react';
+import { DateField, Label, Description } from "@heroui/react";
 
 <DateField>
   <Label>Date</Label>
   <DateField.Group>
     <DateField.Prefix>...</DateField.Prefix>
-    <DateField.Input>
-      {(segment) => <DateField.Segment segment={segment} />}
-    </DateField.Input>
+    <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
     <DateField.Suffix>...</DateField.Suffix>
   </DateField.Group>
   <Description>Pick a date</Description>
-</DateField>
+</DateField>;
 ```
 
 #### TimeField Changes
 
 Same pattern as DateField:
 
-| Before | After |
-|--------|-------|
-| `DateInputGroup` | `TimeField.Group` |
-| `DateInputGroup.Input` | `TimeField.Input` |
+| Before                   | After               |
+| ------------------------ | ------------------- |
+| `DateInputGroup`         | `TimeField.Group`   |
+| `DateInputGroup.Input`   | `TimeField.Input`   |
 | `DateInputGroup.Segment` | `TimeField.Segment` |
-| `DateInputGroup.Prefix` | `TimeField.Prefix` |
-| `DateInputGroup.Suffix` | `TimeField.Suffix` |
+| `DateInputGroup.Prefix`  | `TimeField.Prefix`  |
+| `DateInputGroup.Suffix`  | `TimeField.Suffix`  |
 
 #### ColorField Changes
 
-| Before | After |
-|--------|-------|
-| `ColorInputGroup` | `ColorField.Group` |
-| `ColorInputGroup.Input` | `ColorField.Input` |
+| Before                   | After               |
+| ------------------------ | ------------------- |
+| `ColorInputGroup`        | `ColorField.Group`  |
+| `ColorInputGroup.Input`  | `ColorField.Input`  |
 | `ColorInputGroup.Prefix` | `ColorField.Prefix` |
 | `ColorInputGroup.Suffix` | `ColorField.Suffix` |
 
 **Usage:**
 
 ```tsx
-import {ColorField, Label, ColorInputGroup, ColorSwatch} from '@heroui/react';
+import { ColorField, Label, ColorInputGroup, ColorSwatch } from "@heroui/react";
 
 <ColorField>
   <Label>Color</Label>
@@ -290,12 +276,13 @@ import {ColorField, Label, ColorInputGroup, ColorSwatch} from '@heroui/react';
     </ColorInputGroup.Prefix>
     <ColorInputGroup.Input />
   </ColorInputGroup>
-</ColorField>
+</ColorField>;
 ```
 
 **After:**
+
 ```tsx
-import {ColorField, Label, ColorSwatch} from '@heroui/react';
+import { ColorField, Label, ColorSwatch } from "@heroui/react";
 
 <ColorField>
   <Label>Color</Label>
@@ -305,7 +292,7 @@ import {ColorField, Label, ColorSwatch} from '@heroui/react';
     </ColorField.Prefix>
     <ColorField.Input />
   </ColorField.Group>
-</ColorField>
+</ColorField>;
 ```
 
 > **Note:** The underlying CSS classes (`.date-input-group`, `.color-input-group`, etc.) remain unchanged. Only the JavaScript import paths and component names have changed.

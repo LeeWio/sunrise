@@ -1,7 +1,7 @@
 "use client";
 
-import {Chip, Spinner, Table} from "@heroui/react";
-import {useCallback, useRef, useState} from "react";
+import { Chip, Spinner, Table } from "@heroui/react";
+import { useCallback, useRef, useState } from "react";
 
 interface User {
   id: number;
@@ -18,10 +18,10 @@ const statusColorMap: Record<string, "success" | "danger" | "warning"> = {
 };
 
 const allUsers: User[] = [
-  {email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active"},
-  {email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active"},
-  {email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave"},
-  {email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active"},
+  { email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active" },
+  { email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active" },
+  { email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave" },
+  { email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active" },
   {
     email: "emily@acme.com",
     id: 5,
@@ -29,7 +29,7 @@ const allUsers: User[] = [
     role: "Product Manager",
     status: "Inactive",
   },
-  {email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active"},
+  { email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active" },
   {
     email: "olivia@acme.com",
     id: 7,
@@ -51,7 +51,13 @@ const allUsers: User[] = [
     role: "QA Engineer",
     status: "On Leave",
   },
-  {email: "liam@acme.com", id: 10, name: "Liam Thomas", role: "DevOps Engineer", status: "Active"},
+  {
+    email: "liam@acme.com",
+    id: 10,
+    name: "Liam Thomas",
+    role: "DevOps Engineer",
+    status: "Active",
+  },
   {
     email: "lucas@acme.com",
     id: 11,
@@ -66,8 +72,14 @@ const allUsers: User[] = [
     role: "Frontend Engineer",
     status: "Active",
   },
-  {email: "noah@acme.com", id: 13, name: "Noah Davis", role: "Backend Engineer", status: "Active"},
-  {email: "ava@acme.com", id: 14, name: "Ava Wilson", role: "Lead Designer", status: "Active"},
+  {
+    email: "noah@acme.com",
+    id: 13,
+    name: "Noah Davis",
+    role: "Backend Engineer",
+    status: "Active",
+  },
+  { email: "ava@acme.com", id: 14, name: "Ava Wilson", role: "Lead Designer", status: "Active" },
   {
     email: "oliver@acme.com",
     id: 15,
@@ -82,7 +94,7 @@ const allUsers: User[] = [
     role: "Backend Engineer",
     status: "Active",
   },
-  {email: "mia@acme.com", id: 17, name: "Mia Davis", role: "Lead Designer", status: "Active"},
+  { email: "mia@acme.com", id: 17, name: "Mia Davis", role: "Lead Designer", status: "Active" },
   {
     email: "william@acme.com",
     id: 18,
@@ -95,10 +107,10 @@ const allUsers: User[] = [
 const ITEMS_PER_PAGE = 6;
 
 const columns = [
-  {id: "name", name: "Name"},
-  {id: "role", name: "Role"},
-  {id: "status", name: "Status"},
-  {id: "email", name: "Email"},
+  { id: "name", name: "Name" },
+  { id: "role", name: "Role" },
+  { id: "status", name: "Status" },
+  { id: "email", name: "Email" },
 ];
 
 export function AsyncLoading() {
@@ -124,7 +136,7 @@ export function AsyncLoading() {
     <Table>
       <Table.ScrollContainer className="h-[280px] overflow-y-auto">
         <Table.Content aria-label="Async loading table" className="min-w-[600px]">
-          <Table.Header className="sticky top-0 z-10 bg-surface-secondary">
+          <Table.Header className="bg-surface-secondary sticky top-0 z-10">
             {columns.map((col) => (
               <Table.Column key={col.id} id={col.id} isRowHeader={col.id === "name"}>
                 {col.name}

@@ -1,5 +1,5 @@
-import {Envelope, Eye} from "@gravity-ui/icons";
-import {InputGroup, Label, TextField} from "@heroui/react";
+import { Envelope, Eye } from "@gravity-ui/icons";
+import { InputGroup, Label, TextField } from "@heroui/react";
 
 export function FullWidth() {
   return (
@@ -8,7 +8,7 @@ export function FullWidth() {
         <Label>Email address</Label>
         <InputGroup fullWidth>
           <InputGroup.Prefix>
-            <Envelope className="size-4 text-muted" />
+            <Envelope className="text-muted size-4" />
           </InputGroup.Prefix>
           <InputGroup.Input placeholder="name@email.com" />
         </InputGroup>
@@ -18,7 +18,7 @@ export function FullWidth() {
         <InputGroup fullWidth>
           <InputGroup.Input placeholder="Enter password" type="password" />
           <InputGroup.Suffix>
-            <Eye className="size-4 text-muted" />
+            <Eye className="text-muted size-4" />
           </InputGroup.Suffix>
         </InputGroup>
       </TextField>

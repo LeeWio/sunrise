@@ -1,4 +1,4 @@
-import {Card, ScrollShadow} from "@heroui/react";
+import { Card, ScrollShadow } from "@heroui/react";
 
 const images = [
   "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/robot1.jpeg",
@@ -18,7 +18,7 @@ export default function Orientation() {
         <Card className="w-full p-0">
           <ScrollShadow className="max-h-[240px] p-4" orientation="vertical">
             <div className="space-y-4">
-              {Array.from({length: 10}).map((_, idx) => (
+              {Array.from({ length: 10 }).map((_, idx) => (
                 <p key={`scroll-shadow-lorem-content-${idx}`}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
                   risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
@@ -35,7 +35,7 @@ export default function Orientation() {
         <Card className="w-full p-0">
           <ScrollShadow className="p-4" orientation="horizontal">
             <div className="flex flex-row gap-4">
-              {Array.from({length: 10}).map((_, idx) => (
+              {Array.from({ length: 10 }).map((_, idx) => (
                 <Card
                   key={`scroll-shadow-lorem-cards-${idx}`}
                   className="flex min-w-[200px] flex-row gap-3 p-1"

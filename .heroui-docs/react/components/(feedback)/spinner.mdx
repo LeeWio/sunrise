@@ -11,26 +11,20 @@ links:
 ## Import
 
 ```tsx
-import { Spinner } from '@heroui/react';
+import { Spinner } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="spinner-basic"
-/>
+<ComponentPreview name="spinner-basic" />
 
 ### Colors
 
-<ComponentPreview
-  name="spinner-colors"
-/>
+<ComponentPreview name="spinner-colors" />
 
 ### Sizes
 
-<ComponentPreview
-  name="spinner-sizes"
-/>
+<ComponentPreview name="spinner-sizes" />
 
 <RelatedComponents component="spinner" />
 
@@ -39,19 +33,19 @@ import { Spinner } from '@heroui/react';
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Spinner} from '@heroui/react';
+import { Spinner } from "@heroui/react";
 
 function CustomSpinner() {
-  return (
-    <Spinner className="text-blue-500" />
-  );
+  return <Spinner className="text-blue-500" />;
 }
 ```
 
 ### Customizing the component classes
 
 To customize the Spinner component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -72,6 +66,7 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Spinner component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/spinner.css)):
 
 #### Base & Size Classes
+
 - `.spinner` - Base spinner styles with default size
 - `.spinner--sm` - Small size variant
 - `.spinner--md` - Medium size variant (default)
@@ -79,6 +74,7 @@ The Spinner component uses these CSS classes ([View source styles](https://githu
 - `.spinner--xl` - Extra large size variant
 
 #### Color Classes
+
 - `.spinner--current` - Inherits current text color
 - `.spinner--accent` - Accent color variant
 - `.spinner--danger` - Danger color variant
@@ -89,8 +85,8 @@ The Spinner component uses these CSS classes ([View source styles](https://githu
 
 ### Spinner Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` | Size of the spinner |
-| `color` | `"current" \| "accent" \| "success" \| "warning" \| "danger"` | `"current"` | Color variant of the spinner |
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type                                                          | Default     | Description                  |
+| ----------- | ------------------------------------------------------------- | ----------- | ---------------------------- |
+| `size`      | `"sm" \| "md" \| "lg" \| "xl"`                                | `"md"`      | Size of the spinner          |
+| `color`     | `"current" \| "accent" \| "success" \| "warning" \| "danger"` | `"current"` | Color variant of the spinner |
+| `className` | `string`                                                      | -           | Additional CSS classes       |

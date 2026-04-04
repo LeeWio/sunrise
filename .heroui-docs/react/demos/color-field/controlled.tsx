@@ -1,9 +1,9 @@
 "use client";
 
-import type {Color} from "@heroui/react";
+import type { Color } from "@heroui/react";
 
-import {Button, ColorField, ColorSwatch, Description, Label, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { Button, ColorField, ColorSwatch, Description, Label, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [value, setValue] = useState<Color | null>(parseColor("#0485F7"));

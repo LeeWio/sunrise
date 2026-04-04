@@ -1,6 +1,6 @@
 "use client";
 
-import {FloppyDisk} from "@gravity-ui/icons";
+import { FloppyDisk } from "@gravity-ui/icons";
 import {
   Button,
   Description,

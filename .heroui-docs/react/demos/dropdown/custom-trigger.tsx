@@ -1,5 +1,5 @@
-import {ArrowRightFromSquare, Gear, Persons} from "@gravity-ui/icons";
-import {Avatar, Dropdown, Label} from "@heroui/react";
+import { ArrowRightFromSquare, Gear, Persons } from "@gravity-ui/icons";
+import { Avatar, Dropdown, Label } from "@heroui/react";
 
 export function CustomTrigger() {
   return (
@@ -25,7 +25,7 @@ export function CustomTrigger() {
             </Avatar>
             <div className="flex flex-col gap-0">
               <p className="text-sm leading-5 font-medium">Jane Doe</p>
-              <p className="text-xs leading-none text-muted">jane@example.com</p>
+              <p className="text-muted text-xs leading-none">jane@example.com</p>
             </div>
           </div>
         </div>
@@ -39,19 +39,19 @@ export function CustomTrigger() {
           <Dropdown.Item id="settings" textValue="Settings">
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Settings</Label>
-              <Gear className="size-3.5 text-muted" />
+              <Gear className="text-muted size-3.5" />
             </div>
           </Dropdown.Item>
           <Dropdown.Item id="new-project" textValue="New project">
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Create Team</Label>
-              <Persons className="size-3.5 text-muted" />
+              <Persons className="text-muted size-3.5" />
             </div>
           </Dropdown.Item>
           <Dropdown.Item id="logout" textValue="Logout" variant="danger">
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Log Out</Label>
-              <ArrowRightFromSquare className="size-3.5 text-danger" />
+              <ArrowRightFromSquare className="text-danger size-3.5" />
             </div>
           </Dropdown.Item>
         </Dropdown.Menu>

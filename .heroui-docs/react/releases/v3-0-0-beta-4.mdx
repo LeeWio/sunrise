@@ -5,12 +5,15 @@ github:
   pull: 6121
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">January 20, 2026</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">January 20, 2026</span>
 </div>
 
 <Callout type="warning">
-  **Critical Build Issue Fixed**: This version (beta.4) had a critical build issue that has been fixed in **beta.5**. Please upgrade to `@heroui/styles@3.0.0-beta.5` and `@heroui/react@3.0.0-beta.5` to ensure proper TypeScript declaration generation and export resolution.
+  **Critical Build Issue Fixed**: This version (beta.4) had a critical build issue that has been
+  fixed in **beta.5**. Please upgrade to `@heroui/styles@3.0.0-beta.5` and
+  `@heroui/react@3.0.0-beta.5` to ensure proper TypeScript declaration generation and export
+  resolution.
 </Callout>
 
 This release introduces the new [Theme Builder](/themes) for visual theme customization, three new components ([Autocomplete](/docs/components/autocomplete), [Breadcrumbs](/docs/components/breadcrumbs), [Toast](/docs/components/toast)), adds secondary variant to [Tabs](/docs/components/tabs), primary/secondary variants to [Input](/docs/components/input) and [InputGroup](/docs/components/input-group), TextArea support for InputGroup, and ⚠️ **breaking changes** removing Link's underline variants and the `isInSurface` prop from form components.
@@ -27,30 +30,16 @@ This release introduces the new [Theme Builder](/themes) for visual theme custom
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -60,6 +49,7 @@ Update to the latest version:
 We're excited to introduce the **[Theme Builder](/themes)** - a powerful visual tool for creating and customizing HeroUI themes. Build your perfect theme with real-time preview and export ready-to-use CSS.
 
 **Key features:**
+
 - **Visual Color Editing**: Adjust colors using OKLCH color pickers with intuitive sliders for lightness, chroma, and hue
 - **Real-time Preview**: See your changes instantly on live component previews
 - **Custom Accent Colors**: Define your brand colors and watch them propagate across all components
@@ -80,25 +70,19 @@ This release introduces **3 new** essential components:
 
 ### Autocomplete
 
-<ComponentPreview
-  name="autocomplete-default"
-/>
+<ComponentPreview name="autocomplete-default" />
 
 ### Breadcrumbs
 
-<ComponentPreview
-  name="breadcrumbs-basic"
-/>
+<ComponentPreview name="breadcrumbs-basic" />
 
 ### Toast
 
 <Callout type="warning">
-  This  component is currently in preview and some features might not work as expected.
+  This component is currently in preview and some features might not work as expected.
 </Callout>
 
-<ComponentPreview
-  name="toast-variants"
-/>
+<ComponentPreview name="toast-variants" />
 
 ## Component Improvements
 
@@ -106,9 +90,7 @@ This release introduces **3 new** essential components:
 
 Added a new `secondary` variant to [Tabs](/docs/components/tabs) with an underline indicator style. The secondary variant supports both horizontal and vertical orientations.
 
-<ComponentPreview
-  name="tabs-secondary"
-/>
+<ComponentPreview name="tabs-secondary" />
 
 **Usage:**
 
@@ -138,9 +120,7 @@ Added `primary` and `secondary` variants to the [Input](/docs/components/input) 
 - **`primary`** (default): Standard styling with shadow, suitable for most use cases
 - **`secondary`**: Lower emphasis variant without shadow, suitable for use in Surface components
 
-<ComponentPreview
-  name="input-variants"
-/>
+<ComponentPreview name="input-variants" />
 
 ### InputGroup Enhancements
 
@@ -148,45 +128,36 @@ The [InputGroup](/docs/components/input-group) component received several improv
 
 **TextArea Support**: Use `InputGroup.TextArea` for multiline text inputs with prefix and suffix elements.
 
-<ComponentPreview
-  name="input-group-with-textarea"
-/>
+<ComponentPreview name="input-group-with-textarea" />
 
 **Variants**: Added `primary` and `secondary` variants matching the Input component.
 
-<ComponentPreview
-  name="input-group-variants"
-/>
+<ComponentPreview name="input-group-variants" />
 
 ### Button & ButtonGroup Outline Variants
 
 Added a new `outline` variant to both [Button](/docs/components/button) and [ButtonGroup](/docs/components/button-group) components for outlined styling.
 
-<ComponentPreview
-  name="button-outline-variant"
-/>
+<ComponentPreview name="button-outline-variant" />
 
 ### AlertDialog Size Support
 
 Added size support to [AlertDialog](/docs/components/alert-dialog) component, allowing you to control the dialog size.
 
-<ComponentPreview
-  name="alert-dialog-sizes"
-/>
+<ComponentPreview name="alert-dialog-sizes" />
 
 ### Checkbox Animation Improvements
 
 Faster animation and increased stroke width for better feedback on [Checkbox](/docs/components/checkbox).
 
-<ComponentPreview
-  name="checkbox-basic"
-/>
+<ComponentPreview name="checkbox-basic" />
 
 ### Link Text Decoration
 
 The [Link](/docs/components/link) component now uses Tailwind CSS classes for text decoration instead of built-in variants. This provides more flexibility and follows Tailwind conventions.
 
 **Available Tailwind utilities:**
+
 - `underline` - Always visible underline
 - `no-underline` - Remove underline
 - `hover:underline` - Underline appears on hover
@@ -194,9 +165,7 @@ The [Link](/docs/components/link) component now uses Tailwind CSS classes for te
 - `decoration-1`, `decoration-2`, `decoration-4` - Control thickness
 - `underline-offset-1`, `underline-offset-2`, etc. - Adjust spacing
 
-<ComponentPreview
-  name="link-underline-and-offset"
-/>
+<ComponentPreview name="link-underline-and-offset" />
 
 ## ⚠️ Breaking Changes
 
@@ -205,6 +174,7 @@ The [Link](/docs/components/link) component now uses Tailwind CSS classes for te
 The Link component's built-in `underline` and `underlineOffset` props have been removed. Use Tailwind CSS classes instead for text decoration.
 
 **Before:**
+
 ```tsx
 <Link href="#" underline="hover" underlineOffset={4}>
   Link text
@@ -212,13 +182,15 @@ The Link component's built-in `underline` and `underlineOffset` props have been 
 ```
 
 **After:**
+
 ```tsx
-<Link href="#" className="hover:underline underline-offset-4">
+<Link href="#" className="underline-offset-4 hover:underline">
   Link text
 </Link>
 ```
 
 **Available Tailwind classes:**
+
 - `underline`, `no-underline`, `hover:underline` - Decoration line
 - `decoration-primary`, `decoration-muted`, etc. - Decoration color
 - `decoration-solid`, `decoration-dashed`, `decoration-dotted` - Decoration style
@@ -232,6 +204,7 @@ For more details, see the [Link documentation](/docs/components/link).
 The `isInSurface` prop and automatic surface detection have been removed from form-based components. Instead, use the `variant="secondary"` prop when placing form components inside Surface, Card, or other surface-based containers.
 
 **Before:**
+
 ```tsx
 <Surface>
   {/* Input automatically detected surface context */}
@@ -240,6 +213,7 @@ The `isInSurface` prop and automatic surface detection have been removed from fo
 ```
 
 **After:**
+
 ```tsx
 <Surface>
   {/* Use variant="secondary" for surface backgrounds */}
@@ -248,6 +222,7 @@ The `isInSurface` prop and automatic surface detection have been removed from fo
 ```
 
 **Affected components:**
+
 - Input
 - InputGroup
 - TextField
@@ -285,19 +260,23 @@ The `secondary` variant provides lower emphasis styling without shadow, which is
 HeroUI now provides direct exports from react-aria-components for easier access to primitives and utilities. These exports are particularly useful for [React Aria Framework setup](https://react-aria.adobe.com/frameworks).
 
 **Providers:**
+
 - `RouterProvider` - Configure React Aria links to use your client-side router
 - `I18nProvider` - Set the locale used by React Aria components
 
 **Hooks and Utilities:**
+
 - `isRTL` - Check if a locale is right-to-left
 - `useLocale` - Access the current locale and direction
 - `useFilter` - Filter and sort collections
 
 **Components:**
+
 - `Collection` - Collection component for managing lists
 - `ListBoxLoadMoreItem` - ListBox item for loading more items
 
 **i18n Utilities:**
+
 - `getLocalizationScript` - Get localization script for server-side rendering (from `react-aria-components/i18n`)
 
 All of these can be imported directly from `@heroui/react`:
@@ -309,7 +288,7 @@ import {
   isRTL,
   useLocale,
   useFilter,
-  getLocalizationScript
+  getLocalizationScript,
 } from "@heroui/react";
 ```
 

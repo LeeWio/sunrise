@@ -10,7 +10,7 @@ links:
 ## Import
 
 ```tsx
-import { Fieldset } from '@heroui/react';
+import { Fieldset } from "@heroui/react";
 ```
 
 ### Usage
@@ -28,19 +28,15 @@ When used inside a [Surface](/docs/components/surface) component, use `variant="
 Import the Fieldset component and access all parts using dot notation.
 
 ```tsx
-import { Fieldset } from '@heroui/react';
+import { Fieldset } from "@heroui/react";
 
 export default () => (
   <Fieldset>
     <Fieldset.Legend />
-    <Fieldset.Group>
-      {/* form fields go here */}
-    </Fieldset.Group>
-    <Fieldset.Actions>
-      {/* action buttons go here */}
-    </Fieldset.Actions>
+    <Fieldset.Group>{/* form fields go here */}</Fieldset.Group>
+    <Fieldset.Actions>{/* action buttons go here */}</Fieldset.Actions>
   </Fieldset>
-)
+);
 ```
 
 <RelatedComponents component="fieldset" />
@@ -52,25 +48,23 @@ export default () => (
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { Fieldset, TextField, Label, Input } from '@heroui/react';
+import { Fieldset, TextField, Label, Input } from "@heroui/react";
 
 function CustomFieldset() {
   return (
-    <Fieldset className="rounded-xl border border-border bg-surface p-6 shadow-sm">
+    <Fieldset className="border-border bg-surface rounded-xl border p-6 shadow-sm">
       <Fieldset.Legend className="text-lg font-semibold">Team members</Fieldset.Legend>
       <Fieldset.Group className="grid gap-4 md:grid-cols-2">
         <TextField>
           <Label>First name</Label>
-          <Input className="rounded-full border-border/60" placeholder="Jane" />
+          <Input className="border-border/60 rounded-full" placeholder="Jane" />
         </TextField>
         <TextField>
           <Label>Last name</Label>
-          <Input className="rounded-full border-border/60" placeholder="Doe" />
+          <Input className="border-border/60 rounded-full" placeholder="Doe" />
         </TextField>
       </Fieldset.Group>
-      <Fieldset.Actions className="justify-end gap-3">
-        {/* Action buttons */}
-      </Fieldset.Actions>
+      <Fieldset.Actions className="justify-end gap-3">{/* Action buttons */}</Fieldset.Actions>
     </Fieldset>
   );
 }
@@ -83,7 +77,7 @@ Use the `@layer components` directive to target Fieldset [BEM](https://getbem.co
 ```css
 @layer components {
   .fieldset {
-    @apply gap-5 rounded-xl border border-border/60 bg-surface p-6 shadow-field;
+    @apply border-border/60 bg-surface shadow-field gap-5 rounded-xl border p-6;
   }
 
   .fieldset__legend {
@@ -113,32 +107,32 @@ The Fieldset compound component exposes these CSS selectors:
 
 ### Fieldset Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind CSS classes applied to the root element. |
-| `children` | `React.ReactNode` | - | Fieldset content (legend, groups, descriptions, actions). |
+| Prop          | Type                                        | Default                                         | Description                                               |
+| ------------- | ------------------------------------------- | ----------------------------------------------- | --------------------------------------------------------- |
+| `className`   | `string`                                    | -                                               | Tailwind CSS classes applied to the root element.         |
+| `children`    | `React.ReactNode`                           | -                                               | Fieldset content (legend, groups, descriptions, actions). |
 | `nativeProps` | `React.HTMLAttributes<HTMLFieldSetElement>` | Supports native fieldset attributes and events. |
 
 ### Fieldset.Legend Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes for the legend element. |
-| `children` | `React.ReactNode` | - | Legend content, usually plain text. |
-| `nativeProps` | `React.HTMLAttributes<HTMLLegendElement>` |  - | Native legend attributes. |
+| Prop          | Type                                      | Default | Description                              |
+| ------------- | ----------------------------------------- | ------- | ---------------------------------------- |
+| `className`   | `string`                                  | -       | Tailwind classes for the legend element. |
+| `children`    | `React.ReactNode`                         | -       | Legend content, usually plain text.      |
+| `nativeProps` | `React.HTMLAttributes<HTMLLegendElement>` | -       | Native legend attributes.                |
 
 ### Fieldset.Group Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Layout and spacing classes for grouped fields. |
-| `children` | `React.ReactNode` | - | Form controls to group inside the fieldset. |
-| `nativeProps` | `React.HTMLAttributes<HTMLDivElement>` | - | Native div attributes. |
+| Prop          | Type                                   | Default | Description                                    |
+| ------------- | -------------------------------------- | ------- | ---------------------------------------------- |
+| `className`   | `string`                               | -       | Layout and spacing classes for grouped fields. |
+| `children`    | `React.ReactNode`                      | -       | Form controls to group inside the fieldset.    |
+| `nativeProps` | `React.HTMLAttributes<HTMLDivElement>` | -       | Native div attributes.                         |
 
 ### Fieldset.Actions Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes to align action buttons or text. |
-| `children` | `React.ReactNode` | - | Action buttons or helper text. |
-| `nativeProps` | `React.HTMLAttributes<HTMLDivElement>` | - | Native div attributes. |
+| Prop          | Type                                   | Default | Description                                       |
+| ------------- | -------------------------------------- | ------- | ------------------------------------------------- |
+| `className`   | `string`                               | -       | Tailwind classes to align action buttons or text. |
+| `children`    | `React.ReactNode`                      | -       | Action buttons or helper text.                    |
+| `nativeProps` | `React.HTMLAttributes<HTMLDivElement>` | -       | Native div attributes.                            |

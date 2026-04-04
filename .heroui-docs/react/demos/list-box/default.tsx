@@ -1,4 +1,4 @@
-import {Avatar, Description, Label, ListBox} from "@heroui/react";
+import { Avatar, Description, Label, ListBox } from "@heroui/react";
 
 export function Default() {
   return (

@@ -1,4 +1,4 @@
-import {Button, Card, CloseButton} from "@heroui/react";
+import { Button, Card, CloseButton } from "@heroui/react";
 
 export function Horizontal() {
   return (
@@ -22,8 +22,8 @@ export function Horizontal() {
         </Card.Header>
         <Card.Footer className="mt-auto flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-foreground">Only 10 spots</span>
-            <span className="text-xs text-muted">Submission ends Oct 10.</span>
+            <span className="text-foreground text-sm font-medium">Only 10 spots</span>
+            <span className="text-muted text-xs">Submission ends Oct 10.</span>
           </div>
           <Button className="w-full sm:w-auto">Apply Now</Button>
         </Card.Footer>

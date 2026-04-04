@@ -1,4 +1,4 @@
-import {Avatar, Card} from "@heroui/react";
+import { Avatar, Card } from "@heroui/react";
 
 export function WithAvatar() {
   return (

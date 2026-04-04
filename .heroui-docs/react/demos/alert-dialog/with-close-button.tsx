@@ -1,6 +1,6 @@
 "use client";
 
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function WithCloseButton() {
   return (
@@ -13,7 +13,7 @@ export function WithCloseButton() {
             <AlertDialog.Header>
               <AlertDialog.Icon status="accent" />
               <AlertDialog.Heading>Less critical information</AlertDialog.Heading>
-              <p className="text-sm leading-relaxed text-muted">
+              <p className="text-muted text-sm leading-relaxed">
                 Close button and backdrop dismiss are enabled
               </p>
             </AlertDialog.Header>

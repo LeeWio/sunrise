@@ -1,11 +1,11 @@
 "use client";
 
-import {Label, Switch} from "@heroui/react";
+import { Label, Switch } from "@heroui/react";
 
 export function RenderProps() {
   return (
     <Switch>
-      {({isSelected}) => (
+      {({ isSelected }) => (
         <>
           <Switch.Control>
             <Switch.Thumb />

@@ -1,11 +1,11 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Calendar} from "@gravity-ui/icons";
-import {Button, DateField, Description, FieldError, Form, Label} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { Calendar } from "@gravity-ui/icons";
+import { Button, DateField, Description, FieldError, Form, Label } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 export function FormExample() {
   const [value, setValue] = useState<DateValue | null>(null);
@@ -24,7 +24,7 @@ export function FormExample() {
 
     // Simulate API call
     setTimeout(() => {
-      console.log("Date submitted:", {date: value});
+      console.log("Date submitted:", { date: value });
       setValue(null);
       setIsSubmitting(false);
     }, 1500);
@@ -44,7 +44,7 @@ export function FormExample() {
         <Label>Appointment date</Label>
         <DateField.Group>
           <DateField.Prefix>
-            <Calendar className="size-4 text-muted" />
+            <Calendar className="text-muted size-4" />
           </DateField.Prefix>
           <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
         </DateField.Group>

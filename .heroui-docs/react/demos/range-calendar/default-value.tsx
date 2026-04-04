@@ -1,13 +1,13 @@
 "use client";
 
-import {RangeCalendar} from "@heroui/react";
-import {parseDate} from "@internationalized/date";
+import { RangeCalendar } from "@heroui/react";
+import { parseDate } from "@internationalized/date";
 
 export function DefaultValue() {
   return (
     <RangeCalendar
       aria-label="Trip dates"
-      defaultValue={{end: parseDate("2025-02-12"), start: parseDate("2025-02-03")}}
+      defaultValue={{ end: parseDate("2025-02-12"), start: parseDate("2025-02-03") }}
       firstDayOfWeek="mon"
     >
       <RangeCalendar.Header>

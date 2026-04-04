@@ -1,8 +1,8 @@
 "use client";
 
-import {ArrowUp, At, Microphone, PlugConnection, Plus} from "@gravity-ui/icons";
-import {Button, InputGroup, Kbd, Spinner, TextField, Tooltip} from "@heroui/react";
-import {useState} from "react";
+import { ArrowUp, At, Microphone, PlugConnection, Plus } from "@gravity-ui/icons";
+import { Button, InputGroup, Kbd, Spinner, TextField, Tooltip } from "@heroui/react";
+import { useState } from "react";
 
 export function WithTextArea() {
   const [value, setValue] = useState("");
@@ -74,7 +74,9 @@ export function WithTextArea() {
                 isPending={isSubmitting}
                 onPress={handleSubmit}
               >
-                {({isPending}) => (isPending ? <Spinner color="current" size="sm" /> : <ArrowUp />)}
+                {({ isPending }) =>
+                  isPending ? <Spinner color="current" size="sm" /> : <ArrowUp />
+                }
               </Button>
               <Tooltip.Content className="flex items-center gap-1">
                 <p className="text-xs">Send</p>

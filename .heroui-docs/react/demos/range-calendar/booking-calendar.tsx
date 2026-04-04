@@ -1,11 +1,11 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Button, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, isWeekend, today} from "@internationalized/date";
-import {useState} from "react";
-import {useLocale} from "react-aria-components";
+import { Button, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, isWeekend, today } from "@internationalized/date";
+import { useState } from "react";
+import { useLocale } from "react-aria-components";
 
 type DateRange = {
   start: DateValue;
@@ -14,7 +14,7 @@ type DateRange = {
 
 export function BookingCalendar() {
   const [selectedRange, setSelectedRange] = useState<DateRange | null>(null);
-  const {locale} = useLocale();
+  const { locale } = useLocale();
   const blockedDates = [5, 6, 12, 13, 14, 20];
 
   const isDateUnavailable = (date: DateValue) => {
@@ -42,7 +42,7 @@ export function BookingCalendar() {
           <RangeCalendar.GridBody>
             {(date) => (
               <RangeCalendar.Cell date={date}>
-                {({formattedDate, isUnavailable}) => (
+                {({ formattedDate, isUnavailable }) => (
                   <>
                     {formattedDate}
                     {!isUnavailable &&
@@ -56,12 +56,12 @@ export function BookingCalendar() {
         </RangeCalendar.Grid>
       </RangeCalendar>
       <div className="flex flex-col gap-2 text-center">
-        <div className="flex items-center justify-center gap-4 text-xs text-muted">
+        <div className="text-muted flex items-center justify-center gap-4 text-xs">
           <span className="flex items-center gap-1">
-            <span className="size-2 rounded-full bg-muted" /> Blocked dates
+            <span className="bg-muted size-2 rounded-full" /> Blocked dates
           </span>
           <span className="flex items-center gap-1">
-            <span className="size-2 rounded-full bg-default" /> Weekend/Unavailable
+            <span className="bg-default size-2 rounded-full" /> Weekend/Unavailable
           </span>
         </div>
         {selectedRange ? (

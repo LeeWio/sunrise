@@ -11,23 +11,19 @@ links:
 ## Import
 
 ```tsx
-import { DisclosureGroup } from '@heroui/react';
+import { DisclosureGroup } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="disclosure-group-basic"
-  minHeight="580px"
-/>
-
+<ComponentPreview name="disclosure-group-basic" minHeight="580px" />
 
 ### Anatomy
 
 Import all parts and piece them together.
 
 ```tsx
-import {DisclosureGroup, Disclosure} from '@heroui/react';
+import { DisclosureGroup, Disclosure } from "@heroui/react";
 
 export default () => (
   <DisclosureGroup>
@@ -40,19 +36,14 @@ export default () => (
       <Disclosure.Content />
     </Disclosure>
   </DisclosureGroup>
-)
+);
 ```
 
 ### Controlled
 
 You can control which disclosures are expanded with external navigation controls using the `expandedKeys` and `onExpandedChange` props.
 
-<ComponentPreview
-  name="disclosure-group-controlled"
-  minHeight="580px"
-/>
-
-
+<ComponentPreview name="disclosure-group-controlled" minHeight="580px" />
 
 <RelatedShowcases component="DisclosureGroup" />
 
@@ -63,16 +54,11 @@ You can control which disclosures are expanded with external navigation controls
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {
-  DisclosureGroup,
-  Disclosure,
-  DisclosureTrigger,
-  DisclosurePanel
-} from '@heroui/react';
+import { DisclosureGroup, Disclosure, DisclosureTrigger, DisclosurePanel } from "@heroui/react";
 
 function CustomDisclosureGroup() {
   return (
-    <DisclosureGroup className="border rounded-lg p-4 space-y-2">
+    <DisclosureGroup className="space-y-2 rounded-lg border p-4">
       <Disclosure id="first" className="border-b pb-2">
         <DisclosureTrigger>Item 1</DisclosureTrigger>
         <DisclosurePanel>Content 1</DisclosurePanel>
@@ -89,7 +75,9 @@ function CustomDisclosureGroup() {
 ### Customizing the component classes
 
 To customize the DisclosureGroup component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -109,6 +97,7 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The DisclosureGroup component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/disclosure-group.css)):
 
 #### Base Classes
+
 - `.disclosure-group` - Base container styles with layout containment
 
 ### Interactive States
@@ -122,21 +111,21 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 ### DisclosureGroup Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `expandedKeys` | `Set<Key>` | - | The currently expanded items (controlled) |
-| `defaultExpandedKeys` | `Iterable<Key>` | - | The initially expanded items (uncontrolled) |
-| `onExpandedChange` | `(keys: Set<Key>) => void` | - | Handler called when expanded items change |
-| `allowsMultipleExpanded` | `boolean` | `false` | Whether multiple items can be expanded simultaneously |
-| `isDisabled` | `boolean` | `false` | Whether all disclosures in the group are disabled |
-| `children` | `ReactNode \| RenderFunction` | - | Disclosure items to render |
-| `className` | `string` | - | Additional CSS classes |
+| Prop                     | Type                          | Default | Description                                           |
+| ------------------------ | ----------------------------- | ------- | ----------------------------------------------------- |
+| `expandedKeys`           | `Set<Key>`                    | -       | The currently expanded items (controlled)             |
+| `defaultExpandedKeys`    | `Iterable<Key>`               | -       | The initially expanded items (uncontrolled)           |
+| `onExpandedChange`       | `(keys: Set<Key>) => void`    | -       | Handler called when expanded items change             |
+| `allowsMultipleExpanded` | `boolean`                     | `false` | Whether multiple items can be expanded simultaneously |
+| `isDisabled`             | `boolean`                     | `false` | Whether all disclosures in the group are disabled     |
+| `children`               | `ReactNode \| RenderFunction` | -       | Disclosure items to render                            |
+| `className`              | `string`                      | -       | Additional CSS classes                                |
 
 ### RenderProps
 
 When using the render prop pattern, these values are provided:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `expandedKeys` | `Set<Key>` | Currently expanded item keys |
-| `isDisabled` | `boolean` | Whether the group is disabled |
+| Prop           | Type       | Description                   |
+| -------------- | ---------- | ----------------------------- |
+| `expandedKeys` | `Set<Key>` | Currently expanded item keys  |
+| `isDisabled`   | `boolean`  | Whether the group is disabled |

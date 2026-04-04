@@ -1,20 +1,20 @@
 "use client";
 
-import {Label, ListBox, NumberField, ProgressBar, Select, Separator} from "@heroui/react";
-import {useState} from "react";
+import { Label, ListBox, NumberField, ProgressBar, Select, Separator } from "@heroui/react";
+import { useState } from "react";
 
-const formatStyleOptions: {label: string; value: string}[] = [
-  {label: "Currency", value: "currency"},
-  {label: "Percent", value: "percent"},
-  {label: "Decimal", value: "decimal"},
-  {label: "Unit", value: "unit"},
+const formatStyleOptions: { label: string; value: string }[] = [
+  { label: "Currency", value: "currency" },
+  { label: "Percent", value: "percent" },
+  { label: "Decimal", value: "decimal" },
+  { label: "Unit", value: "unit" },
 ];
 
 const formatOptionsMap: Record<string, Intl.NumberFormatOptions> = {
-  currency: {currency: "USD", style: "currency"},
-  decimal: {style: "decimal"},
-  percent: {style: "percent"},
-  unit: {style: "unit", unit: "mile"},
+  currency: { currency: "USD", style: "currency" },
+  decimal: { style: "decimal" },
+  percent: { style: "percent" },
+  unit: { style: "unit", unit: "mile" },
 };
 
 export function CustomValue() {
@@ -46,7 +46,7 @@ export function CustomValue() {
       <Separator className="hidden md:block" orientation="vertical" />
 
       <div className="flex max-w-52 flex-col gap-3">
-        <Label className="text-xs font-medium text-muted">Options</Label>
+        <Label className="text-muted text-xs font-medium">Options</Label>
 
         <NumberField
           maxValue={maxValue}

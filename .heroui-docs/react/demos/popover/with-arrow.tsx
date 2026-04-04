@@ -1,5 +1,5 @@
-import {Ellipsis} from "@gravity-ui/icons";
-import {Button, Popover} from "@heroui/react";
+import { Ellipsis } from "@gravity-ui/icons";
+import { Button, Popover } from "@heroui/react";
 
 export function PopoverWithArrow() {
   return (
@@ -10,7 +10,7 @@ export function PopoverWithArrow() {
           <Popover.Dialog>
             <Popover.Arrow />
             <Popover.Heading>Popover with Arrow</Popover.Heading>
-            <p className="mt-2 text-sm text-muted">
+            <p className="text-muted mt-2 text-sm">
               The arrow shows which element triggered the popover.
             </p>
           </Popover.Dialog>
@@ -25,7 +25,7 @@ export function PopoverWithArrow() {
           <Popover.Dialog>
             <Popover.Arrow />
             <Popover.Heading>Popover with Arrow</Popover.Heading>
-            <p className="mt-2 text-sm text-muted">
+            <p className="text-muted mt-2 text-sm">
               The arrow shows which element triggered the popover.
             </p>
           </Popover.Dialog>

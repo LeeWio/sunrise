@@ -1,10 +1,10 @@
-import {Link} from "@heroui/react";
+import { Link } from "@heroui/react";
 
 export function LinkUnderlineAndOffset() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Always visible underline</p>
+        <p className="text-muted text-sm font-medium">Always visible underline</p>
         <Link className="underline" href="#">
           Underline always visible
           <Link.Icon />
@@ -12,7 +12,7 @@ export function LinkUnderlineAndOffset() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Underline visible on hover</p>
+        <p className="text-muted text-sm font-medium">Underline visible on hover</p>
         <Link className="no-underline hover:underline" href="#">
           Hover to see the underline
           <Link.Icon />
@@ -20,7 +20,7 @@ export function LinkUnderlineAndOffset() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">No underline</p>
+        <p className="text-muted text-sm font-medium">No underline</p>
         <Link className="no-underline" href="#">
           Link without any underline
           <Link.Icon />
@@ -28,7 +28,7 @@ export function LinkUnderlineAndOffset() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Changing the underline offset</p>
+        <p className="text-muted text-sm font-medium">Changing the underline offset</p>
         <div className="flex flex-col gap-3">
           <Link className="underline-offset-1 hover:underline" href="#">
             Offset 1 (1px space)

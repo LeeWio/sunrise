@@ -1,5 +1,5 @@
-import {Bell, Comment, Envelope} from "@gravity-ui/icons";
-import {Checkbox, CheckboxGroup, Description, Label} from "@heroui/react";
+import { Bell, Comment, Envelope } from "@gravity-ui/icons";
+import { Checkbox, CheckboxGroup, Description, Label } from "@heroui/react";
 import clsx from "clsx";
 
 export function FeaturesAndAddOns() {
@@ -37,7 +37,7 @@ export function FeaturesAndAddOns() {
                 value={addon.value}
                 variant="secondary"
                 className={clsx(
-                  "group relative flex-col gap-4 rounded-3xl bg-surface px-5 py-4 transition-all",
+                  "group bg-surface relative flex-col gap-4 rounded-3xl px-5 py-4 transition-all",
                   "data-[selected=true]:bg-accent/10",
                 )}
               >
@@ -45,7 +45,7 @@ export function FeaturesAndAddOns() {
                   <Checkbox.Indicator />
                 </Checkbox.Control>
                 <Checkbox.Content className="flex flex-row items-start justify-start gap-4">
-                  <addon.icon className="size-5 text-accent" />
+                  <addon.icon className="text-accent size-5" />
                   <div className="flex flex-col gap-1">
                     <Label>{addon.title}</Label>
                     <Description>{addon.description}</Description>

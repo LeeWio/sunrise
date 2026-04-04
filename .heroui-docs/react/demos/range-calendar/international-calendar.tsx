@@ -1,7 +1,7 @@
 "use client";
 
-import {RangeCalendar} from "@heroui/react";
-import {I18nProvider} from "react-aria-components";
+import { RangeCalendar } from "@heroui/react";
+import { I18nProvider } from "react-aria-components";
 
 export function InternationalCalendar() {
   return (
@@ -25,7 +25,7 @@ export function InternationalCalendar() {
         </RangeCalendar.Grid>
         <RangeCalendar.YearPickerGrid>
           <RangeCalendar.YearPickerGridBody>
-            {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+            {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
           </RangeCalendar.YearPickerGridBody>
         </RangeCalendar.YearPickerGrid>
       </RangeCalendar>

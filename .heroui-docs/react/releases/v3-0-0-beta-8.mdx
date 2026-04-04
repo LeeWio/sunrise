@@ -5,8 +5,8 @@ github:
   pull: 6270
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">March 2, 2026</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">March 2, 2026</span>
 </div>
 
 This release adds three new components: [Badge](/docs/components/badge), [Pagination](/docs/components/pagination), and [Table](/docs/components/table), plus new `InputContainer` composition APIs for [DateField](/docs/components/date-field) and [TimeField](/docs/components/time-field).
@@ -25,30 +25,16 @@ This release adds three new components: [Badge](/docs/components/badge), [Pagina
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -63,43 +49,31 @@ Update to the latest version:
 
 New badge primitives for counters, labels, and anchored overlays with `Badge.Anchor` and `Badge.Label`.
 
-<ComponentPreview
-  name="badge-basic"
-/>
+<ComponentPreview name="badge-basic" />
 
 ### Pagination
 
 New navigation component built with composable parts (`Root`, `Content`, `Item`, `Link`, `Previous`, `Next`, `Summary`, `Ellipsis`).
 
-<ComponentPreview
-  name="pagination-with-ellipsis"
-/>
+<ComponentPreview name="pagination-with-ellipsis" />
 
 ### Table
 
 Compound data table on React Aria with sortable columns, row selection, custom cells, load-more sentinel rows, and resizable columns.
 
-<ComponentPreview
-  name="table-basic"
-/>
+<ComponentPreview name="table-basic" />
 
 **Custom Cells:**
 
-<ComponentPreview
-  name="table-custom-cells"
-/>
+<ComponentPreview name="table-custom-cells" />
 
 **Pagination:**
 
-<ComponentPreview
-  name="table-pagination"
-/>
+<ComponentPreview name="table-pagination" />
 
 **Empty State:**
 
-<ComponentPreview
-  name="table-empty-state"
-/>
+<ComponentPreview name="table-empty-state" />
 
 ## Component + API Improvements
 
@@ -108,32 +82,28 @@ Compound data table on React Aria with sortable columns, row selection, custom c
 `DateField` and `TimeField` now expose `InputContainer` to wrap input segments between prefix and suffix content.
 
 **Before:**
+
 ```tsx
 <DateField.Group>
   <DateField.Prefix>...</DateField.Prefix>
-  <DateField.Input>
-    {(segment) => <DateField.Segment segment={segment} />}
-  </DateField.Input>
+  <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
   <DateField.Suffix>...</DateField.Suffix>
 </DateField.Group>
 ```
 
 **After:**
+
 ```tsx
 <DateField.Group>
   <DateField.Prefix>...</DateField.Prefix>
   <DateField.InputContainer>
-    <DateField.Input>
-      {(segment) => <DateField.Segment segment={segment} />}
-    </DateField.Input>
+    <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
   </DateField.InputContainer>
   <DateField.Suffix>...</DateField.Suffix>
 </DateField.Group>
 ```
 
-<ComponentPreview
-  name="date-range-picker-input-container"
-/>
+<ComponentPreview name="date-range-picker-input-container" />
 
 ## ⚠️ Breaking Changes
 
@@ -141,12 +111,13 @@ Compound data table on React Aria with sortable columns, row selection, custom c
 
 TextField style naming was normalized to avoid conflicts with Tailwind's `text-*` utility prefix.
 
-| Component | Old Class Name | New Class Name | Notes |
-|-----------|---------------|----------------|-------|
-| **TextField Root** | `.text-field` | `.textfield` | Root class renamed |
+| Component                | Old Class Name            | New Class Name           | Notes                  |
+| ------------------------ | ------------------------- | ------------------------ | ---------------------- |
+| **TextField Root**       | `.text-field`             | `.textfield`             | Root class renamed     |
 | **TextField Full Width** | `.text-field--full-width` | `.textfield--full-width` | Modifier class renamed |
 
 Additional renames in the same change:
+
 - Style file: `text-field.css` -> `textfield.css`
 - Styles export path: `@heroui/styles/src/components/text-field` -> `@heroui/styles/src/components/textfield`
 

@@ -1,7 +1,7 @@
 "use client";
 
-import {Persons} from "@gravity-ui/icons";
-import {Button, toast} from "@heroui/react";
+import { Persons } from "@gravity-ui/icons";
+import { Button, toast } from "@heroui/react";
 
 export function Default() {
   return (

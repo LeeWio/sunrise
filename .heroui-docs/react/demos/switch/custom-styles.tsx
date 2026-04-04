@@ -1,12 +1,12 @@
 "use client";
 
-import {Check, Power} from "@gravity-ui/icons";
-import {Switch} from "@heroui/react";
+import { Check, Power } from "@gravity-ui/icons";
+import { Switch } from "@heroui/react";
 
 export function CustomStyles() {
   return (
     <Switch>
-      {({isSelected}) => (
+      {({ isSelected }) => (
         <>
           <Switch.Control
             className={`h-[31px] w-[51px] bg-blue-500 ${isSelected ? "bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.5)]" : ""}`}

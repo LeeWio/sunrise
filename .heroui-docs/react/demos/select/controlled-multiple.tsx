@@ -1,8 +1,8 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Label, ListBox, Select} from "@heroui/react";
+import { Label, ListBox, Select } from "@heroui/react";
 import React from "react";
 
 export function ControlledMultiple() {
@@ -51,7 +51,7 @@ export function ControlledMultiple() {
           </ListBox>
         </Select.Popover>
       </Select>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected: {selected.length > 0 ? selected.join(", ") : "None"}
       </p>
     </div>

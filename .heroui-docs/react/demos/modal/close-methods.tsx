@@ -1,14 +1,14 @@
 "use client";
 
-import {CircleCheck, CircleInfo} from "@gravity-ui/icons";
-import {Button, Modal} from "@heroui/react";
+import { CircleCheck, CircleInfo } from "@gravity-ui/icons";
+import { Button, Modal } from "@heroui/react";
 
 export function CloseMethods() {
   return (
     <div className="flex max-w-2xl flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">Using slot="close"</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           The simplest way to close a modal. Add <code>slot="close"</code> to any Button component
           within the modal. When clicked, it will automatically close the modal.
         </p>
@@ -43,7 +43,7 @@ export function CloseMethods() {
 
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">Using Dialog render props</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Access the <code>close</code> method from the Dialog's render props. This gives you full
           control over when and how to close the modal, allowing you to add custom logic before
           closing.

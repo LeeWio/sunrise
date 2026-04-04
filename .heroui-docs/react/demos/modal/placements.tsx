@@ -1,7 +1,7 @@
 "use client";
 
-import {Rocket} from "@gravity-ui/icons";
-import {Button, Modal} from "@heroui/react";
+import { Rocket } from "@gravity-ui/icons";
+import { Button, Modal } from "@heroui/react";
 
 export function Placements() {
   const placements = ["auto", "top", "center", "bottom"] as const;

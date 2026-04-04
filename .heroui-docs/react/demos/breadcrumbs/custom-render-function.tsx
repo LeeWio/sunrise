@@ -1,6 +1,6 @@
 "use client";
 
-import {Breadcrumbs} from "@heroui/react";
+import { Breadcrumbs } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

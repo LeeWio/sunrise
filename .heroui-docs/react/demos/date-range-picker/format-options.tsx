@@ -1,7 +1,7 @@
 "use client";
 
-import type {TimeValue} from "@heroui/react";
-import type {DateValue} from "@internationalized/date";
+import type { TimeValue } from "@heroui/react";
+import type { DateValue } from "@internationalized/date";
 
 import {
   DateField,
@@ -21,7 +21,7 @@ import {
   parseDate,
   parseZonedDateTime,
 } from "@internationalized/date";
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 
 type Granularity = "day" | "hour" | "minute" | "second";
 type HourCycle = 12 | 24;
@@ -30,16 +30,16 @@ type DateRange = {
   end: DateValue;
 };
 
-const granularityOptions: {label: string; value: Granularity}[] = [
-  {label: "Day", value: "day"},
-  {label: "Hour", value: "hour"},
-  {label: "Minute", value: "minute"},
-  {label: "Second", value: "second"},
+const granularityOptions: { label: string; value: Granularity }[] = [
+  { label: "Day", value: "day" },
+  { label: "Hour", value: "hour" },
+  { label: "Minute", value: "minute" },
+  { label: "Second", value: "second" },
 ];
 
-const hourCycleOptions: {label: string; value: HourCycle}[] = [
-  {label: "12-hour", value: 12},
-  {label: "24-hour", value: 24},
+const hourCycleOptions: { label: string; value: HourCycle }[] = [
+  { label: "12-hour", value: 12 },
+  { label: "24-hour", value: 24 },
 ];
 
 export function FormatOptions() {
@@ -47,7 +47,7 @@ export function FormatOptions() {
   const [hourCycle, setHourCycle] = useState<HourCycle>(12);
   const [hideTimeZone, setHideTimeZone] = useState(false);
   const [shouldForceLeadingZeros, setShouldForceLeadingZeros] = useState(false);
-  const {locale} = useLocale();
+  const { locale } = useLocale();
   const dateFormatter = new DateFormatter(locale, {
     day: "numeric",
     month: "short",
@@ -94,7 +94,7 @@ export function FormatOptions() {
         shouldForceLeadingZeros={shouldForceLeadingZeros}
         startName="startDate"
       >
-        {({state}) => (
+        {({ state }) => (
           <>
             <Label>Date range</Label>
             <DateField.Group>
@@ -133,7 +133,7 @@ export function FormatOptions() {
                 </RangeCalendar.Grid>
                 <RangeCalendar.YearPickerGrid>
                   <RangeCalendar.YearPickerGridBody>
-                    {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+                    {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
                   </RangeCalendar.YearPickerGridBody>
                 </RangeCalendar.YearPickerGrid>
               </RangeCalendar>
@@ -189,10 +189,10 @@ export function FormatOptions() {
                   </div>
                 </div>
               )}
-              <span className="mt-1 text-xs text-muted">
+              <span className="text-muted mt-1 text-xs">
                 Selected:{" "}
                 {state.value && state.value.start && state.value.end
-                  ? formatDate({end: state.value.end, start: state.value.start})
+                  ? formatDate({ end: state.value.end, start: state.value.start })
                   : "No date selected"}
               </span>
             </DateRangePicker.Popover>
@@ -202,7 +202,7 @@ export function FormatOptions() {
 
       <Separator className="my-5" />
 
-      <Label className="text-xs font-medium text-muted">Format Options</Label>
+      <Label className="text-muted text-xs font-medium">Format Options</Label>
 
       <div className="flex flex-wrap gap-4">
         <div className="flex flex-col gap-1">

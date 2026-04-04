@@ -20,17 +20,11 @@ interface MenuContainerProps extends React.ComponentProps<typeof MotionToolbar> 
 export const MenuContainer = React.forwardRef<HTMLDivElement, MenuContainerProps>(
   ({ children, className = "", "aria-label": ariaLabel = "Editor Menu", ...props }, ref) => {
     return (
-      <MotionToolbar
-        ref={ref}
-        isAttached
-        aria-label={ariaLabel}
-        className={className}
-        {...props}
-      >
+      <MotionToolbar ref={ref} isAttached aria-label={ariaLabel} className={className} {...props}>
         {children}
       </MotionToolbar>
     );
-  }
+  },
 );
 
 MenuContainer.displayName = "MenuContainer";

@@ -1,6 +1,6 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
 import {
   Button,
@@ -12,8 +12,8 @@ import {
   Form,
   Label,
 } from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 export function FormExample() {
   const [value, setValue] = useState<DateValue | null>(null);
@@ -78,7 +78,7 @@ export function FormExample() {
             </Calendar.Grid>
             <Calendar.YearPickerGrid>
               <Calendar.YearPickerGridBody>
-                {({year}) => <Calendar.YearPickerCell year={year} />}
+                {({ year }) => <Calendar.YearPickerCell year={year} />}
               </Calendar.YearPickerGridBody>
             </Calendar.YearPickerGrid>
           </Calendar>

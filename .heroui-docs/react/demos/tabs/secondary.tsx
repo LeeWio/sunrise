@@ -1,4 +1,4 @@
-import {Tabs} from "@heroui/react";
+import { Tabs } from "@heroui/react";
 
 export function Secondary() {
   return (

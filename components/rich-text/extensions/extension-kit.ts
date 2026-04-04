@@ -1,16 +1,16 @@
-import { 
-  StarterKit, 
-  TextAlign, 
-  Placeholder, 
-  CharacterCount, 
-  Link, 
-  NodeRange, 
+import {
+  StarterKit,
+  TextAlign,
+  Placeholder,
+  CharacterCount,
+  Link,
+  NodeRange,
   DropPlaceholder,
   TextStyle,
   Color,
   BackgroundColor,
   Highlight,
-  Underline
+  Underline,
 } from "./index";
 
 export const ExtensionKit = [

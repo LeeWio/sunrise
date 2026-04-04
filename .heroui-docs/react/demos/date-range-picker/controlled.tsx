@@ -1,10 +1,17 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Button, DateField, DateRangePicker, Description, Label, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import {
+  Button,
+  DateField,
+  DateRangePicker,
+  Description,
+  Label,
+  RangeCalendar,
+} from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 type DateRange = {
   start: DateValue;
@@ -13,7 +20,7 @@ type DateRange = {
 
 export function Controlled() {
   const start = today(getLocalTimeZone());
-  const [value, setValue] = useState<DateRange | null>({end: start.add({days: 4}), start});
+  const [value, setValue] = useState<DateRange | null>({ end: start.add({ days: 4 }), start });
 
   return (
     <div className="flex w-72 flex-col gap-4">
@@ -53,7 +60,7 @@ export function Controlled() {
             </RangeCalendar.Grid>
             <RangeCalendar.YearPickerGrid>
               <RangeCalendar.YearPickerGridBody>
-                {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+                {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
               </RangeCalendar.YearPickerGridBody>
             </RangeCalendar.YearPickerGrid>
           </RangeCalendar>
@@ -68,7 +75,7 @@ export function Controlled() {
           onPress={() => {
             const nextStart = today(getLocalTimeZone());
 
-            setValue({end: nextStart.add({days: 6}), start: nextStart});
+            setValue({ end: nextStart.add({ days: 6 }), start: nextStart });
           }}
         >
           Set week

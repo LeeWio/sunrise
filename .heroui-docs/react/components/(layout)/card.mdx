@@ -15,9 +15,7 @@ import { Card } from "@heroui/react";
 
 ### Usage
 
-<ComponentPreview
-  name="card-default"
-/>
+<ComponentPreview name="card-default" />
 
 ### Anatomy
 
@@ -42,9 +40,7 @@ export default () => (
 
 Cards come in semantic variants that describe their prominence level rather than specific visual styles. This allows themes to interpret them differently:
 
-<ComponentPreview
-  name="card-variants"
-/>
+<ComponentPreview name="card-variants" />
 
 - **`transparent`** - Minimal prominence, transparent background (great for nested cards)
 - **`default`** - Standard card for most use cases (surface-secondary)
@@ -53,27 +49,19 @@ Cards come in semantic variants that describe their prominence level rather than
 
 ### Horizontal Layout
 
-<ComponentPreview
-  name="card-horizontal"
-/>
+<ComponentPreview name="card-horizontal" />
 
 ### With Avatar
 
-<ComponentPreview
-  name="card-with-avatar"
-/>
+<ComponentPreview name="card-with-avatar" />
 
 ### With Images
 
-<ComponentPreview
-  name="card-with-images"
-/>
+<ComponentPreview name="card-with-images" />
 
 ### With Form
 
-<ComponentPreview
-  name="card-with-form"
-/>
+<ComponentPreview name="card-with-form" />
 
 ## Accessibility
 
@@ -130,7 +118,6 @@ import { cardVariants } from '@heroui/styles';
 
 Card uses [BEM](https://getbem.com/) naming for predictable styling, ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/card.css)):
 
-
 #### Base Classes
 
 - `.card` - Base container with padding and border
@@ -151,43 +138,43 @@ Card uses [BEM](https://getbem.com/) naming for predictable styling, ([View sour
 
 ### Card
 
-| Prop        | Type                                                      | Default      | Description                |
-| ----------- | --------------------------------------------------------- | ------------ | -------------------------- |
-| `variant`   | `"transparent" \| "default" \| "secondary" \| "tertiary"`         | `"default"` | Semantic variant indicating prominence level |
-| `className` | `string`                          | -       | Additional CSS classes     |
-| `children`  | `React.ReactNode`                 | -       | Card content               |
+| Prop        | Type                                                      | Default     | Description                                  |
+| ----------- | --------------------------------------------------------- | ----------- | -------------------------------------------- |
+| `variant`   | `"transparent" \| "default" \| "secondary" \| "tertiary"` | `"default"` | Semantic variant indicating prominence level |
+| `className` | `string`                                                  | -           | Additional CSS classes                       |
+| `children`  | `React.ReactNode`                                         | -           | Card content                                 |
 
 ### Card.Header
 
-| Prop        | Type              | Default | Description               |
-| ----------- | ----------------- | ------- | ------------------------- |
-| `className` | `string`          | -       | Additional CSS classes    |
-| `children`  | `React.ReactNode` | -       | Header content            |
+| Prop        | Type              | Default | Description            |
+| ----------- | ----------------- | ------- | ---------------------- |
+| `className` | `string`          | -       | Additional CSS classes |
+| `children`  | `React.ReactNode` | -       | Header content         |
 
 ### Card.Title
-
-| Prop        | Type              | Default | Description                      |
-| ----------- | ----------------- | ------- | -------------------------------- |
-| `className` | `string`          | -       | Additional CSS classes           |
-| `children`  | `React.ReactNode` | -       | Title content (renders as `h3`) |
-
-### Card.Description
 
 | Prop        | Type              | Default | Description                     |
 | ----------- | ----------------- | ------- | ------------------------------- |
 | `className` | `string`          | -       | Additional CSS classes          |
+| `children`  | `React.ReactNode` | -       | Title content (renders as `h3`) |
+
+### Card.Description
+
+| Prop        | Type              | Default | Description                          |
+| ----------- | ----------------- | ------- | ------------------------------------ |
+| `className` | `string`          | -       | Additional CSS classes               |
 | `children`  | `React.ReactNode` | -       | Description content (renders as `p`) |
 
 ### Card.Content
 
-| Prop        | Type              | Default | Description               |
-| ----------- | ----------------- | ------- | ------------------------- |
-| `className` | `string`          | -       | Additional CSS classes    |
-| `children`  | `React.ReactNode` | -       | Main content              |
+| Prop        | Type              | Default | Description            |
+| ----------- | ----------------- | ------- | ---------------------- |
+| `className` | `string`          | -       | Additional CSS classes |
+| `children`  | `React.ReactNode` | -       | Main content           |
 
 ### Card.Footer
 
-| Prop        | Type              | Default | Description               |
-| ----------- | ----------------- | ------- | ------------------------- |
-| `className` | `string`          | -       | Additional CSS classes    |
-| `children`  | `React.ReactNode` | -       | Footer content            |
+| Prop        | Type              | Default | Description            |
+| ----------- | ----------------- | ------- | ---------------------- |
+| `className` | `string`          | -       | Additional CSS classes |
+| `children`  | `React.ReactNode` | -       | Footer content         |

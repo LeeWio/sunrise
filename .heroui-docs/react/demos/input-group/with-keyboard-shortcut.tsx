@@ -1,6 +1,6 @@
 "use client";
 
-import {InputGroup, Kbd, TextField} from "@heroui/react";
+import { InputGroup, Kbd, TextField } from "@heroui/react";
 
 export function WithKeyboardShortcut() {
   return (

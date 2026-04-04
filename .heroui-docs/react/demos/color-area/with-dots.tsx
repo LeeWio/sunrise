@@ -1,4 +1,4 @@
-import {ColorArea} from "@heroui/react";
+import { ColorArea } from "@heroui/react";
 
 export function ColorAreaWithDots() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import {HardDrive, Persons} from "@gravity-ui/icons";
-import {Button, toast} from "@heroui/react";
+import { HardDrive, Persons } from "@gravity-ui/icons";
+import { Button, toast } from "@heroui/react";
 
 const noop = () => {};
 
@@ -32,7 +32,7 @@ export function Variants() {
           variant="secondary"
           onPress={() =>
             toast.info("You have 2 credits left", {
-              actionProps: {children: "Upgrade", onPress: noop},
+              actionProps: { children: "Upgrade", onPress: noop },
               description: "Get a paid plan for more credits",
             })
           }
@@ -78,7 +78,7 @@ export function Variants() {
           variant="danger-soft"
           onPress={() =>
             toast.danger("Storage is full", {
-              actionProps: {children: "Remove", onPress: noop, variant: "danger"},
+              actionProps: { children: "Remove", onPress: noop, variant: "danger" },
               description:
                 "Remove files to release space. Adding more text to demonstrate longer content display",
               indicator: <HardDrive />,

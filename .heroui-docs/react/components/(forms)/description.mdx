@@ -10,14 +10,12 @@ links:
 ## Import
 
 ```tsx
-import { Description } from '@heroui/react';
+import { Description } from "@heroui/react";
 ```
 
 ## Usage
 
-<ComponentPreview
-  name="description-basic"
-/>
+<ComponentPreview name="description-basic" />
 
 <RelatedComponents component="description" />
 
@@ -25,10 +23,10 @@ import { Description } from '@heroui/react';
 
 ### Description Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | The content of the description |
+| Prop        | Type        | Default | Description                    |
+| ----------- | ----------- | ------- | ------------------------------ |
+| `className` | `string`    | -       | Additional CSS classes         |
+| `children`  | `ReactNode` | -       | The content of the description |
 
 ## Accessibility
 
@@ -57,17 +55,17 @@ The Description component uses the following CSS classes:
   </Description>
 </div>
 ```
- 
+
 ### Integration with TextField
 
 ```tsx
-import {TextField, Label, Input, Description} from '@heroui/react';
+import { TextField, Label, Input, Description } from "@heroui/react";
 
 <TextField type="email">
   <Label>Email</Label>
   <Input placeholder="Enter your email" />
   <Description>We'll never share your email</Description>
-</TextField>
+</TextField>;
 ```
 
 When using the [TextField](./text-field) component, accessibility attributes are automatically applied to the label and description.

@@ -1,4 +1,4 @@
-import {Button, Drawer} from "@heroui/react";
+import { Button, Drawer } from "@heroui/react";
 
 export function Placements() {
   const placements = ["bottom", "top", "left", "right"] as const;

@@ -1,8 +1,8 @@
 "use client";
 
-import {QrCode} from "@gravity-ui/icons";
-import {Button, Disclosure} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { QrCode } from "@gravity-ui/icons";
+import { Button, Disclosure } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import React from "react";
 
 export function CustomRenderFunction() {
@@ -23,8 +23,8 @@ export function CustomRenderFunction() {
           </Button>
         </Disclosure.Heading>
         <Disclosure.Content render={(props) => <div data-custom="bar" {...props} />}>
-          <Disclosure.Body className="shadow-panel flex flex-col items-center rounded-3xl bg-surface p-4 text-center">
-            <p className="text-sm text-muted">
+          <Disclosure.Body className="shadow-panel bg-surface flex flex-col items-center rounded-3xl p-4 text-center">
+            <p className="text-muted text-sm">
               Scan this QR code with your camera app to preview the HeroUI native components.
             </p>
             <img
@@ -32,7 +32,7 @@ export function CustomRenderFunction() {
               className="aspect-square w-full max-w-54 object-cover"
               src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/qr-code-native.png"
             />
-            <p className="text-sm text-muted">Expo must be installed on your device.</p>
+            <p className="text-muted text-sm">Expo must be installed on your device.</p>
             <Button className="mt-4" variant="primary">
               <Icon icon="tabler:brand-apple-filled" />
               Download on App Store

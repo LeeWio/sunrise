@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -12,11 +12,11 @@ import {
   Separator,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function WithSections() {
   const [selectedKey, setSelectedKey] = useState<Key | null>(null);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   return (
     <Autocomplete

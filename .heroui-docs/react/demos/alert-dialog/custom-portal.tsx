@@ -1,7 +1,7 @@
 "use client";
 
-import {AlertDialog, Button} from "@heroui/react";
-import {useCallback, useRef, useState} from "react";
+import { AlertDialog, Button } from "@heroui/react";
+import { useCallback, useRef, useState } from "react";
 
 export function CustomPortal() {
   const portalRef = useRef<HTMLDivElement>(null);
@@ -18,16 +18,16 @@ export function CustomPortal() {
         <p className="text-sm">
           Render alert dialogs inside a custom container instead of <code>document.body</code>
         </p>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Apply <code className="rounded px-1 py-0.5 text-xs">transform: translateZ(0)</code> to the
           container to create a new stacking context.
         </p>
       </div>
       <div
         ref={setPortalRef}
-        className="relative flex h-[380px] items-center justify-center overflow-hidden rounded bg-muted/20"
+        className="bg-muted/20 relative flex h-[380px] items-center justify-center overflow-hidden rounded"
         // new stacking context
-        style={{transform: "translate(0)"}}
+        style={{ transform: "translate(0)" }}
       >
         {!!portalContainer && (
           <AlertDialog>
@@ -41,17 +41,17 @@ export function CustomPortal() {
                     <AlertDialog.Heading>Custom Portal</AlertDialog.Heading>
                   </AlertDialog.Header>
                   <AlertDialog.Body>
-                    <p className="text-sm text-muted">
+                    <p className="text-muted text-sm">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
-                    <p className="text-sm text-muted">
+                    <p className="text-muted text-sm">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
-                    <p className="text-sm text-muted">
+                    <p className="text-muted text-sm">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

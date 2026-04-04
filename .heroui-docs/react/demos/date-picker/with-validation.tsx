@@ -1,10 +1,10 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Calendar, DateField, DatePicker, FieldError, Label} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { Calendar, DateField, DatePicker, FieldError, Label } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 export function WithValidation() {
   const [value, setValue] = useState<DateValue | null>(null);
@@ -49,7 +49,7 @@ export function WithValidation() {
           </Calendar.Grid>
           <Calendar.YearPickerGrid>
             <Calendar.YearPickerGridBody>
-              {({year}) => <Calendar.YearPickerCell year={year} />}
+              {({ year }) => <Calendar.YearPickerCell year={year} />}
             </Calendar.YearPickerGridBody>
           </Calendar.YearPickerGrid>
         </Calendar>

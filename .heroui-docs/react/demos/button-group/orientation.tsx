@@ -1,11 +1,16 @@
-import {TextAlignCenter, TextAlignJustify, TextAlignLeft, TextAlignRight} from "@gravity-ui/icons";
-import {Button, ButtonGroup} from "@heroui/react";
+import {
+  TextAlignCenter,
+  TextAlignJustify,
+  TextAlignLeft,
+  TextAlignRight,
+} from "@gravity-ui/icons";
+import { Button, ButtonGroup } from "@heroui/react";
 
 export function Orientation() {
   return (
     <div className="flex items-start gap-8">
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Horizontal</span>
+        <span className="text-muted text-sm">Horizontal</span>
         <ButtonGroup orientation="horizontal" variant="tertiary">
           <Button isIconOnly>
             <TextAlignLeft />
@@ -25,7 +30,7 @@ export function Orientation() {
         </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Vertical</span>
+        <span className="text-muted text-sm">Vertical</span>
         <ButtonGroup orientation="vertical" variant="tertiary">
           <Button isIconOnly>
             <TextAlignLeft />

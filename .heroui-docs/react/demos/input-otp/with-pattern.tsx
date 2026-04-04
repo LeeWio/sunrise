@@ -1,4 +1,4 @@
-import {Description, InputOTP, Label, REGEXP_ONLY_CHARS} from "@heroui/react";
+import { Description, InputOTP, Label, REGEXP_ONLY_CHARS } from "@heroui/react";
 
 export function WithPattern() {
   return (

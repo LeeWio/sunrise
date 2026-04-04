@@ -1,4 +1,4 @@
-import {ArrowUturnCcwLeft, ArrowUturnCwRight, Bold, Italic, Underline} from "@gravity-ui/icons";
+import { ArrowUturnCcwLeft, ArrowUturnCwRight, Bold, Italic, Underline } from "@gravity-ui/icons";
 import {
   Button,
   ButtonGroup,

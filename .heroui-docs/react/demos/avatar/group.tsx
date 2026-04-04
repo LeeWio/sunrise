@@ -1,4 +1,4 @@
-import {Avatar} from "@heroui/react";
+import { Avatar } from "@heroui/react";
 
 const users = [
   {
@@ -34,7 +34,7 @@ export function Group() {
       {/* Basic avatar group */}
       <div className="flex -space-x-2">
         {users.slice(0, 4).map((user) => (
-          <Avatar key={user.id} className="ring-2 ring-background">
+          <Avatar key={user.id} className="ring-background ring-2">
             <Avatar.Image alt={user.name} src={user.image} />
             <Avatar.Fallback>
               {user.name
@@ -49,7 +49,7 @@ export function Group() {
       {/* Avatar group with counter */}
       <div className="flex -space-x-2">
         {users.slice(0, 3).map((user) => (
-          <Avatar key={user.id} className="ring-2 ring-background">
+          <Avatar key={user.id} className="ring-background ring-2">
             <Avatar.Image alt={user.name} src={user.image} />
             <Avatar.Fallback>
               {user.name
@@ -59,7 +59,7 @@ export function Group() {
             </Avatar.Fallback>
           </Avatar>
         ))}
-        <Avatar className="ring-2 ring-background">
+        <Avatar className="ring-background ring-2">
           <Avatar.Fallback className="text-xs">+{users.length - 3}</Avatar.Fallback>
         </Avatar>
       </div>

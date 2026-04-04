@@ -1,9 +1,9 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Description, ErrorMessage, Label, Tag, TagGroup} from "@heroui/react";
-import {useMemo, useState} from "react";
+import { Description, ErrorMessage, Label, Tag, TagGroup } from "@heroui/react";
+import { useMemo, useState } from "react";
 
 export function ErrorMessageWithTagGroup() {
   const [selected, setSelected] = useState<Iterable<Key>>(new Set());

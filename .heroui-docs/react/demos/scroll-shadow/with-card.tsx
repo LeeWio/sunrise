@@ -1,4 +1,4 @@
-import {Button, Card, ScrollShadow} from "@heroui/react";
+import { Button, Card, ScrollShadow } from "@heroui/react";
 
 export default function WithCard() {
   return (
@@ -10,7 +10,7 @@ export default function WithCard() {
       <Card.Content className="p-0">
         <ScrollShadow className="h-[300px] px-4" size={80}>
           <div className="space-y-4">
-            {Array.from({length: 10}).map((_, idx) => (
+            {Array.from({ length: 10 }).map((_, idx) => (
               <p key={`scroll-shadow-lorem-content-${idx}`}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
                 risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor

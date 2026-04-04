@@ -1,7 +1,7 @@
 "use client";
 
-import {Star} from "@gravity-ui/icons";
-import {Button, toast} from "@heroui/react";
+import { Star } from "@gravity-ui/icons";
+import { Button, toast } from "@heroui/react";
 
 export function CustomIndicator() {
   return (

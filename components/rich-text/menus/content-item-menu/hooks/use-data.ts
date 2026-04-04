@@ -16,7 +16,7 @@ export const useData = () => {
       }
       setCurrentNodePos(data.pos);
     },
-    []
+    [],
   );
 
   return {

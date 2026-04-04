@@ -5,12 +5,7 @@ import { useTiptap, useTiptapState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Separator, Link as HeroLink, Input } from "@heroui/react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  LinkSlash, 
-  Check, 
-  Xmark, 
-  ArrowUpRightFromSquare 
-} from "@gravity-ui/icons";
+import { LinkSlash, Check, Xmark, ArrowUpRightFromSquare } from "@gravity-ui/icons";
 import { MenuContainer } from "../menu-container";
 import { ToolbarButton } from "../components";
 
@@ -63,8 +58,8 @@ export function LinkMenu({ appendTo }: LinkMenuProps) {
   }, []);
 
   const container = useMemo(() => {
-    if (typeof appendTo === 'function') return appendTo();
-    if (appendTo && 'current' in appendTo) return appendTo.current || undefined;
+    if (typeof appendTo === "function") return appendTo();
+    if (appendTo && "current" in appendTo) return appendTo.current || undefined;
     return appendTo || undefined;
   }, [appendTo]);
 
@@ -92,7 +87,7 @@ export function LinkMenu({ appendTo }: LinkMenuProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 5 }}
           transition={springConfig}
-          className="overflow-hidden flex items-center"
+          className="flex items-center overflow-hidden"
         >
           <AnimatePresence mode="wait" initial={false}>
             {mode === "preview" ? (
@@ -104,15 +99,15 @@ export function LinkMenu({ appendTo }: LinkMenuProps) {
                 transition={{ duration: 0.12, ease: "easeOut" }}
                 className="flex items-center gap-0.5"
               >
-                <HeroLink 
+                <HeroLink
                   onPress={handleEdit}
-                  className="px-2 max-w-[200px] truncate cursor-pointer font-medium hover:text-primary transition-colors"
+                  className="hover:text-primary max-w-[200px] cursor-pointer truncate px-2 font-medium transition-colors"
                 >
                   {linkAttributes.href}
                 </HeroLink>
-                
-                <Separator orientation="vertical" className="h-4 mx-1" />
-                
+
+                <Separator orientation="vertical" className="mx-1 h-4" />
+
                 <div className="flex items-center gap-0.5 pr-0.5">
                   <ToolbarButton
                     as={HeroLink}
@@ -145,7 +140,7 @@ export function LinkMenu({ appendTo }: LinkMenuProps) {
                   placeholder="Enter link URL..."
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  className="w-[220px] h-8 min-h-0 py-0"
+                  className="h-8 min-h-0 w-[220px] py-0"
                   autoFocus
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSave();

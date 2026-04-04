@@ -3,8 +3,8 @@ title: Introducing HeroUI v3
 description: A ground-up rewrite for React and React Native. 75+ web components, 37 native components, Tailwind CSS v4, React Aria, compound architecture, and built for AI-assisted development.
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">March 2026</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">March 2026</span>
 </div>
 
 <VideoPlayer
@@ -80,9 +80,7 @@ Here's what the compound pattern looks like in practice:
 
 More lines of code. But every piece is a real element you can style, move, or replace. The pattern runs through the entire library, from Accordion to Toast.
 
-<ComponentPreview
-  name="accordion-basic"
-/>
+<ComponentPreview name="accordion-basic" />
 
 Each compound component shares state through React context. The root component creates a style context, and every child consumes it. You never pass classNames down manually:
 
@@ -96,9 +94,7 @@ Each compound component shares state through React context. The root component c
 </Alert>
 ```
 
-<ComponentPreview
-  name="alert-basic"
-/>
+<ComponentPreview name="alert-basic" />
 
 ### Progressive Disclosure
 
@@ -121,9 +117,7 @@ Components support both simple and compound usage. Start with the one-liner. Add
 </Button>
 ```
 
-<ComponentPreview
-  name="button-variants"
-/>
+<ComponentPreview name="button-variants" />
 
 ## Tailwind CSS v4 + CSS Variables
 
@@ -143,7 +137,8 @@ Theming runs on Tailwind CSS v4's native CSS variable layer with OKLCH colors. E
 Tailwind's `@theme` directive maps these tokens to utility classes. `bg-accent`, `text-foreground`, `rounded-lg` all resolve to CSS variables. Light and dark mode switch by swapping the values:
 
 ```css
-.dark, [data-theme="dark"] {
+.dark,
+[data-theme="dark"] {
   --background: oklch(12% 0.005 285.823);
   --foreground: oklch(0.9911 0 0);
   --surface: oklch(0.2103 0.0059 285.89);
@@ -182,10 +177,10 @@ Create a theme by defining your own token set. Everything cascades from there:
 ```css
 @layer base {
   [data-theme="ocean"] {
-    --accent: oklch(0.450 0.150 230);
+    --accent: oklch(0.45 0.15 230);
     --background: oklch(0.985 0.015 225);
     --radius: 0.75rem;
-    --border: oklch(0.50 0.060 230 / 22%);
+    --border: oklch(0.5 0.06 230 / 22%);
   }
 }
 ```
@@ -193,7 +188,7 @@ Create a theme by defining your own token set. Everything cascades from there:
 Apply it with a single data attribute:
 
 ```html
-<html data-theme="ocean">
+<html data-theme="ocean"></html>
 ```
 
 The [Theme Builder](/themes) generates these variables visually. Pick colors, adjust radius and spacing, export the CSS.
@@ -259,7 +254,7 @@ const MotionButton = motion(Button);
 
 <MotionButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
   Animated
-</MotionButton>
+</MotionButton>;
 ```
 
 ## 75+ Components for React
@@ -268,81 +263,57 @@ const MotionButton = motion(Button);
 
 Six components: Calendar, RangeCalendar, DateField, DatePicker, DateRangePicker, and TimeField. Built on React Aria's internationalized date library with Gregorian, Buddhist, Persian, and other calendar systems by default. Keyboard navigation, screen reader labels, and locale-aware formatting come free.
 
-<ComponentPreview
-  name="date-picker-basic"
-/>
+<ComponentPreview name="date-picker-basic" />
 
-<ComponentPreview
-  name="range-calendar-basic"
-/>
+<ComponentPreview name="range-calendar-basic" />
 
 ### Color
 
 Six color components: ColorPicker, ColorArea, ColorSlider, ColorField, ColorSwatch, and ColorSwatchPicker. Pick from a 2D area, adjust hue and alpha sliders, enter hex values, or select from a swatch palette.
 
-<ComponentPreview
-  name="color-picker-basic"
-/>
+<ComponentPreview name="color-picker-basic" />
 
 ### Data
 
 Need a table with sorting, row selection, column resizing, async loading, and custom cells? Table does all of that. Large datasets get virtualization via React Aria's `Virtualizer`. ListBox shares the same virtualization support.
 
-<ComponentPreview
-  name="table-virtualization"
-/>
+<ComponentPreview name="table-virtualization" />
 
 ### Forms
 
 Thirteen form components: TextField, Select, Autocomplete, ComboBox, Checkbox, CheckboxGroup, RadioGroup, Switch, InputOTP, NumberField, SearchField, Slider, and Fieldset. All integrate with React Aria's form validation. `isRequired`, `isInvalid`, and custom error messages through FieldError work across every one.
 
-<ComponentPreview
-  name="select-default"
-/>
+<ComponentPreview name="select-default" />
 
-<ComponentPreview
-  name="input-otp-basic"
-/>
+<ComponentPreview name="input-otp-basic" />
 
 ### Overlays
 
 Seven overlay components. Drawer supports four placements with drag-to-dismiss gestures. Toast stacks notifications with auto-dismiss and promise support. Menu composes with submenus and sections. Plus Modal, AlertDialog, Popover, and Tooltip.
 
-<ComponentPreview
-  name="drawer-basic"
-/>
+<ComponentPreview name="drawer-basic" />
 
-<ComponentPreview
-  name="toast-default"
-/>
+<ComponentPreview name="toast-default" />
 
 ### Navigation
 
 Tabs, Accordion, Breadcrumbs, Pagination, and Link. Tabs support horizontal and vertical orientation. Accordion supports single or multiple expanded panels.
 
-<ComponentPreview
-  name="tabs-basic"
-/>
+<ComponentPreview name="tabs-basic" />
 
 ### Feedback
 
 ProgressBar and ProgressCircle handle determinate + indeterminate states. Meter maps values to semantic colors: green for safe, yellow for cautious, red for critical. Skeleton and Spinner round out the set.
 
-<ComponentPreview
-  name="meter-colors"
-/>
+<ComponentPreview name="meter-colors" />
 
-<ComponentPreview
-  name="skeleton-basic"
-/>
+<ComponentPreview name="skeleton-basic" />
 
 ### Buttons & Toggles
 
 Button, ButtonGroup, ToggleButton, ToggleButtonGroup, CloseButton, and Toolbar. ButtonGroup connects buttons with shared borders and supports vertical orientation. Toolbar groups buttons, toggles, and separators into an accessible `role="toolbar"` container.
 
-<ComponentPreview
-  name="toggle-button-group-attached"
-/>
+<ComponentPreview name="toggle-button-group-attached" />
 
 ### Granular Imports
 
@@ -402,7 +373,7 @@ HeroUI Native is a brand-new library shipping alongside v3 for the web. Differen
 
 Scan the QR code with your device's camera or [Expo Go](https://expo.dev/go) to explore all 37 components live:
 
-<div className="flex justify-center my-6">
+<div className="my-6 flex justify-center">
   <img
     width="200"
     src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/qr-code-native.png"
@@ -415,7 +386,8 @@ Scan the QR code with your device's camera or [Expo Go](https://expo.dev/go) to 
 </div>
 
 <Callout type="info">
-  **Android users:** If scanning the QR code redirects to a browser and shows a 404 error, open Expo Go first and use its built-in QR scanner instead.
+  **Android users:** If scanning the QR code redirects to a browser and shows a 404 error, open Expo
+  Go first and use its built-in QR scanner instead.
 </Callout>
 
 ### 37 Components
@@ -437,7 +409,7 @@ import { Dialog, Button } from "heroui-native";
       <Dialog.Description>This cannot be undone.</Dialog.Description>
     </Dialog.Content>
   </Dialog.Portal>
-</Dialog>
+</Dialog>;
 ```
 
 ### Familiar Across Platforms
@@ -473,10 +445,10 @@ Both platforms read from the same token set. Colors like `accent`, `surface`, `d
 ```tsx
 import { View, Text } from "react-native";
 
-<View className="bg-surface p-4 rounded-lg">
+<View className="bg-surface rounded-lg p-4">
   <Text className="text-foreground text-lg font-semibold">Card Title</Text>
   <Text className="text-muted text-sm">Consistent on web and mobile.</Text>
-</View>
+</View>;
 ```
 
 Tailwind CSS v4 on both platforms. [Uniwind](https://uniwind.dev/) on native, standard Tailwind on web.
@@ -500,7 +472,7 @@ import { Switch } from "heroui-native";
   }}
 >
   <Switch.Thumb />
-</Switch>
+</Switch>;
 ```
 
 Disable animations at any level. Per-component, per-tree, or globally:
@@ -594,26 +566,10 @@ Pre-sale pricing is live. v2 Pro customers get an upgrade discount. Use the same
 ### React (Web)
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles @heroui/react
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles @heroui/react ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles @heroui/react ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles @heroui/react ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles @heroui/react ```</Tab>
 </Tabs>
 
 Add two lines to your CSS:
@@ -626,26 +582,10 @@ Add two lines to your CSS:
 ### React Native
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm install heroui-native
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add heroui-native
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add heroui-native
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add heroui-native
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm install heroui-native ```</Tab>
+  <Tab value="pnpm">```bash pnpm add heroui-native ```</Tab>
+  <Tab value="yarn">```bash yarn add heroui-native ```</Tab>
+  <Tab value="bun">```bash bun add heroui-native ```</Tab>
 </Tabs>
 
 See the [React docs](/docs/react/getting-started/quick-start) and [React Native docs](/docs/native/getting-started/quick-start) for full setup guides (peer dependencies, Uniwind config, and provider setup).

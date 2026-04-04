@@ -11,7 +11,7 @@ links:
 ## Import
 
 ```tsx
-import { TimeField } from '@heroui/react';
+import { TimeField } from "@heroui/react";
 ```
 
 ### Usage
@@ -21,20 +21,18 @@ import { TimeField } from '@heroui/react';
 ### Anatomy
 
 ```tsx
-import {TimeField, Label, Description, FieldError} from '@heroui/react';
+import { TimeField, Label, Description, FieldError } from "@heroui/react";
 
 export default () => (
   <TimeField>
     <Label />
     <TimeField.Group>
-      <TimeField.Input>
-        {(segment) => <TimeField.Segment segment={segment} />}
-      </TimeField.Input>
+      <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
     </TimeField.Group>
     <Description />
     <FieldError />
   </TimeField>
-)
+);
 ```
 
 > **TimeField** combines label, time input, description, and error into a single accessible component.
@@ -99,29 +97,23 @@ Complete form example with validation and submission handling.
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="time-field-custom-render-function"
-/>
+<ComponentPreview name="time-field-custom-render-function" />
 
 ## Styling
 
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {TimeField, Label, Description} from '@heroui/react';
+import { TimeField, Label, Description } from "@heroui/react";
 
 function CustomTimeField() {
   return (
-    <TimeField className="gap-2 rounded-xl border border-border/60 bg-surface p-4 shadow-sm">
-      <Label className="text-sm font-semibold text-default-700">
-        Appointment time
-      </Label>
-      <TimeField.Group className="rounded-lg border border-border/60 bg-surface px-3 py-2">
-        <TimeField.Input>
-          {(segment) => <TimeField.Segment segment={segment} />}
-        </TimeField.Input>
+    <TimeField className="border-border/60 bg-surface gap-2 rounded-xl border p-4 shadow-sm">
+      <Label className="text-default-700 text-sm font-semibold">Appointment time</Label>
+      <TimeField.Group className="border-border/60 bg-surface rounded-lg border px-3 py-2">
+        <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
       </TimeField.Group>
-      <Description className="text-xs text-default-500">
+      <Description className="text-default-500 text-xs">
         Select a time for your appointment.
       </Description>
     </TimeField>
@@ -179,66 +171,66 @@ TimeField inherits all props from React Aria's [TimeField](https://react-aria.ad
 
 #### Base Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode \| (values: TimeFieldRenderProps) => React.ReactNode` | - | Child components (Label, TimeField.Group, etc.) or render function. |
-| `className` | `string \| (values: TimeFieldRenderProps) => string` | - | CSS classes for styling, supports render props. |
-| `style` | `React.CSSProperties \| (values: TimeFieldRenderProps) => React.CSSProperties` | - | Inline styles, supports render props. |
-| `fullWidth` | `boolean` | `false` | Whether the time field should take full width of its container |
-| `id` | `string` | - | The element's unique identifier. |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, TimeFieldRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop        | Type                                                                           | Default | Description                                                         |
+| ----------- | ------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------- |
+| `children`  | `React.ReactNode \| (values: TimeFieldRenderProps) => React.ReactNode`         | -       | Child components (Label, TimeField.Group, etc.) or render function. |
+| `className` | `string \| (values: TimeFieldRenderProps) => string`                           | -       | CSS classes for styling, supports render props.                     |
+| `style`     | `React.CSSProperties \| (values: TimeFieldRenderProps) => React.CSSProperties` | -       | Inline styles, supports render props.                               |
+| `fullWidth` | `boolean`                                                                      | `false` | Whether the time field should take full width of its container      |
+| `id`        | `string`                                                                       | -       | The element's unique identifier.                                    |
+| `render`    | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, TimeFieldRenderProps>`   | -       | Overrides the default DOM element with a custom render function.    |
 
 #### Value Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `TimeValue \| null` | - | Current value (controlled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `defaultValue` | `TimeValue \| null` | - | Default value (uncontrolled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `onChange` | `(value: TimeValue \| null) => void` | - | Handler called when the value changes. |
-| `placeholderValue` | `TimeValue \| null` | - | Placeholder time that influences the format of the placeholder. Defaults to 12:00 AM or 00:00 depending on the hour cycle. |
+| Prop               | Type                                 | Default | Description                                                                                                                 |
+| ------------------ | ------------------------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `value`            | `TimeValue \| null`                  | -       | Current value (controlled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types.   |
+| `defaultValue`     | `TimeValue \| null`                  | -       | Default value (uncontrolled). Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `onChange`         | `(value: TimeValue \| null) => void` | -       | Handler called when the value changes.                                                                                      |
+| `placeholderValue` | `TimeValue \| null`                  | -       | Placeholder time that influences the format of the placeholder. Defaults to 12:00 AM or 00:00 depending on the hour cycle.  |
 
 #### Validation Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isRequired` | `boolean` | `false` | Whether user input is required before form submission. |
-| `isInvalid` | `boolean` | - | Whether the value is invalid. |
-| `minValue` | `TimeValue \| null` | - | The minimum allowed time that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `maxValue` | `TimeValue \| null` | - | The maximum allowed time that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
-| `validate` | `(value: TimeValue) => ValidationError \| true \| null \| undefined` | - | Custom validation function. |
-| `validationBehavior` | `'native' \| 'aria'` | `'native'` | Whether to use native HTML form validation or ARIA attributes. |
+| Prop                 | Type                                                                 | Default    | Description                                                                                                                                    |
+| -------------------- | -------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isRequired`         | `boolean`                                                            | `false`    | Whether user input is required before form submission.                                                                                         |
+| `isInvalid`          | `boolean`                                                            | -          | Whether the value is invalid.                                                                                                                  |
+| `minValue`           | `TimeValue \| null`                                                  | -          | The minimum allowed time that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `maxValue`           | `TimeValue \| null`                                                  | -          | The maximum allowed time that a user may select. Uses [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) types. |
+| `validate`           | `(value: TimeValue) => ValidationError \| true \| null \| undefined` | -          | Custom validation function.                                                                                                                    |
+| `validationBehavior` | `'native' \| 'aria'`                                                 | `'native'` | Whether to use native HTML form validation or ARIA attributes.                                                                                 |
 
 #### Format Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `granularity` | `'hour' \| 'minute' \| 'second'` | `'minute'` | Determines the smallest unit displayed in the time picker. |
-| `hourCycle` | `12 \| 24` | - | Whether to display time in 12 or 24 hour format. By default, determined by locale. |
-| `hideTimeZone` | `boolean` | `false` | Whether to hide the time zone abbreviation. |
-| `shouldForceLeadingZeros` | `boolean` | - | Whether to always show leading zeros in the hour field. By default, determined by locale. |
+| Prop                      | Type                             | Default    | Description                                                                               |
+| ------------------------- | -------------------------------- | ---------- | ----------------------------------------------------------------------------------------- |
+| `granularity`             | `'hour' \| 'minute' \| 'second'` | `'minute'` | Determines the smallest unit displayed in the time picker.                                |
+| `hourCycle`               | `12 \| 24`                       | -          | Whether to display time in 12 or 24 hour format. By default, determined by locale.        |
+| `hideTimeZone`            | `boolean`                        | `false`    | Whether to hide the time zone abbreviation.                                               |
+| `shouldForceLeadingZeros` | `boolean`                        | -          | Whether to always show leading zeros in the hour field. By default, determined by locale. |
 
 #### State Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isDisabled` | `boolean` | - | Whether the input is disabled. |
-| `isReadOnly` | `boolean` | - | Whether the input can be selected but not changed. |
+| Prop         | Type      | Default | Description                                        |
+| ------------ | --------- | ------- | -------------------------------------------------- |
+| `isDisabled` | `boolean` | -       | Whether the input is disabled.                     |
+| `isReadOnly` | `boolean` | -       | Whether the input can be selected but not changed. |
 
 #### Form Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | - | Name of the input element, for HTML form submission. Submits as ISO 8601 string. |
-| `autoFocus` | `boolean` | - | Whether the element should receive focus on render. |
+| Prop        | Type      | Default | Description                                                                      |
+| ----------- | --------- | ------- | -------------------------------------------------------------------------------- |
+| `name`      | `string`  | -       | Name of the input element, for HTML form submission. Submits as ISO 8601 string. |
+| `autoFocus` | `boolean` | -       | Whether the element should receive focus on render.                              |
 
 #### Accessibility Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `aria-label` | `string` | - | Accessibility label when no visible label is present. |
-| `aria-labelledby` | `string` | - | ID of elements that label this field. |
-| `aria-describedby` | `string` | - | ID of elements that describe this field. |
-| `aria-details` | `string` | - | ID of elements with additional details. |
+| Prop               | Type     | Default | Description                                           |
+| ------------------ | -------- | ------- | ----------------------------------------------------- |
+| `aria-label`       | `string` | -       | Accessibility label when no visible label is present. |
+| `aria-labelledby`  | `string` | -       | ID of elements that label this field.                 |
+| `aria-describedby` | `string` | -       | ID of elements that describe this field.              |
+| `aria-details`     | `string` | -       | ID of elements with additional details.               |
 
 ### Composition Components
 
@@ -255,26 +247,24 @@ TimeField works with these separate components that should be imported and used 
 Each of these components has its own props API. Use them directly within TimeField for composition:
 
 ```tsx
-import {parseTime} from '@internationalized/date';
-import {TimeField, Label, Description, FieldError} from '@heroui/react';
+import { parseTime } from "@internationalized/date";
+import { TimeField, Label, Description, FieldError } from "@heroui/react";
 
 <TimeField
   isRequired
   isInvalid={hasError}
-  minValue={parseTime('09:00')}
-  maxValue={parseTime('17:00')}
+  minValue={parseTime("09:00")}
+  maxValue={parseTime("17:00")}
   value={time}
   onChange={setTime}
 >
   <Label>Appointment Time</Label>
   <TimeField.Group>
-    <TimeField.Input>
-      {(segment) => <TimeField.Segment segment={segment} />}
-    </TimeField.Input>
+    <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
   </TimeField.Group>
   <Description>Select a time between 9:00 AM and 5:00 PM.</Description>
   <FieldError>Please select a valid time.</FieldError>
-</TimeField>
+</TimeField>;
 ```
 
 ### TimeValue Types
@@ -288,10 +278,10 @@ TimeField uses types from [`@internationalized/date`](https://react-aria.adobe.c
 Example:
 
 ```tsx
-import {parseTime, Time, getLocalTimeZone, now} from '@internationalized/date';
+import { parseTime, Time, getLocalTimeZone, now } from "@internationalized/date";
 
 // Parse from string
-const time = parseTime('14:30');
+const time = parseTime("14:30");
 
 // Create from current time
 const currentTime = now(getLocalTimeZone());
@@ -300,7 +290,7 @@ const timeValue = new Time(currentTime.hour, currentTime.minute, currentTime.sec
 // Use in TimeField
 <TimeField value={time} onChange={setTime}>
   {/* ... */}
-</TimeField>
+</TimeField>;
 ```
 
 > **Note:** TimeField uses the [`@internationalized/date`](https://react-aria.adobe.com/internationalized/date/) package for time manipulation, parsing, and type definitions. See the [Internationalized Date documentation](https://react-aria.adobe.com/internationalized/date/) for more information about available types and functions.
@@ -309,33 +299,33 @@ const timeValue = new Time(currentTime.hour, currentTime.minute, currentTime.sec
 
 When using render props with `className`, `style`, or `children`, these values are available:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `isDisabled` | `boolean` | Whether the field is disabled. |
-| `isInvalid` | `boolean` | Whether the field is currently invalid. |
-| `isReadOnly` | `boolean` | Whether the field is read-only. |
-| `isRequired` | `boolean` | Whether the field is required. |
-| `isFocused` | `boolean` | Whether the field is currently focused. |
-| `isFocusWithin` | `boolean` | Whether any child element is focused. |
+| Prop             | Type      | Description                                     |
+| ---------------- | --------- | ----------------------------------------------- |
+| `isDisabled`     | `boolean` | Whether the field is disabled.                  |
+| `isInvalid`      | `boolean` | Whether the field is currently invalid.         |
+| `isReadOnly`     | `boolean` | Whether the field is read-only.                 |
+| `isRequired`     | `boolean` | Whether the field is required.                  |
+| `isFocused`      | `boolean` | Whether the field is currently focused.         |
+| `isFocusWithin`  | `boolean` | Whether any child element is focused.           |
 | `isFocusVisible` | `boolean` | Whether focus is visible (keyboard navigation). |
 
 ### TimeField.Group Props
 
 TimeField.Group accepts all props from React Aria's `Group` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop        | Type                       | Default     | Description                                                                                                                                                        |
+| ----------- | -------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `className` | `string`                   | -           | Tailwind classes merged with the component styles.                                                                                                                 |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 ### TimeField.Input Props
 
 TimeField.Input accepts all props from React Aria's `DateInput` component plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the input. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop        | Type                       | Default     | Description                                                                                                                                                    |
+| ----------- | -------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `className` | `string`                   | -           | Tailwind classes merged with the component styles.                                                                                                             |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` | Visual variant of the input. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 The `TimeField.Input` component accepts a render prop function that receives date segments. Each segment represents a part of the time (hour, minute, second, etc.).
 
@@ -343,28 +333,28 @@ The `TimeField.Input` component accepts a render prop function that receives dat
 
 TimeField.Segment accepts all props from React Aria's `DateSegment` component:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `segment` | `DateSegment` | - | The date segment object from the TimeField.Input render prop. |
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
+| Prop        | Type          | Default | Description                                                   |
+| ----------- | ------------- | ------- | ------------------------------------------------------------- |
+| `segment`   | `DateSegment` | -       | The date segment object from the TimeField.Input render prop. |
+| `className` | `string`      | -       | Tailwind classes merged with the component styles.            |
 
 ### TimeField.Prefix Props
 
 TimeField.Prefix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the prefix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the prefix slot.             |
 
 ### TimeField.Suffix Props
 
 TimeField.Suffix accepts standard HTML `div` attributes:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the component styles. |
-| `children` | `ReactNode` | - | Content to display in the suffix slot. |
+| Prop        | Type        | Default | Description                                        |
+| ----------- | ----------- | ------- | -------------------------------------------------- |
+| `className` | `string`    | -       | Tailwind classes merged with the component styles. |
+| `children`  | `ReactNode` | -       | Content to display in the suffix slot.             |
 
 ## TimeField.Group Styling
 
@@ -375,7 +365,7 @@ The base classes power every instance. Override them once with `@layer component
 ```css
 @layer components {
   .date-input-group {
-    @apply inline-flex h-9 items-center overflow-hidden rounded-field border bg-field text-sm text-field-foreground shadow-field outline-none;
+    @apply rounded-field bg-field text-field-foreground shadow-field inline-flex h-9 items-center overflow-hidden border text-sm outline-none;
 
     &:hover,
     &[data-hovered="true"] {
@@ -412,7 +402,7 @@ The base classes power every instance. Override them once with `@layer component
 
   .date-input-group__prefix,
   .date-input-group__suffix {
-    @apply pointer-events-none shrink-0 text-field-placeholder flex items-center;
+    @apply text-field-placeholder pointer-events-none flex shrink-0 items-center;
   }
 }
 ```

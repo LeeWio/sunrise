@@ -19,21 +19,19 @@ import {
   ColorSwatch,
   ColorField,
   ColorSwatchPicker,
-} from '@heroui/react';
+} from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="color-picker-basic"
-/>
+<ComponentPreview name="color-picker-basic" />
 
 ### Anatomy
 
 The ColorPicker is a composable component that combines multiple color components:
 
 ```tsx
-import { ColorPicker, ColorArea, ColorSlider, ColorSwatch, Label } from '@heroui/react';
+import { ColorPicker, ColorArea, ColorSlider, ColorSwatch, Label } from "@heroui/react";
 
 export default () => (
   <ColorPicker defaultValue="#0485F7">
@@ -57,31 +55,23 @@ export default () => (
 
 ### Controlled
 
-<ComponentPreview
-  name="color-picker-controlled"
-/>
+<ComponentPreview name="color-picker-controlled" />
 
 ### With Swatches
 
-<ComponentPreview
-  name="color-picker-with-swatches"
-/>
+<ComponentPreview name="color-picker-with-swatches" />
 
 ### With Fields
 
 Use `ColorField` to allow users to edit individual color channel values with a `Select` to switch between color spaces.
 
-<ComponentPreview
-  name="color-picker-with-fields"
-/>
+<ComponentPreview name="color-picker-with-fields" />
 
 ### With Sliders
 
 Use multiple `ColorSlider` components to adjust each channel of a color value.
 
-<ComponentPreview
-  name="color-picker-with-sliders"
-/>
+<ComponentPreview name="color-picker-with-sliders" />
 
 <RelatedComponents component="color-picker" />
 
@@ -90,7 +80,7 @@ Use multiple `ColorSlider` components to adjust each channel of a color value.
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { ColorPicker, ColorArea, ColorSlider, ColorSwatch, Label } from '@heroui/react';
+import { ColorPicker, ColorArea, ColorSlider, ColorSwatch, Label } from "@heroui/react";
 
 function CustomColorPicker() {
   return (
@@ -99,7 +89,7 @@ function CustomColorPicker() {
         <ColorSwatch className="rounded-lg" />
         <Label>Pick a color</Label>
       </ColorPicker.Trigger>
-      <ColorPicker.Popover className="p-4 rounded-xl">
+      <ColorPicker.Popover className="rounded-xl p-4">
         <ColorArea colorSpace="hsb" xChannel="saturation" yChannel="brightness">
           <ColorArea.Thumb />
         </ColorArea>
@@ -112,7 +102,9 @@ function CustomColorPicker() {
 ### Customizing the component classes
 
 To customize the ColorPicker component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -125,7 +117,7 @@ To customize the ColorPicker component classes, you can use the `@layer componen
   }
 
   .color-picker__popover {
-    @apply p-4 rounded-xl;
+    @apply rounded-xl p-4;
   }
 }
 ```
@@ -137,6 +129,7 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The ColorPicker component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/color-picker.css)):
 
 #### Base Classes
+
 - `.color-picker` - Base container
 - `.color-picker__trigger` - Trigger button
 - `.color-picker__popover` - Popover container
@@ -154,28 +147,28 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 Inherits from [React Aria ColorPicker](https://react-spectrum.adobe.com/react-aria/ColorPicker.html).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string \| Color` | - | The current color value (controlled) |
-| `defaultValue` | `string \| Color` | - | The default color value (uncontrolled) |
-| `onChange` | `(color: Color) => void` | - | Handler called when the color changes |
-| `children` | `React.ReactNode` | - | Content of the color picker (Trigger, Popover, etc.) |
-| `className` | `string` | - | Additional CSS classes |
+| Prop           | Type                     | Default | Description                                          |
+| -------------- | ------------------------ | ------- | ---------------------------------------------------- |
+| `value`        | `string \| Color`        | -       | The current color value (controlled)                 |
+| `defaultValue` | `string \| Color`        | -       | The default color value (uncontrolled)               |
+| `onChange`     | `(color: Color) => void` | -       | Handler called when the color changes                |
+| `children`     | `React.ReactNode`        | -       | Content of the color picker (Trigger, Popover, etc.) |
+| `className`    | `string`                 | -       | Additional CSS classes                               |
 
 ### ColorPicker.Trigger Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode \| ((renderProps) => React.ReactNode)` | - | Trigger content or render prop |
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type                                                    | Default | Description                    |
+| ----------- | ------------------------------------------------------- | ------- | ------------------------------ |
+| `children`  | `React.ReactNode \| ((renderProps) => React.ReactNode)` | -       | Trigger content or render prop |
+| `className` | `string`                                                | -       | Additional CSS classes         |
 
 ### ColorPicker.Popover Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `placement` | `Placement` | `"bottom left"` | Placement of the popover |
-| `children` | `React.ReactNode` | - | Popover content |
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type              | Default         | Description              |
+| ----------- | ----------------- | --------------- | ------------------------ |
+| `placement` | `Placement`       | `"bottom left"` | Placement of the popover |
+| `children`  | `React.ReactNode` | -               | Popover content          |
+| `className` | `string`          | -               | Additional CSS classes   |
 
 ### Related Types
 
@@ -183,19 +176,19 @@ Inherits from [React Aria ColorPicker](https://react-spectrum.adobe.com/react-ar
 
 Represents a color value. See [React Aria Color](https://react-spectrum.adobe.com/react-aria/ColorPicker.html#color) for full API.
 
-| Method | Description |
-|--------|-------------|
-| `toString(format)` | Converts the color to a string in the given format (hex, rgb, hsl, hsb, css) |
-| `toFormat(format)` | Converts the color to the given format and returns a new Color object |
-| `getChannelValue(channel)` | Returns the numeric value for a given channel |
-| `withChannelValue(channel, value)` | Sets the numeric value for a channel and returns a new Color |
+| Method                             | Description                                                                  |
+| ---------------------------------- | ---------------------------------------------------------------------------- |
+| `toString(format)`                 | Converts the color to a string in the given format (hex, rgb, hsl, hsb, css) |
+| `toFormat(format)`                 | Converts the color to the given format and returns a new Color object        |
+| `getChannelValue(channel)`         | Returns the numeric value for a given channel                                |
+| `withChannelValue(channel, value)` | Sets the numeric value for a channel and returns a new Color                 |
 
 #### parseColor
 
 ```tsx
-import { parseColor } from 'react-aria-components';
+import { parseColor } from "react-aria-components";
 
 // Parse from string
-const color = parseColor('#ff0000');
-const hslColor = parseColor('hsl(0, 100%, 50%)');
+const color = parseColor("#ff0000");
+const hslColor = parseColor("hsl(0, 100%, 50%)");
 ```

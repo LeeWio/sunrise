@@ -1,10 +1,10 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Description, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {useState} from "react";
+import { Description, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useState } from "react";
 
 type DateRange = {
   start: DateValue;
@@ -14,8 +14,8 @@ type DateRange = {
 export function Invalid() {
   const now = today(getLocalTimeZone());
   const [value, setValue] = useState<DateRange>({
-    end: now.add({days: 14}),
-    start: now.add({days: 6}),
+    end: now.add({ days: 14 }),
+    start: now.add({ days: 6 }),
   });
   const isInvalid = value.end.compare(value.start) > 7;
 
@@ -43,7 +43,7 @@ export function Invalid() {
         </RangeCalendar.Grid>
       </RangeCalendar>
       {isInvalid ? (
-        <p className="text-sm text-danger">Maximum stay duration is 1 week</p>
+        <p className="text-danger text-sm">Maximum stay duration is 1 week</p>
       ) : (
         <Description className="text-center">Select a stay of up to 7 days</Description>
       )}

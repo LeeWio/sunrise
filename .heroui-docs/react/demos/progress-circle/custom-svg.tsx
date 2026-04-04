@@ -1,4 +1,4 @@
-import {ProgressCircle} from "@heroui/react";
+import { ProgressCircle } from "@heroui/react";
 
 export function CustomSvg() {
   return (

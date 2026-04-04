@@ -1,6 +1,6 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
+import { Calendar } from "@heroui/react";
 
 export function CustomStyles() {
   return (
@@ -21,7 +21,7 @@ export function CustomStyles() {
       </Calendar.Grid>
       <Calendar.YearPickerGrid>
         <Calendar.YearPickerGridBody>
-          {({year}) => <Calendar.YearPickerCell year={year} />}
+          {({ year }) => <Calendar.YearPickerCell year={year} />}
         </Calendar.YearPickerGridBody>
       </Calendar.YearPickerGrid>
     </Calendar>

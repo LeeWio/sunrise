@@ -1,4 +1,4 @@
-import {Button, Dropdown, Label} from "@heroui/react";
+import { Button, Dropdown, Label } from "@heroui/react";
 
 export function LongPressTrigger() {
   return (

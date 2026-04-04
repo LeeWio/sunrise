@@ -1,6 +1,6 @@
 "use client";
 
-import {ChevronDown, ChevronUp, QrCode} from "@gravity-ui/icons";
+import { ChevronDown, ChevronUp, QrCode } from "@gravity-ui/icons";
 import {
   Button,
   Disclosure,
@@ -8,15 +8,15 @@ import {
   Separator,
   useDisclosureGroupNavigation,
 } from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 import React from "react";
-import {cn} from "tailwind-variants";
+import { cn } from "tailwind-variants";
 
 export function Controlled() {
   const [expandedKeys, setExpandedKeys] = React.useState(new Set<string | number>(["preview"]));
   const itemIds = ["preview", "download"]; // Track our disclosure items
 
-  const {isNextDisabled, isPrevDisabled, onNext, onPrevious} = useDisclosureGroupNavigation({
+  const { isNextDisabled, isPrevDisabled, onNext, onPrevious } = useDisclosureGroupNavigation({
     expandedKeys,
     itemIds,
     onExpandedChange: setExpandedKeys,
@@ -67,7 +67,7 @@ export function Controlled() {
             </Disclosure.Heading>
             <Disclosure.Content>
               <Disclosure.Body className="mx-2 flex flex-col items-center gap-2 p-4 text-center">
-                <p className="text-sm text-muted">
+                <p className="text-muted text-sm">
                   Scan this QR code with your camera app to preview the HeroUI native components.
                 </p>
                 <img
@@ -75,7 +75,7 @@ export function Controlled() {
                   className="aspect-square w-full max-w-54 object-cover"
                   src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/qr-code-native.png"
                 />
-                <p className="text-sm text-muted">Expo must be installed on your device.</p>
+                <p className="text-muted text-sm">Expo must be installed on your device.</p>
                 <Button className="mt-4" variant="primary">
                   <Icon className="[&_path]:fill-accent-foreground" icon="logos:expo-icon" />
                   Preview on Expo Go
@@ -102,7 +102,7 @@ export function Controlled() {
             </Disclosure.Heading>
             <Disclosure.Content>
               <Disclosure.Body className="mx-2 flex flex-col items-center gap-2 p-4 text-center">
-                <p className="text-sm text-muted">
+                <p className="text-muted text-sm">
                   Scan this QR code with your camera app to preview the HeroUI native components.
                 </p>
                 <img
@@ -110,7 +110,7 @@ export function Controlled() {
                   className="aspect-square w-full max-w-54 object-cover"
                   src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/images/qr-code-native.png"
                 />
-                <p className="text-sm text-muted">Expo must be installed on your device.</p>
+                <p className="text-muted text-sm">Expo must be installed on your device.</p>
                 <Button className="mt-4" variant="primary">
                   <Icon icon="tabler:brand-apple-filled" />
                   Download on App Store

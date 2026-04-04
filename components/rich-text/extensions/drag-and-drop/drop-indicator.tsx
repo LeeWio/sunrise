@@ -11,7 +11,7 @@ export function DropIndicator() {
   const { editor } = useTiptap();
   const lastUpdateRef = useRef<number>(0);
   const dragSourceHeightRef = useRef<number>(40);
-  
+
   const scrollRafRef = useRef<number | null>(null);
   const scrollSpeedRef = useRef<number>(0);
 
@@ -39,25 +39,27 @@ export function DropIndicator() {
     };
 
     const handleDragStart = (event: DragEvent) => {
-      const selected = view.dom.querySelector('.ProseMirror-selectednode') as HTMLElement;
+      const selected = view.dom.querySelector(".ProseMirror-selectednode") as HTMLElement;
       if (!selected) return;
 
       dragSourceHeightRef.current = selected.offsetHeight;
 
       if (event.dataTransfer) {
         const dragImage = selected.cloneNode(true) as HTMLElement;
-        dragImage.style.position = 'absolute';
-        dragImage.style.top = '-1000px';
-        dragImage.style.opacity = '0.4';
+        dragImage.style.position = "absolute";
+        dragImage.style.top = "-1000px";
+        dragImage.style.opacity = "0.4";
         document.body.appendChild(dragImage);
         event.dataTransfer.setDragImage(dragImage, 0, 0);
-        setTimeout(() => { if (dragImage.parentNode) document.body.removeChild(dragImage); }, 0);
+        setTimeout(() => {
+          if (dragImage.parentNode) document.body.removeChild(dragImage);
+        }, 0);
       }
     };
 
     const handleDragOver = (event: DragEvent) => {
       event.preventDefault();
-      
+
       if (scrollContainer) {
         const rect = scrollContainer.getBoundingClientRect();
         const buffer = 60;
@@ -94,7 +96,7 @@ export function DropIndicator() {
           const endPos = $pos.after(1);
           const coords = view.coordsAtPos(startPos);
           const nextCoords = view.coordsAtPos(endPos - 1);
-          
+
           const middleY = (coords.top + nextCoords.bottom) / 2;
           insertPos = event.clientY > middleY ? endPos : startPos;
         }
@@ -102,17 +104,21 @@ export function DropIndicator() {
         const { tr } = state;
         let existingPos = -1;
         doc.descendants((n, p) => {
-          if (n.type.name === "dropPlaceholder") { existingPos = p; return false; }
+          if (n.type.name === "dropPlaceholder") {
+            existingPos = p;
+            return false;
+          }
         });
 
         if (existingPos === insertPos) return;
         if (existingPos !== -1) tr.delete(existingPos, existingPos + 1);
 
-        const finalInsertPos = (existingPos !== -1 && existingPos < insertPos) ? insertPos - 1 : insertPos;
+        const finalInsertPos =
+          existingPos !== -1 && existingPos < insertPos ? insertPos - 1 : insertPos;
 
         tr.insert(
-          Math.min(finalInsertPos, doc.content.size), 
-          editor.schema.nodes.dropPlaceholder.create({ height: dragSourceHeightRef.current })
+          Math.min(finalInsertPos, doc.content.size),
+          editor.schema.nodes.dropPlaceholder.create({ height: dragSourceHeightRef.current }),
         );
         tr.setMeta("addToHistory", false);
         tr.setMeta("preventUpdate", true);
@@ -129,7 +135,11 @@ export function DropIndicator() {
         const { tr, doc } = editor.state;
         let found = false;
         doc.descendants((node, p) => {
-          if (node.type.name === "dropPlaceholder") { tr.delete(p, p + node.nodeSize); found = true; return false; }
+          if (node.type.name === "dropPlaceholder") {
+            tr.delete(p, p + node.nodeSize);
+            found = true;
+            return false;
+          }
         });
         if (found) {
           tr.setMeta("addToHistory", false);

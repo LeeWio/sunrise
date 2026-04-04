@@ -1,4 +1,4 @@
-import {Separator} from "@heroui/react";
+import { Separator } from "@heroui/react";
 
 export function Basic() {
   return (

@@ -5,8 +5,8 @@ github:
   pull: 5872
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">November 6, 2025</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">November 6, 2025</span>
 </div>
 
 This release introduces a comprehensive redesign of HeroUI v3, merging v2's beauty and animations with v3's simplicity. All components redesigned, 8 new components, and improved design system with better color tokens, shadows, and architecture.
@@ -16,30 +16,16 @@ This release introduces a comprehensive redesign of HeroUI v3, merging v2's beau
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -55,6 +41,7 @@ We've spent weeks crafting a new design system that merges the soul of HeroUI v2
 />
 
 The redesign brings:
+
 - New color system that brings v3's vision to life and stands out for its uniqueness
 - Refined shadow system for better depth perception
 - New variables and tokens for better customization
@@ -78,55 +65,39 @@ This release introduces **8 new** essential components:
 <span id="alert"></span>
 ### Alert
 
-<ComponentPreview
-  name="alert-basic"
-/>
+<ComponentPreview name="alert-basic" />
 
 <span id="checkbox-checkboxgroup"></span>
 ### Checkbox & CheckboxGroup
 
-<ComponentPreview
-  name="checkbox-basic"
-/>
+<ComponentPreview name="checkbox-basic" />
 
-<ComponentPreview
-  name="checkbox-group-basic"
-/>
+<ComponentPreview name="checkbox-group-basic" />
 
 <span id="inputotp"></span>
 ### InputOTP
 
-<ComponentPreview
-  name="input-otp-basic"
-/>
+<ComponentPreview name="input-otp-basic" />
 
 <span id="listbox"></span>
 ### Listbox
 
-<ComponentPreview
-  name="list-box-default"
-/>
+<ComponentPreview name="list-box-default" />
 
 <span id="select"></span>
 ### Select
 
-<ComponentPreview
-  name="select-default"
-/>
+<ComponentPreview name="select-default" />
 
 <span id="slider"></span>
 ### Slider
 
-<ComponentPreview
-  name="slider-default"
-/>
+<ComponentPreview name="slider-default" />
 
 <span id="surface"></span>
 ### Surface
 
-<ComponentPreview
-  name="surface-variants"
-/>
+<ComponentPreview name="surface-variants" />
 
 ### Improved Component APIs
 
@@ -134,35 +105,25 @@ Several components have been refined with better APIs:
 
 - **Link**: Added `underline` and `underlineOffset` props for better customization
 
-<ComponentPreview
-  name="link-basic"
-/>
+<ComponentPreview name="link-basic" />
 
 - **Card**: Improved variants and styling system
 
-<ComponentPreview
-  name="card-with-images"
-/>
+<ComponentPreview name="card-with-images" />
 
 - **Chip**: Enhanced with size variants and improved color system
 
-<ComponentPreview
-  name="chip-basic"
-/>
+<ComponentPreview name="chip-basic" />
 
 - **Switch**: Redesigned from the ground up with improved visual design and animations
 
 <span id="switch"></span>
-<ComponentPreview
-  name="switch-basic"
-/>
+<ComponentPreview name="switch-basic" />
 
 - **RadioGroup**: Redesigned from the ground up with better API and styling
 
 <span id="radiogroup"></span>
-<ComponentPreview
-  name="radio-group-basic"
-/>
+<ComponentPreview name="radio-group-basic" />
 
 ### Flexible Component Patterns
 
@@ -213,15 +174,16 @@ import { ButtonRoot } from "@heroui/react"
 **You can mix compound and named exports** in the same component:
 
 ```tsx
-import { Avatar, AvatarFallback } from "@heroui/react"
+import { Avatar, AvatarFallback } from "@heroui/react";
 
 <Avatar>
   <Avatar.Image src="/avatar.jpg" alt="User" />
   <AvatarFallback>JD</AvatarFallback>
-</Avatar>
+</Avatar>;
 ```
 
 This provides:
+
 - **Simpler API**: Main components no longer require `.Root` suffix
 - **Flexibility**: Choose between compound pattern, compound with `.Root`, or named exports
 - **Backward Compatibility**: The `.Root` pattern still works
@@ -251,6 +213,7 @@ Learn more about animations and motion preferences in the [Animation documentati
 The `--panel` variable has been replaced with `--surface` and `--overlay` to better distinguish between non-overlay components (cards, accordions) and floating components (tooltips, popovers, modals).
 
 **Before:**
+
 ```css
 --panel: var(--white);
 --panel-foreground: var(--foreground);
@@ -258,16 +221,19 @@ The `--panel` variable has been replaced with `--surface` and `--overlay` to bet
 ```
 
 **After:**
+
 ```css
 --surface: var(--white);
 --surface-foreground: var(--foreground);
 --overlay: var(--white);
 --overlay-foreground: var(--foreground);
---shadow-surface: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
+--shadow-surface:
+  0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
 --shadow-overlay: 0 4px 16px 0 rgba(24, 24, 27, 0.08), 0 8px 24px 0 rgba(24, 24, 27, 0.09);
 ```
 
 **Migration:**
+
 - Replace `bg-panel` with `bg-surface` for non-overlay components
 - Replace `bg-panel` with `bg-overlay` for floating components
 - Replace `shadow-panel` with `shadow-surface` or `shadow-overlay`
@@ -278,6 +244,7 @@ The `--panel` variable has been replaced with `--surface` and `--overlay` to bet
 The `--surface-1`, `--surface-2`, and `--surface-3` variables have been removed. Surface levels are now automatically calculated from `--surface` using `color-mix`, so you only need to declare the base surface color.
 
 **Before (manual declaration):**
+
 ```css
 --surface-1: var(--background);
 --surface-2: var(--color-neutral-100);
@@ -285,6 +252,7 @@ The `--surface-1`, `--surface-2`, and `--surface-3` variables have been removed.
 ```
 
 **After (auto-calculated):**
+
 ```css
 /* You only declare the base surface */
 --surface: var(--white);
@@ -304,16 +272,22 @@ You can override the default calculations using Tailwind's `@theme` directive:
 @theme inline {
   --color-surface-secondary: color-mix(in oklab, var(--surface) 96%, var(--surface-foreground) 4%);
   --color-surface-tertiary: color-mix(in oklab, var(--surface) 94%, var(--surface-foreground) 6%);
-  --color-surface-quaternary: color-mix(in oklab, var(--surface) 90%, var(--surface-foreground) 10%);
+  --color-surface-quaternary: color-mix(
+    in oklab,
+    var(--surface) 90%,
+    var(--surface-foreground) 10%
+  );
 }
 ```
 
 **Migration:**
+
 - Replace `bg-surface-1` with `bg-surface` (base surface)
 - Replace `bg-surface-2` with `bg-surface-secondary` (auto-calculated)
 - Replace `bg-surface-3` with `bg-surface-tertiary` (auto-calculated)
 
 The same auto-calculation pattern applies to:
+
 - **Background shades**: Calculated from `--background` → `background-secondary`, `background-tertiary`, `background-quaternary`
 - **Soft colors**: Calculated from status colors → `accent-soft`, `danger-soft`, `warning-soft`, `success-soft`
 
@@ -322,16 +296,19 @@ The same auto-calculation pattern applies to:
 The default border width has changed from `1px` to `0px`. Borders are now opt-in rather than default.
 
 **Before:**
+
 ```css
 --border-width: 1px;
 ```
 
 **After:**
+
 ```css
 --border-width: 0px; /* no border by default */
 ```
 
 **Migration:**
+
 - If you rely on default borders, explicitly set `border-width` in your custom styles
 - Form fields now use `transparent` borders by default
 
@@ -340,16 +317,19 @@ The default border width has changed from `1px` to `0px`. Borders are now opt-in
 The default border color opacity has changed from `15%` to `0%` (transparent).
 
 **Before:**
+
 ```css
 --border: oklch(0 0 0 / 15%);
 ```
 
 **After:**
+
 ```css
 --border: oklch(0 0 0 / 0%);
 ```
 
 **Field Border Default:**
+
 ```css
 --field-border: transparent; /* no border by default on form fields */
 ```
@@ -359,19 +339,24 @@ The default border color opacity has changed from `15%` to `0%` (transparent).
 The shadow system has been completely redesigned with separate shadows for surfaces and overlays.
 
 **Before:**
+
 ```css
 --panel-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3) inset, 0 2px 8px 0 rgba(0, 0, 0, 0.08);
 --field-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1) inset, 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 ```
 
 **After (Light):**
+
 ```css
---surface-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
+--surface-shadow:
+  0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
 --overlay-shadow: 0 4px 16px 0 rgba(24, 24, 27, 0.08), 0 8px 24px 0 rgba(24, 24, 27, 0.09);
---field-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
+--field-shadow:
+  0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 0 1px 0 rgba(0, 0, 0, 0.06);
 ```
 
 **After (Dark):**
+
 ```css
 --surface-shadow: 0 0 0 0 transparent inset; /* No shadow on dark mode */
 --overlay-shadow: 0 0 0 0 transparent inset; /* No shadow on dark mode */
@@ -383,12 +368,14 @@ The shadow system has been completely redesigned with separate shadows for surfa
 The accent color has been updated for better contrast and visual appeal.
 
 **Before:**
+
 ```css
 --accent: var(--color-neutral-950);
 --accent-foreground: var(--snow);
 ```
 
 **After:**
+
 ```css
 --accent: oklch(0.6204 0.195 253.83);
 --accent-foreground: var(--snow);
@@ -399,15 +386,18 @@ The accent color has been updated for better contrast and visual appeal.
 Success, warning, and danger colors have been refined for better consistency and contrast.
 
 **Success:**
+
 - **Before:** `oklch(0.5503 0.1244 153.56)`
 - **After:** `oklch(0.7329 0.1935 150.81)`
 - Foreground changed from `var(--snow)` to `var(--eclipse)` in light mode
 
 **Warning:**
+
 - **Before:** `oklch(0.7186 0.1521 64.85)`
 - **After:** `oklch(0.7819 0.1585 72.33)` (light), `oklch(0.8203 0.1388 76.34)` (dark)
 
 **Danger:**
+
 - **Before:** `oklch(0.6259 0.1908 29.19)`
 - **After:** `oklch(0.6532 0.2328 25.74)` (light), `oklch(0.594 0.1967 24.63)` (dark)
 
@@ -418,20 +408,27 @@ Success, warning, and danger colors have been refined for better consistency and
 The Chip component's `type` prop has been renamed to `color`, and a new `size` prop has been added. A new `soft` variant has been introduced.
 
 **Before:**
+
 ```tsx
 import { Chip } from "@heroui/react";
 
-<Chip type="danger" variant="secondary">Label</Chip>
+<Chip type="danger" variant="secondary">
+  Label
+</Chip>;
 ```
 
 **After:**
+
 ```tsx
 import { Chip } from "@heroui/react";
 
-<Chip color="danger" variant="soft" size="md">Label</Chip>
+<Chip color="danger" variant="soft" size="md">
+  Label
+</Chip>;
 ```
 
 **Migration:**
+
 - Replace `type` prop with `color` prop
 - Use `size` prop (`sm`, `md`, `lg`) to control chip size
 - The `soft` variant provides a subtle appearance for less prominent chips
@@ -441,20 +438,25 @@ import { Chip } from "@heroui/react";
 The Link component now supports `underline` and `underlineOffset` props, and includes `asChild` support.
 
 **Before:**
+
 ```tsx
 import { Link } from "@heroui/react";
 
-<Link href="#">Link text</Link>
+<Link href="#">Link text</Link>;
 ```
 
 **After:**
+
 ```tsx
 import { Link } from "@heroui/react";
 
-<Link href="#" underline="hover" underlineOffset={4}>Link text</Link>
+<Link href="#" underline="hover" underlineOffset={4}>
+  Link text
+</Link>;
 ```
 
 **New Props:**
+
 - `underline`: `"none" | "hover" | "always"` - Controls underline visibility
 - `underlineOffset`: `number` - Controls underline offset from text
 
@@ -463,20 +465,23 @@ import { Link } from "@heroui/react";
 Due to the dual pattern implementation, type references through the namespace syntax are no longer supported. Use object-style syntax or named type imports instead.
 
 **Before (no longer works):**
+
 ```tsx
-type AvatarProps = Avatar.RootProps
+type AvatarProps = Avatar.RootProps;
 ```
 
 **After (Option 1 - Object-style syntax):**
+
 ```tsx
-type AvatarProps = Avatar["RootProps"]
+type AvatarProps = Avatar["RootProps"];
 ```
 
 **After (Option 2 - Named type imports, recommended):**
-```tsx
-import type { AvatarRootProps } from "@heroui/react"
 
-type AvatarProps = AvatarRootProps
+```tsx
+import type { AvatarRootProps } from "@heroui/react";
+
+type AvatarProps = AvatarRootProps;
 ```
 
 This change affects all compound components when accessing prop types.
@@ -507,6 +512,7 @@ Tabs.ListWrapper → Tabs.ListContainer
 #### Removed Variables
 
 The following variables have been removed:
+
 - `--panel` → Use `--surface` or `--overlay`
 - `--panel-foreground` → Use `--surface-foreground` or `--overlay-foreground`
 - `--surface-1`, `--surface-2`, `--surface-3` → Use background shades or surface levels
@@ -525,6 +531,7 @@ The design system now distinguishes between two types of elevated components:
 - **Overlay**: Used for floating components like tooltips, popovers, modals, and menus that appear above the page
 
 This distinction provides:
+
 - Better visual hierarchy
 - Appropriate shadow depths
 - Improved dark mode contrast
@@ -544,9 +551,21 @@ Background shades are automatically calculated from `--background`:
 --foreground: var(--eclipse);
 
 /* HeroUI automatically calculates these */
---color-background-secondary: color-mix(in oklab, var(--color-background) 96%, var(--color-foreground) 4%);
---color-background-tertiary: color-mix(in oklab, var(--color-background) 92%, var(--color-foreground) 8%);
---color-background-quaternary: color-mix(in oklab, var(--color-background) 86%, var(--color-foreground) 14%);
+--color-background-secondary: color-mix(
+  in oklab,
+  var(--color-background) 96%,
+  var(--color-foreground) 4%
+);
+--color-background-tertiary: color-mix(
+  in oklab,
+  var(--color-background) 92%,
+  var(--color-foreground) 8%
+);
+--color-background-quaternary: color-mix(
+  in oklab,
+  var(--color-background) 86%,
+  var(--color-foreground) 14%
+);
 ```
 
 **Surface Levels**
@@ -603,6 +622,7 @@ This auto-calculation system reduces the number of variables you need to manage 
 ### Shadow System
 
 The shadow system has been redesigned to provide:
+
 - Separate shadows for surfaces and overlays
 - Better depth perception
 - Dark mode support (transparent shadows)
@@ -683,6 +703,7 @@ Update Chip and Link components:
 If you adopted the `.Root` suffix from v3.0.0-alpha.35, you can now simplify your code by removing it:
 
 **Before (v3.0.0-alpha.35):**
+
 ```tsx
 <Avatar.Root>
   <Avatar.Image src="..." alt="..." />
@@ -691,6 +712,7 @@ If you adopted the `.Root` suffix from v3.0.0-alpha.35, you can now simplify you
 ```
 
 **After (simpler):**
+
 ```tsx
 <Avatar>
   <Avatar.Image src="..." alt="..." />
@@ -705,20 +727,23 @@ If you adopted the `.Root` suffix from v3.0.0-alpha.35, you can now simplify you
 If you're using namespace syntax for types, switch to object-style syntax or named imports:
 
 **Before:**
+
 ```tsx
-type ButtonProps = Button.RootProps
+type ButtonProps = Button.RootProps;
 ```
 
 **After (Option 1 - Object-style):**
+
 ```tsx
-type ButtonProps = Button["RootProps"]
+type ButtonProps = Button["RootProps"];
 ```
 
 **After (Option 2 - Named imports, recommended):**
-```tsx
-import type { ButtonRootProps } from "@heroui/react"
 
-type ButtonProps = ButtonRootProps
+```tsx
+import type { ButtonRootProps } from "@heroui/react";
+
+type ButtonProps = ButtonRootProps;
 ```
 
 ### Step 6: Update Tabs Component
@@ -726,31 +751,39 @@ type ButtonProps = ButtonRootProps
 Replace `TabListWrapper` with `TabListContainer`:
 
 **Before:**
+
 ```tsx
-import { Tabs } from "@heroui/react"
+import { Tabs } from "@heroui/react";
 
 <Tabs.Root>
   <Tabs.ListWrapper>
     <Tabs.List>
-      <Tabs.Tab id="home">Home<Tabs.Indicator /></Tabs.Tab>
+      <Tabs.Tab id="home">
+        Home
+        <Tabs.Indicator />
+      </Tabs.Tab>
     </Tabs.List>
   </Tabs.ListWrapper>
   <Tabs.Panel id="home">Content</Tabs.Panel>
-</Tabs.Root>
+</Tabs.Root>;
 ```
 
 **After:**
+
 ```tsx
-import { Tabs } from "@heroui/react"
+import { Tabs } from "@heroui/react";
 
 <Tabs>
   <Tabs.ListContainer>
     <Tabs.List>
-      <Tabs.Tab id="home">Home<Tabs.Indicator /></Tabs.Tab>
+      <Tabs.Tab id="home">
+        Home
+        <Tabs.Indicator />
+      </Tabs.Tab>
     </Tabs.List>
   </Tabs.ListContainer>
   <Tabs.Panel id="home">Content</Tabs.Panel>
-</Tabs>
+</Tabs>;
 ```
 
 ### Step 7: Handle Border Changes
@@ -833,6 +866,7 @@ You can use any of the three patterns (compound without `.Root`, compound with `
 ## HeroUI Pro
 
 HeroUI Pro is being reshaped from the ground up on top of the new design system. The new Pro version will feature:
+
 - New components built on top of HeroUI v3
 - Tailwind CSS v4 native support
 - CSS native animations
@@ -843,6 +877,7 @@ We'll share more updates soon.
 ## Roadmap
 
 We're working towards a stable release in **Q4** this year (2025). This beta release brings us significantly closer to that goal with:
+
 - Comprehensive component set
 - Refined design system
 - Improved developer experience

@@ -1,11 +1,11 @@
-import {Bold, Italic, Strikethrough, Underline} from "@gravity-ui/icons";
-import {ToggleButton, ToggleButtonGroup} from "@heroui/react";
+import { Bold, Italic, Strikethrough, Underline } from "@gravity-ui/icons";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 
 export function Sizes() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Small</span>
+        <span className="text-muted text-sm">Small</span>
         <ToggleButtonGroup selectionMode="multiple" size="sm">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />
@@ -25,7 +25,7 @@ export function Sizes() {
         </ToggleButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Medium (default)</span>
+        <span className="text-muted text-sm">Medium (default)</span>
         <ToggleButtonGroup selectionMode="multiple" size="md">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />
@@ -45,7 +45,7 @@ export function Sizes() {
         </ToggleButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-muted">Large</span>
+        <span className="text-muted text-sm">Large</span>
         <ToggleButtonGroup selectionMode="multiple" size="lg">
           <ToggleButton isIconOnly aria-label="Bold" id="bold">
             <Bold />

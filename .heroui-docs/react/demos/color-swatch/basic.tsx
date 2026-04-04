@@ -1,4 +1,4 @@
-import {ColorSwatch} from "@heroui/react";
+import { ColorSwatch } from "@heroui/react";
 
 export function ColorSwatchBasic() {
   return (

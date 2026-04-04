@@ -9,19 +9,19 @@ import {
   SearchField,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function ControlledOpenState() {
   const [isOpen, setIsOpen] = useState(false);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const items = [
-    {id: "florida", name: "Florida"},
-    {id: "delaware", name: "Delaware"},
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "new-york", name: "New York"},
-    {id: "washington", name: "Washington"},
+    { id: "florida", name: "Florida" },
+    { id: "delaware", name: "Delaware" },
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "new-york", name: "New York" },
+    { id: "washington", name: "Washington" },
   ];
 
   return (
@@ -60,7 +60,7 @@ export function ControlledOpenState() {
         </Autocomplete.Popover>
       </Autocomplete>
       <Button onPress={() => setIsOpen(!isOpen)}>{isOpen ? "Close" : "Open"} Autocomplete</Button>
-      <p className="text-sm text-muted">Autocomplete is {isOpen ? "open" : "closed"}</p>
+      <p className="text-muted text-sm">Autocomplete is {isOpen ? "open" : "closed"}</p>
     </div>
   );
 }

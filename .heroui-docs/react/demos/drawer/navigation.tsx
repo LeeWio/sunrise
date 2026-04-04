@@ -1,16 +1,16 @@
-import type {ComponentType, SVGProps} from "react";
+import type { ComponentType, SVGProps } from "react";
 
-import {Bars, Bell, Envelope, Gear, House, Magnifier, Person} from "@gravity-ui/icons";
-import {Button, Drawer} from "@heroui/react";
+import { Bars, Bell, Envelope, Gear, House, Magnifier, Person } from "@gravity-ui/icons";
+import { Button, Drawer } from "@heroui/react";
 
 export function Navigation() {
-  const navItems: {icon: ComponentType<SVGProps<SVGSVGElement>>; label: string}[] = [
-    {icon: House, label: "Home"},
-    {icon: Magnifier, label: "Search"},
-    {icon: Bell, label: "Notifications"},
-    {icon: Envelope, label: "Messages"},
-    {icon: Person, label: "Profile"},
-    {icon: Gear, label: "Settings"},
+  const navItems: { icon: ComponentType<SVGProps<SVGSVGElement>>; label: string }[] = [
+    { icon: House, label: "Home" },
+    { icon: Magnifier, label: "Search" },
+    { icon: Bell, label: "Notifications" },
+    { icon: Envelope, label: "Messages" },
+    { icon: Person, label: "Profile" },
+    { icon: Gear, label: "Settings" },
   ];
 
   return (
@@ -31,10 +31,10 @@ export function Navigation() {
                 {navItems.map((item) => (
                   <button
                     key={item.label}
-                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
+                    className="text-foreground hover:bg-default flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors"
                     type="button"
                   >
-                    <item.icon className="size-5 text-muted" />
+                    <item.icon className="text-muted size-5" />
                     {item.label}
                   </button>
                 ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import {Input, Label, TextField} from "@heroui/react";
+import { Input, Label, TextField } from "@heroui/react";
 
 export function CustomRenderFunction() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -12,20 +12,20 @@ import {
   TagGroup,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function Variants() {
   const [selectedKey1, setSelectedKey1] = useState<Key | null>(null);
   const [selectedKey2, setSelectedKey2] = useState<Key | null>(null);
   const [selectedKeys1, setSelectedKeys1] = useState<Key[]>([]);
   const [selectedKeys2, setSelectedKeys2] = useState<Key[]>([]);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const items = [
-    {id: "option1", name: "Option 1"},
-    {id: "option2", name: "Option 2"},
-    {id: "option3", name: "Option 3"},
-    {id: "option4", name: "Option 4"},
+    { id: "option1", name: "Option 1" },
+    { id: "option2", name: "Option 2" },
+    { id: "option3", name: "Option 3" },
+    { id: "option4", name: "Option 4" },
   ];
 
   const onRemoveTags1 = (keys: Set<Key>) => {
@@ -125,7 +125,7 @@ export function Variants() {
             <Label>Primary variant</Label>
             <Autocomplete.Trigger>
               <Autocomplete.Value>
-                {({defaultChildren, isPlaceholder, state}) => {
+                {({ defaultChildren, isPlaceholder, state }) => {
                   if (isPlaceholder || state.selectedItems.length === 0) {
                     return defaultChildren;
                   }
@@ -185,7 +185,7 @@ export function Variants() {
             <Label>Secondary variant</Label>
             <Autocomplete.Trigger>
               <Autocomplete.Value>
-                {({defaultChildren, isPlaceholder, state}) => {
+                {({ defaultChildren, isPlaceholder, state }) => {
                   if (isPlaceholder || state.selectedItems.length === 0) {
                     return defaultChildren;
                   }

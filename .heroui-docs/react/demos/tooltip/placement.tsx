@@ -1,4 +1,4 @@
-import {Button, Tooltip} from "@heroui/react";
+import { Button, Tooltip } from "@heroui/react";
 
 export function TooltipPlacement() {
   return (
@@ -26,7 +26,7 @@ export function TooltipPlacement() {
       </Tooltip>
 
       <div className="flex items-center justify-center">
-        <span className="text-sm text-muted">Hover buttons</span>
+        <span className="text-muted text-sm">Hover buttons</span>
       </div>
 
       <Tooltip delay={0}>

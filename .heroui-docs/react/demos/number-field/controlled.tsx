@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, Description, Label, NumberField} from "@heroui/react";
+import { Button, Description, Label, NumberField } from "@heroui/react";
 import React from "react";
 
 export function Controlled() {

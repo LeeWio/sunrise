@@ -11,7 +11,7 @@ links:
 ## Import
 
 ```tsx
-import { TextArea } from '@heroui/react';
+import { TextArea } from "@heroui/react";
 ```
 
 <Callout>
@@ -58,7 +58,7 @@ When used inside a [Surface](/docs/components/surface) component, use `variant="
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Label, TextArea} from '@heroui/react';
+import { Label, TextArea } from "@heroui/react";
 
 function CustomTextArea() {
   return (
@@ -66,10 +66,10 @@ function CustomTextArea() {
       <Label htmlFor="custom-textarea">Message</Label>
       <TextArea
         id="custom-textarea"
-        className="rounded-xl border border-border/70 bgsurface px-4 py-3 text-sm leading-6 shadow-sm"
+        className="border-border/70 bgsurface rounded-xl border px-4 py-3 text-sm leading-6 shadow-sm"
         placeholder="Let us know how we can help..."
         rows={5}
-        style={{resize: "vertical"}}
+        style={{ resize: "vertical" }}
       />
     </div>
   );
@@ -83,7 +83,7 @@ Override the shared `.textarea` class once with Tailwind's `@layer components`.
 ```css
 @layer components {
   .textarea {
-    @apply rounded-xl border border-border bgsurface px-4 py-3 text-sm leading-6 shadow-sm;
+    @apply border-border bgsurface rounded-xl border px-4 py-3 text-sm leading-6 shadow-sm;
 
     &:hover,
     &[data-hovered="true"] {
@@ -92,7 +92,7 @@ Override the shared `.textarea` class once with Tailwind's `@layer components`.
 
     &:focus-visible,
     &[data-focus-visible="true"] {
-      @apply border-primary ring-2 ring-primary/20;
+      @apply border-primary ring-primary/20 ring-2;
     }
 
     &[data-invalid="true"] {
@@ -119,24 +119,24 @@ Override the shared `.textarea` class once with Tailwind's `@layer components`.
 
 TextArea accepts all standard HTML `<textarea>` attributes plus the following:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Tailwind classes merged with the base styles. |
-| `rows` | `number` | `3` | Number of visible text lines. |
-| `cols` | `number` | - | Visible width of the text control. |
-| `value` | `string` | - | Controlled value for the textarea. |
-| `defaultValue` | `string` | - | Initial uncontrolled value. |
-| `onChange` | `(event: React.ChangeEvent<HTMLTextAreaElement>) => void` | - | Change handler. |
-| `placeholder` | `string` | - | Placeholder text. |
-| `disabled` | `boolean` | `false` | Disables the textarea. |
-| `readOnly` | `boolean` | `false` | Makes the textarea read-only. |
-| `required` | `boolean` | `false` | Marks the textarea as required. |
-| `name` | `string` | - | Name for form submission. |
-| `autoComplete` | `string` | - | Autocomplete hint for the browser. |
-| `maxLength` | `number` | - | Maximum number of characters. |
-| `minLength` | `number` | - | Minimum number of characters. |
-| `wrap` | `'soft' \| 'hard'` | - | How text wraps when submitted. |
-| `fullWidth` | `boolean` | `false` | Whether the textarea should take full width of its container |
-| `variant` | `"primary" \| "secondary"` | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| Prop           | Type                                                      | Default     | Description                                                                                                                                                        |
+| -------------- | --------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `className`    | `string`                                                  | -           | Tailwind classes merged with the base styles.                                                                                                                      |
+| `rows`         | `number`                                                  | `3`         | Number of visible text lines.                                                                                                                                      |
+| `cols`         | `number`                                                  | -           | Visible width of the text control.                                                                                                                                 |
+| `value`        | `string`                                                  | -           | Controlled value for the textarea.                                                                                                                                 |
+| `defaultValue` | `string`                                                  | -           | Initial uncontrolled value.                                                                                                                                        |
+| `onChange`     | `(event: React.ChangeEvent<HTMLTextAreaElement>) => void` | -           | Change handler.                                                                                                                                                    |
+| `placeholder`  | `string`                                                  | -           | Placeholder text.                                                                                                                                                  |
+| `disabled`     | `boolean`                                                 | `false`     | Disables the textarea.                                                                                                                                             |
+| `readOnly`     | `boolean`                                                 | `false`     | Makes the textarea read-only.                                                                                                                                      |
+| `required`     | `boolean`                                                 | `false`     | Marks the textarea as required.                                                                                                                                    |
+| `name`         | `string`                                                  | -           | Name for form submission.                                                                                                                                          |
+| `autoComplete` | `string`                                                  | -           | Autocomplete hint for the browser.                                                                                                                                 |
+| `maxLength`    | `number`                                                  | -           | Maximum number of characters.                                                                                                                                      |
+| `minLength`    | `number`                                                  | -           | Minimum number of characters.                                                                                                                                      |
+| `wrap`         | `'soft' \| 'hard'`                                        | -           | How text wraps when submitted.                                                                                                                                     |
+| `fullWidth`    | `boolean`                                                 | `false`     | Whether the textarea should take full width of its container                                                                                                       |
+| `variant`      | `"primary" \| "secondary"`                                | `"primary"` | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
 
 > For validation props like `isInvalid`, `isRequired`, and error handling, use **[TextField](/docs/components/text-field)** with TextArea as a child component.

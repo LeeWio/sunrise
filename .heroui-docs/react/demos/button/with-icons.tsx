@@ -1,5 +1,5 @@
-import {Envelope, Globe, Plus, TrashBin} from "@gravity-ui/icons";
-import {Button} from "@heroui/react";
+import { Envelope, Globe, Plus, TrashBin } from "@gravity-ui/icons";
+import { Button } from "@heroui/react";
 
 export function WithIcons() {
   return (

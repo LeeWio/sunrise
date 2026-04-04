@@ -1,10 +1,10 @@
 "use client";
 
-import type {SortDescriptor} from "@heroui/react";
-import type {SortingState} from "@tanstack/react-table";
+import type { SortDescriptor } from "@heroui/react";
+import type { SortingState } from "@tanstack/react-table";
 
-import {Chip, Pagination, Table, cn} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { Chip, Pagination, Table, cn } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import {
   createColumnHelper,
   flexRender,
@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 
 // --- Data -----------------------------------------------------------------
 interface User {
@@ -31,10 +31,10 @@ const statusColorMap: Record<string, "success" | "danger" | "warning"> = {
 };
 
 const users: User[] = [
-  {email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active"},
-  {email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active"},
-  {email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave"},
-  {email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active"},
+  { email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active" },
+  { email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active" },
+  { email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave" },
+  { email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active" },
   {
     email: "emily@acme.com",
     id: 5,
@@ -42,7 +42,7 @@ const users: User[] = [
     role: "Product Manager",
     status: "Inactive",
   },
-  {email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active"},
+  { email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active" },
   {
     email: "olivia@acme.com",
     id: 7,
@@ -63,8 +63,8 @@ const users: User[] = [
 const columnHelper = createColumnHelper<User>();
 
 const columns = [
-  columnHelper.accessor("name", {header: "Name"}),
-  columnHelper.accessor("role", {header: "Role"}),
+  columnHelper.accessor("name", { header: "Name" }),
+  columnHelper.accessor("role", { header: "Role" }),
   columnHelper.accessor("status", {
     cell: (info) => (
       <Chip color={statusColorMap[info.getValue()]} size="sm" variant="soft">
@@ -73,7 +73,7 @@ const columns = [
     ),
     header: "Status",
   }),
-  columnHelper.accessor("email", {header: "Email"}),
+  columnHelper.accessor("email", { header: "Email" }),
 ];
 
 // --- Sorting Bridge -------------------------------------------------------
@@ -91,7 +91,7 @@ function toSortDescriptor(sorting: SortingState): SortDescriptor | undefined {
 
 // Convert React Aria SortDescriptor → TanStack SortingState
 function toSortingState(descriptor: SortDescriptor): SortingState {
-  return [{desc: descriptor.direction === "descending", id: descriptor.column as string}];
+  return [{ desc: descriptor.direction === "descending", id: descriptor.column as string }];
 }
 
 // --- Sort Header ----------------------------------------------------------
@@ -131,16 +131,16 @@ export function TanstackTable() {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    initialState: {pagination: {pageSize: PAGE_SIZE}},
+    initialState: { pagination: { pageSize: PAGE_SIZE } },
     onSortingChange: setSorting,
-    state: {sorting},
+    state: { sorting },
   });
 
   const sortDescriptor = useMemo(() => toSortDescriptor(sorting), [sorting]);
 
-  const {pageIndex} = table.getState().pagination;
+  const { pageIndex } = table.getState().pagination;
   const pageCount = table.getPageCount();
-  const pages = Array.from({length: pageCount}, (_, i) => i + 1);
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
   const start = pageIndex * PAGE_SIZE + 1;
   const end = Math.min((pageIndex + 1) * PAGE_SIZE, users.length);
 
@@ -161,7 +161,7 @@ export function TanstackTable() {
                 id={header.id}
                 isRowHeader={header.id === "name"}
               >
-                {({sortDirection}) => (
+                {({ sortDirection }) => (
                   <SortableColumnHeader sortDirection={sortDirection}>
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </SortableColumnHeader>

@@ -13,21 +13,19 @@ links:
 ## Import
 
 ```tsx
-import { ToggleButtonGroup, ToggleButton } from '@heroui/react';
+import { ToggleButtonGroup, ToggleButton } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="toggle-button-group-basic"
-/>
+<ComponentPreview name="toggle-button-group-basic" />
 
 ### Anatomy
 
 Import the ToggleButtonGroup component and access all parts using dot notation.
 
 ```tsx
-import { ToggleButtonGroup, ToggleButton } from '@heroui/react';
+import { ToggleButtonGroup, ToggleButton } from "@heroui/react";
 
 export default () => (
   <ToggleButtonGroup selectionMode="multiple">
@@ -46,57 +44,41 @@ export default () => (
 
 ### Sizes
 
-<ComponentPreview
-  name="toggle-button-group-sizes"
-/>
+<ComponentPreview name="toggle-button-group-sizes" />
 
 ### Orientation
 
-<ComponentPreview
-  name="toggle-button-group-orientation"
-/>
+<ComponentPreview name="toggle-button-group-orientation" />
 
 ### Detached
 
 Use `isDetached` to separate buttons with gaps instead of connecting them.
 
-<ComponentPreview
-  name="toggle-button-group-attached"
-/>
+<ComponentPreview name="toggle-button-group-attached" />
 
 ### Full Width
 
-<ComponentPreview
-  name="toggle-button-group-full-width"
-/>
+<ComponentPreview name="toggle-button-group-full-width" />
 
 ### Selection Mode
 
 Use `selectionMode="single"` for mutually exclusive choices or `selectionMode="multiple"` for independent toggles.
 
-<ComponentPreview
-  name="toggle-button-group-selection-mode"
-/>
+<ComponentPreview name="toggle-button-group-selection-mode" />
 
 ### Controlled
 
-<ComponentPreview
-  name="toggle-button-group-controlled"
-/>
+<ComponentPreview name="toggle-button-group-controlled" />
 
 ### Disabled
 
-<ComponentPreview
-  name="toggle-button-group-disabled"
-/>
+<ComponentPreview name="toggle-button-group-disabled" />
 
 ### Without Separator
 
 Simply omit the `<ToggleButtonGroup.Separator />` component from your buttons.
 
-<ComponentPreview
-  name="toggle-button-group-without-separator"
-/>
+<ComponentPreview name="toggle-button-group-without-separator" />
 
 <RelatedComponents component="toggle-button-group" />
 
@@ -105,7 +87,7 @@ Simply omit the `<ToggleButtonGroup.Separator />` component from your buttons.
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { ToggleButtonGroup, ToggleButton } from '@heroui/react';
+import { ToggleButtonGroup, ToggleButton } from "@heroui/react";
 
 function CustomToggleButtonGroup() {
   return (
@@ -123,7 +105,9 @@ function CustomToggleButtonGroup() {
 ### Customizing the component classes
 
 To customize the ToggleButtonGroup component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -148,6 +132,7 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The ToggleButtonGroup component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/toggle-button-group.css)):
 
 #### Base & Layout Classes
+
 - `.toggle-button-group` - Base container styles
 - `.toggle-button-group--horizontal` - Horizontal orientation
 - `.toggle-button-group--vertical` - Vertical orientation
@@ -155,6 +140,7 @@ The ToggleButtonGroup component uses these CSS classes ([View source styles](htt
 - `.toggle-button-group__separator` - Separator element between buttons
 
 #### Modifier Classes
+
 - `.toggle-button-group--detached` - Detached mode (separated buttons with gaps)
 
 ## API Reference
@@ -163,25 +149,25 @@ The ToggleButtonGroup component uses these CSS classes ([View source styles](htt
 
 Inherits from [React Aria ToggleButtonGroup](https://react-aria.adobe.com/ToggleButtonGroup).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `selectionMode` | `"single" \| "multiple"` | `"single"` | Whether one or multiple buttons can be selected |
-| `selectedKeys` | `Iterable<Key>` | - | Controlled selection state |
-| `defaultSelectedKeys` | `Iterable<Key>` | - | Default selected keys (uncontrolled) |
-| `onSelectionChange` | `(keys: Set<Key>) => void` | - | Called when selection changes |
-| `disallowEmptySelection` | `boolean` | `false` | Prevents clearing all selections |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Layout direction |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size propagated to child ToggleButtons |
-| `isDetached` | `boolean` | `false` | Whether buttons are visually separated with gaps |
-| `fullWidth` | `boolean` | `false` | Whether the group fills available width |
-| `isDisabled` | `boolean` | `false` | Disables all buttons in the group |
-| `className` | `string` | - | Additional CSS classes |
+| Prop                     | Type                         | Default        | Description                                      |
+| ------------------------ | ---------------------------- | -------------- | ------------------------------------------------ |
+| `selectionMode`          | `"single" \| "multiple"`     | `"single"`     | Whether one or multiple buttons can be selected  |
+| `selectedKeys`           | `Iterable<Key>`              | -              | Controlled selection state                       |
+| `defaultSelectedKeys`    | `Iterable<Key>`              | -              | Default selected keys (uncontrolled)             |
+| `onSelectionChange`      | `(keys: Set<Key>) => void`   | -              | Called when selection changes                    |
+| `disallowEmptySelection` | `boolean`                    | `false`        | Prevents clearing all selections                 |
+| `orientation`            | `"horizontal" \| "vertical"` | `"horizontal"` | Layout direction                                 |
+| `size`                   | `"sm" \| "md" \| "lg"`       | `"md"`         | Size propagated to child ToggleButtons           |
+| `isDetached`             | `boolean`                    | `false`        | Whether buttons are visually separated with gaps |
+| `fullWidth`              | `boolean`                    | `false`        | Whether the group fills available width          |
+| `isDisabled`             | `boolean`                    | `false`        | Disables all buttons in the group                |
+| `className`              | `string`                     | -              | Additional CSS classes                           |
 
 ### ToggleButtonGroup.Separator Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
 
 ### Notes
 

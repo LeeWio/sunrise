@@ -1,5 +1,5 @@
-import {Description, Label, Radio, RadioGroup} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { Description, Label, Radio, RadioGroup } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import clsx from "clsx";
 
 export function DeliveryAndPayment() {
@@ -67,7 +67,7 @@ export function DeliveryAndPayment() {
                 key={option.value}
                 value={option.value}
                 className={clsx(
-                  "group relative flex-col gap-4 rounded-xl border border-transparent bg-surface px-5 py-4 transition-all data-[selected=true]:border-accent data-[selected=true]:bg-accent/10",
+                  "group bg-surface data-[selected=true]:border-accent data-[selected=true]:bg-accent/10 relative flex-col gap-4 rounded-xl border border-transparent px-5 py-4 transition-all",
                   "data-[focus-visible=true]:border-accent data-[focus-visible=true]:bg-accent/10",
                 )}
               >
@@ -97,7 +97,7 @@ export function DeliveryAndPayment() {
                 key={option.value}
                 value={option.value}
                 className={clsx(
-                  "group relative flex-col gap-4 rounded-xl border border-transparent bg-surface px-5 py-4 transition-all",
+                  "group bg-surface relative flex-col gap-4 rounded-xl border border-transparent px-5 py-4 transition-all",
                   "data-[selected=true]:border-accent data-[selected=true]:bg-accent/10",
                 )}
               >

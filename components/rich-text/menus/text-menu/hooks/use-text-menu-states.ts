@@ -18,7 +18,7 @@ export interface ShouldShowProps {
 
 /**
  * Hook to manage all UI-related states for TextMenu.
- * Handles the logic for when the menu should be shown and 
+ * Handles the logic for when the menu should be shown and
  * tracks the active formatting states (bold, italic, etc.).
  */
 export const useTextMenuStates = (editor: Editor | null) => {
@@ -62,7 +62,7 @@ export const useTextMenuStates = (editor: Editor | null) => {
 
   /**
    * Logic to determine when to show the text bubble menu.
-   * 
+   *
    * It ensures the menu is NOT shown when:
    * 1. The editor is dragging content.
    * 2. A custom node (like a link, image, or code block) is selected.

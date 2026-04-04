@@ -1,17 +1,17 @@
 "use client";
 
-import {Button, toast} from "@heroui/react";
+import { Button, toast } from "@heroui/react";
 import React from "react";
 
 export function Callbacks() {
-  const [closedHistory, setClosedHistory] = React.useState<Array<{message: string; time: string}>>(
-    [],
-  );
+  const [closedHistory, setClosedHistory] = React.useState<
+    Array<{ message: string; time: string }>
+  >([]);
 
   const addToHistory = (message: string) => {
     const time = new Date().toLocaleTimeString();
 
-    setClosedHistory((prev) => [{message, time}, ...prev].slice(0, 5));
+    setClosedHistory((prev) => [{ message, time }, ...prev].slice(0, 5));
   };
 
   return (
@@ -91,23 +91,23 @@ export function Callbacks() {
             </Button>
           )}
         </div>
-        <div className="min-h-[120px] space-y-2 rounded-lg border border-border bg-surface p-4">
+        <div className="border-border bg-surface min-h-[120px] space-y-2 rounded-lg border p-4">
           {closedHistory.length === 0 ? (
-            <p className="text-sm text-muted">No toasts closed yet. Try closing one above!</p>
+            <p className="text-muted text-sm">No toasts closed yet. Try closing one above!</p>
           ) : (
             closedHistory.map((item, index) => (
               <div
                 key={`${item.time}-${index}`}
-                className="flex animate-in items-start justify-between gap-3 rounded-md border border-border bg-default px-3 py-2 text-sm duration-200 fade-in slide-in-from-top-2"
+                className="animate-in border-border bg-default fade-in slide-in-from-top-2 flex items-start justify-between gap-3 rounded-md border px-3 py-2 text-sm duration-200"
                 style={{
                   animationDelay: `${index * 50}ms`,
                 }}
               >
                 <div className="flex-1">
                   <span className="font-medium">{item.message}</span>
-                  <span className="ml-2 text-xs text-muted">({item.time})</span>
+                  <span className="text-muted ml-2 text-xs">({item.time})</span>
                 </div>
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success/10 text-success">
+                <div className="bg-success/10 text-success flex h-5 w-5 shrink-0 items-center justify-center rounded-full">
                   <svg
                     className="size-3"
                     fill="none"

@@ -54,7 +54,7 @@ export function CustomValue() {
       <Label>User</Label>
       <Select.Trigger>
         <Select.Value>
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

@@ -1,6 +1,6 @@
 "use client";
 
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function Statuses() {
   const examples = [
@@ -52,7 +52,7 @@ export function Statuses() {
 
   return (
     <div className="flex flex-wrap gap-4">
-      {examples.map(({actions, body, classNames, header, status, trigger}) => (
+      {examples.map(({ actions, body, classNames, header, status, trigger }) => (
         <AlertDialog key={status}>
           <Button className={classNames}>{trigger}</Button>
           <AlertDialog.Backdrop>

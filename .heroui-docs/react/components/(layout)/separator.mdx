@@ -13,59 +13,47 @@ links:
 ## Import
 
 ```tsx
-import { Separator } from '@heroui/react';
+import { Separator } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="separator-basic"
-/>
+<ComponentPreview name="separator-basic" />
 
 ### Vertical
 
-<ComponentPreview
-  name="separator-vertical"
-/>
+<ComponentPreview name="separator-vertical" />
 
 ### With Content
 
-<ComponentPreview
-  name="separator-with-content"
-/>
+<ComponentPreview name="separator-with-content" />
 
 ### Variants
 
-<ComponentPreview
-  name="separator-variants"
-/>
+<ComponentPreview name="separator-variants" />
 
 ### With Surface
 
 The Separator component adapts to different surface backgrounds for better visibility.
 
-<ComponentPreview
-  name="separator-with-surface"
-/>
+<ComponentPreview name="separator-with-surface" />
 
 <RelatedComponents component="separator" />
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="separator-custom-render-function"
-/>
+<ComponentPreview name="separator-custom-render-function" />
 
 ## Styling
 
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Separator} from '@heroui/react';
+import { Separator } from "@heroui/react";
 
 function CustomSeparator() {
   return (
-    <Separator className="my-8 bg-linear-to-r from-transparent via-default-500 to-transparent" />
+    <Separator className="via-default-500 my-8 bg-linear-to-r from-transparent to-transparent" />
   );
 }
 ```
@@ -73,7 +61,9 @@ function CustomSeparator() {
 ### Customizing the component classes
 
 To customize the Separator component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -94,11 +84,13 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Separator component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/separator.css)):
 
 #### Base & Orientation Classes
+
 - `.separator` - Base separator styles with default horizontal orientation
 - `.separator--horizontal` - Horizontal orientation (full width, 1px height)
 - `.separator--vertical` - Vertical orientation (full height, 1px width)
 
 #### Variant Classes
+
 - `.separator--default` - Default variant with standard contrast
 - `.separator--secondary` - Secondary variant with medium contrast
 - `.separator--tertiary` - Tertiary variant with subtle contrast
@@ -107,9 +99,9 @@ The Separator component uses these CSS classes ([View source styles](https://git
 
 ### Separator Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the separator |
-| `variant` | `'default' \| 'secondary' \| 'tertiary'` | `'default'` | The visual variant of the separator |
-| `className` | `string` | - | Additional CSS classes |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, undefined>` | - | Overrides the default DOM element with a custom render function.|
+| Prop          | Type                                                              | Default        | Description                                                      |
+| ------------- | ----------------------------------------------------------------- | -------------- | ---------------------------------------------------------------- |
+| `orientation` | `'horizontal' \| 'vertical'`                                      | `'horizontal'` | The orientation of the separator                                 |
+| `variant`     | `'default' \| 'secondary' \| 'tertiary'`                          | `'default'`    | The visual variant of the separator                              |
+| `className`   | `string`                                                          | -              | Additional CSS classes                                           |
+| `render`      | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, undefined>` | -              | Overrides the default DOM element with a custom render function. |

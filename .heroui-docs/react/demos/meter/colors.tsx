@@ -1,4 +1,4 @@
-import {Label, Meter} from "@heroui/react";
+import { Label, Meter } from "@heroui/react";
 
 export function Colors() {
   return (

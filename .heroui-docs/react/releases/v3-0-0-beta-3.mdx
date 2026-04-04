@@ -5,12 +5,11 @@ github:
   pull: 5923
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">December 19, 2025</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">December 19, 2025</span>
 </div>
 
 This release introduces seven new components ([ButtonGroup](/docs/components/button-group), [DateField](/docs/components/date-field), [ErrorMessage](/docs/components/error-message), [ScrollShadow](/docs/components/scroll-shadow), [SearchField](/docs/components/search-field), [TagGroup](/docs/components/tag-group), [TimeField](/docs/components/time-field)), adds `fullWidth` support for form components and `hideSeparator` to [Tabs](/docs/components/tabs), [ButtonGroup](/docs/components/button-group), and [Accordion](/docs/components/accordion), includes style fixes, and ⚠️ **breaking changes** removing the `asChild` prop and updating [AlertDialog](/docs/components/alert-dialog) & [Modal](/docs/components/modal) backdrop variants.
-
 
 <DocsImage
   src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/versions/beta-3-light@2x.jpg"
@@ -19,36 +18,21 @@ This release introduces seven new components ([ButtonGroup](/docs/components/but
   href="/docs/changelog/v3-0-0-beta-3"
 />
 
-
 ## Installation
 
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -67,52 +51,38 @@ This release introduces **7 new** essential components:
 
 ### ButtonGroup
 
-<ComponentPreview
-  name="button-group-basic"
-/>
+<ComponentPreview name="button-group-basic" />
 
 ### DateField
 
-<ComponentPreview
-  name="date-field-basic"
-/>
+<ComponentPreview name="date-field-basic" />
 
 ### ErrorMessage
 
-<ComponentPreview
-  name="error-message-basic"
-/>
+<ComponentPreview name="error-message-basic" />
 
 ### SearchField
 
-<ComponentPreview
-  name="search-field-basic"
-/>
+<ComponentPreview name="search-field-basic" />
 
 ### ScrollShadow
 
-<ComponentPreview
-  name="scroll-shadow-orientation"
-/>
+<ComponentPreview name="scroll-shadow-orientation" />
 
 ### TagGroup
 
-<ComponentPreview
-  name="tag-group-basic"
-/>
+<ComponentPreview name="tag-group-basic" />
 
 ### TimeField
 
-<ComponentPreview
-  name="time-field-basic"
-/>
-
+<ComponentPreview name="time-field-basic" />
 
 ### Full-Width Support
 
 Added `fullWidth` support to form and input components, allowing them to span the full width of their container. This is particularly useful for creating consistent form layouts and responsive designs.
 
 **Supported components:**
+
 - [ButtonGroup](/docs/components/button-group)
 - [Button](/docs/components/button)
 - [ComboBox](/docs/components/combo-box)
@@ -134,18 +104,26 @@ Added `fullWidth` support to form and input components, allowing them to span th
 Added `hideSeparator` prop to [Tabs](/docs/components/tabs), [ButtonGroup](/docs/components/button-group), and [Accordion](/docs/components/accordion) components, allowing you to hide separator lines between items for a cleaner, more minimal appearance.
 
 **Tabs:**
+
 ```tsx
 <Tabs hideSeparator>
   <Tabs.ListContainer>
     <Tabs.List aria-label="Options">
-      <Tabs.Tab id="overview">Overview<Tabs.Indicator /></Tabs.Tab>
-      <Tabs.Tab id="analytics">Analytics<Tabs.Indicator /></Tabs.Tab>
+      <Tabs.Tab id="overview">
+        Overview
+        <Tabs.Indicator />
+      </Tabs.Tab>
+      <Tabs.Tab id="analytics">
+        Analytics
+        <Tabs.Indicator />
+      </Tabs.Tab>
     </Tabs.List>
   </Tabs.ListContainer>
 </Tabs>
 ```
 
 **ButtonGroup:**
+
 ```tsx
 <ButtonGroup hideSeparator>
   <Button>First</Button>
@@ -155,6 +133,7 @@ Added `hideSeparator` prop to [Tabs](/docs/components/tabs), [ButtonGroup](/docs
 ```
 
 **Accordion:**
+
 ```tsx
 <Accordion hideSeparator>
   <Accordion.Item>
@@ -179,12 +158,14 @@ Integrated [@gravity-ui/icons](https://github.com/gravity-ui/icons) into documen
 Upgraded [react-aria-components](https://react-aria.adobe.com/releases/v1-14-0) to v1.14.0. This release includes:
 
 **Enhancements:**
+
 - SearchField: Added `isReadOnly` and `isRequired` to render props
 - Tooltip: Added `shouldCloseOnPress` prop
 - Tabs: Support for animated transitions between tab panels
 - Miscellaneous: Support for `setState` callback in `useControlledState`
 
 **Fixes:**
+
 - ComboBox: Fixed VoiceOver announcement not respecting `aria-label` of ListBoxItem
 - Date and Time: Enhanced error handling for absolute date and date time strings
 - NumberField: Prevented incrementing/decrementing when scrolling on mobile
@@ -254,6 +235,7 @@ Update all instances of `backdropVariant="solid"` to `backdropVariant="opaque"` 
 ```
 
 **Available backdrop variants:**
+
 - `"opaque"` - Dark backdrop that completely obscures the background (formerly `"solid"`)
 - `"blur"` - Blurred backdrop that softly obscures the background
 - `"transparent"` - Transparent backdrop that keeps the background visible

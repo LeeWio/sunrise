@@ -7,10 +7,14 @@ import { Node } from "@tiptap/pm/model";
 /**
  * Hook to manage all UI-related states for ContentItemMenu.
  */
-export const useContentItemState = (editor: Editor | null, currentNode: Node | null, searchQuery: string) => {
+export const useContentItemState = (
+  editor: Editor | null,
+  currentNode: Node | null,
+  searchQuery: string,
+) => {
   const state = useTiptapState((ctx) => {
     if (!ctx.editor) return { nodeType: "paragraph", alignment: "left" };
-    
+
     let nodeType = "paragraph";
     if (ctx.editor.isActive("heading", { level: 1 })) nodeType = "h1";
     else if (ctx.editor.isActive("heading", { level: 2 })) nodeType = "h2";
@@ -30,17 +34,19 @@ export const useContentItemState = (editor: Editor | null, currentNode: Node | n
     const text = currentNode.textContent || "";
     return {
       characters: text.length,
-      words: text.trim() ? text.trim().split(/\s+/).length : 0
+      words: text.trim() ? text.trim().split(/\s+/).length : 0,
     };
   }, [currentNode]);
 
-  const isMatch = useCallback((text: string) => 
-    text.toLowerCase().includes(searchQuery.toLowerCase()), [searchQuery]);
+  const isMatch = useCallback(
+    (text: string) => text.toLowerCase().includes(searchQuery.toLowerCase()),
+    [searchQuery],
+  );
 
   return {
     nodeType: new Set([state.nodeType]),
     alignment: new Set([state.alignment]),
     blockStats,
-    isMatch
+    isMatch,
   };
 };

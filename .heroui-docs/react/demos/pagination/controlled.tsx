@@ -1,7 +1,7 @@
 "use client";
 
-import {Pagination} from "@heroui/react";
-import {useState} from "react";
+import { Pagination } from "@heroui/react";
+import { useState } from "react";
 
 export function PaginationControlled() {
   const [page, setPage] = useState(1);

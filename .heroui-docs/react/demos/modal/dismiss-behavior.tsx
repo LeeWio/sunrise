@@ -1,14 +1,14 @@
 "use client";
 
-import {CircleInfo} from "@gravity-ui/icons";
-import {Button, Modal} from "@heroui/react";
+import { CircleInfo } from "@gravity-ui/icons";
+import { Button, Modal } from "@heroui/react";
 
 export function DismissBehavior() {
   return (
     <div className="flex max-w-sm flex-col gap-6">
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">isDismissable</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Controls whether the modal can be dismissed by clicking the overlay backdrop. Defaults to{" "}
           <code>true</code>. Set to <code>false</code> to require explicit close action.
         </p>
@@ -23,7 +23,7 @@ export function DismissBehavior() {
                     <CircleInfo className="size-5" />
                   </Modal.Icon>
                   <Modal.Heading>isDismissable = false</Modal.Heading>
-                  <p className="text-sm leading-5 text-muted">
+                  <p className="text-muted text-sm leading-5">
                     Clicking the backdrop won't close this modal
                   </p>
                 </Modal.Header>
@@ -46,7 +46,7 @@ export function DismissBehavior() {
 
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold">isKeyboardDismissDisabled</h3>
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Controls whether the ESC key can dismiss the modal. When set to <code>true</code>, the ESC
           key will be disabled and users must use explicit close actions.
         </p>
@@ -61,7 +61,7 @@ export function DismissBehavior() {
                     <CircleInfo className="size-5" />
                   </Modal.Icon>
                   <Modal.Heading>isKeyboardDismissDisabled = true</Modal.Heading>
-                  <p className="text-sm leading-5 text-muted">ESC key is disabled</p>
+                  <p className="text-muted text-sm leading-5">ESC key is disabled</p>
                 </Modal.Header>
                 <Modal.Body>
                   <p>

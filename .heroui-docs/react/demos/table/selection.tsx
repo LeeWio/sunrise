@@ -1,15 +1,15 @@
 "use client";
 
-import type {Selection} from "@heroui/react";
+import type { Selection } from "@heroui/react";
 
-import {Checkbox, Table} from "@heroui/react";
-import {useState} from "react";
+import { Checkbox, Table } from "@heroui/react";
+import { useState } from "react";
 
 const users = [
-  {email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active"},
-  {email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active"},
-  {email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave"},
-  {email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active"},
+  { email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active" },
+  { email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active" },
+  { email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave" },
+  { email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active" },
 ];
 
 export function SelectionDemo() {
@@ -63,7 +63,7 @@ export function SelectionDemo() {
           </Table.Content>
         </Table.ScrollContainer>
       </Table>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected:{" "}
         <span className="font-medium">
           {selectedKeys === "all"

@@ -1,10 +1,10 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
-import {Bold, Italic, Strikethrough, Underline} from "@gravity-ui/icons";
-import {ToggleButton, ToggleButtonGroup} from "@heroui/react";
-import {useState} from "react";
+import { Bold, Italic, Strikethrough, Underline } from "@gravity-ui/icons";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [selectedKeys, setSelectedKeys] = useState(new Set<Key>(["bold"]));
@@ -32,7 +32,7 @@ export function Controlled() {
           <Strikethrough />
         </ToggleButton>
       </ToggleButtonGroup>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected:{" "}
         <span className="font-medium">
           {selectedKeys.size > 0 ? [...selectedKeys].join(", ") : "None"}

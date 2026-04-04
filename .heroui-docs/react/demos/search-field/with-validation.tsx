@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, FieldError, Label, SearchField} from "@heroui/react";
+import { Description, FieldError, Label, SearchField } from "@heroui/react";
 import React from "react";
 
 export function WithValidation() {

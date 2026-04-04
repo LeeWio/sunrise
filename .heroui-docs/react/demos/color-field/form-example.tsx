@@ -1,9 +1,9 @@
 "use client";
 
-import type {Color} from "@heroui/react";
+import type { Color } from "@heroui/react";
 
-import {Button, ColorField, ColorSwatch, Description, Form, Label} from "@heroui/react";
-import {useState} from "react";
+import { Button, ColorField, ColorSwatch, Description, Form, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function FormExample() {
   const [value, setValue] = useState<Color | null>(null);
@@ -20,7 +20,7 @@ export function FormExample() {
 
     // Simulate API call
     setTimeout(() => {
-      console.log("Color submitted:", {color: value.toString("hex")});
+      console.log("Color submitted:", { color: value.toString("hex") });
       setValue(null);
       setIsSubmitting(false);
     }, 1500);

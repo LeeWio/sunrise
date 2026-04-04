@@ -1,4 +1,4 @@
-import {Bold, Copy, Italic, Scissors, Underline} from "@gravity-ui/icons";
+import { Bold, Copy, Italic, Scissors, Underline } from "@gravity-ui/icons";
 import {
   Button,
   ButtonGroup,

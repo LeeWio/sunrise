@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, TextArea} from "@heroui/react";
+import { Description, TextArea } from "@heroui/react";
 import React from "react";
 
 export function Controlled() {

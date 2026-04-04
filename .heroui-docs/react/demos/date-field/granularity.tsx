@@ -1,18 +1,18 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {CircleQuestion} from "@gravity-ui/icons";
-import {DateField, Label, ListBox, Select, Tooltip} from "@heroui/react";
-import {parseDate, parseZonedDateTime} from "@internationalized/date";
-import {useState} from "react";
+import { CircleQuestion } from "@gravity-ui/icons";
+import { DateField, Label, ListBox, Select, Tooltip } from "@heroui/react";
+import { parseDate, parseZonedDateTime } from "@internationalized/date";
+import { useState } from "react";
 
 export function Granularity() {
   const granularityOptions = [
-    {id: "day", label: "Day"},
-    {id: "hour", label: "Hour"},
-    {id: "minute", label: "Minute"},
-    {id: "second", label: "Second"},
+    { id: "day", label: "Day" },
+    { id: "hour", label: "Hour" },
+    { id: "minute", label: "Minute" },
+    { id: "second", label: "Second" },
   ] as const;
 
   const [granularity, setGranularity] = useState<"day" | "hour" | "minute" | "second">("day");
@@ -45,7 +45,7 @@ export function Granularity() {
           <Label>Granularity</Label>
           <Tooltip delay={0}>
             <Tooltip.Trigger aria-label="Granularity information">
-              <CircleQuestion className="size-4 text-muted" />
+              <CircleQuestion className="text-muted size-4" />
             </Tooltip.Trigger>
             <Tooltip.Content placement="bottom start">
               <p>

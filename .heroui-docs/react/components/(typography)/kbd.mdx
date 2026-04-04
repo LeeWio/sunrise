@@ -16,9 +16,7 @@ import { Kbd } from "@heroui/react";
 
 ### Usage
 
-<ComponentPreview 
-  name="kbd-basic"
-/>
+<ComponentPreview name="kbd-basic" />
 
 ### Anatomy
 
@@ -37,33 +35,23 @@ export default () => (
 
 ### Navigation Keys
 
-<ComponentPreview 
-  name="kbd-navigation-keys"
-/>
+<ComponentPreview name="kbd-navigation-keys" />
 
 ### Inline Usage
 
-<ComponentPreview 
-  name="kbd-inline-usage"
-/>
+<ComponentPreview name="kbd-inline-usage" />
 
 ### Instructional Text
 
-<ComponentPreview 
-  name="kbd-instructional-text"
-/>
+<ComponentPreview name="kbd-instructional-text" />
 
 ### Special Keys
 
-<ComponentPreview 
-  name="kbd-special-keys"
-/>
+<ComponentPreview name="kbd-special-keys" />
 
 ### Variants
 
-<ComponentPreview 
-  name="kbd-variants"
-/>
+<ComponentPreview name="kbd-variants" />
 
 <RelatedComponents component="kbd" />
 
@@ -86,12 +74,14 @@ function CustomKbd() {
 ### Customizing the component classes
 
 To customize the Kbd component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
   .kbd {
-    @apply bg-gray-100 dark:bg-gray-800 border-gray-300;
+    @apply border-gray-300 bg-gray-100 dark:bg-gray-800;
   }
 
   .kbd__abbr {
@@ -120,26 +110,26 @@ The Kbd component uses these CSS classes ([View source styles](https://github.co
 
 ### Kbd Props
 
-| Prop        | Type              | Default | Description            |
-| ----------- | ----------------- | ------- | ---------------------- |
-| `children`  | `React.ReactNode` | -       | Content of the key     |
-| `variant`   | `"default" | "light"` | `default`       | Variant of the keyboard key |
-| `className` | `string`          | -       | Custom CSS classes     |
+| Prop        | Type              | Default  | Description        |
+| ----------- | ----------------- | -------- | ------------------ | --------------------------- |
+| `children`  | `React.ReactNode` | -        | Content of the key |
+| `variant`   | `"default"        | "light"` | `default`          | Variant of the keyboard key |
+| `className` | `string`          | -        | Custom CSS classes |
 
 ### Kbd.Abbr Props
 
-| Prop        | Type     | Default | Description                                                                                                                               |
-| ----------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`     | `string` | -       | Title attribute for accessibility (e.g., "Command" for ⌘)                                                                               |
-| `children`  | `React.ReactNode` | -       | The symbol or text to display (e.g., ⌘, ⌥, ⇧)                                                                                          |
-| `className` | `string` | -       | Custom CSS classes                                                                                                                       |
+| Prop        | Type              | Default | Description                                               |
+| ----------- | ----------------- | ------- | --------------------------------------------------------- |
+| `title`     | `string`          | -       | Title attribute for accessibility (e.g., "Command" for ⌘) |
+| `children`  | `React.ReactNode` | -       | The symbol or text to display (e.g., ⌘, ⌥, ⇧)             |
+| `className` | `string`          | -       | Custom CSS classes                                        |
 
 ### Kbd.Key Props
 
-| Prop        | Type              | Default | Description                        |
-| ----------- | ----------------- | ------- | ---------------------------------- |
-| `children`  | `React.ReactNode` | -       | Text content of the key            |
-| `className` | `string`          | -       | Custom CSS classes                 |
+| Prop        | Type              | Default | Description             |
+| ----------- | ----------------- | ------- | ----------------------- |
+| `children`  | `React.ReactNode` | -       | Text content of the key |
+| `className` | `string`          | -       | Custom CSS classes      |
 
 ### Kbd.Content Type
 

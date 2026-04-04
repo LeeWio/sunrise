@@ -1,8 +1,8 @@
 "use client";
 
-import type {ToastVariants} from "@heroui/react";
+import type { ToastVariants } from "@heroui/react";
 
-import {Button, Toast, ToastQueue} from "@heroui/react";
+import { Button, Toast, ToastQueue } from "@heroui/react";
 
 type Placement = NonNullable<ToastVariants["placement"]>;
 
@@ -10,7 +10,7 @@ const placements = ["top start", "top", "top end", "bottom start", "bottom", "bo
 
 // Create a separate queue for each placement
 const placementQueues = Object.fromEntries(
-  placements.map((p) => [p, new ToastQueue({maxVisibleToasts: 3})]),
+  placements.map((p) => [p, new ToastQueue({ maxVisibleToasts: 3 })]),
 ) as Record<Placement, ToastQueue>;
 
 export function Placements() {

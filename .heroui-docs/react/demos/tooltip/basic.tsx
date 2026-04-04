@@ -1,5 +1,5 @@
-import {CircleInfo} from "@gravity-ui/icons";
-import {Button, Tooltip} from "@heroui/react";
+import { CircleInfo } from "@gravity-ui/icons";
+import { Button, Tooltip } from "@heroui/react";
 
 export function TooltipBasic() {
   return (

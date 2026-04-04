@@ -1,4 +1,4 @@
-import {Button, Popover} from "@heroui/react";
+import { Button, Popover } from "@heroui/react";
 
 export function PopoverBasic() {
   return (
@@ -8,7 +8,7 @@ export function PopoverBasic() {
         <Popover.Content className="max-w-64">
           <Popover.Dialog>
             <Popover.Heading>Popover Title</Popover.Heading>
-            <p className="mt-2 text-sm text-muted">
+            <p className="text-muted mt-2 text-sm">
               This is the popover content. You can put any content here.
             </p>
           </Popover.Dialog>

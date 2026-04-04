@@ -1,9 +1,9 @@
 "use client";
 
-import type {Selection} from "@heroui/react";
+import type { Selection } from "@heroui/react";
 
-import {Button, Dropdown, Label} from "@heroui/react";
-import {useState} from "react";
+import { Button, Dropdown, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [selected, setSelected] = useState<Selection>(new Set(["bold"]));
@@ -12,7 +12,7 @@ export function Controlled() {
 
   return (
     <div className="flex min-w-sm flex-col items-center justify-center gap-4">
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Selected: {selectedItems.length > 0 ? selectedItems.join(", ") : "None"}
       </p>
       <Dropdown>

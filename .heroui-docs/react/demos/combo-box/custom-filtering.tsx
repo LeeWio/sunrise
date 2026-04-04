@@ -1,14 +1,14 @@
 "use client";
 
-import {ComboBox, Input, Label, ListBox} from "@heroui/react";
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 export function CustomFiltering() {
   const animals = [
-    {id: "cat", name: "Cat"},
-    {id: "dog", name: "Dog"},
-    {id: "bird", name: "Bird"},
-    {id: "fish", name: "Fish"},
-    {id: "hamster", name: "Hamster"},
+    { id: "cat", name: "Cat" },
+    { id: "dog", name: "Dog" },
+    { id: "bird", name: "Bird" },
+    { id: "fish", name: "Fish" },
+    { id: "hamster", name: "Hamster" },
   ];
 
   return (

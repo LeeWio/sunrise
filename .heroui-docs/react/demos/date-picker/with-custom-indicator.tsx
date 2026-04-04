@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar, DateField, DatePicker, Description, Label} from "@heroui/react";
-import {Icon} from "@iconify/react";
+import { Calendar, DateField, DatePicker, Description, Label } from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 export function WithCustomIndicator() {
   return (
@@ -36,7 +36,7 @@ export function WithCustomIndicator() {
           </Calendar.Grid>
           <Calendar.YearPickerGrid>
             <Calendar.YearPickerGridBody>
-              {({year}) => <Calendar.YearPickerCell year={year} />}
+              {({ year }) => <Calendar.YearPickerCell year={year} />}
             </Calendar.YearPickerGridBody>
           </Calendar.YearPickerGrid>
         </Calendar>

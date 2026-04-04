@@ -7,12 +7,13 @@ links:
   tailwind: theme
 ---
 
-import {ColorSwatch, ColorPalette} from "@/components/color-swatch";
+import { ColorSwatch, ColorPalette } from "@/components/color-swatch";
 
 HeroUI uses CSS variables for colors that automatically switch between light and dark themes. All colors use the `oklch` color space for better color transitions.
 
 <Callout type="info">
-  **Want to create your own theme?** Try the [Theme Builder](/themes) to visually customize colors, radius, fonts, and more — then export the CSS to use in your project.
+  **Want to create your own theme?** Try the [Theme Builder](/themes) to visually customize colors,
+  radius, fonts, and more — then export the CSS to use in your project.
 </Callout>
 
 ## How It Works
@@ -20,10 +21,12 @@ HeroUI uses CSS variables for colors that automatically switch between light and
 HeroUI's color system is built on top of Tailwind CSS v4's theme. When you import `@heroui/styles`, it uses Tailwind's built-in color palettes and maps them to semantic variables.
 
 **Naming pattern:**
+
 - Colors without a suffix are backgrounds (e.g., `--accent`)
 - Colors with `-foreground` are for text on that background (e.g., `--accent-foreground`)
 
 **Usage:**
+
 ```html
 <html class="light" data-theme="light">
   <body class="bg-background text-foreground">
@@ -121,11 +124,10 @@ For consistent form field styling across input components:
 ## How to Use Colors
 
 **In your components:**
+
 ```jsx
 <div className="bg-background text-foreground">
-  <button className="bg-accent text-accent-foreground hover:bg-accent-hover">
-    Click me
-  </button>
+  <button className="bg-accent text-accent-foreground hover:bg-accent-hover">Click me</button>
 </div>
 ```
 
@@ -311,10 +313,10 @@ The complete theme definition can be found in ([variables.css](https://github.co
       --overlay-shadow: 0 0 0 0 transparent inset; /* No shadow on dark mode */
       --field-shadow: 0 0 0 0 transparent inset; /* Transparent shadow to allow ring utilities to work */
     }
-  }
+
+}
 `}
 />
-
 
 ## Customizing Colors
 
@@ -365,7 +367,6 @@ Now you can use it:
 ```
 
 > **Note**: To learn more about theme variables and how they work in Tailwind CSS v4, see the [Tailwind CSS Theme documentation](https://tailwindcss.com/docs/theme).
-
 
 ## Quick Tips
 

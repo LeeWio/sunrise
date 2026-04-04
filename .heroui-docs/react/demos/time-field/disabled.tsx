@@ -1,7 +1,7 @@
 "use client";
 
-import {Description, Label, TimeField} from "@heroui/react";
-import {Time, getLocalTimeZone, now} from "@internationalized/date";
+import { Description, Label, TimeField } from "@heroui/react";
+import { Time, getLocalTimeZone, now } from "@internationalized/date";
 
 export function Disabled() {
   const currentTime = now(getLocalTimeZone());

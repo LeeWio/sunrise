@@ -1,4 +1,4 @@
-import {Alert, Button, CloseButton, Spinner} from "@heroui/react";
+import { Alert, Button, CloseButton, Spinner } from "@heroui/react";
 import React from "react";
 
 export function Basic() {

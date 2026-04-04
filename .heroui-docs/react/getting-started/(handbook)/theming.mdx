@@ -10,7 +10,8 @@ links:
 HeroUI uses CSS variables and [BEM](https://getbem.com/) classes for theming. Customize everything from colors to component styles using standard CSS.
 
 <Callout type="info">
-  **Want to create your own theme?** Try the [Theme Builder](/themes) to visually customize colors, radius, fonts, and more — then export the CSS to use in your project.
+  **Want to create your own theme?** Try the [Theme Builder](/themes) to visually customize colors,
+  radius, fonts, and more — then export the CSS to use in your project.
 </Callout>
 
 ## How It Works
@@ -18,6 +19,7 @@ HeroUI uses CSS variables and [BEM](https://getbem.com/) classes for theming. Cu
 HeroUI's theming system is built on top of [Tailwind CSS v4](https://tailwindcss.com/docs/theme)'s theme. When you import `@heroui/styles`, it uses Tailwind's built-in color palettes, maps them to semantic variables, automatically switches between light and dark themes, and uses CSS layers and the `@theme` directive for organization.
 
 **Naming pattern:**
+
 - Colors without a suffix are backgrounds (e.g., `--accent`)
 - Colors with `-foreground` are for text on that background (e.g., `--accent-foreground`)
 
@@ -34,12 +36,13 @@ HeroUI's theming system is built on top of [Tailwind CSS v4](https://tailwindcss
 ```
 
 **Switch themes:**
+
 ```html
 <!-- Light theme -->
 <html class="light" data-theme="light">
-
-<!-- Dark theme -->
-<html class="dark" data-theme="dark">
+  <!-- Dark theme -->
+  <html class="dark" data-theme="dark"></html>
+</html>
 ```
 
 **Switch themes programmatically with [next-themes](https://github.com/pacocoursey/next-themes) (For Next.js):**
@@ -253,6 +256,7 @@ export function ThemeSwitch() {
       --overlay-shadow: 0 0 0 0 transparent inset;
       --field-shadow: 0 0 0 0 transparent inset;
     }
+
 }
 `}
 />
@@ -276,9 +280,9 @@ Apply your theme:
 
 <!-- Light ocean -->
 <html data-theme="ocean">
-
-<!-- Dark ocean -->
-<html data-theme="ocean-dark">
+  <!-- Dark ocean -->
+  <html data-theme="ocean-dark"></html>
+</html>
 ```
 
 ## Customize Components
@@ -397,6 +401,7 @@ Now use it in your components:
 ## Variables Reference
 
 HeroUI defines three types of variables:
+
 1. **Base Variables** — Non-changing values like `--white`, `--black`, spacing, and typography
 2. **Theme Variables** — Colors that change between light/dark themes
 3. **Calculated Variables** — Automatically generated hover states and size variants
@@ -406,6 +411,7 @@ For a complete reference, see: [Colors Documentation](/docs/handbook/colors), [D
 **Calculated variables (Tailwind):**
 
 We use Tailwind's `@theme` directive to automatically create calculated variables for hover states and radius variants. These are defined in `themes/shared/theme.css`:
+
 <CollapsibleCode lang="css" code={`  @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -591,7 +597,8 @@ We use Tailwind's `@theme` directive to automatically create calculated variable
         opacity: 0;
       }
     }
-  }
+
+}
 `}
 />
 

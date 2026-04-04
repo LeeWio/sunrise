@@ -1,9 +1,9 @@
 "use client";
 
-import type {ScrollShadowVisibility} from "@heroui/react";
+import type { ScrollShadowVisibility } from "@heroui/react";
 
-import {Card, ScrollShadow} from "@heroui/react";
-import {useState} from "react";
+import { Card, ScrollShadow } from "@heroui/react";
+import { useState } from "react";
 
 const images = [
   "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/robot1.jpeg",
@@ -22,7 +22,7 @@ export default function VisibilityChange() {
   return (
     <div className="w-full sm:max-w-sm">
       <div className="mb-8 flex flex-col gap-2">
-        <div className="rounded bg-default p-4">
+        <div className="bg-default rounded p-4">
           <p className="text-sm font-semibold">Vertical Shadow State: {verticalState}</p>
         </div>
         <div className="w-full">
@@ -32,7 +32,7 @@ export default function VisibilityChange() {
             onVisibilityChange={(visibility) => setVerticalState(visibility)}
           >
             <div className="space-y-4">
-              {Array.from({length: 10}).map((_, idx) => (
+              {Array.from({ length: 10 }).map((_, idx) => (
                 <p key={`scroll-shadow-lorem-content-${idx}`}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
                   risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
@@ -45,7 +45,7 @@ export default function VisibilityChange() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <div className="rounded bg-default p-4">
+        <div className="bg-default rounded p-4">
           <p className="text-sm font-semibold">Horizontal Shadow State: {horizontalState}</p>
         </div>
         <div className="w-full">
@@ -55,7 +55,7 @@ export default function VisibilityChange() {
             onVisibilityChange={(visibility) => setHorizontalState(visibility)}
           >
             <div className="flex flex-row gap-4">
-              {Array.from({length: 10}).map((_, idx) => (
+              {Array.from({ length: 10 }).map((_, idx) => (
                 <Card
                   key={`scroll-shadow-lorem-cards-${idx}`}
                   className="flex min-w-[200px] flex-row gap-3 p-1"

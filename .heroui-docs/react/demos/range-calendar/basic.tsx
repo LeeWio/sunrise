@@ -1,6 +1,6 @@
 "use client";
 
-import {RangeCalendar} from "@heroui/react";
+import { RangeCalendar } from "@heroui/react";
 
 export function Basic() {
   return (

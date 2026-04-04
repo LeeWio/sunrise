@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -11,7 +11,7 @@ import {
   SearchField,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 interface City {
   name: string;
@@ -20,21 +20,21 @@ interface City {
 
 export function LocationSearch() {
   const allCities: City[] = [
-    {country: "USA", name: "New York"},
-    {country: "USA", name: "Los Angeles"},
-    {country: "USA", name: "Chicago"},
-    {country: "UK", name: "London"},
-    {country: "France", name: "Paris"},
-    {country: "Japan", name: "Tokyo"},
-    {country: "Australia", name: "Sydney"},
-    {country: "Canada", name: "Toronto"},
-    {country: "Germany", name: "Berlin"},
-    {country: "Spain", name: "Madrid"},
+    { country: "USA", name: "New York" },
+    { country: "USA", name: "Los Angeles" },
+    { country: "USA", name: "Chicago" },
+    { country: "UK", name: "London" },
+    { country: "France", name: "Paris" },
+    { country: "Japan", name: "Tokyo" },
+    { country: "Australia", name: "Sydney" },
+    { country: "Canada", name: "Toronto" },
+    { country: "Germany", name: "Berlin" },
+    { country: "Spain", name: "Madrid" },
   ];
 
   const [selectedKey, setSelectedKey] = useState<Key | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   // Simulate async filtering
   const customFilter = (text: string, inputValue: string) => {

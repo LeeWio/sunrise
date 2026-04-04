@@ -1,9 +1,9 @@
 "use client";
 
-import type {ColorSpace, Key} from "@heroui/react";
+import type { ColorSpace, Key } from "@heroui/react";
 
-import {ColorArea, Label, ListBox, Select, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { ColorArea, Label, ListBox, Select, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 type ColorChannel = "hue" | "saturation" | "brightness" | "lightness" | "red" | "green" | "blue";
 
@@ -12,27 +12,27 @@ interface ChannelOption {
   name: string;
 }
 
-const colorSpaces: Array<{id: ColorSpace; name: string}> = [
-  {id: "rgb", name: "RGB"},
-  {id: "hsl", name: "HSL"},
-  {id: "hsb", name: "HSB"},
+const colorSpaces: Array<{ id: ColorSpace; name: string }> = [
+  { id: "rgb", name: "RGB" },
+  { id: "hsl", name: "HSL" },
+  { id: "hsb", name: "HSB" },
 ];
 
 const channelsBySpace: Record<ColorSpace, ChannelOption[]> = {
   hsb: [
-    {id: "hue", name: "Hue"},
-    {id: "saturation", name: "Saturation"},
-    {id: "brightness", name: "Brightness"},
+    { id: "hue", name: "Hue" },
+    { id: "saturation", name: "Saturation" },
+    { id: "brightness", name: "Brightness" },
   ],
   hsl: [
-    {id: "hue", name: "Hue"},
-    {id: "saturation", name: "Saturation"},
-    {id: "lightness", name: "Lightness"},
+    { id: "hue", name: "Hue" },
+    { id: "saturation", name: "Saturation" },
+    { id: "lightness", name: "Lightness" },
   ],
   rgb: [
-    {id: "red", name: "Red"},
-    {id: "green", name: "Green"},
-    {id: "blue", name: "Blue"},
+    { id: "red", name: "Red" },
+    { id: "green", name: "Green" },
+    { id: "blue", name: "Blue" },
   ],
 };
 
@@ -153,10 +153,10 @@ export function ColorAreaSpaceAndChannels() {
       {/* Color Value Display */}
       <div className="flex items-center gap-3">
         <div
-          className="size-8 rounded-md border border-default"
-          style={{backgroundColor: color.toString("css")}}
+          className="border-default size-8 rounded-md border"
+          style={{ backgroundColor: color.toString("css") }}
         />
-        <code className="rounded bg-default/50 px-2 py-1 text-sm">
+        <code className="bg-default/50 rounded px-2 py-1 text-sm">
           {color.toString(colorSpace)}
         </code>
       </div>

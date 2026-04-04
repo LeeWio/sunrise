@@ -1,7 +1,7 @@
 "use client";
 
-import {Envelope} from "@gravity-ui/icons";
-import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
+import { Envelope } from "@gravity-ui/icons";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 
 export function WithForm() {
   return (
@@ -16,7 +16,7 @@ export function WithForm() {
                 <Envelope className="size-5" />
               </Modal.Icon>
               <Modal.Heading>Contact Us</Modal.Heading>
-              <p className="mt-1.5 text-sm leading-5 text-muted">
+              <p className="text-muted mt-1.5 text-sm leading-5">
                 Fill out the form below and we'll get back to you. The modal adapts automatically
                 when the keyboard appears on mobile.
               </p>

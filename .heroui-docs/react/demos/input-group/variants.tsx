@@ -1,5 +1,5 @@
-import {Envelope} from "@gravity-ui/icons";
-import {InputGroup, Label, TextField} from "@heroui/react";
+import { Envelope } from "@gravity-ui/icons";
+import { InputGroup, Label, TextField } from "@heroui/react";
 
 export function Variants() {
   return (
@@ -8,7 +8,7 @@ export function Variants() {
         <Label>Primary variant</Label>
         <InputGroup variant="primary">
           <InputGroup.Prefix>
-            <Envelope className="size-4 text-muted" />
+            <Envelope className="text-muted size-4" />
           </InputGroup.Prefix>
           <InputGroup.Input placeholder="name@email.com" />
         </InputGroup>
@@ -17,7 +17,7 @@ export function Variants() {
         <Label>Secondary variant</Label>
         <InputGroup variant="secondary">
           <InputGroup.Prefix>
-            <Envelope className="size-4 text-muted" />
+            <Envelope className="text-muted size-4" />
           </InputGroup.Prefix>
           <InputGroup.Input placeholder="name@email.com" />
         </InputGroup>

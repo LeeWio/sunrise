@@ -1,4 +1,4 @@
-import {Avatar, Badge, Separator} from "@heroui/react";
+import { Avatar, Badge, Separator } from "@heroui/react";
 import React from "react";
 
 const AVATAR_URL = "https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/green.jpg";
@@ -12,7 +12,7 @@ export function BadgeVariants() {
       {variants.map((variant, index) => (
         <React.Fragment key={variant}>
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-muted capitalize">{variant}</h3>
+            <h3 className="text-muted text-sm font-semibold capitalize">{variant}</h3>
             <div className="flex items-center gap-6">
               {colors.map((color) => (
                 <Badge.Anchor key={color}>

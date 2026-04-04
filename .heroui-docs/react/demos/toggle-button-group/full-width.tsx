@@ -7,7 +7,7 @@ import {
   TextAlignRight,
   Underline,
 } from "@gravity-ui/icons";
-import {ToggleButton, ToggleButtonGroup} from "@heroui/react";
+import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 
 export function FullWidth() {
   return (

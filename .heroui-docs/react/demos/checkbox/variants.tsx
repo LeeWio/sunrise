@@ -1,10 +1,10 @@
-import {Checkbox, Description, Label} from "@heroui/react";
+import { Checkbox, Description, Label } from "@heroui/react";
 
 export function Variants() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Primary variant</p>
+        <p className="text-muted text-sm font-medium">Primary variant</p>
         <Checkbox id="primary" name="primary" variant="primary">
           <Checkbox.Control>
             <Checkbox.Indicator />
@@ -16,7 +16,7 @@ export function Variants() {
         </Checkbox>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted">Secondary variant</p>
+        <p className="text-muted text-sm font-medium">Secondary variant</p>
         <Checkbox id="secondary" name="secondary" variant="secondary">
           <Checkbox.Control>
             <Checkbox.Indicator />

@@ -11,8 +11,8 @@ import {
   Label,
   parseColor,
 } from "@heroui/react";
-import {Icon} from "@iconify/react";
-import {useState} from "react";
+import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [color, setColor] = useState(parseColor("#325578"));
@@ -87,7 +87,7 @@ export function Controlled() {
           </ColorField>
         </ColorPicker.Popover>
       </ColorPicker>
-      <p className="w-60 text-sm text-muted">
+      <p className="text-muted w-60 text-sm">
         Selected: <span className="font-medium">{color.toString("hex")}</span>
       </p>
     </div>

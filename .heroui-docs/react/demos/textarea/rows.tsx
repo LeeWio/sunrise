@@ -1,4 +1,4 @@
-import {Label, TextArea} from "@heroui/react";
+import { Label, TextArea } from "@heroui/react";
 
 export function Rows() {
   return (
@@ -19,7 +19,7 @@ export function Rows() {
           id="textarea-rows-6"
           placeholder="Write out the full meeting notes..."
           rows={6}
-          style={{resize: "vertical"}}
+          style={{ resize: "vertical" }}
         />
       </div>
     </div>

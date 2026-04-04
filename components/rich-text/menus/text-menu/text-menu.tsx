@@ -4,13 +4,7 @@ import React from "react";
 import { useTiptap } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Separator } from "@heroui/react";
-import { 
-  Bold, 
-  Italic, 
-  Underline, 
-  Strikethrough, 
-  Code 
-} from "@gravity-ui/icons";
+import { Bold, Italic, Underline, Strikethrough, Code } from "@gravity-ui/icons";
 import { MenuContainer } from "../menu-container";
 import { useTextMenuStates } from "./hooks/use-text-menu-states";
 import { TextColorPicker } from "./components/color-picker";
@@ -30,7 +24,7 @@ interface TextMenuProps {
  */
 export function TextMenu({ appendTo }: TextMenuProps) {
   const { editor } = useTiptap();
-  
+
   const commands = useRichTextCommands(editor);
   const states = useTextMenuStates(editor);
 
@@ -38,8 +32,8 @@ export function TextMenu({ appendTo }: TextMenuProps) {
 
   // Resolve appendTo for Floating UI
   const getAppendTo = () => {
-    if (typeof appendTo === 'function') return appendTo();
-    if (appendTo && 'current' in appendTo) return appendTo.current || undefined;
+    if (typeof appendTo === "function") return appendTo();
+    if (appendTo && "current" in appendTo) return appendTo.current || undefined;
     return appendTo || undefined;
   };
 
@@ -54,7 +48,7 @@ export function TextMenu({ appendTo }: TextMenuProps) {
         offset: 8,
       }}
     >
-      <MenuContainer 
+      <MenuContainer
         layout
         initial={{ opacity: 0, scale: 0.95, y: 5 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -63,13 +57,13 @@ export function TextMenu({ appendTo }: TextMenuProps) {
         className="flex items-center gap-0.5 px-1 py-1"
       >
         <div className="flex items-center gap-0.5">
-          <TextColorPicker 
+          <TextColorPicker
             type="text"
             value={states.textColor}
             onChange={commands.onSetColor}
             onClear={commands.onUnsetColor}
           />
-          <TextColorPicker 
+          <TextColorPicker
             type="background"
             value={states.backgroundColor}
             onChange={commands.onSetBackgroundColor}
@@ -77,7 +71,7 @@ export function TextMenu({ appendTo }: TextMenuProps) {
           />
         </div>
 
-        <Separator orientation="vertical" className="h-4 mx-1" />
+        <Separator orientation="vertical" className="mx-1 h-4" />
 
         <div className="flex items-center gap-0.5">
           <ToolbarButton

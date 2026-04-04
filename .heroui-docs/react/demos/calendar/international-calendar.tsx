@@ -1,8 +1,8 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
-import {I18nProvider} from "react-aria-components";
+import { Calendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { I18nProvider } from "react-aria-components";
 
 export function InternationalCalendar() {
   return (
@@ -24,7 +24,7 @@ export function InternationalCalendar() {
         </Calendar.Grid>
         <Calendar.YearPickerGrid>
           <Calendar.YearPickerGridBody>
-            {({year}) => <Calendar.YearPickerCell year={year} />}
+            {({ year }) => <Calendar.YearPickerCell year={year} />}
           </Calendar.YearPickerGridBody>
         </Calendar.YearPickerGrid>
       </Calendar>

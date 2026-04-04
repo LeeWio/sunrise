@@ -1,9 +1,9 @@
 "use client";
 
-import type {Selection} from "@heroui/react";
+import type { Selection } from "@heroui/react";
 
-import {Button, Dropdown, Header, Kbd, Label, Separator} from "@heroui/react";
-import {useState} from "react";
+import { Button, Dropdown, Header, Kbd, Label, Separator } from "@heroui/react";
+import { useState } from "react";
 
 export function WithSectionLevelSelection() {
   const [textStyles, setTextStyles] = useState<Selection>(new Set(["bold", "italic"]));

@@ -1,4 +1,4 @@
-import {Label, NumberField} from "@heroui/react";
+import { Label, NumberField } from "@heroui/react";
 
 export function WithChevrons() {
   return (
@@ -16,7 +16,7 @@ export function WithChevrons() {
       <Label>Number field with chevrons</Label>
       <NumberField.Group>
         <NumberField.Input />
-        <div className="flex h-[calc(100%+2px)] flex-col border-l border-field-placeholder/15">
+        <div className="border-field-placeholder/15 flex h-[calc(100%+2px)] flex-col border-l">
           <NumberField.IncrementButton className="-ml-px flex h-1/2 w-6 flex-1 rounded-none border-r-0 border-l-0 pt-0.5 text-sm">
             <svg
               aria-hidden="true"

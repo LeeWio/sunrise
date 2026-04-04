@@ -1,4 +1,4 @@
-import {Chip, Table} from "@heroui/react";
+import { Chip, Table } from "@heroui/react";
 
 export function ColumnResizing() {
   return (

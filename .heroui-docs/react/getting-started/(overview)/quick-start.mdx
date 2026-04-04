@@ -14,26 +14,10 @@ icon: rocket
 Install HeroUI and required dependencies:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles @heroui/react
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles @heroui/react
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles @heroui/react ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles @heroui/react ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles @heroui/react ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles @heroui/react ```</Tab>
 </Tabs>
 
 ## Import Styles
@@ -45,21 +29,15 @@ Add to your main CSS file `globals.css`:
 @import "@heroui/styles"; /* [!code highlight]*/
 ```
 
-<Callout type="warning">
-  Import order matters. Always import `tailwindcss` first.
-</Callout>
+<Callout type="warning">Import order matters. Always import `tailwindcss` first.</Callout>
 
 ## Use Components
 
 ```tsx
-import { Button } from '@heroui/react';
+import { Button } from "@heroui/react";
 
 function App() {
-  return (
-    <Button>
-      My Button
-    </Button>
-  );
+  return <Button>My Button</Button>;
 }
 ```
 

@@ -1,7 +1,7 @@
 "use client";
 
-import {Button, Label, Modal, Radio, RadioGroup} from "@heroui/react";
-import {useState} from "react";
+import { Button, Label, Modal, Radio, RadioGroup } from "@heroui/react";
+import { useState } from "react";
 
 export function ScrollComparison() {
   const [scroll, setScroll] = useState<"inside" | "outside">("inside");
@@ -38,13 +38,13 @@ export function ScrollComparison() {
                 <Modal.Heading>
                   Scroll: {scroll.charAt(0).toUpperCase() + scroll.slice(1)}
                 </Modal.Heading>
-                <p className="text-sm leading-5 text-muted">
+                <p className="text-muted text-sm leading-5">
                   Compare scroll behaviors - inside keeps content scrollable within the modal,
                   outside allows page scrolling
                 </p>
               </Modal.Header>
               <Modal.Body>
-                {Array.from({length: 30}).map((_, i) => (
+                {Array.from({ length: 30 }).map((_, i) => (
                   <p key={i} className="mb-3">
                     Paragraph {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet

@@ -12,19 +12,17 @@ links:
 ## Import
 
 ```tsx
-import { Meter, Label } from '@heroui/react';
+import { Meter, Label } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="meter-basic"
-/>
+<ComponentPreview name="meter-basic" />
 
 ### Anatomy
 
 ```tsx
-import { Meter, Label } from '@heroui/react';
+import { Meter, Label } from "@heroui/react";
 
 export default () => (
   <Meter value={60}>
@@ -39,31 +37,23 @@ export default () => (
 
 ### Sizes
 
-<ComponentPreview
-  name="meter-sizes"
-/>
+<ComponentPreview name="meter-sizes" />
 
 ### Colors
 
-<ComponentPreview
-  name="meter-colors"
-/>
+<ComponentPreview name="meter-colors" />
 
 ### Custom Value Scale
 
 Use `minValue`, `maxValue`, and `formatOptions` to customize the value range and display format.
 
-<ComponentPreview
-  name="meter-custom-value"
-/>
+<ComponentPreview name="meter-custom-value" />
 
 ### Without Label
 
 When no visible label is needed, use `aria-label` for accessibility.
 
-<ComponentPreview
-  name="meter-without-label"
-/>
+<ComponentPreview name="meter-without-label" />
 
 <RelatedComponents component="meter" />
 
@@ -74,7 +64,7 @@ When no visible label is needed, use `aria-label` for accessibility.
 You can customize individual Meter parts:
 
 ```tsx
-import { Meter, Label } from '@heroui/react';
+import { Meter, Label } from "@heroui/react";
 
 function CustomMeter() {
   return (
@@ -92,7 +82,9 @@ function CustomMeter() {
 ### Customizing the component classes
 
 To customize the Meter component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -117,17 +109,20 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Meter component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/meter.css)):
 
 #### Base & Element Classes
+
 - `.meter` - Base container (grid layout)
 - `.meter__output` - Value text display
 - `.meter__track` - Track background
 - `.meter__fill` - Filled portion of the track
 
 #### Size Classes
+
 - `.meter--sm` - Small size variant (thinner track)
 - `.meter--md` - Medium size variant (default)
 - `.meter--lg` - Large size variant (thicker track)
 
 #### Color Classes
+
 - `.meter--default` - Default color variant
 - `.meter--accent` - Accent color variant
 - `.meter--success` - Success color variant
@@ -140,22 +135,22 @@ The Meter component uses these CSS classes ([View source styles](https://github.
 
 Inherits from [React Aria Meter](https://react-spectrum.adobe.com/react-aria/Meter.html).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `number` | `0` | The current value |
-| `minValue` | `number` | `0` | The minimum value |
-| `maxValue` | `number` | `100` | The maximum value |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size of the meter track |
-| `color` | `"default" \| "accent" \| "success" \| "warning" \| "danger"` | `"accent"` | Color of the fill bar |
-| `formatOptions` | `Intl.NumberFormatOptions` | `{style: 'percent'}` | Number format for the value display |
-| `valueLabel` | `ReactNode` | - | Custom value label content |
-| `children` | `ReactNode \| (values: MeterRenderProps) => ReactNode` | - | Content or render prop |
+| Prop            | Type                                                          | Default              | Description                         |
+| --------------- | ------------------------------------------------------------- | -------------------- | ----------------------------------- |
+| `value`         | `number`                                                      | `0`                  | The current value                   |
+| `minValue`      | `number`                                                      | `0`                  | The minimum value                   |
+| `maxValue`      | `number`                                                      | `100`                | The maximum value                   |
+| `size`          | `"sm" \| "md" \| "lg"`                                        | `"md"`               | Size of the meter track             |
+| `color`         | `"default" \| "accent" \| "success" \| "warning" \| "danger"` | `"accent"`           | Color of the fill bar               |
+| `formatOptions` | `Intl.NumberFormatOptions`                                    | `{style: 'percent'}` | Number format for the value display |
+| `valueLabel`    | `ReactNode`                                                   | -                    | Custom value label content          |
+| `children`      | `ReactNode \| (values: MeterRenderProps) => ReactNode`        | -                    | Content or render prop              |
 
 ### MeterRenderProps
 
 When using the render prop pattern, these values are provided:
 
-| Prop | Type | Description |
-|------|------|-------------|
+| Prop         | Type     | Description                         |
+| ------------ | -------- | ----------------------------------- |
 | `percentage` | `number` | The percentage of the meter (0-100) |
-| `valueText` | `string` | The formatted value text |
+| `valueText`  | `string` | The formatted value text            |

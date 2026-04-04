@@ -1,7 +1,7 @@
 "use client";
 
-import {Button, Label, ListBox, Select} from "@heroui/react";
-import {useState} from "react";
+import { Button, Label, ListBox, Select } from "@heroui/react";
+import { useState } from "react";
 
 export function ControlledOpenState() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +49,7 @@ export function ControlledOpenState() {
         </Select.Popover>
       </Select>
       <Button onPress={() => setIsOpen(!isOpen)}>{isOpen ? "Close" : "Open"} Select</Button>
-      <p className="text-sm text-muted">Select is {isOpen ? "open" : "closed"}</p>
+      <p className="text-muted text-sm">Select is {isOpen ? "open" : "closed"}</p>
     </div>
   );
 }

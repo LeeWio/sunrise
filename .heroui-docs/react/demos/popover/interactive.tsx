@@ -1,7 +1,7 @@
 "use client";
 
-import {Avatar, Button, Popover} from "@heroui/react";
-import {useState} from "react";
+import { Avatar, Button, Popover } from "@heroui/react";
+import { useState } from "react";
 
 export function PopoverInteractive() {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -20,7 +20,7 @@ export function PopoverInteractive() {
             </Avatar>
             <div className="flex flex-col">
               <p className="text-sm font-medium">Sarah Johnson</p>
-              <p className="text-xs text-muted">@sarahj</p>
+              <p className="text-muted text-xs">@sarahj</p>
             </div>
           </div>
         </Popover.Trigger>
@@ -38,7 +38,7 @@ export function PopoverInteractive() {
                   </Avatar>
                   <div>
                     <p className="font-semibold">Sarah Johnson</p>
-                    <p className="text-sm text-muted">@sarahj</p>
+                    <p className="text-muted text-sm">@sarahj</p>
                   </div>
                 </div>
                 <Button
@@ -51,17 +51,17 @@ export function PopoverInteractive() {
                 </Button>
               </div>
             </Popover.Heading>
-            <p className="mt-3 text-sm text-muted">
+            <p className="text-muted mt-3 text-sm">
               Product designer and creative director. Building beautiful experiences that matter.
             </p>
             <div className="mt-3 flex gap-4">
               <div>
                 <span className="font-semibold">892</span>
-                <span className="ml-1 text-sm text-muted">Following</span>
+                <span className="text-muted ml-1 text-sm">Following</span>
               </div>
               <div>
                 <span className="font-semibold">12.5K</span>
-                <span className="ml-1 text-sm text-muted">Followers</span>
+                <span className="text-muted ml-1 text-sm">Followers</span>
               </div>
             </div>
           </Popover.Dialog>

@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -12,20 +12,20 @@ import {
   TagGroup,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export default function Default() {
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
 
   const items = [
-    {id: "florida", name: "Florida"},
-    {id: "delaware", name: "Delaware"},
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "new-york", name: "New York"},
-    {id: "washington", name: "Washington"},
+    { id: "florida", name: "Florida" },
+    { id: "delaware", name: "Delaware" },
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "new-york", name: "New York" },
+    { id: "washington", name: "Washington" },
   ];
 
   const onRemoveTags = (keys: Set<Key>) => {
@@ -43,7 +43,7 @@ export default function Default() {
       <Label>States to Visit</Label>
       <Autocomplete.Trigger>
         <Autocomplete.Value>
-          {({defaultChildren, isPlaceholder, state}: any) => {
+          {({ defaultChildren, isPlaceholder, state }: any) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

@@ -23,7 +23,7 @@ import { AlertDialog } from "@heroui/react";
 Import the AlertDialog component and access all parts using dot notation.
 
 ```tsx
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 
 export default () => (
   <AlertDialog>
@@ -100,7 +100,7 @@ export default () => (
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 
 function CustomAlertDialog() {
   return (
@@ -225,15 +225,15 @@ The component supports these interactive states:
 
 ### AlertDialog.Backdrop
 
-| Prop                        | Type                                      | Default    | Description               |
-| --------------------------- | ----------------------------------------- | ---------- | ------------------------- |
-| `variant`                   | `"opaque" \| "blur" \| "transparent"`     | `"opaque"` | Backdrop overlay style    |
-| `isDismissable`             | `boolean`                                 | `false`    | Close on backdrop click   |
-| `isKeyboardDismissDisabled` | `boolean`                                 | `true`     | Disable ESC key to close  |
-| `isOpen`                    | `boolean`                                 | -          | Controlled open state     |
-| `onOpenChange`              | `(isOpen: boolean) => void`               | -          | Open state change handler |
-| `className`                 | `string \| (values) => string`            | -          | Backdrop CSS classes      |
-| `UNSTABLE_portalContainer`  | `HTMLElement`                             | -          | Custom portal container   |
+| Prop                        | Type                                  | Default    | Description               |
+| --------------------------- | ------------------------------------- | ---------- | ------------------------- |
+| `variant`                   | `"opaque" \| "blur" \| "transparent"` | `"opaque"` | Backdrop overlay style    |
+| `isDismissable`             | `boolean`                             | `false`    | Close on backdrop click   |
+| `isKeyboardDismissDisabled` | `boolean`                             | `true`     | Disable ESC key to close  |
+| `isOpen`                    | `boolean`                             | -          | Controlled open state     |
+| `onOpenChange`              | `(isOpen: boolean) => void`           | -          | Open state change handler |
+| `className`                 | `string \| (values) => string`        | -          | Backdrop CSS classes      |
+| `UNSTABLE_portalContainer`  | `HTMLElement`                         | -          | Custom portal container   |
 
 ### AlertDialog.Container
 
@@ -300,7 +300,7 @@ The component supports these interactive states:
 ### useOverlayState Hook
 
 ```tsx
-import {useOverlayState} from "@heroui/react";
+import { useOverlayState } from "@heroui/react";
 
 const state = useOverlayState({
   defaultOpen: false,

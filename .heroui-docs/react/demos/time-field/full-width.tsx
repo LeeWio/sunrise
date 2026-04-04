@@ -1,7 +1,7 @@
 "use client";
 
-import {ChevronDown, Clock} from "@gravity-ui/icons";
-import {Label, TimeField} from "@heroui/react";
+import { ChevronDown, Clock } from "@gravity-ui/icons";
+import { Label, TimeField } from "@heroui/react";
 
 export function FullWidth() {
   return (
@@ -16,11 +16,11 @@ export function FullWidth() {
         <Label>Time</Label>
         <TimeField.Group fullWidth>
           <TimeField.Prefix>
-            <Clock className="size-4 text-muted" />
+            <Clock className="text-muted size-4" />
           </TimeField.Prefix>
           <TimeField.Input>{(segment) => <TimeField.Segment segment={segment} />}</TimeField.Input>
           <TimeField.Suffix>
-            <ChevronDown className="size-4 text-muted" />
+            <ChevronDown className="text-muted size-4" />
           </TimeField.Suffix>
         </TimeField.Group>
       </TimeField>

@@ -1,16 +1,16 @@
 "use client";
 
-import type {Color} from "@heroui/react";
+import type { Color } from "@heroui/react";
 
-import {ColorField, ColorSwatch, Label, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { ColorField, ColorSwatch, Label, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 export function ChannelEditing() {
   const [color, setColor] = useState<Color | null>(parseColor("#7F007F"));
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm text-muted">Edit individual HSL channels:</p>
+      <p className="text-muted text-sm">Edit individual HSL channels:</p>
       <div className="flex gap-4">
         <ColorField
           channel="hue"
@@ -37,7 +37,7 @@ export function ChannelEditing() {
           <ColorField.Group>
             <ColorField.Input />
             <ColorField.Suffix>
-              <span className="text-sm text-muted">%</span>
+              <span className="text-muted text-sm">%</span>
             </ColorField.Suffix>
           </ColorField.Group>
         </ColorField>
@@ -53,7 +53,7 @@ export function ChannelEditing() {
           <ColorField.Group>
             <ColorField.Input />
             <ColorField.Suffix>
-              <span className="text-sm text-muted">%</span>
+              <span className="text-muted text-sm">%</span>
             </ColorField.Suffix>
           </ColorField.Group>
         </ColorField>

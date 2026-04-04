@@ -1,4 +1,4 @@
-import {Button, Drawer} from "@heroui/react";
+import { Button, Drawer } from "@heroui/react";
 
 export function ScrollableContent() {
   return (
@@ -13,7 +13,7 @@ export function ScrollableContent() {
               <Drawer.Heading>Terms & Conditions</Drawer.Heading>
             </Drawer.Header>
             <Drawer.Body>
-              {Array.from({length: 20}).map((_, i) => (
+              {Array.from({ length: 20 }).map((_, i) => (
                 <p key={i} className="mb-3">
                   Paragraph {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
                   pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit

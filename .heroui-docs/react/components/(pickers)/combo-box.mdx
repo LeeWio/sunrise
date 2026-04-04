@@ -11,21 +11,19 @@ links:
 ## Import
 
 ```tsx
-import { ComboBox } from '@heroui/react';
+import { ComboBox } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="combo-box-default"
-/>
+<ComponentPreview name="combo-box-default" />
 
 ### Anatomy
 
 Import the ComboBox component and access all parts using dot notation.
 
 ```tsx
-import { ComboBox, Input, Label, Description, Header, ListBox, Separator } from '@heroui/react';
+import { ComboBox, Input, Label, Description, Header, ListBox, Separator } from "@heroui/react";
 
 export default () => (
   <ComboBox>
@@ -51,100 +49,70 @@ export default () => (
       </ListBox>
     </ComboBox.Popover>
   </ComboBox>
-)
+);
 ```
 
 ### With Description
 
-<ComponentPreview
-  name="combo-box-with-description"
-/>
+<ComponentPreview name="combo-box-with-description" />
 
 ### With Sections
 
-<ComponentPreview
-  name="combo-box-with-sections"
-/>
+<ComponentPreview name="combo-box-with-sections" />
 
 ### With Disabled Options
 
-<ComponentPreview
-  name="combo-box-with-disabled-options"
-/>
+<ComponentPreview name="combo-box-with-disabled-options" />
 
 ### Custom Indicator
 
-<ComponentPreview
-  name="combo-box-custom-indicator"
-/>
+<ComponentPreview name="combo-box-custom-indicator" />
 
 ### Required
 
-<ComponentPreview
-  name="combo-box-required"
-/>
+<ComponentPreview name="combo-box-required" />
 
 ### Custom Value
 
-<ComponentPreview
-  name="combo-box-custom-value"
-/>
+<ComponentPreview name="combo-box-custom-value" />
 
 ### Controlled
 
-<ComponentPreview
-  name="combo-box-controlled"
-/>
+<ComponentPreview name="combo-box-controlled" />
 
 ### Controlled Input Value
 
-<ComponentPreview
-  name="combo-box-controlled-input-value"
-/>
+<ComponentPreview name="combo-box-controlled-input-value" />
 
 ### Asynchronous Loading
 
-<ComponentPreview
-  name="combo-box-asynchronous-loading"
-/>
+<ComponentPreview name="combo-box-asynchronous-loading" />
 
 ### Custom Filtering
 
-<ComponentPreview
-  name="combo-box-custom-filtering"
-/>
+<ComponentPreview name="combo-box-custom-filtering" />
 
 ### Allows Custom Value
 
-<ComponentPreview
-  name="combo-box-allows-custom-value"
-/>
+<ComponentPreview name="combo-box-allows-custom-value" />
 
 ### Disabled
 
-<ComponentPreview
-  name="combo-box-disabled"
-/>
+<ComponentPreview name="combo-box-disabled" />
 
 ### Default Selected Key
 
-<ComponentPreview
-  name="combo-box-default-selected-key"
-/>
+<ComponentPreview name="combo-box-default-selected-key" />
 
 ### Full Width
 
-<ComponentPreview
-  name="combo-box-full-width"
-/>
+<ComponentPreview name="combo-box-full-width" />
 
 ### In Surface
 
 When used inside a [Surface](/docs/components/surface) component, use `variant="secondary"` to apply the lower emphasis variant suitable for surface backgrounds.
 
-<ComponentPreview
-  name="combo-box-on-surface"
-/>
+<ComponentPreview name="combo-box-on-surface" />
 
 ### Menu Trigger
 
@@ -154,15 +122,11 @@ Use the `menuTrigger` prop to control when the popover opens:
 - `input`: popover opens when the user edits the input text
 - `manual`: popover only opens when the user presses the trigger button or uses the arrow keys
 
-<ComponentPreview
-  name="combo-box-menu-trigger"
-/>
+<ComponentPreview name="combo-box-menu-trigger" />
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="combo-box-custom-render-function"
-/>
+<ComponentPreview name="combo-box-custom-render-function" />
 
 <RelatedComponents component="combo-box" />
 
@@ -171,13 +135,13 @@ Use the `menuTrigger` prop to control when the popover opens:
 ### Passing Tailwind CSS classes
 
 ```tsx
-import { ComboBox, Input } from '@heroui/react';
+import { ComboBox, Input } from "@heroui/react";
 
 function CustomComboBox() {
   return (
     <ComboBox className="w-full">
       <Label>Favorite Animal</Label>
-      <ComboBox.InputGroup className="border rounded-lg p-2 bg-surface">
+      <ComboBox.InputGroup className="bg-surface rounded-lg border p-2">
         <Input placeholder="Search animals..." />
         <ComboBox.Trigger className="text-muted" />
       </ComboBox.InputGroup>
@@ -196,7 +160,9 @@ function CustomComboBox() {
 ### Customizing the component classes
 
 To customize the ComboBox component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -209,11 +175,11 @@ To customize the ComboBox component classes, you can use the `@layer components`
   }
 
   .combo-box__trigger {
-    @apply absolute right-0 text-muted;
+    @apply text-muted absolute right-0;
   }
 
   .combo-box__popover {
-    @apply rounded-lg border border-border bg-surface p-2;
+    @apply border-border bg-surface rounded-lg border p-2;
   }
 }
 ```
@@ -225,12 +191,14 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The ComboBox component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/combo-box.css)):
 
 #### Base Classes
+
 - `.combo-box` - Base ComboBox container
 - `.combo-box__input-group` - Container for the input and trigger button
 - `.combo-box__trigger` - The button that triggers the popover
 - `.combo-box__popover` - The popover container
 
 #### State Classes
+
 - `.combo-box[data-invalid="true"]` - Invalid state
 - `.combo-box[data-disabled="true"]` - Disabled ComboBox state
 - `.combo-box__trigger[data-focus-visible="true"]` - Focused trigger state
@@ -250,79 +218,79 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 ### ComboBox Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `inputValue` | `string` | - | Current input value (controlled) |
-| `defaultInputValue` | `string` | - | Default input value (uncontrolled) |
-| `onInputChange` | `(value: string) => void` | - | Handler called when the input value changes |
-| `selectedKey` | `Key \| null` | - | Current selected key (controlled) |
-| `defaultSelectedKey` | `Key \| null` | - | Default selected key (uncontrolled) |
-| `onSelectionChange` | `(key: Key \| null) => void` | - | Handler called when the selection changes |
-| `isOpen` | `boolean` | - | Sets the open state of the popover (controlled) |
-| `defaultOpen` | `boolean` | - | Sets the default open state of the popover (uncontrolled) |
-| `onOpenChange` | `(isOpen: boolean) => void` | - | Handler called when the open state changes |
-| `items` | `Iterable<T>` | - | The items to display in the listbox |
-| `disabledKeys` | `Iterable<Key>` | - | Keys of disabled items |
-| `defaultFilter` | `(text: string, inputValue: string) => boolean` | - | Custom filter function for filtering items |
-| `isDisabled` | `boolean` | - | Whether the ComboBox is disabled |
-| `isReadOnly` | `boolean` | - | Whether the input can be selected but not changed by the user |
-| `isRequired` | `boolean` | - | Whether user input is required |
-| `isInvalid` | `boolean` | - | Whether the ComboBox value is invalid |
-| `validate` | `(value: ComboBoxValidationValue) => ValidationError \| true \| null \| undefined` | - | A function that returns an error message if a given value is invalid. Validation errors are displayed to the user when the form is submitted if `validationBehavior="native"`. For realtime validation, use the `isInvalid` prop instead |
-| `validationBehavior` | `"native" \| "aria"` | `"native"` | Whether to use native HTML form validation to prevent form submission when the value is missing or invalid, or mark the field as required or invalid via ARIA |
-| `name` | `string` | - | The name of the input, used when submitting an HTML form |
-| `form` | `string` | - | The id of a `<form>` element to associate the input with |
-| `formValue` | `"text" \| "key"` | `"key"` | Whether the text or key of the selected item is submitted as part of an HTML form. When `allowsCustomValue` is `true`, this option does not apply and the text is always submitted |
-| `autoComplete` | `string` | - | Describes the type of autocomplete functionality |
-| `autoFocus` | `boolean` | - | Whether the element should receive focus on render |
-| `allowsCustomValue` | `boolean` | - | Whether the ComboBox allows custom values not in the list |
-| `allowsEmptyCollection` | `boolean` | - | Whether the ComboBox allows an empty collection |
-| `menuTrigger` | `"focus" \| "input" \| "manual"` | `"focus"` | The interaction required to display the ComboBox menu |
-| `shouldFocusWrap` | `boolean` | - | Whether keyboard navigation is circular |
-| `fullWidth` | `boolean` | `false` | Whether the ComboBox should take full width of its container |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode \| RenderFunction` | - | ComboBox content or render function |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ComboBoxRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop                    | Type                                                                               | Default    | Description                                                                                                                                                                                                                              |
+| ----------------------- | ---------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `inputValue`            | `string`                                                                           | -          | Current input value (controlled)                                                                                                                                                                                                         |
+| `defaultInputValue`     | `string`                                                                           | -          | Default input value (uncontrolled)                                                                                                                                                                                                       |
+| `onInputChange`         | `(value: string) => void`                                                          | -          | Handler called when the input value changes                                                                                                                                                                                              |
+| `selectedKey`           | `Key \| null`                                                                      | -          | Current selected key (controlled)                                                                                                                                                                                                        |
+| `defaultSelectedKey`    | `Key \| null`                                                                      | -          | Default selected key (uncontrolled)                                                                                                                                                                                                      |
+| `onSelectionChange`     | `(key: Key \| null) => void`                                                       | -          | Handler called when the selection changes                                                                                                                                                                                                |
+| `isOpen`                | `boolean`                                                                          | -          | Sets the open state of the popover (controlled)                                                                                                                                                                                          |
+| `defaultOpen`           | `boolean`                                                                          | -          | Sets the default open state of the popover (uncontrolled)                                                                                                                                                                                |
+| `onOpenChange`          | `(isOpen: boolean) => void`                                                        | -          | Handler called when the open state changes                                                                                                                                                                                               |
+| `items`                 | `Iterable<T>`                                                                      | -          | The items to display in the listbox                                                                                                                                                                                                      |
+| `disabledKeys`          | `Iterable<Key>`                                                                    | -          | Keys of disabled items                                                                                                                                                                                                                   |
+| `defaultFilter`         | `(text: string, inputValue: string) => boolean`                                    | -          | Custom filter function for filtering items                                                                                                                                                                                               |
+| `isDisabled`            | `boolean`                                                                          | -          | Whether the ComboBox is disabled                                                                                                                                                                                                         |
+| `isReadOnly`            | `boolean`                                                                          | -          | Whether the input can be selected but not changed by the user                                                                                                                                                                            |
+| `isRequired`            | `boolean`                                                                          | -          | Whether user input is required                                                                                                                                                                                                           |
+| `isInvalid`             | `boolean`                                                                          | -          | Whether the ComboBox value is invalid                                                                                                                                                                                                    |
+| `validate`              | `(value: ComboBoxValidationValue) => ValidationError \| true \| null \| undefined` | -          | A function that returns an error message if a given value is invalid. Validation errors are displayed to the user when the form is submitted if `validationBehavior="native"`. For realtime validation, use the `isInvalid` prop instead |
+| `validationBehavior`    | `"native" \| "aria"`                                                               | `"native"` | Whether to use native HTML form validation to prevent form submission when the value is missing or invalid, or mark the field as required or invalid via ARIA                                                                            |
+| `name`                  | `string`                                                                           | -          | The name of the input, used when submitting an HTML form                                                                                                                                                                                 |
+| `form`                  | `string`                                                                           | -          | The id of a `<form>` element to associate the input with                                                                                                                                                                                 |
+| `formValue`             | `"text" \| "key"`                                                                  | `"key"`    | Whether the text or key of the selected item is submitted as part of an HTML form. When `allowsCustomValue` is `true`, this option does not apply and the text is always submitted                                                       |
+| `autoComplete`          | `string`                                                                           | -          | Describes the type of autocomplete functionality                                                                                                                                                                                         |
+| `autoFocus`             | `boolean`                                                                          | -          | Whether the element should receive focus on render                                                                                                                                                                                       |
+| `allowsCustomValue`     | `boolean`                                                                          | -          | Whether the ComboBox allows custom values not in the list                                                                                                                                                                                |
+| `allowsEmptyCollection` | `boolean`                                                                          | -          | Whether the ComboBox allows an empty collection                                                                                                                                                                                          |
+| `menuTrigger`           | `"focus" \| "input" \| "manual"`                                                   | `"focus"`  | The interaction required to display the ComboBox menu                                                                                                                                                                                    |
+| `shouldFocusWrap`       | `boolean`                                                                          | -          | Whether keyboard navigation is circular                                                                                                                                                                                                  |
+| `fullWidth`             | `boolean`                                                                          | `false`    | Whether the ComboBox should take full width of its container                                                                                                                                                                             |
+| `className`             | `string`                                                                           | -          | Additional CSS classes                                                                                                                                                                                                                   |
+| `children`              | `ReactNode \| RenderFunction`                                                      | -          | ComboBox content or render function                                                                                                                                                                                                      |
+| `render`                | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ComboBoxRenderProps>`        | -          | Overrides the default DOM element with a custom render function.                                                                                                                                                                         |
 
 ### ComboBox.InputGroup Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | InputGroup content |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | InputGroup content     |
 
 ### ComboBox.Trigger Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Custom trigger content |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Custom trigger content |
 
 ### ComboBox.Popover Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| Prop        | Type                                                                                                                                                                                                                                                                                                                     | Default    | Description                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------------ |
 | `placement` | `"bottom" \| "bottom left" \| "bottom right" \| "bottom start" \| "bottom end" \| "top" \| "top left" \| "top right" \| "top start" \| "top end" \| "left" \| "left top" \| "left bottom" \| "start" \| "start top" \| "start bottom" \| "right" \| "right top" \| "right bottom" \| "end" \| "end top" \| "end bottom"` | `"bottom"` | Placement of the popover relative to the trigger |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Content children |
+| `className` | `string`                                                                                                                                                                                                                                                                                                                 | -          | Additional CSS classes                           |
+| `children`  | `ReactNode`                                                                                                                                                                                                                                                                                                              | -          | Content children                                 |
 
 ### RenderProps
 
 When using render functions with ComboBox, these values are provided:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `state` | `ComboBoxState` | The state of the ComboBox |
-| `inputValue` | `string` | The current input value |
-| `selectedKey` | `Key \| null` | The currently selected key |
-| `selectedItem` | `Node \| null` | The currently selected item |
+| Prop           | Type            | Description                 |
+| -------------- | --------------- | --------------------------- |
+| `state`        | `ComboBoxState` | The state of the ComboBox   |
+| `inputValue`   | `string`        | The current input value     |
+| `selectedKey`  | `Key \| null`   | The currently selected key  |
+| `selectedItem` | `Node \| null`  | The currently selected item |
 
 ## Examples
 
 ### Basic Usage
 
 ```tsx
-import { ComboBox, Input, Label, ListBox } from '@heroui/react';
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 <ComboBox className="w-[256px]">
   <Label>Favorite Animal</Label>
@@ -342,13 +310,13 @@ import { ComboBox, Input, Label, ListBox } from '@heroui/react';
       </ListBox.Item>
     </ListBox>
   </ComboBox.Popover>
-</ComboBox>
+</ComboBox>;
 ```
 
 ### With Sections
 
 ```tsx
-import { ComboBox, Input, Label, ListBox, Header, Separator } from '@heroui/react';
+import { ComboBox, Input, Label, ListBox, Header, Separator } from "@heroui/react";
 
 <ComboBox className="w-[256px]">
   <Label>Country</Label>
@@ -375,26 +343,22 @@ import { ComboBox, Input, Label, ListBox, Header, Separator } from '@heroui/reac
       </ListBox.Section>
     </ListBox>
   </ComboBox.Popover>
-</ComboBox>
+</ComboBox>;
 ```
 
 ### Controlled Selection
 
 ```tsx
-import type { Key } from '@heroui/react';
+import type { Key } from "@heroui/react";
 
-import { ComboBox, Input, Label, ListBox } from '@heroui/react';
-import { useState } from 'react';
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
+import { useState } from "react";
 
 function ControlledComboBox() {
-  const [selectedKey, setSelectedKey] = useState<Key | null>('cat');
+  const [selectedKey, setSelectedKey] = useState<Key | null>("cat");
 
   return (
-    <ComboBox
-      className="w-[256px]"
-      selectedKey={selectedKey}
-      onSelectionChange={setSelectedKey}
-    >
+    <ComboBox className="w-[256px]" selectedKey={selectedKey} onSelectionChange={setSelectedKey}>
       <Label>Animal</Label>
       <ComboBox.InputGroup>
         <Input placeholder="Search animals..." />
@@ -420,18 +384,14 @@ function ControlledComboBox() {
 ### Controlled Input Value
 
 ```tsx
-import { ComboBox, Input, Label, ListBox } from '@heroui/react';
-import { useState } from 'react';
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
+import { useState } from "react";
 
 function ControlledInputComboBox() {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   return (
-    <ComboBox
-      className="w-[256px]"
-      inputValue={inputValue}
-      onInputChange={setInputValue}
-    >
+    <ComboBox className="w-[256px]" inputValue={inputValue} onInputChange={setInputValue}>
       <Label>Search</Label>
       <ComboBox.InputGroup>
         <Input placeholder="Type to search..." />
@@ -457,8 +417,17 @@ function ControlledInputComboBox() {
 ### Asynchronous Loading
 
 ```tsx
-import { Collection, ComboBox, EmptyState, Input, Label, ListBox, ListBoxLoadMoreItem, Spinner } from '@heroui/react';
-import { useAsyncList } from '@react-stately/data';
+import {
+  Collection,
+  ComboBox,
+  EmptyState,
+  Input,
+  Label,
+  ListBox,
+  ListBoxLoadMoreItem,
+  Spinner,
+} from "@heroui/react";
+import { useAsyncList } from "@react-stately/data";
 
 interface Character {
   name: string;
@@ -466,11 +435,10 @@ interface Character {
 
 function AsyncComboBox() {
   const list = useAsyncList<Character>({
-    async load({cursor, filterText, signal}) {
-      const res = await fetch(
-        cursor || `https://swapi.py4e.com/api/people/?search=${filterText}`,
-        { signal }
-      );
+    async load({ cursor, filterText, signal }) {
+      const res = await fetch(cursor || `https://swapi.py4e.com/api/people/?search=${filterText}`, {
+        signal,
+      });
       const json = await res.json();
 
       return {
@@ -508,7 +476,7 @@ function AsyncComboBox() {
           >
             <div className="flex items-center justify-center gap-2 py-2">
               <Spinner size="sm" />
-              <span className="text-sm text-muted">Loading more...</span>
+              <span className="text-muted text-sm">Loading more...</span>
             </div>
           </ListBoxLoadMoreItem>
         </ListBox>
@@ -521,7 +489,7 @@ function AsyncComboBox() {
 ### Custom Filtering
 
 ```tsx
-import { ComboBox, Input, Label, ListBox } from '@heroui/react';
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 <ComboBox
   className="w-[256px]"
@@ -547,7 +515,7 @@ import { ComboBox, Input, Label, ListBox } from '@heroui/react';
       </ListBox.Item>
     </ListBox>
   </ComboBox.Popover>
-</ComboBox>
+</ComboBox>;
 ```
 
 ### Menu Trigger
@@ -617,13 +585,13 @@ import { ComboBox, Description, Input, Label, ListBox } from '@heroui/react';
 Use the `formValue` prop to control whether the selected item's key or text is submitted in forms:
 
 ```tsx
-import { Button, ComboBox, FieldError, Form, Input, Label, ListBox } from '@heroui/react';
+import { Button, ComboBox, FieldError, Form, Input, Label, ListBox } from "@heroui/react";
 
 function FormValueExample() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    console.log('Submitted value:', formData.get('animal')); // Will be "cat" (the key)
+    console.log("Submitted value:", formData.get("animal")); // Will be "cat" (the key)
   };
 
   return (
@@ -683,7 +651,7 @@ function FormValueExample() {
 Control how validation is displayed using the `validationBehavior` prop:
 
 ```tsx
-import { Button, ComboBox, FieldError, Form, Input, Label, ListBox } from '@heroui/react';
+import { Button, ComboBox, FieldError, Form, Input, Label, ListBox } from "@heroui/react";
 
 function ValidationExample() {
   return (
@@ -739,7 +707,7 @@ function ValidationExample() {
 Use the `validate` prop to add custom validation logic:
 
 ```tsx
-import { ComboBox, FieldError, Input, Label, ListBox } from '@heroui/react';
+import { ComboBox, FieldError, Input, Label, ListBox } from "@heroui/react";
 
 function CustomValidationExample() {
   return (
@@ -748,10 +716,10 @@ function CustomValidationExample() {
       isRequired
       validate={(value) => {
         if (!value || value.selectedKey === null) {
-          return 'Please select an animal';
+          return "Please select an animal";
         }
-        if (value.selectedKey === 'snake') {
-          return 'Snakes are not allowed';
+        if (value.selectedKey === "snake") {
+          return "Snakes are not allowed";
         }
         return true;
       }}
@@ -788,7 +756,7 @@ function CustomValidationExample() {
 Use the `isReadOnly` prop to make the comboBox read-only:
 
 ```tsx
-import { ComboBox, Input, Label, ListBox } from '@heroui/react';
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 <ComboBox className="w-[256px]" isReadOnly defaultSelectedKey="cat">
   <Label>Favorite Animal</Label>
@@ -808,7 +776,7 @@ import { ComboBox, Input, Label, ListBox } from '@heroui/react';
       </ListBox.Item>
     </ListBox>
   </ComboBox.Popover>
-</ComboBox>
+</ComboBox>;
 ```
 
 ## Accessibility
@@ -824,4 +792,3 @@ The ComboBox component implements the ARIA comboBox pattern and provides:
 - Support for custom values
 
 For more information, see the [React Aria ComboBox documentation](https://react-spectrum.adobe.com/react-aria/ComboBox.html).
-

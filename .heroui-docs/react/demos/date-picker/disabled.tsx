@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar, DateField, DatePicker, Description, Label} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { Calendar, DateField, DatePicker, Description, Label } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export function Disabled() {
   return (
@@ -34,7 +34,7 @@ export function Disabled() {
           </Calendar.Grid>
           <Calendar.YearPickerGrid>
             <Calendar.YearPickerGridBody>
-              {({year}) => <Calendar.YearPickerCell year={year} />}
+              {({ year }) => <Calendar.YearPickerCell year={year} />}
             </Calendar.YearPickerGridBody>
           </Calendar.YearPickerGrid>
         </Calendar>

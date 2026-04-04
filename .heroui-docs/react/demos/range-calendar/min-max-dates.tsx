@@ -1,12 +1,12 @@
 "use client";
 
-import {Description, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { Description, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export function MinMaxDates() {
   const now = today(getLocalTimeZone());
   const minDate = now;
-  const maxDate = now.add({months: 3});
+  const maxDate = now.add({ months: 3 });
 
   return (
     <div className="flex flex-col items-center gap-4">

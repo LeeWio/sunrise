@@ -1,7 +1,7 @@
 "use client";
 
-import {Checkbox, Label} from "@heroui/react";
-import {useState} from "react";
+import { Checkbox, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function Controlled() {
   const [isSelected, setIsSelected] = useState(true);
@@ -18,7 +18,7 @@ export function Controlled() {
           </Checkbox.Content>
         </Checkbox>
       </div>
-      <p className="text-sm text-muted">
+      <p className="text-muted text-sm">
         Status: <span className="font-medium">{isSelected ? "Enabled" : "Disabled"}</span>
       </p>
     </div>

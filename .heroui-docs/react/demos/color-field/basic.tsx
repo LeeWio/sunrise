@@ -1,9 +1,9 @@
 "use client";
 
-import type {Color} from "@heroui/react";
+import type { Color } from "@heroui/react";
 
-import {ColorField, ColorSwatch, Label, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { ColorField, ColorSwatch, Label, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 export function Basic() {
   const [color, setColor] = useState<Color | null>(parseColor("#0485F7"));

@@ -1,9 +1,9 @@
 "use client";
 
-import type {Selection} from "@heroui/react";
+import type { Selection } from "@heroui/react";
 
-import {Button, Dropdown, Header, Label} from "@heroui/react";
-import {useState} from "react";
+import { Button, Dropdown, Header, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function SingleWithCustomIndicator() {
   const [selected, setSelected] = useState<Selection>(new Set(["apple"]));
@@ -35,32 +35,32 @@ export function SingleWithCustomIndicator() {
             <Header>Select a fruit</Header>
             <Dropdown.Item id="apple" textValue="Apple">
               <Dropdown.ItemIndicator>
-                {({isSelected}) => (isSelected ? CustomCheckmarkIcon : null)}
+                {({ isSelected }) => (isSelected ? CustomCheckmarkIcon : null)}
               </Dropdown.ItemIndicator>
               <Label>Apple</Label>
             </Dropdown.Item>
             <Dropdown.Item id="banana" textValue="Banana">
               <Dropdown.ItemIndicator>
-                {({isSelected}) => (isSelected ? CustomCheckmarkIcon : null)}
+                {({ isSelected }) => (isSelected ? CustomCheckmarkIcon : null)}
               </Dropdown.ItemIndicator>
               <Label>Banana</Label>
             </Dropdown.Item>
             <Dropdown.Item id="cherry" textValue="Cherry">
               <Dropdown.ItemIndicator>
-                {({isSelected}) => (isSelected ? CustomCheckmarkIcon : null)}
+                {({ isSelected }) => (isSelected ? CustomCheckmarkIcon : null)}
               </Dropdown.ItemIndicator>
               <Label>Cherry</Label>
             </Dropdown.Item>
           </Dropdown.Section>
           <Dropdown.Item id="orange" textValue="Orange">
             <Dropdown.ItemIndicator>
-              {({isSelected}) => (isSelected ? CustomCheckmarkIcon : null)}
+              {({ isSelected }) => (isSelected ? CustomCheckmarkIcon : null)}
             </Dropdown.ItemIndicator>
             <Label>Orange</Label>
           </Dropdown.Item>
           <Dropdown.Item id="pear" textValue="Pear">
             <Dropdown.ItemIndicator>
-              {({isSelected}) => (isSelected ? CustomCheckmarkIcon : null)}
+              {({ isSelected }) => (isSelected ? CustomCheckmarkIcon : null)}
             </Dropdown.ItemIndicator>
             <Label>Pear</Label>
           </Dropdown.Item>

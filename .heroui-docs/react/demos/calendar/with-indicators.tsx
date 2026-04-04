@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar} from "@heroui/react";
-import {getLocalTimeZone, isToday} from "@internationalized/date";
+import { Calendar } from "@heroui/react";
+import { getLocalTimeZone, isToday } from "@internationalized/date";
 
 const datesWithEvents = [3, 7, 12, 15, 21, 28];
 
@@ -20,7 +20,7 @@ export function WithIndicators() {
         <Calendar.GridBody>
           {(date) => (
             <Calendar.Cell date={date}>
-              {({formattedDate}) => (
+              {({ formattedDate }) => (
                 <>
                   {formattedDate}
                   {(isToday(date, getLocalTimeZone()) || datesWithEvents.includes(date.day)) && (

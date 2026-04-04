@@ -24,7 +24,7 @@ import { Select } from "@heroui/react";
 Import the Select component and access all parts using dot notation.
 
 ```tsx
-import {Select, Label, Description, Header, ListBox, Separator} from "@heroui/react";
+import { Select, Label, Description, Header, ListBox, Separator } from "@heroui/react";
 
 export default () => (
   <Select>
@@ -124,22 +124,20 @@ When used inside a [Surface](/docs/components/surface) component, use `variant="
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="select-custom-render-function"
-/>
+<ComponentPreview name="select-custom-render-function" />
 
 ## Styling
 
 ### Passing Tailwind CSS classes
 
 ```tsx
-import {Select} from "@heroui/react";
+import { Select } from "@heroui/react";
 
 function CustomSelect() {
   return (
     <Select className="w-full">
       <Label>State</Label>
-      <Select.Trigger className="rounded-lg border bg-surface p-2">
+      <Select.Trigger className="bg-surface rounded-lg border p-2">
         <Select.Value />
         <Select.Indicator />
       </Select.Trigger>
@@ -169,7 +167,7 @@ To customize the Select component classes, you can use the `@layer components` d
   }
 
   .select__trigger {
-    @apply rounded-lg border border-border bg-surface p-2;
+    @apply border-border bg-surface rounded-lg border p-2;
   }
 
   .select__value {
@@ -181,7 +179,7 @@ To customize the Select component classes, you can use the `@layer components` d
   }
 
   .select__popover {
-    @apply rounded-lg border border-border bg-surface p-2;
+    @apply border-border bg-surface rounded-lg border p-2;
   }
 }
 ```
@@ -226,27 +224,27 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 ### Select Props
 
-| Prop            | Type                                    | Default            | Description                                              |
-| --------------- | --------------------------------------- | ------------------ | -------------------------------------------------------- |
-| `placeholder`   | `string`                                | `'Select an item'` | Temporary text that occupies the select when it is empty |
-| `selectionMode` | `"single" \| "multiple"`                | `"single"`         | Whether single or multiple selection is enabled          |
-| `isOpen`        | `boolean`                               | -                  | Sets the open state of the menu (controlled)             |
-| `defaultOpen`   | `boolean`                               | -                  | Sets the default open state of the menu (uncontrolled)   |
-| `onOpenChange`  | `(isOpen: boolean) => void`             | -                  | Handler called when the open state changes               |
-| `disabledKeys`  | `Iterable<Key>`                         | -                  | Keys of disabled items                                   |
-| `isDisabled`    | `boolean`                               | -                  | Whether the select is disabled                           |
-| `value`         | `Key \| Key[] \| null`                  | -                  | Current value (controlled)                               |
-| `defaultValue`  | `Key \| Key[] \| null`                  | -                  | Default value (uncontrolled)                             |
-| `onChange`      | `(value: Key \| Key[] \| null) => void` | -                  | Handler called when the value changes                    |
-| `isRequired`    | `boolean`                               | -                  | Whether user input is required                           |
-| `isInvalid`     | `boolean`                               | -                  | Whether the select value is invalid                      |
-| `name`          | `string`                                | -                  | The name of the input, used when submitting an HTML form |
-| `autoComplete`  | `string`                                | -                  | Describes the type of autocomplete functionality         |
-| `fullWidth`     | `boolean`                               | `false`             | Whether the select should take full width of its container |
-| `variant`       | `"primary" \| "secondary"`             | `"primary"`         | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
-| `className`     | `string`                                | -                  | Additional CSS classes                                   |
-| `children`      | `ReactNode \| RenderFunction`           | -                  | Select content or render function                        |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, SelectRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop            | Type                                                                      | Default            | Description                                                                                                                                                        |
+| --------------- | ------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `placeholder`   | `string`                                                                  | `'Select an item'` | Temporary text that occupies the select when it is empty                                                                                                           |
+| `selectionMode` | `"single" \| "multiple"`                                                  | `"single"`         | Whether single or multiple selection is enabled                                                                                                                    |
+| `isOpen`        | `boolean`                                                                 | -                  | Sets the open state of the menu (controlled)                                                                                                                       |
+| `defaultOpen`   | `boolean`                                                                 | -                  | Sets the default open state of the menu (uncontrolled)                                                                                                             |
+| `onOpenChange`  | `(isOpen: boolean) => void`                                               | -                  | Handler called when the open state changes                                                                                                                         |
+| `disabledKeys`  | `Iterable<Key>`                                                           | -                  | Keys of disabled items                                                                                                                                             |
+| `isDisabled`    | `boolean`                                                                 | -                  | Whether the select is disabled                                                                                                                                     |
+| `value`         | `Key \| Key[] \| null`                                                    | -                  | Current value (controlled)                                                                                                                                         |
+| `defaultValue`  | `Key \| Key[] \| null`                                                    | -                  | Default value (uncontrolled)                                                                                                                                       |
+| `onChange`      | `(value: Key \| Key[] \| null) => void`                                   | -                  | Handler called when the value changes                                                                                                                              |
+| `isRequired`    | `boolean`                                                                 | -                  | Whether user input is required                                                                                                                                     |
+| `isInvalid`     | `boolean`                                                                 | -                  | Whether the select value is invalid                                                                                                                                |
+| `name`          | `string`                                                                  | -                  | The name of the input, used when submitting an HTML form                                                                                                           |
+| `autoComplete`  | `string`                                                                  | -                  | Describes the type of autocomplete functionality                                                                                                                   |
+| `fullWidth`     | `boolean`                                                                 | `false`            | Whether the select should take full width of its container                                                                                                         |
+| `variant`       | `"primary" \| "secondary"`                                                | `"primary"`        | Visual variant of the component. `primary` is the default style with shadow. `secondary` is a lower emphasis variant without shadow, suitable for use in surfaces. |
+| `className`     | `string`                                                                  | -                  | Additional CSS classes                                                                                                                                             |
+| `children`      | `ReactNode \| RenderFunction`                                             | -                  | Select content or render function                                                                                                                                  |
+| `render`        | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, SelectRenderProps>` | -                  | Overrides the default DOM element with a custom render function.                                                                                                   |
 
 ### Select.Trigger Props
 
@@ -257,11 +255,11 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 ### Select.Value Props
 
-| Prop        | Type                          | Default | Description                      |
-| ----------- | ----------------------------- | ------- | -------------------------------- |
-| `className` | `string`                      | -       | Additional CSS classes           |
-| `children`  | `ReactNode \| RenderFunction` | -       | Value content or render function |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, SelectValueRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop        | Type                                                                           | Default | Description                                                      |
+| ----------- | ------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------- |
+| `className` | `string`                                                                       | -       | Additional CSS classes                                           |
+| `children`  | `ReactNode \| RenderFunction`                                                  | -       | Value content or render function                                 |
+| `render`    | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, SelectValueRenderProps>` | -       | Overrides the default DOM element with a custom render function. |
 
 ### Select.Indicator Props
 

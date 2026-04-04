@@ -1,4 +1,4 @@
-import {TextArea} from "@heroui/react";
+import { TextArea } from "@heroui/react";
 
 export function FullWidth() {
   return (

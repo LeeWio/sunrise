@@ -1,5 +1,5 @@
-import {Bookmark, Heart} from "@gravity-ui/icons";
-import {ToggleButton} from "@heroui/react";
+import { Bookmark, Heart } from "@gravity-ui/icons";
+import { ToggleButton } from "@heroui/react";
 
 export function IconOnly() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import {Description, RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { Description, RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export function ReadOnly() {
   return (
@@ -10,7 +10,7 @@ export function ReadOnly() {
         isReadOnly
         aria-label="Trip dates"
         defaultValue={{
-          end: today(getLocalTimeZone()).add({days: 4}),
+          end: today(getLocalTimeZone()).add({ days: 4 }),
           start: today(getLocalTimeZone()),
         }}
       >

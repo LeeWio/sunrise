@@ -1,6 +1,6 @@
 "use client";
 
-import {RangeCalendar} from "@heroui/react";
+import { RangeCalendar } from "@heroui/react";
 
 export function YearPicker() {
   return (
@@ -23,7 +23,7 @@ export function YearPicker() {
       </RangeCalendar.Grid>
       <RangeCalendar.YearPickerGrid>
         <RangeCalendar.YearPickerGridBody>
-          {({year}) => <RangeCalendar.YearPickerCell year={year} />}
+          {({ year }) => <RangeCalendar.YearPickerCell year={year} />}
         </RangeCalendar.YearPickerGridBody>
       </RangeCalendar.YearPickerGrid>
     </RangeCalendar>

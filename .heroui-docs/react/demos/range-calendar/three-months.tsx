@@ -1,18 +1,18 @@
 "use client";
 
-import {RangeCalendar} from "@heroui/react";
-import {getLocalTimeZone} from "@internationalized/date";
+import { RangeCalendar } from "@heroui/react";
+import { getLocalTimeZone } from "@internationalized/date";
 import React from "react";
-import {RangeCalendarStateContext, useLocale} from "react-aria-components";
+import { RangeCalendarStateContext, useLocale } from "react-aria-components";
 
-function RangeCalendarMonthHeading({offset = 0}: {offset?: number}) {
+function RangeCalendarMonthHeading({ offset = 0 }: { offset?: number }) {
   const state = React.useContext(RangeCalendarStateContext)!;
-  const {locale} = useLocale();
+  const { locale } = useLocale();
 
   const startDate = state.visibleRange.start;
-  const monthDate = startDate.add({months: offset});
+  const monthDate = startDate.add({ months: offset });
   const dateObj = monthDate.toDate(getLocalTimeZone());
-  const monthYear = new Intl.DateTimeFormat(locale, {month: "long", year: "numeric"}).format(
+  const monthYear = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(
     dateObj,
   );
 
@@ -24,7 +24,7 @@ export function ThreeMonths() {
     <RangeCalendar
       aria-label="Vacation planning"
       className="@container-normal w-auto overflow-x-auto"
-      visibleDuration={{months: 3}}
+      visibleDuration={{ months: 3 }}
     >
       <RangeCalendar.Heading className="sr-only" />
       <div className="flex w-max gap-7">
@@ -49,7 +49,7 @@ export function ThreeMonths() {
             <RangeCalendarMonthHeading offset={1} />
             <div className="size-6" />
           </RangeCalendar.Header>
-          <RangeCalendar.Grid offset={{months: 1}}>
+          <RangeCalendar.Grid offset={{ months: 1 }}>
             <RangeCalendar.GridHeader>
               {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}
             </RangeCalendar.GridHeader>
@@ -64,7 +64,7 @@ export function ThreeMonths() {
             <RangeCalendarMonthHeading offset={2} />
             <RangeCalendar.NavButton slot="next" />
           </RangeCalendar.Header>
-          <RangeCalendar.Grid offset={{months: 2}}>
+          <RangeCalendar.Grid offset={{ months: 2 }}>
             <RangeCalendar.GridHeader>
               {(day) => <RangeCalendar.HeaderCell>{day}</RangeCalendar.HeaderCell>}
             </RangeCalendar.GridHeader>

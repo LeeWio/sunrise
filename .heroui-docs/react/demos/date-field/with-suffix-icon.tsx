@@ -1,7 +1,7 @@
 "use client";
 
-import {Calendar} from "@gravity-ui/icons";
-import {DateField, Label} from "@heroui/react";
+import { Calendar } from "@gravity-ui/icons";
+import { DateField, Label } from "@heroui/react";
 
 export function WithSuffixIcon() {
   return (
@@ -10,7 +10,7 @@ export function WithSuffixIcon() {
       <DateField.Group>
         <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
         <DateField.Suffix>
-          <Calendar className="size-4 text-muted" />
+          <Calendar className="text-muted size-4" />
         </DateField.Suffix>
       </DateField.Group>
     </DateField>

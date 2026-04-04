@@ -1,8 +1,8 @@
 "use client";
 
-import type {DateValue} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
-import {Button, ButtonGroup, Description, RangeCalendar} from "@heroui/react";
+import { Button, ButtonGroup, Description, RangeCalendar } from "@heroui/react";
 import {
   getLocalTimeZone,
   parseDate,
@@ -10,8 +10,8 @@ import {
   startOfWeek,
   today,
 } from "@internationalized/date";
-import {useState} from "react";
-import {useLocale} from "react-aria-components";
+import { useState } from "react";
+import { useLocale } from "react-aria-components";
 
 type DateRange = {
   start: DateValue;
@@ -21,7 +21,7 @@ type DateRange = {
 export function Controlled() {
   const [value, setValue] = useState<DateRange | null>(null);
   const [focusedDate, setFocusedDate] = useState<DateValue>(parseDate("2025-12-25"));
-  const {locale} = useLocale();
+  const { locale } = useLocale();
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -37,7 +37,7 @@ export function Controlled() {
         </Button>
         <Button
           onPress={() => {
-            const nextWeekStart = startOfWeek(today(getLocalTimeZone()).add({weeks: 1}), locale);
+            const nextWeekStart = startOfWeek(today(getLocalTimeZone()).add({ weeks: 1 }), locale);
 
             setFocusedDate(nextWeekStart);
           }}
@@ -46,7 +46,7 @@ export function Controlled() {
         </Button>
         <Button
           onPress={() => {
-            const nextMonthStart = startOfMonth(today(getLocalTimeZone()).add({months: 1}));
+            const nextMonthStart = startOfMonth(today(getLocalTimeZone()).add({ months: 1 }));
 
             setFocusedDate(nextMonthStart);
           }}
@@ -89,7 +89,7 @@ export function Controlled() {
           onPress={() => {
             const start = today(getLocalTimeZone());
 
-            setValue({end: start.add({days: 6}), start});
+            setValue({ end: start.add({ days: 6 }), start });
             setFocusedDate(start);
           }}
         >
@@ -101,7 +101,7 @@ export function Controlled() {
           onPress={() => {
             const start = parseDate("2025-12-20");
 
-            setValue({end: parseDate("2025-12-31"), start});
+            setValue({ end: parseDate("2025-12-31"), start });
             setFocusedDate(start);
           }}
         >

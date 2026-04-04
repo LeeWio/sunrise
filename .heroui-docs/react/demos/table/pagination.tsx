@@ -1,20 +1,20 @@
 "use client";
 
-import {Pagination, Table} from "@heroui/react";
-import {useMemo, useState} from "react";
+import { Pagination, Table } from "@heroui/react";
+import { useMemo, useState } from "react";
 
 const columns = [
-  {id: "name", name: "Name"},
-  {id: "role", name: "Role"},
-  {id: "status", name: "Status"},
-  {id: "email", name: "Email"},
+  { id: "name", name: "Name" },
+  { id: "role", name: "Role" },
+  { id: "status", name: "Status" },
+  { id: "email", name: "Email" },
 ];
 
 const users = [
-  {email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active"},
-  {email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active"},
-  {email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave"},
-  {email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active"},
+  { email: "kate@acme.com", id: 1, name: "Kate Moore", role: "CEO", status: "Active" },
+  { email: "john@acme.com", id: 2, name: "John Smith", role: "CTO", status: "Active" },
+  { email: "sara@acme.com", id: 3, name: "Sara Johnson", role: "CMO", status: "On Leave" },
+  { email: "michael@acme.com", id: 4, name: "Michael Brown", role: "CFO", status: "Active" },
   {
     email: "emily@acme.com",
     id: 5,
@@ -22,7 +22,7 @@ const users = [
     role: "Product Manager",
     status: "Inactive",
   },
-  {email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active"},
+  { email: "davis@acme.com", id: 6, name: "Davis Wilson", role: "Lead Designer", status: "Active" },
   {
     email: "olivia@acme.com",
     id: 7,
@@ -44,7 +44,7 @@ const ROWS_PER_PAGE = 4;
 export function PaginationDemo() {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil(users.length / ROWS_PER_PAGE);
-  const pages = Array.from({length: totalPages}, (_, i) => i + 1);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const paginatedItems = useMemo(() => {
     const start = (page - 1) * ROWS_PER_PAGE;

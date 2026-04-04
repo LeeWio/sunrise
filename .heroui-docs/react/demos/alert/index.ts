@@ -1,1 +1,1 @@
-export {Basic} from "./basic";
+export { Basic } from "./basic";

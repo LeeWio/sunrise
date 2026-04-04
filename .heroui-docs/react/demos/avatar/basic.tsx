@@ -1,4 +1,4 @@
-import {Avatar} from "@heroui/react";
+import { Avatar } from "@heroui/react";
 
 export function Basic() {
   return (

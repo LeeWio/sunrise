@@ -1,8 +1,8 @@
 "use client";
 
-import {Autocomplete, EmptyState, Label, ListBox, SearchField, Spinner} from "@heroui/react";
-import {useAsyncList} from "@react-stately/data";
-import {cn} from "tailwind-variants";
+import { Autocomplete, EmptyState, Label, ListBox, SearchField, Spinner } from "@heroui/react";
+import { useAsyncList } from "@react-stately/data";
+import { cn } from "tailwind-variants";
 
 interface Character {
   name: string;
@@ -10,7 +10,7 @@ interface Character {
 
 export function AsynchronousFiltering() {
   const list = useAsyncList<Character>({
-    async load({filterText, signal}) {
+    async load({ filterText, signal }) {
       const res = await fetch(`https://swapi.py4e.com/api/people/?search=${filterText}`, {
         signal,
       });
@@ -49,7 +49,7 @@ export function AsynchronousFiltering() {
                 })}
               />
               <SearchField.ClearButton
-                className={cn({"pointer-events-none opacity-0": !!list.isLoading})}
+                className={cn({ "pointer-events-none opacity-0": !!list.isLoading })}
               />
             </SearchField.Group>
           </SearchField>

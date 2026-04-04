@@ -1,11 +1,11 @@
 "use client";
 
-import {Checkbox, Description, Label} from "@heroui/react";
+import { Checkbox, Description, Label } from "@heroui/react";
 
 export function RenderProps() {
   return (
     <Checkbox id="render-props-terms">
-      {({isSelected}) => (
+      {({ isSelected }) => (
         <>
           <Checkbox.Control>
             <Checkbox.Indicator />

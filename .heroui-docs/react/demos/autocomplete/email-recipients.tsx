@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -13,19 +13,19 @@ import {
   TagGroup,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function EmailRecipients() {
   const emails = [
-    {email: "alice@example.com", id: "alice@example.com", name: "Alice Johnson"},
-    {email: "bob@example.com", id: "bob@example.com", name: "Bob Smith"},
-    {email: "charlie@example.com", id: "charlie@example.com", name: "Charlie Brown"},
-    {email: "diana@example.com", id: "diana@example.com", name: "Diana Prince"},
-    {email: "eve@example.com", id: "eve@example.com", name: "Eve Wilson"},
+    { email: "alice@example.com", id: "alice@example.com", name: "Alice Johnson" },
+    { email: "bob@example.com", id: "bob@example.com", name: "Bob Smith" },
+    { email: "charlie@example.com", id: "charlie@example.com", name: "Charlie Brown" },
+    { email: "diana@example.com", id: "diana@example.com", name: "Diana Prince" },
+    { email: "eve@example.com", id: "eve@example.com", name: "Eve Wilson" },
   ];
 
   const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const onRemoveTags = (keys: Set<Key>) => {
     setSelectedKeys((prev) => prev.filter((key) => !keys.has(key)));
@@ -42,7 +42,7 @@ export function EmailRecipients() {
       <Label>To</Label>
       <Autocomplete.Trigger>
         <Autocomplete.Value>
-          {({defaultChildren, isPlaceholder, state}) => {
+          {({ defaultChildren, isPlaceholder, state }) => {
             if (isPlaceholder || state.selectedItems.length === 0) {
               return defaultChildren;
             }

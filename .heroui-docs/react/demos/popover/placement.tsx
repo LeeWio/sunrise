@@ -1,4 +1,4 @@
-import {Button, Popover} from "@heroui/react";
+import { Button, Popover } from "@heroui/react";
 
 export function PopoverPlacement() {
   return (
@@ -30,7 +30,7 @@ export function PopoverPlacement() {
       </Popover>
 
       <div className="flex items-center justify-center">
-        <span className="text-sm text-muted">Click buttons</span>
+        <span className="text-muted text-sm">Click buttons</span>
       </div>
 
       <Popover>

@@ -1,9 +1,9 @@
 "use client";
 
-import type {Color} from "@heroui/react";
+import type { Color } from "@heroui/react";
 
-import {ColorArea, ColorSwatch, parseColor} from "@heroui/react";
-import {useState} from "react";
+import { ColorArea, ColorSwatch, parseColor } from "@heroui/react";
+import { useState } from "react";
 
 export function ColorAreaControlled() {
   const [color, setColor] = useState<Color>(parseColor("#9B80FF"));
@@ -15,7 +15,7 @@ export function ColorAreaControlled() {
       </ColorArea>
       <div className="flex w-[300px] items-center gap-3">
         <ColorSwatch color={color} size="md" />
-        <p className="text-sm text-muted">
+        <p className="text-muted text-sm">
           Current color:{" "}
           <span className="font-medium">{color ? color.toString("hex") : "(empty)"}</span>
         </p>

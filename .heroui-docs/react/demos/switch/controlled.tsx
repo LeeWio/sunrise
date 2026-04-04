@@ -1,6 +1,6 @@
 "use client";
 
-import {Label, Switch} from "@heroui/react";
+import { Label, Switch } from "@heroui/react";
 import React from "react";
 
 export function Controlled() {
@@ -16,7 +16,7 @@ export function Controlled() {
           <Label className="text-sm">Enable notifications</Label>
         </Switch.Content>
       </Switch>
-      <p className="text-sm text-muted">Switch is {isSelected ? "on" : "off"}</p>
+      <p className="text-muted text-sm">Switch is {isSelected ? "on" : "off"}</p>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import type {Key} from "@heroui/react";
+import type { Key } from "@heroui/react";
 
 import {
   Autocomplete,
@@ -11,19 +11,19 @@ import {
   Surface,
   useFilter,
 } from "@heroui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 export function FullWidth() {
   const [selectedKey, setSelectedKey] = useState<Key | null>(null);
-  const {contains} = useFilter({sensitivity: "base"});
+  const { contains } = useFilter({ sensitivity: "base" });
 
   const items = [
-    {id: "florida", name: "Florida"},
-    {id: "delaware", name: "Delaware"},
-    {id: "california", name: "California"},
-    {id: "texas", name: "Texas"},
-    {id: "new-york", name: "New York"},
-    {id: "washington", name: "Washington"},
+    { id: "florida", name: "Florida" },
+    { id: "delaware", name: "Delaware" },
+    { id: "california", name: "California" },
+    { id: "texas", name: "Texas" },
+    { id: "new-york", name: "New York" },
+    { id: "washington", name: "Washington" },
   ];
 
   return (

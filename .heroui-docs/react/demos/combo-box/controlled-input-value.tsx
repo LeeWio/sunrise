@@ -1,7 +1,7 @@
 "use client";
 
-import {ComboBox, Input, Label, ListBox} from "@heroui/react";
-import {useState} from "react";
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
+import { useState } from "react";
 
 export function ControlledInputValue() {
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +43,7 @@ export function ControlledInputValue() {
           </ListBox>
         </ComboBox.Popover>
       </ComboBox>
-      <p className="text-sm text-muted">Input value: {inputValue || "(empty)"}</p>
+      <p className="text-muted text-sm">Input value: {inputValue || "(empty)"}</p>
     </div>
   );
 }

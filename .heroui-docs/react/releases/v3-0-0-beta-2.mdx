@@ -5,12 +5,11 @@ github:
   pull: 5885
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">November 20, 2025</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">November 20, 2025</span>
 </div>
 
 This release introduces six essential new components, improves the Select component API, and includes various refinements and bug fixes.
-
 
 <DocsImage
   src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/versions/beta-2-light@2x.jpg"
@@ -18,36 +17,21 @@ This release introduces six essential new components, improves the Select compon
   alt="HeroUI v3 Beta 2"
 />
 
-
 ## Installation
 
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@beta @heroui/react@beta
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@beta @heroui/react@beta ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@beta @heroui/react@beta ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -65,40 +49,27 @@ This release introduces **6 new** essential components:
 
 ### AlertDialog
 
-<ComponentPreview
-  name="alert-dialog-default"
-/>
+<ComponentPreview name="alert-dialog-default" />
 
 ### ComboBox
 
-<ComponentPreview
-  name="combo-box-default"
-/>
+<ComponentPreview name="combo-box-default" />
 
 ### Dropdown
 
-<ComponentPreview
-  name="dropdown-default"
-/>
-
+<ComponentPreview name="dropdown-default" />
 
 ### Modal
 
-<ComponentPreview
-  name="modal-default"
-/>
+<ComponentPreview name="modal-default" />
 
 ### InputGroup
 
-<ComponentPreview
-  name="input-group-with-icon-prefix-and-text-suffix"
-/>
+<ComponentPreview name="input-group-with-icon-prefix-and-text-suffix" />
 
 ### NumberField
 
-<ComponentPreview
-  name="number-field-basic"
-/>
+<ComponentPreview name="number-field-basic" />
 
 ### Style Improvements
 
@@ -107,14 +78,17 @@ This release introduces **6 new** essential components:
 Enhanced CSS variants and theme system for better customization:
 
 **Motion Preferences**:
+
 - New `motion-safe` variant with `data-reduce-motion="true"` attribute matching
 - Enhanced `motion-reduce` now supports ancestor elements and pseudo-elements
 
 **Dark Mode**:
+
 - Class and `data-theme="dark"` attribute selectors now take precedence over `prefers-color-scheme`
 - Full support for pseudo-elements in dark mode
 
 **Theme Variables**:
+
 - Expanded light theme scope to support nested themes (`:root`, `.light`, `.default`, `[data-theme="light"]`, `[data-theme="default"]`)
 
 ### Component Improvements
@@ -124,6 +98,7 @@ Enhanced CSS variants and theme system for better customization:
 The Select component's API has been improved for better consistency with other components. The `Content` subcomponent has been renamed to `Popover`.
 
 **Before:**
+
 ```tsx
 <Select>
   <Select.Trigger>
@@ -131,14 +106,13 @@ The Select component's API has been improved for better consistency with other c
     <Select.Indicator />
   </Select.Trigger>
   <Select.Content>
-    <ListBox>
-      {/* items */}
-    </ListBox>
+    <ListBox>{/* items */}</ListBox>
   </Select.Content>
 </Select>
 ```
 
 **After:**
+
 ```tsx
 <Select>
   <Select.Trigger>
@@ -146,9 +120,7 @@ The Select component's API has been improved for better consistency with other c
     <Select.Indicator />
   </Select.Trigger>
   <Select.Popover>
-    <ListBox>
-      {/* items */}
-    </ListBox>
+    <ListBox>{/* items */}</ListBox>
   </Select.Popover>
 </Select>
 ```
@@ -156,6 +128,7 @@ The Select component's API has been improved for better consistency with other c
 #### Chip Component Refinements
 
 Chip component sizes have been updated for better consistency:
+
 - **Small (`sm`)**: `px-1 py-0 text-xs`
 - **Medium (`md`)**: `text-xs` (now explicitly set)
 - **Large (`lg`)**: `px-3 py-1 text-sm font-medium`
@@ -165,6 +138,7 @@ Chip component sizes have been updated for better consistency:
 The Separator component now automatically detects when it's placed inside a surface component (one that uses `bg-surface`) and applies the appropriate divider color for better visibility. A new `isOnSurface` prop is also available for manual control.
 
 **New Calculated Variable:**
+
 - `--color-separator-on-surface`: A calculated variable (automatically generated using `color-mix`) that ensures the separator is visible when placed on a surface background. Like other calculated variables, it can be overridden in your theme.
 
 **Usage:**
@@ -181,7 +155,7 @@ You can also use the calculated variable directly with Tailwind classes:
 
 ```tsx
 <div className="bg-surface">
-  <div className="h-px w-full bg-separator-on-surface" />
+  <div className="bg-separator-on-surface h-px w-full" />
 </div>
 ```
 
@@ -218,20 +192,20 @@ Replace all instances of `Select.Content` with `Select.Popover`:
 
 ```tsx
 // Before
-import type { SelectContentProps } from "@heroui/react"
+import type { SelectContentProps } from "@heroui/react";
 
 // After
-import type { SelectPopoverProps } from "@heroui/react"
+import type { SelectPopoverProps } from "@heroui/react";
 ```
 
 **Named exports:**
 
 ```tsx
 // Before
-import { SelectContent } from "@heroui/react"
+import { SelectContent } from "@heroui/react";
 
 // After
-import { SelectPopover } from "@heroui/react"
+import { SelectPopover } from "@heroui/react";
 ```
 
 ### CSS Variables and Utilities: Divider → Separator

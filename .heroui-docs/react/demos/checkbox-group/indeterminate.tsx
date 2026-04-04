@@ -1,7 +1,7 @@
 "use client";
 
-import {Checkbox, CheckboxGroup, Label} from "@heroui/react";
-import {useState} from "react";
+import { Checkbox, CheckboxGroup, Label } from "@heroui/react";
+import { useState } from "react";
 
 export function Indeterminate() {
   const [selected, setSelected] = useState(["coding"]);

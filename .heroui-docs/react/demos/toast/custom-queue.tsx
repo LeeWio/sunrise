@@ -1,11 +1,11 @@
 "use client";
 
-import {Button, Toast, ToastQueue} from "@heroui/react";
+import { Button, Toast, ToastQueue } from "@heroui/react";
 
 export function CustomQueue() {
-  const notificationQueue = new ToastQueue({maxVisibleToasts: 2});
-  const errorQueue = new ToastQueue({maxVisibleToasts: 3});
-  const successQueue = new ToastQueue({maxVisibleToasts: 1});
+  const notificationQueue = new ToastQueue({ maxVisibleToasts: 2 });
+  const errorQueue = new ToastQueue({ maxVisibleToasts: 3 });
+  const successQueue = new ToastQueue({ maxVisibleToasts: 1 });
 
   return (
     <div className="flex h-full max-w-4xl items-center justify-center gap-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, Kbd, Label, SearchField} from "@heroui/react";
+import { Description, Kbd, Label, SearchField } from "@heroui/react";
 import React from "react";
 
 export function WithKeyboardShortcut() {

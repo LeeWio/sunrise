@@ -1,4 +1,4 @@
-import {Checkbox, CheckboxGroup, Description, Label} from "@heroui/react";
+import { Checkbox, CheckboxGroup, Description, Label } from "@heroui/react";
 
 export function Basic() {
   return (

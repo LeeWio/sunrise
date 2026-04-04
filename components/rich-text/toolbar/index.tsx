@@ -1,6 +1,13 @@
 "use client";
 
-import { Toolbar, ToggleButtonGroup, ToggleButton, Separator, ScrollShadow, Button } from "@heroui/react";
+import {
+  Toolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  Separator,
+  ScrollShadow,
+  Button,
+} from "@heroui/react";
 import { useTiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
 import {
@@ -39,31 +46,31 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
       orientation="horizontal"
       hideScrollBar
       size={20}
-      className="flex w-full rounded-lg bg-default-100 p-2 dark:bg-default-50"
+      className="bg-default-100 dark:bg-default-50 flex w-full rounded-lg p-2"
     >
       <Toolbar
-        className="flex flex-nowrap items-center gap-2 bg-transparent p-0 w-max"
+        className="flex w-max flex-nowrap items-center gap-2 bg-transparent p-0"
         aria-label="Rich Text Formatting"
       >
         <FileDropdown />
-        
+
         <Separator orientation="vertical" className="h-6" />
 
         <div className="flex items-center gap-1">
-          <Button 
-            variant="ghost" 
-            isIconOnly 
-            aria-label="Undo" 
+          <Button
+            variant="ghost"
+            isIconOnly
+            aria-label="Undo"
             isDisabled={!state.canUndo}
             onPress={commands.onUndo}
             className="text-default-600 border-none"
           >
             <ArrowShapeTurnUpLeft className="size-4" />
           </Button>
-          <Button 
-            variant="ghost" 
-            isIconOnly 
-            aria-label="Redo" 
+          <Button
+            variant="ghost"
+            isIconOnly
+            aria-label="Redo"
             isDisabled={!state.canRedo}
             onPress={commands.onRedo}
             className="text-default-600 border-none"
@@ -74,26 +81,48 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
 
         <Separator orientation="vertical" className="h-6" />
 
-        <ToggleButtonGroup 
-          selectionMode="multiple" 
-          aria-label="Text formatting"
-        >
-          <ToggleButton id="bold" aria-label="Bold" isSelected={state.isBold} onPress={commands.onBold}>
+        <ToggleButtonGroup selectionMode="multiple" aria-label="Text formatting">
+          <ToggleButton
+            id="bold"
+            aria-label="Bold"
+            isSelected={state.isBold}
+            onPress={commands.onBold}
+          >
             <Bold className="size-4" />
           </ToggleButton>
-          <ToggleButton id="italic" aria-label="Italic" isSelected={state.isItalic} onPress={commands.onItalic}>
+          <ToggleButton
+            id="italic"
+            aria-label="Italic"
+            isSelected={state.isItalic}
+            onPress={commands.onItalic}
+          >
             <ToggleButtonGroup.Separator />
             <Italic className="size-4" />
           </ToggleButton>
-          <ToggleButton id="underline" aria-label="Underline" isSelected={state.isUnderline} onPress={commands.onUnderline}>
+          <ToggleButton
+            id="underline"
+            aria-label="Underline"
+            isSelected={state.isUnderline}
+            onPress={commands.onUnderline}
+          >
             <ToggleButtonGroup.Separator />
             <UnderlineIcon className="size-4" />
           </ToggleButton>
-          <ToggleButton id="strike" aria-label="Strikethrough" isSelected={state.isStrike} onPress={commands.onStrike}>
+          <ToggleButton
+            id="strike"
+            aria-label="Strikethrough"
+            isSelected={state.isStrike}
+            onPress={commands.onStrike}
+          >
             <ToggleButtonGroup.Separator />
             <Strikethrough className="size-4" />
           </ToggleButton>
-          <ToggleButton id="code" aria-label="Code" isSelected={state.isCode} onPress={commands.onCode}>
+          <ToggleButton
+            id="code"
+            aria-label="Code"
+            isSelected={state.isCode}
+            onPress={commands.onCode}
+          >
             <ToggleButtonGroup.Separator />
             <Code className="size-4" />
           </ToggleButton>
@@ -101,18 +130,30 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
 
         <Separator orientation="vertical" className="h-6" />
 
-        <ToggleButtonGroup
-          selectionMode="single"
-          aria-label="Text alignment"
-        >
-          <ToggleButton id="left" aria-label="Align Left" isSelected={state.isAlignLeft} onPress={commands.onAlignLeft}>
+        <ToggleButtonGroup selectionMode="single" aria-label="Text alignment">
+          <ToggleButton
+            id="left"
+            aria-label="Align Left"
+            isSelected={state.isAlignLeft}
+            onPress={commands.onAlignLeft}
+          >
             <TextAlignLeft className="size-4" />
           </ToggleButton>
-          <ToggleButton id="center" aria-label="Align Center" isSelected={state.isAlignCenter} onPress={commands.onAlignCenter}>
+          <ToggleButton
+            id="center"
+            aria-label="Align Center"
+            isSelected={state.isAlignCenter}
+            onPress={commands.onAlignCenter}
+          >
             <ToggleButtonGroup.Separator />
             <TextAlignCenter className="size-4" />
           </ToggleButton>
-          <ToggleButton id="right" aria-label="Align Right" isSelected={state.isAlignRight} onPress={commands.onAlignRight}>
+          <ToggleButton
+            id="right"
+            aria-label="Align Right"
+            isSelected={state.isAlignRight}
+            onPress={commands.onAlignRight}
+          >
             <ToggleButtonGroup.Separator />
             <TextAlignRight className="size-4" />
           </ToggleButton>
@@ -120,18 +161,30 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
 
         <Separator orientation="vertical" className="h-6" />
 
-        <ToggleButtonGroup 
-          selectionMode="multiple" 
-          aria-label="Lists and blocks"
-        >
-          <ToggleButton id="bullet-list" aria-label="Bullet List" isSelected={state.isBulletList} onPress={commands.onBulletList}>
+        <ToggleButtonGroup selectionMode="multiple" aria-label="Lists and blocks">
+          <ToggleButton
+            id="bullet-list"
+            aria-label="Bullet List"
+            isSelected={state.isBulletList}
+            onPress={commands.onBulletList}
+          >
             <ListUl className="size-4" />
           </ToggleButton>
-          <ToggleButton id="ordered-list" aria-label="Ordered List" isSelected={state.isOrderedList} onPress={commands.onOrderedList}>
+          <ToggleButton
+            id="ordered-list"
+            aria-label="Ordered List"
+            isSelected={state.isOrderedList}
+            onPress={commands.onOrderedList}
+          >
             <ToggleButtonGroup.Separator />
             <ListOl className="size-4" />
           </ToggleButton>
-          <ToggleButton id="blockquote" aria-label="Blockquote" isSelected={state.isBlockquote} onPress={commands.onBlockquote}>
+          <ToggleButton
+            id="blockquote"
+            aria-label="Blockquote"
+            isSelected={state.isBlockquote}
+            onPress={commands.onBlockquote}
+          >
             <ToggleButtonGroup.Separator />
             <QuoteOpen className="size-4" />
           </ToggleButton>

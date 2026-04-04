@@ -1,7 +1,7 @@
 "use client";
 
-import {ArrowRight} from "@gravity-ui/icons";
-import {Button, Dropdown, Label} from "@heroui/react";
+import { ArrowRight } from "@gravity-ui/icons";
+import { Button, Dropdown, Label } from "@heroui/react";
 
 export function WithCustomSubmenuIndicator() {
   return (
@@ -21,7 +21,7 @@ export function WithCustomSubmenuIndicator() {
             <Dropdown.Item id="share" textValue="Share">
               <Label>More options</Label>
               <Dropdown.SubmenuIndicator>
-                <ArrowRight className="size-3.5 text-muted" />
+                <ArrowRight className="text-muted size-3.5" />
               </Dropdown.SubmenuIndicator>
             </Dropdown.Item>
             <Dropdown.Popover>
@@ -37,7 +37,7 @@ export function WithCustomSubmenuIndicator() {
                     <Label>Email</Label>
                     <Dropdown.SubmenuIndicator>
                       <svg
-                        className="size-3.5 text-muted"
+                        className="text-muted size-3.5"
                         fill="none"
                         stroke="currentColor"
                         strokeLinecap="round"

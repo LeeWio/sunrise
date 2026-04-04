@@ -1,4 +1,4 @@
-import {Description, Label, NumberField} from "@heroui/react";
+import { Description, Label, NumberField } from "@heroui/react";
 
 export function WithDescription() {
   return (
@@ -14,7 +14,7 @@ export function WithDescription() {
       </NumberField>
       <NumberField
         defaultValue={0.5}
-        formatOptions={{style: "percent"}}
+        formatOptions={{ style: "percent" }}
         maxValue={1}
         minValue={0}
         name="percentage"

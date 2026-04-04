@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, Description, FieldError, Form, Label, Radio, RadioGroup} from "@heroui/react";
+import { Button, Description, FieldError, Form, Label, Radio, RadioGroup } from "@heroui/react";
 import React from "react";
 
 export function Validation() {
@@ -52,7 +52,7 @@ export function Validation() {
       <Button className="mt-2 w-fit" type="submit">
         Submit
       </Button>
-      {!!message && <p className="text-sm text-muted">{message}</p>}
+      {!!message && <p className="text-muted text-sm">{message}</p>}
     </Form>
   );
 }

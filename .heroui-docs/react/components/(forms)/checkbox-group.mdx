@@ -11,21 +11,19 @@ links:
 ## Import
 
 ```tsx
-import { CheckboxGroup, Checkbox, Label, Description } from '@heroui/react';
+import { CheckboxGroup, Checkbox, Label, Description } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="checkbox-group-basic"
-/>
+<ComponentPreview name="checkbox-group-basic" />
 
 ### Anatomy
 
 Import the CheckboxGroup component and access all parts using dot notation.
 
 ```tsx
-import {CheckboxGroup, Checkbox, Label, Description, FieldError} from '@heroui/react';
+import { CheckboxGroup, Checkbox, Label, Description, FieldError } from "@heroui/react";
 
 export default () => (
   <CheckboxGroup name="interests">
@@ -49,51 +47,35 @@ export default () => (
 
 When used inside a [Surface](/docs/components/surface) component, use `variant="secondary"` to apply the lower emphasis variant suitable for surface backgrounds.
 
-<ComponentPreview
-  name="checkbox-group-on-surface"
-/>
+<ComponentPreview name="checkbox-group-on-surface" />
 
 ### With Custom Indicator
 
-<ComponentPreview
-  name="checkbox-group-with-custom-indicator"
-/>
+<ComponentPreview name="checkbox-group-with-custom-indicator" />
 
 ### Indeterminate
 
-<ComponentPreview
-  name="checkbox-group-indeterminate"
-/>
+<ComponentPreview name="checkbox-group-indeterminate" />
 
 ### Controlled
 
-<ComponentPreview
-  name="checkbox-group-controlled"
-/>
+<ComponentPreview name="checkbox-group-controlled" />
 
 ### Validation
 
-<ComponentPreview
-  name="checkbox-group-validation"
-/>
+<ComponentPreview name="checkbox-group-validation" />
 
 ### Disabled
 
-<ComponentPreview
-  name="checkbox-group-disabled"
-/>
+<ComponentPreview name="checkbox-group-disabled" />
 
 ### Features and Add-ons Example
 
-<ComponentPreview
-  name="checkbox-group-features-and-addons"
-/>
+<ComponentPreview name="checkbox-group-features-and-addons" />
 
 ### Custom Render Function
 
-<ComponentPreview
-  name="checkbox-group-custom-render-function"
-/>
+<ComponentPreview name="checkbox-group-custom-render-function" />
 
 <RelatedComponents component="checkboxgroup" />
 
@@ -104,7 +86,7 @@ When used inside a [Surface](/docs/components/surface) component, use `variant="
 You can customize the CheckboxGroup component:
 
 ```tsx
-import { CheckboxGroup, Checkbox, Label } from '@heroui/react';
+import { CheckboxGroup, Checkbox, Label } from "@heroui/react";
 
 function CustomCheckboxGroup() {
   return (
@@ -125,7 +107,9 @@ function CustomCheckboxGroup() {
 ### Customizing the component classes
 
 To customize the CheckboxGroup component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -149,28 +133,27 @@ The CheckboxGroup component uses these CSS classes ([View source styles](https:/
 
 Inherits from [React Aria CheckboxGroup](https://react-spectrum.adobe.com/react-aria/CheckboxGroup.html).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string[]` | - | The current selected values (controlled) |
-| `defaultValue` | `string[]` | - | The default selected values (uncontrolled) |
-| `onChange` | `(value: string[]) => void` | - | Handler called when the selected values change |
-| `isDisabled` | `boolean` | `false` | Whether the checkbox group is disabled |
-| `isRequired` | `boolean` | `false` | Whether the checkbox group is required |
-| `isReadOnly` | `boolean` | `false` | Whether the checkbox group is read only |
-| `isInvalid` | `boolean` | `false` | Whether the checkbox group is in an invalid state |
-| `name` | `string` | - | The name of the checkbox group, used when submitting an HTML form |
-| `children` | `React.ReactNode \| (values: CheckboxGroupRenderProps) => React.ReactNode` | - | Checkbox group content or render prop |
-| `render` | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, CheckboxGroupRenderProps>` | - | Overrides the default DOM element with a custom render function.|
+| Prop           | Type                                                                             | Default | Description                                                       |
+| -------------- | -------------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `value`        | `string[]`                                                                       | -       | The current selected values (controlled)                          |
+| `defaultValue` | `string[]`                                                                       | -       | The default selected values (uncontrolled)                        |
+| `onChange`     | `(value: string[]) => void`                                                      | -       | Handler called when the selected values change                    |
+| `isDisabled`   | `boolean`                                                                        | `false` | Whether the checkbox group is disabled                            |
+| `isRequired`   | `boolean`                                                                        | `false` | Whether the checkbox group is required                            |
+| `isReadOnly`   | `boolean`                                                                        | `false` | Whether the checkbox group is read only                           |
+| `isInvalid`    | `boolean`                                                                        | `false` | Whether the checkbox group is in an invalid state                 |
+| `name`         | `string`                                                                         | -       | The name of the checkbox group, used when submitting an HTML form |
+| `children`     | `React.ReactNode \| (values: CheckboxGroupRenderProps) => React.ReactNode`       | -       | Checkbox group content or render prop                             |
+| `render`       | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, CheckboxGroupRenderProps>` | -       | Overrides the default DOM element with a custom render function.  |
 
 ### CheckboxGroupRenderProps
 
 When using the render prop pattern, these values are provided:
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `value` | `string[]` | The currently selected values |
-| `isDisabled` | `boolean` | Whether the checkbox group is disabled |
-| `isReadOnly` | `boolean` | Whether the checkbox group is read only |
-| `isInvalid` | `boolean` | Whether the checkbox group is in an invalid state |
-| `isRequired` | `boolean` | Whether the checkbox group is required |
-
+| Prop         | Type       | Description                                       |
+| ------------ | ---------- | ------------------------------------------------- |
+| `value`      | `string[]` | The currently selected values                     |
+| `isDisabled` | `boolean`  | Whether the checkbox group is disabled            |
+| `isReadOnly` | `boolean`  | Whether the checkbox group is read only           |
+| `isInvalid`  | `boolean`  | Whether the checkbox group is in an invalid state |
+| `isRequired` | `boolean`  | Whether the checkbox group is required            |

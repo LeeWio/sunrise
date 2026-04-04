@@ -1,5 +1,5 @@
-import {Heart, HeartFill} from "@gravity-ui/icons";
-import {ToggleButton} from "@heroui/react";
+import { Heart, HeartFill } from "@gravity-ui/icons";
+import { ToggleButton } from "@heroui/react";
 
 export function Disabled() {
   return (

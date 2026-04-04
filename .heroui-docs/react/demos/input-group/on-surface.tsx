@@ -1,7 +1,7 @@
 "use client";
 
-import {Envelope} from "@gravity-ui/icons";
-import {Description, InputGroup, Label, Surface, TextField} from "@heroui/react";
+import { Envelope } from "@gravity-ui/icons";
+import { Description, InputGroup, Label, Surface, TextField } from "@heroui/react";
 
 export function OnSurface() {
   return (
@@ -10,7 +10,7 @@ export function OnSurface() {
         <Label>Email address</Label>
         <InputGroup variant="secondary">
           <InputGroup.Prefix>
-            <Envelope className="size-4 text-muted" />
+            <Envelope className="text-muted size-4" />
           </InputGroup.Prefix>
           <InputGroup.Input className="w-full max-w-[280px]" placeholder="name@email.com" />
         </InputGroup>

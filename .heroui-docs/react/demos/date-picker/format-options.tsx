@@ -1,7 +1,7 @@
 "use client";
 
-import type {TimeValue} from "@heroui/react";
-import type {DateValue} from "@internationalized/date";
+import type { TimeValue } from "@heroui/react";
+import type { DateValue } from "@internationalized/date";
 
 import {
   Calendar,
@@ -13,20 +13,20 @@ import {
   Switch,
   TimeField,
 } from "@heroui/react";
-import {getLocalTimeZone, parseDate, parseZonedDateTime} from "@internationalized/date";
-import {useMemo, useState} from "react";
+import { getLocalTimeZone, parseDate, parseZonedDateTime } from "@internationalized/date";
+import { useMemo, useState } from "react";
 
 type Granularity = "day" | "hour" | "minute" | "second";
 type HourCycle = 12 | 24;
-const granularityOptions: {label: string; value: Granularity}[] = [
-  {label: "Day", value: "day"},
-  {label: "Hour", value: "hour"},
-  {label: "Minute", value: "minute"},
-  {label: "Second", value: "second"},
+const granularityOptions: { label: string; value: Granularity }[] = [
+  { label: "Day", value: "day" },
+  { label: "Hour", value: "hour" },
+  { label: "Minute", value: "minute" },
+  { label: "Second", value: "second" },
 ];
-const hourCycleOptions: {label: string; value: HourCycle}[] = [
-  {label: "12-hour", value: 12},
-  {label: "24-hour", value: 24},
+const hourCycleOptions: { label: string; value: HourCycle }[] = [
+  { label: "12-hour", value: 12 },
+  { label: "24-hour", value: 24 },
 ];
 
 export function FormatOptions() {
@@ -58,7 +58,7 @@ export function FormatOptions() {
         name="date"
         shouldForceLeadingZeros={shouldForceLeadingZeros}
       >
-        {({state}) => (
+        {({ state }) => (
           <>
             <Label>Date and time</Label>
             <DateField.Group fullWidth>
@@ -89,7 +89,7 @@ export function FormatOptions() {
                 </Calendar.Grid>
                 <Calendar.YearPickerGrid>
                   <Calendar.YearPickerGridBody>
-                    {({year}) => <Calendar.YearPickerCell year={year} />}
+                    {({ year }) => <Calendar.YearPickerCell year={year} />}
                   </Calendar.YearPickerGridBody>
                 </Calendar.YearPickerGrid>
               </Calendar>

@@ -1,6 +1,6 @@
 "use client";
 
-import {Description, Label, ListBox, ListLayout, Virtualizer} from "@heroui/react";
+import { Description, Label, ListBox, ListLayout, Virtualizer } from "@heroui/react";
 
 interface User {
   id: number;
@@ -76,7 +76,7 @@ export function Virtualization() {
   const users = generateUsers(1000);
 
   return (
-    <Virtualizer layout={ListLayout} layoutOptions={{rowHeight: 50}}>
+    <Virtualizer layout={ListLayout} layoutOptions={{ rowHeight: 50 }}>
       <ListBox
         aria-label="Virtualized list with 1000 items"
         className="h-[400px] w-[300px] overflow-y-auto"

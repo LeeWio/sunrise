@@ -1,4 +1,4 @@
-import {ColorField, Label} from "@heroui/react";
+import { ColorField, Label } from "@heroui/react";
 
 export function Variants() {
   return (

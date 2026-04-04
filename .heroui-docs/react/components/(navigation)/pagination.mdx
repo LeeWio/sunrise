@@ -11,21 +11,19 @@ links:
 ## Import
 
 ```tsx
-import { Pagination } from '@heroui/react';
+import { Pagination } from "@heroui/react";
 ```
 
 ### Usage
 
-<ComponentPreview
-  name="pagination-basic"
-/>
+<ComponentPreview name="pagination-basic" />
 
 ### Anatomy
 
 Import the Pagination component and access all parts using dot notation.
 
 ```tsx
-import { Pagination } from '@heroui/react';
+import { Pagination } from "@heroui/react";
 
 export default () => (
   <Pagination>
@@ -59,47 +57,33 @@ export default () => (
 
 ### Sizes
 
-<ComponentPreview
-  name="pagination-sizes"
-/>
+<ComponentPreview name="pagination-sizes" />
 
 ### With Ellipsis
 
-<ComponentPreview
-  name="pagination-with-ellipsis"
-/>
+<ComponentPreview name="pagination-with-ellipsis" />
 
 ### Simple (Previous / Next)
 
-<ComponentPreview
-  name="pagination-simple-prev-next"
-/>
+<ComponentPreview name="pagination-simple-prev-next" />
 
 ### With Summary
 
-<ComponentPreview
-  name="pagination-with-summary"
-/>
+<ComponentPreview name="pagination-with-summary" />
 
 ### Custom Icons
 
 You can replace the default chevron icons by passing custom children to `PreviousIcon` and `NextIcon`.
 
-<ComponentPreview
-  name="pagination-custom-icons"
-/>
+<ComponentPreview name="pagination-custom-icons" />
 
 ### Controlled
 
-<ComponentPreview
-  name="pagination-controlled"
-/>
+<ComponentPreview name="pagination-controlled" />
 
 ### Disabled
 
-<ComponentPreview
-  name="pagination-disabled"
-/>
+<ComponentPreview name="pagination-disabled" />
 
 <RelatedComponents component="pagination" />
 
@@ -110,14 +94,16 @@ You can replace the default chevron icons by passing custom children to `Previou
 You can customize individual Pagination parts:
 
 ```tsx
-import { Pagination } from '@heroui/react';
+import { Pagination } from "@heroui/react";
 
 function CustomPagination() {
   return (
     <Pagination className="gap-8">
       <Pagination.Content className="gap-2">
         <Pagination.Item>
-          <Pagination.Link className="rounded-md" isActive>1</Pagination.Link>
+          <Pagination.Link className="rounded-md" isActive>
+            1
+          </Pagination.Link>
         </Pagination.Item>
       </Pagination.Content>
     </Pagination>
@@ -128,7 +114,9 @@ function CustomPagination() {
 ### Customizing the component classes
 
 To customize the Pagination component classes, you can use the `@layer components` directive.
-<br/>[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
+
+<br />
+[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
 
 ```css
 @layer components {
@@ -153,6 +141,7 @@ HeroUI follows the [BEM](https://getbem.com/) methodology to ensure component va
 The Pagination component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/pagination.css)):
 
 #### Base & Layout Classes
+
 - `.pagination` - Root navigation container with flex layout
 - `.pagination__summary` - Left-side info text container
 - `.pagination__content` - Container for pagination items
@@ -162,6 +151,7 @@ The Pagination component uses these CSS classes ([View source styles](https://gi
 - `.pagination__ellipsis` - Ellipsis indicator
 
 #### Size Classes
+
 - `.pagination--sm` - Small size variant
 - `.pagination--md` - Medium size variant (default)
 - `.pagination--lg` - Large size variant
@@ -180,64 +170,64 @@ The component supports both CSS pseudo-classes and data attributes for flexibili
 
 ### Pagination Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size of the pagination items |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Pagination parts (Summary, Content) |
+| Prop        | Type                   | Default | Description                         |
+| ----------- | ---------------------- | ------- | ----------------------------------- |
+| `size`      | `"sm" \| "md" \| "lg"` | `"md"`  | Size of the pagination items        |
+| `className` | `string`               | -       | Additional CSS classes              |
+| `children`  | `ReactNode`            | -       | Pagination parts (Summary, Content) |
 
 ### Pagination.Summary Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Summary content (e.g., "Showing 1-10 of 120") |
+| Prop        | Type        | Default | Description                                   |
+| ----------- | ----------- | ------- | --------------------------------------------- |
+| `className` | `string`    | -       | Additional CSS classes                        |
+| `children`  | `ReactNode` | -       | Summary content (e.g., "Showing 1-10 of 120") |
 
 ### Pagination.Content Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Pagination items |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Pagination items       |
 
 ### Pagination.Item Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Item content (Link, Previous, Next, or Ellipsis) |
+| Prop        | Type        | Default | Description                                      |
+| ----------- | ----------- | ------- | ------------------------------------------------ |
+| `className` | `string`    | -       | Additional CSS classes                           |
+| `children`  | `ReactNode` | -       | Item content (Link, Previous, Next, or Ellipsis) |
 
 ### Pagination.Link Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isActive` | `boolean` | `false` | Whether this is the current page |
-| `isDisabled` | `boolean` | `false` | Whether the link is disabled |
-| `onPress` | `(e: PressEvent) => void` | - | Press handler (from React Aria) |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Page number content |
+| Prop         | Type                      | Default | Description                      |
+| ------------ | ------------------------- | ------- | -------------------------------- |
+| `isActive`   | `boolean`                 | `false` | Whether this is the current page |
+| `isDisabled` | `boolean`                 | `false` | Whether the link is disabled     |
+| `onPress`    | `(e: PressEvent) => void` | -       | Press handler (from React Aria)  |
+| `className`  | `string`                  | -       | Additional CSS classes           |
+| `children`   | `ReactNode`               | -       | Page number content              |
 
 ### Pagination.Previous / Pagination.Next Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isDisabled` | `boolean` | `false` | Whether the button is disabled |
-| `onPress` | `(e: PressEvent) => void` | - | Press handler (from React Aria) |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Button content (compose with PreviousIcon/NextIcon) |
+| Prop         | Type                      | Default | Description                                         |
+| ------------ | ------------------------- | ------- | --------------------------------------------------- |
+| `isDisabled` | `boolean`                 | `false` | Whether the button is disabled                      |
+| `onPress`    | `(e: PressEvent) => void` | -       | Press handler (from React Aria)                     |
+| `className`  | `string`                  | -       | Additional CSS classes                              |
+| `children`   | `ReactNode`               | -       | Button content (compose with PreviousIcon/NextIcon) |
 
 ### Pagination.PreviousIcon / Pagination.NextIcon Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | Default chevron SVG | Custom icon to replace the default chevron |
+| Prop        | Type        | Default             | Description                                |
+| ----------- | ----------- | ------------------- | ------------------------------------------ |
+| `className` | `string`    | -                   | Additional CSS classes                     |
+| `children`  | `ReactNode` | Default chevron SVG | Custom icon to replace the default chevron |
 
 ### Pagination.Ellipsis Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type     | Default | Description            |
+| ----------- | -------- | ------- | ---------------------- |
+| `className` | `string` | -       | Additional CSS classes |
 
 ## Accessibility
 

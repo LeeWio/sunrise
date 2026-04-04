@@ -3,42 +3,27 @@ title: v3.0.0-alpha.34
 description: Essentials for building forms with a clean API Form, TextField, RadioGroup, Label, Input, Fieldset and more.
 ---
 
-<div className="flex items-center gap-3 mb-6">
-  <span className="text-sm text-muted">October 15, 2025</span>
+<div className="mb-6 flex items-center gap-3">
+  <span className="text-muted text-sm">October 15, 2025</span>
 </div>
 
 This release introduces Form-based components, form field tokens, reorganizes Storybook, and aligns data-slot markers across components.
-
 
 ## Installation
 
 Update to the latest version:
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tab value="npm">
-    ```bash
-    npm i @heroui/styles@alpha @heroui/react@alpha
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @heroui/styles@alpha @heroui/react@alpha
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add @heroui/styles@alpha @heroui/react@alpha
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add @heroui/styles@alpha @heroui/react@alpha
-    ```
-  </Tab>
+  <Tab value="npm">```bash npm i @heroui/styles@alpha @heroui/react@alpha ```</Tab>
+  <Tab value="pnpm">```bash pnpm add @heroui/styles@alpha @heroui/react@alpha ```</Tab>
+  <Tab value="yarn">```bash yarn add @heroui/styles@alpha @heroui/react@alpha ```</Tab>
+  <Tab value="bun">```bash bun add @heroui/styles@alpha @heroui/react@alpha ```</Tab>
 </Tabs>
 
 <Callout type="info">
-  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your
+  AI assistant will automatically compare versions and apply the necessary changes. Learn more about
+  the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
 </Callout>
 
 ## What's New
@@ -49,57 +34,39 @@ We've introduced a comprehensive set of form-based components built on React Ari
 
 #### Description
 
-<ComponentPreview
-  name="description-basic"
-/>
+<ComponentPreview name="description-basic" />
 
 #### FieldError
 
-<ComponentPreview
-  name="field-error-basic"
-/>
+<ComponentPreview name="field-error-basic" />
 
 #### Fieldset
 
-<ComponentPreview
-  name="fieldset-basic"
-/>
+<ComponentPreview name="fieldset-basic" />
 
 #### Form
 
-<ComponentPreview
-  name="form-basic"
-/>
+<ComponentPreview name="form-basic" />
 
 #### Input
 
-<ComponentPreview
-  name="input-basic"
-/>
+<ComponentPreview name="input-basic" />
 
 #### Label
 
-<ComponentPreview
-  name="label-basic"
-/>
+<ComponentPreview name="label-basic" />
 
 #### RadioGroup
 
-<ComponentPreview
-  name="radio-group-basic"
-/>
+<ComponentPreview name="radio-group-basic" />
 
 #### TextField
 
-<ComponentPreview
-  name="text-field-basic"
-/>
+<ComponentPreview name="text-field-basic" />
 
 #### TextArea
 
-<ComponentPreview
-  name="textarea-basic"
-/>
+<ComponentPreview name="textarea-basic" />
 
 ### Form Field Tokens
 
@@ -118,6 +85,7 @@ Reorganized Storybook by category for better navigation and component discovery.
 Aligned data-slot markers across components for consistent styling and customization. This standardization makes it easier to target specific component parts with CSS selectors and improves the overall developer experience when customizing component styles.
 
 Components now use consistent `data-slot` attributes like:
+
 - `data-slot="base"` for the root element
 - `data-slot="label"` for label text
 - `data-slot="description"` for description text
@@ -131,14 +99,14 @@ This allows for predictable CSS targeting across all form components:
     /* Styles apply to radio labels */
   }
 }
-``` 
+```
 
 ## Documentation Improvements
 
 ### Component Documentation
+
 - **[Link](/docs/components/link)**: Added Anatomy, and examples with Icon. Updated Link and Link.Icon props section.
 - **[Description](/docs/components/description)**, **[FieldError](/docs/components/field-error)**, **[Fieldset](/docs/components/fieldset)**, **[Form](/docs/components/form)**, **[Input](/docs/components/input)**, **[Label](/docs/components/label)**, **[RadioGroup](/docs/components/radio-group)**, **[TextField](/docs/components/text-field)**, and **[TextArea](/docs/components/textarea)**: New documentation with usage examples
-
 
 ## Migration Guide
 
