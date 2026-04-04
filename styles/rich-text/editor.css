@@ -1,0 +1,9 @@
+/* Core Tiptap ProseMirror overrides */
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* Responsive min-height for the editor canvas */
+.ProseMirror {
+  @apply min-h-[40vh] cursor-text;
+}

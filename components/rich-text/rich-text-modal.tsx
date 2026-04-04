@@ -32,7 +32,7 @@ return (
               <RichTextToolbar />
             </Modal.Header>
             <Modal.Body>
-              <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none [&_.ProseMirror]:focus:outline-none min-h-[40vh] cursor-text transition-all duration-200" />
+              <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
             </Modal.Body>
           </Tiptap>
         )}

@@ -1,0 +1,11 @@
+/* Tiptap Placeholder styles */
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply pointer-events-none float-left h-0 text-zinc-400 dark:text-zinc-500;
+  content: attr(data-placeholder);
+}
+
+/* For specific node placeholders if needed */
+.ProseMirror .is-empty::before {
+  @apply pointer-events-none float-left h-0 text-zinc-400 dark:text-zinc-500;
+  content: attr(data-placeholder);
+}
