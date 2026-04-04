@@ -1,7 +1,10 @@
-import { StarterKit, TextAlign, Placeholder } from "./index";
+import { StarterKit, TextAlign, Placeholder, CharacterCount } from "./index";
 
 export const ExtensionKit = [
   StarterKit,
+  CharacterCount.configure({
+    mode: "nodeSize",
+  }),
   TextAlign.configure({
     types: ["heading", "paragraph"],
   }),

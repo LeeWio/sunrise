@@ -12,38 +12,50 @@ export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
   const dispatch = useAppDispatch();
   const editor = useRichText();
+  const state = useRichTextState(editor);
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
       dispatch(closeRichText());
     }
   };
-return (
-  <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
-    <Modal.Container size="cover" placement="top">
-      <Modal.Dialog aria-label="Rich Text Editor">
-        {!editor ? (
-          <Modal.Body>
-            <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
-          </Modal.Body>
-        ) : (
-          <Tiptap editor={editor}>
-            <Modal.Header>
-              {/* Toolbar UI */}
-              <RichTextToolbar />
-            </Modal.Header>
+
+  return (
+    <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
+      <Modal.Container size="cover" placement="top">
+        <Modal.Dialog aria-label="Rich Text Editor">
+          {!editor ? (
             <Modal.Body>
-              <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
+              <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
             </Modal.Body>
-          </Tiptap>
-        )}
-        <Modal.Footer className="border-t border-border/50 pt-4">
-            <Button onPress={() => dispatch(closeRichText())} variant="secondary">
-              Cancel
-            </Button>
-            <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-primary-foreground font-medium">
-              Publish
-            </Button>
+          ) : (
+            <Tiptap editor={editor}>
+              <Modal.Header>
+                {/* Toolbar UI */}
+                <RichTextToolbar />
+              </Modal.Header>
+              <Modal.Body>
+                <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
+              </Modal.Body>
+            </Tiptap>
+          )}
+          <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+            <div className="flex gap-4 text-xs text-default-400">
+              {state && (
+                <>
+                  <span>{state.characters} characters</span>
+                  <span>{state.words} words</span>
+                </>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <Button onPress={() => dispatch(closeRichText())} variant="secondary">
+                Cancel
+              </Button>
+              <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-primary-foreground font-medium">
+                Publish
+              </Button>
+            </div>
           </Modal.Footer>
         </Modal.Dialog>
       </Modal.Container>
