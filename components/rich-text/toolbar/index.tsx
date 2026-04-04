@@ -2,6 +2,7 @@
 
 import { Toolbar, ToggleButtonGroup, ToggleButton, Separator, ScrollShadow, Button } from "@heroui/react";
 import { useTiptap, useTiptapState } from "@tiptap/react";
+import type { Editor } from "@tiptap/react";
 import {
   Bold,
   Italic,
@@ -19,8 +20,14 @@ import {
 import { FileDropdown } from "./file-dropdown";
 
 export function RichTextToolbar() {
-  const { editor, isReady } = useTiptap();
+  const { editor } = useTiptap();
 
+  if (!editor) return null;
+
+  return <RichTextToolbarInner editor={editor} />;
+}
+
+function RichTextToolbarInner({ editor }: { editor: Editor }) {
   // Performance Optimization: Subscribe only to the specific states we need
   const isBold = useTiptapState((state) => state.editor.isActive("bold"));
   const isItalic = useTiptapState((state) => state.editor.isActive("italic"));
@@ -37,8 +44,6 @@ export function RichTextToolbar() {
 
   const canUndo = useTiptapState((state) => state.editor.can().undo());
   const canRedo = useTiptapState((state) => state.editor.can().redo());
-
-  if (!isReady || !editor) return null;
 
   // Compute selected keys for formats
   const formatKeys = new Set<string>();

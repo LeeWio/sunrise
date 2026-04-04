@@ -17,24 +17,26 @@ export function RichTextModal() {
       dispatch(closeRichText());
     }
   };
-
-  return (
-    <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
-      <Modal.Container size="cover" placement="top">
-        <Modal.Dialog aria-label="Rich Text Editor">
+return (
+  <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
+    <Modal.Container size="cover" placement="top">
+      <Modal.Dialog aria-label="Rich Text Editor">
+        {!editor ? (
+          <Modal.Body className="py-6 px-6">
+            <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
+          </Modal.Body>
+        ) : (
           <Tiptap editor={editor}>
             <Modal.Header>
+              {/* Toolbar UI */}
               <RichTextToolbar />
             </Modal.Header>
             <Modal.Body className="py-6 px-6">
-              {!editor ? (
-                <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
-              ) : (
-                <Tiptap.Content className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" />
-              )}
+              <Tiptap.Content className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" />
             </Modal.Body>
           </Tiptap>
-          <Modal.Footer className="border-t border-border/50 pt-4">
+        )}
+        <Modal.Footer className="border-t border-border/50 pt-4">
             <Button onPress={() => dispatch(closeRichText())} variant="secondary">
               Cancel
             </Button>
