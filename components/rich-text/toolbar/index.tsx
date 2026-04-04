@@ -9,7 +9,6 @@ import {
   Underline as UnderlineIcon,
   Strikethrough,
   Code,
-  Link as LinkIcon,
   TextAlignLeft,
   TextAlignCenter,
   TextAlignRight,
@@ -20,7 +19,6 @@ import {
   ArrowShapeTurnUpRight,
 } from "@gravity-ui/icons";
 import { FileDropdown } from "./file-dropdown";
-import { LinkEditPopover } from "../extensions/link";
 import { useRichTextState } from "../../../hooks/use-rich-text-state";
 import { useRichTextCommands } from "../../../hooks/use-rich-text-commands";
 
@@ -99,12 +97,6 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             <ToggleButtonGroup.Separator />
             <Code className="size-4" />
           </ToggleButton>
-          <LinkEditPopover>
-            <ToggleButton id="link" aria-label="Link" isSelected={state.isLink}>
-              <ToggleButtonGroup.Separator />
-              <LinkIcon className="size-4" />
-            </ToggleButton>
-          </LinkEditPopover>
         </ToggleButtonGroup>
 
         <Separator orientation="vertical" className="h-6" />

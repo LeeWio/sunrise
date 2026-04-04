@@ -21,6 +21,7 @@ This is a web application bootstrapped with `create-next-app`. It is built using
 *   **Data Fetching:** [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) MUST be used as the exclusive data fetching framework for backend communication.
 *   **Rich Text Editor:** [Tiptap](https://tiptap.dev/docs/editor/getting-started/overview) for the core text editing and rich content experience (Refer to its local skill in `.agents/skills/tiptap/SKILL.md`).
 *   **Icons:** [`@gravity-ui/icons`](https://gravity-ui.com/icons) MUST be used as the exclusive and standard icon library. If an icon is missing from this library, do NOT install or use other icon libraries (e.g., Lucide, Heroicons). Instead, all custom icons provided by the user MUST be centralized and exported from `components/icons.tsx`.
+*   **Animations:** [Motion](https://motion.dev/) MUST only be used when the required animation cannot be achieved using native CSS or HeroUI's default animations.
 
 ## Building and Running
 
@@ -52,6 +53,7 @@ Since the project uses Bun, it is recommended to use it for running scripts and 
 *   **Styling:** Styling is heavily reliant on Tailwind CSS utility classes directly within the JSX/TSX components. Global styles and Tailwind configuration are initialized in `styles/globals.css`.
 *   **Fonts & Images:** Utilizes Next.js built-in optimizations like `next/font/google` (using the Geist font family) and the `next/image` component for optimized asset loading.
 *   **Components:** Prefers functional React components. Server Components are the default in the Next.js App Router unless explicitly marked with `"use client"`.
+*   **Animations:** Prioritize Vanilla CSS and HeroUI's default animations. **Do NOT** use the `motion` library unless the required animation cannot be achieved using these native or library-provided methods.
 
 ### Directory Structure (Strict Rules)
 

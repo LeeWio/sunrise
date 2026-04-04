@@ -1,3 +1,13 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "@heroui/styles";
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+}

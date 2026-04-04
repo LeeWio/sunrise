@@ -18,7 +18,7 @@ export function LinkBubbleMenu() {
     <BubbleMenu
       editor={editor}
       shouldShow={({ editor }) => editor.isActive("link")}
-      tippyOptions={{ duration: 100, placement: "bottom-start" }}
+      options={{ placement: "bottom-start" }}
     >
       <div className="flex items-center gap-1 rounded-xl border border-border/50 bg-background p-1 shadow-lg">
         <div className="flex items-center px-2 max-w-[200px]">
@@ -43,8 +43,7 @@ export function LinkBubbleMenu() {
         <Button 
           isIconOnly 
           size="sm" 
-          variant="ghost" 
-          color="danger" 
+          variant="danger" 
           aria-label="Remove link"
           className="border-none"
           onPress={() => editor.chain().focus().unsetLink().run()}

@@ -38,11 +38,11 @@ export function LinkEditPopover({ children }: LinkEditPopoverProps) {
   };
 
   return (
-    <Popover isOpen={isOpen} onOpenChange={handleOpenChange} placement="bottom">
+    <Popover isOpen={isOpen} onOpenChange={handleOpenChange}>
       <Popover.Trigger>
         {children}
       </Popover.Trigger>
-      <Popover.Content className="w-[320px]">
+      <Popover.Content className="w-[320px]" placement="bottom">
         <Popover.Dialog aria-label="Edit Link">
           <Form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
             <TextField value={url} onChange={setUrl} autoFocus>
@@ -55,8 +55,7 @@ export function LinkEditPopover({ children }: LinkEditPopoverProps) {
             <div className="flex justify-between gap-2">
               <Button 
                 size="sm" 
-                variant="ghost" 
-                color="danger" 
+                variant="danger" 
                 onPress={handleRemove}
                 className="border-none"
               >
@@ -65,7 +64,7 @@ export function LinkEditPopover({ children }: LinkEditPopoverProps) {
               </Button>
               <Button 
                 size="sm" 
-                color="primary" 
+                variant="primary" 
                 type="submit"
               >
                 Apply

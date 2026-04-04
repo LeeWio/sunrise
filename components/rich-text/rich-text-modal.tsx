@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef, useEffect } from "react";
 import { Modal, Button, Skeleton } from "@heroui/react";
 import { Tiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
@@ -8,7 +9,7 @@ import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
 import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
-import { LinkBubbleMenu } from "./extensions/link";
+import { LinkMenu, ContentItemMenu } from "./menus";
 import "../../styles/rich-text/index.css";
 
 function RichTextStats({ editor }: { editor: Editor }) {
@@ -26,6 +27,19 @@ export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
   const dispatch = useAppDispatch();
   const editor = useRichText();
+  // Using a dedicated ref for the menu container
+  const menuContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto focus editor when modal opens
+  useEffect(() => {
+    if (isOpen && editor) {
+      // Small delay to ensure the DOM is ready after Modal animation starts
+      const timer = setTimeout(() => {
+        editor.commands.focus("end");
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, editor]);
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
@@ -37,64 +51,70 @@ export function RichTextModal() {
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog aria-label="Rich Text Editor">
-          {!editor ? (
-            <>
-              <Modal.Body>
-                <div className="skeleton--shimmer flex flex-col gap-8">
-                  {/* Toolbar Placeholder */}
-                  <Skeleton animationType="none" className="h-12 w-full rounded-xl" />
-                  
-                  {/* Content Placeholder (Simulated text paragraphs) */}
-                  <div className="flex flex-col gap-4 px-2">
-                    <div className="space-y-3">
-                      <Skeleton animationType="none" className="h-4 w-1/3 rounded-lg" />
-                      <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
-                      <Skeleton animationType="none" className="h-4 w-5/6 rounded-lg" />
-                    </div>
-                    <div className="space-y-3 pt-4">
-                      <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
-                      <Skeleton animationType="none" className="h-4 w-4/5 rounded-lg" />
-                      <Skeleton animationType="none" className="h-4 w-2/3 rounded-lg" />
+          {/* We wrap the content in a div to provide a stable ref for BubbleMenus */}
+          <div ref={menuContainerRef} className="relative flex flex-col h-full w-full">
+            {!editor ? (
+              <>
+                <Modal.Body>
+                  <div className="skeleton--shimmer flex flex-col gap-8">
+                    {/* Toolbar Placeholder */}
+                    <Skeleton animationType="none" className="h-12 w-full rounded-xl" />
+                    
+                    {/* Content Placeholder (Simulated text paragraphs) */}
+                    <div className="flex flex-col gap-4 px-2">
+                      <div className="space-y-3">
+                        <Skeleton animationType="none" className="h-4 w-1/3 rounded-lg" />
+                        <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
+                        <Skeleton animationType="none" className="h-4 w-5/6 rounded-lg" />
+                      </div>
+                      <div className="space-y-3 pt-4">
+                        <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
+                        <Skeleton animationType="none" className="h-4 w-4/5 rounded-lg" />
+                        <Skeleton animationType="none" className="h-4 w-2/3 rounded-lg" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Modal.Body>
-              <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
-                <div className="skeleton--shimmer flex gap-4">
-                  <Skeleton animationType="none" className="h-3 w-20 rounded-full" />
-                  <Skeleton animationType="none" className="h-3 w-16 rounded-full" />
-                </div>
-                <div className="skeleton--shimmer flex gap-2">
-                  <Skeleton animationType="none" className="h-9 w-20 rounded-lg" />
-                  <Skeleton animationType="none" className="h-9 w-24 rounded-lg" />
-                </div>
-              </Modal.Footer>
-            </>
-          ) : (
-            <Tiptap editor={editor}>
-              <LinkBubbleMenu />
-              <Modal.Header>
-                {/* Toolbar UI */}
-                <RichTextToolbar />
-              </Modal.Header>
-              <Modal.Body>
-                <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
-              </Modal.Body>
-            </Tiptap>
-          )}
-          <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
-            <div>
-              {editor && <RichTextStats editor={editor} />}
-            </div>
-            <div className="flex gap-2">
-              <Button onPress={() => dispatch(closeRichText())} variant="secondary">
-                Cancel
-              </Button>
-              <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-primary-foreground font-medium">
-                Publish
-              </Button>
-            </div>
-          </Modal.Footer>
+                </Modal.Body>
+                <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+                  <div className="skeleton--shimmer flex gap-4">
+                    <Skeleton animationType="none" className="h-3 w-20 rounded-full" />
+                    <Skeleton animationType="none" className="h-3 w-16 rounded-full" />
+                  </div>
+                  <div className="skeleton--shimmer flex gap-2">
+                    <Skeleton animationType="none" className="h-9 w-20 rounded-lg" />
+                    <Skeleton animationType="none" className="h-9 w-24 rounded-lg" />
+                  </div>
+                </Modal.Footer>
+              </>
+            ) : (
+              <Tiptap editor={editor}>
+                <LinkMenu appendTo={menuContainerRef} />
+                <ContentItemMenu />
+                <Modal.Header>                  {/* Toolbar UI */}
+                  <RichTextToolbar />
+                </Modal.Header>
+                <Modal.Body>
+                  <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none transition-all duration-200" />
+                </Modal.Body>
+              </Tiptap>
+            )}
+            <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+              <div>
+                {editor && <RichTextStats editor={editor} />}
+              </div>
+              <div className="flex gap-2">
+                <Button onPress={() => dispatch(closeRichText())} variant="secondary">
+                  Cancel
+                </Button>
+                <Button 
+                  onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} 
+                  className="bg-primary text-primary-foreground font-medium"
+                >
+                  Publish
+                </Button>
+              </div>
+            </Modal.Footer>
+          </div>
         </Modal.Dialog>
       </Modal.Container>
     </Modal.Backdrop>

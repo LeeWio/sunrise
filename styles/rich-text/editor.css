@@ -7,5 +7,38 @@
 
 /* Responsive min-height for the editor canvas */
 .ProseMirror {
-  @apply min-h-[40vh] cursor-text;
+  min-height: 40vh;
+  cursor: text;
+  /* Reduced padding to align better with toolbar while keeping room for drag handle */
+  padding-left: 1.5rem; 
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Add space for nested drag handles in lists */
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.25rem;
+}
+
+/* Selection highlight for dragged nodes */
+.ProseMirror-selectednode,
+.ProseMirror-selectednoderange {
+  position: relative;
+}
+
+.ProseMirror-selectednode::before,
+.ProseMirror-selectednoderange::before {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  left: -0.25rem;
+  right: -0.25rem;
+  bottom: -0.25rem;
+  border-radius: 0.5rem;
+  pointer-events: none;
+  z-index: -10;
+  /* Safe fallback for primary with alpha */
+  background-color: var(--heroui-primary-100, rgba(0, 111, 238, 0.1));
 }
