@@ -9,8 +9,9 @@ import {
   ColorSwatch,
   ColorSwatchPicker,
   parseColor,
+  type Color
 } from "@heroui/react";
-import { Shuffle, Text, BucketPaint, Eraser } from "@gravity-ui/icons";
+import { Shuffle, Text, BucketPaint } from "@gravity-ui/icons";
 import { ToolbarButton } from "../../components";
 
 interface TextColorPickerProps {
@@ -22,10 +23,6 @@ interface TextColorPickerProps {
    * Callback when a color is selected
    */
   onChange: (color: string) => void;
-  /**
-   * Callback to clear the color
-   */
-  onClear: () => void;
   /**
    * Picker type (text or background)
    */
@@ -39,7 +36,6 @@ interface TextColorPickerProps {
 export const TextColorPicker = React.memo(({
   value,
   onChange,
-  onClear,
   type
 }: TextColorPickerProps) => {
   // Convert hex string from Tiptap to HeroUI Color object
@@ -51,7 +47,7 @@ export const TextColorPicker = React.memo(({
     }
   }, [value, type]);
 
-  const handleColorChange = useCallback((newColor: any) => {
+  const handleColorChange = useCallback((newColor: Color) => {
     onChange(newColor.toString("hex"));
   }, [onChange]);
 

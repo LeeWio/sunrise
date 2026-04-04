@@ -21,7 +21,7 @@ export interface ShouldShowProps {
  * Handles the logic for when the menu should be shown and 
  * tracks the active formatting states (bold, italic, etc.).
  */
-export const useTextMenuStates = (editor: Editor) => {
+export const useTextMenuStates = (editor: Editor | null) => {
   /**
    * Tiptap 3 `useTiptapState` allows us to reactively track editor state changes.
    * This is much more efficient than manual event listeners.
@@ -70,7 +70,7 @@ export const useTextMenuStates = (editor: Editor) => {
    */
   const shouldShow = useCallback(
     ({ view, from }: ShouldShowProps) => {
-      if (!view || editor.view.dragging) {
+      if (!editor || !view || editor.view.dragging) {
         return false;
       }
 

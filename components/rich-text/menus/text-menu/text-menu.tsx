@@ -31,10 +31,10 @@ interface TextMenuProps {
 export function TextMenu({ appendTo }: TextMenuProps) {
   const { editor } = useTiptap();
   
-  if (!editor) return null;
-
   const commands = useRichTextCommands(editor);
   const states = useTextMenuStates(editor);
+
+  if (!editor) return null;
 
   // Resolve appendTo for Floating UI
   const getAppendTo = () => {

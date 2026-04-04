@@ -85,7 +85,7 @@ export const useContentItemActions = (
   );
 
   const toggleNodeType = useCallback(
-    (type: string, options?: any) => {
+    (type: string, options?: Record<string, unknown>) => {
       if (!editor || currentNodePos === -1) return;
       const chain = editor.chain().focus().setNodeSelection(currentNodePos);
 
@@ -94,7 +94,7 @@ export const useContentItemActions = (
           chain.setParagraph().run();
           break;
         case "heading":
-          chain.toggleHeading({ level: options?.level }).run();
+          chain.toggleHeading({ level: options?.level as 1 | 2 | 3 | 4 | 5 | 6 }).run();
           break;
         case "bulletList":
           chain.toggleBulletList().run();

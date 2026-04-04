@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useCallback, useState } from "react";
+import { useMemo, useCallback } from "react";
 import { useTiptapState, Editor } from "@tiptap/react";
 import { Node } from "@tiptap/pm/model";
 

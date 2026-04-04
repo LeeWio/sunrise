@@ -58,7 +58,11 @@ export function ContentItemMenu() {
       }, 50);
       return () => clearTimeout(timer);
     } else {
-      setSearchQuery("");
+      // Clear search asynchronously when menu closes to avoid cascading renders
+      const timer = setTimeout(() => {
+        setSearchQuery("");
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [editor, menuOpen]);
 
@@ -101,7 +105,7 @@ export function ContentItemMenu() {
         <MotionButton
           isIconOnly size="sm" variant="ghost"
           aria-label="Drag to move, long press for actions"
-          className="text-default-400 hover:text-default-600 hover:bg-default-100 transition-all cursor-grab active:cursor-grabbing rounded-md"
+          className="transition-all cursor-grab active:cursor-grabbing"
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.92 }}
           transition={{ type: "spring", stiffness: 600, damping: 20 }}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTiptap } from "@tiptap/react";
 
 /**
@@ -117,7 +117,9 @@ export function DropIndicator() {
         tr.setMeta("addToHistory", false);
         tr.setMeta("preventUpdate", true);
         view.dispatch(tr);
-      } catch (err) {}
+      } catch {
+        // Silent catch for coordinate resolution edge cases
+      }
     };
 
     const cleanup = () => {
@@ -133,7 +135,9 @@ export function DropIndicator() {
           tr.setMeta("addToHistory", false);
           editor.view.dispatch(tr);
         }
-      } catch (e) {}
+      } catch {
+        // Silent catch for state resolution errors
+      }
     };
 
     const dom = editor.view.dom;
