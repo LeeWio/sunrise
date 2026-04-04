@@ -20,7 +20,7 @@ This is a web application bootstrapped with `create-next-app`. It is built using
 *   **State Management:** [Redux Toolkit (RTK)](https://redux-toolkit.js.org/) MUST be used as the exclusive state management solution.
 *   **Data Fetching:** [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) MUST be used as the exclusive data fetching framework for backend communication.
 *   **Rich Text Editor:** [Tiptap](https://tiptap.dev/docs/editor/getting-started/overview) for the core text editing and rich content experience (Refer to its local skill in `.agents/skills/tiptap/SKILL.md`).
-*   **Icons:** [`@gravity-ui/icons`](https://gravity-ui.com/icons) MUST be used as the exclusive and standard icon library. If an icon is missing from this library, do NOT install or use other icon libraries (e.g., Lucide, Heroicons). The user will provide the necessary custom icons.
+*   **Icons:** [`@gravity-ui/icons`](https://gravity-ui.com/icons) MUST be used as the exclusive and standard icon library. If an icon is missing from this library, do NOT install or use other icon libraries (e.g., Lucide, Heroicons). Instead, all custom icons provided by the user MUST be centralized and exported from `components/icons.tsx`.
 
 ## Building and Running
 
