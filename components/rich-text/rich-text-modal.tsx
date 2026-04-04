@@ -2,6 +2,7 @@
 
 import { Modal, Button } from "@heroui/react";
 import { EditorContent } from "@tiptap/react";
+import { PencilToSquare } from "@gravity-ui/icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
@@ -24,10 +25,7 @@ export function RichTextModal() {
           <Modal.CloseTrigger />
           <Modal.Header className="border-b border-border/50 pb-4">
             <Modal.Icon className="bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 20h9"/>
-                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-              </svg>
+              <PencilToSquare className="size-5" />
             </Modal.Icon>
             <Modal.Heading className="text-xl font-semibold">Write a Moment</Modal.Heading>
           </Modal.Header>
