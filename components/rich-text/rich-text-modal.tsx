@@ -22,7 +22,7 @@ return (
     <Modal.Container size="cover" placement="top">
       <Modal.Dialog aria-label="Rich Text Editor">
         {!editor ? (
-          <Modal.Body className="py-6 px-6">
+          <Modal.Body>
             <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
           </Modal.Body>
         ) : (
@@ -31,8 +31,8 @@ return (
               {/* Toolbar UI */}
               <RichTextToolbar />
             </Modal.Header>
-            <Modal.Body className="py-6 px-6">
-              <Tiptap.Content className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" />
+            <Modal.Body>
+              <Tiptap.Content className="prose prose-zinc dark:prose-invert max-w-none focus:outline-none min-h-[40vh] cursor-text transition-all duration-200" />
             </Modal.Body>
           </Tiptap>
         )}
