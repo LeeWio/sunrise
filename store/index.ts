@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import editorReducer from "./slices/editor-slice";
+import richTextReducer from "./slices/rich-text-slice";
 
 export const store = configureStore({
   reducer: {
-    editor: editorReducer,
+    richText: richTextReducer,
   },
 });
 

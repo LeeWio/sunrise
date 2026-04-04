@@ -2,12 +2,12 @@
 
 import { Provider } from "react-redux";
 import { store } from "../store";
-import { useEditorShortcut } from "../hooks/use-editor-shortcut";
-import { EditorModal } from "../components/rich-text/editor-modal";
+import { useRichTextShortcut } from "../hooks/use-rich-text-shortcut";
+import { RichTextModal } from "../components/rich-text/rich-text-modal";
 
 function GlobalHooks() {
-  useEditorShortcut();
-  return <EditorModal />;
+  useRichTextShortcut();
+  return <RichTextModal />;
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {

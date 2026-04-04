@@ -3,17 +3,17 @@
 import { Modal, Button } from "@heroui/react";
 import { EditorContent } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { closeEditor } from "../../store/slices/editor-slice";
+import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
 
-export function EditorModal() {
-  const isOpen = useAppSelector((state) => state.editor.isOpen);
+export function RichTextModal() {
+  const isOpen = useAppSelector((state) => state.richText.isOpen);
   const dispatch = useAppDispatch();
   const editor = useRichText();
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
-      dispatch(closeEditor());
+      dispatch(closeRichText());
     }
   };
 
@@ -32,10 +32,10 @@ export function EditorModal() {
               </div>
             </Modal.Body>
             <Modal.Footer>
-              <Button onPress={() => dispatch(closeEditor())} className="bg-transparent text-danger hover:bg-danger/10">
+              <Button onPress={() => dispatch(closeRichText())} className="bg-transparent text-danger hover:bg-danger/10">
                 Cancel
               </Button>
-              <Button onPress={() => { /* TODO: Post Action */ dispatch(closeEditor()); }} className="bg-primary text-white">
+              <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-white">
                 Post
               </Button>
             </Modal.Footer>

@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { useAppDispatch } from "../store/hooks";
-import { toggleEditor } from "../store/slices/editor-slice";
+import { toggleRichText } from "../store/slices/rich-text-slice";
 
-export function useEditorShortcut() {
+export function useRichTextShortcut() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function useEditorShortcut() {
       // CMD + K (Mac) or CTRL + K (Windows)
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        dispatch(toggleEditor());
+        dispatch(toggleRichText());
       }
     };
 
