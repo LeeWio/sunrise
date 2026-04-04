@@ -4,7 +4,8 @@ import React from "react";
 import { useTiptap } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Separator } from "@heroui/react";
-import { Bold, Italic, Underline, Strikethrough, Code } from "@gravity-ui/icons";
+import { Bold, Italic, Underline, Strikethrough, Code, Superscript } from "@gravity-ui/icons";
+import { Subscript } from "@/components/icons";
 import { MenuContainer } from "../menu-container";
 import { useTextMenuStates } from "./hooks/use-text-menu-states";
 import { TextColorPicker } from "./components/color-picker";
@@ -103,6 +104,18 @@ export function TextMenu({ appendTo }: TextMenuProps) {
             tooltip="Code"
             active={states.isCode}
             onPress={commands.onCode}
+          />
+          <ToolbarButton
+            icon={<Subscript className="size-3.5" />}
+            tooltip="Subscript"
+            active={states.isSubscript}
+            onPress={commands.onSubscript}
+          />
+          <ToolbarButton
+            icon={<Superscript className="size-3.5" />}
+            tooltip="Superscript"
+            active={states.isSuperscript}
+            onPress={commands.onSuperscript}
           />
         </div>
       </MenuContainer>

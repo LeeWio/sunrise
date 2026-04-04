@@ -11,6 +11,8 @@ import {
   BackgroundColor,
   Highlight,
   Underline,
+  Subscript,
+  Superscript,
 } from "./index";
 
 export const ExtensionKit = [
@@ -28,6 +30,8 @@ export const ExtensionKit = [
     multicolor: true,
   }),
   Underline,
+  Subscript,
+  Superscript,
   Link.configure({
     openOnClick: false,
     autolink: true,

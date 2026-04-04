@@ -11,6 +11,8 @@ export function useRichTextCommands(editor: Editor | null) {
     onUnderline: () => editor?.chain().focus().toggleUnderline().run(),
     onStrike: () => editor?.chain().focus().toggleStrike().run(),
     onCode: () => editor?.chain().focus().toggleCode().run(),
+    onSubscript: () => editor?.chain().focus().toggleSubscript().run(),
+    onSuperscript: () => editor?.chain().focus().toggleSuperscript().run(),
 
     // Alignment
     onAlignLeft: () => editor?.chain().focus().setTextAlign("left").run(),

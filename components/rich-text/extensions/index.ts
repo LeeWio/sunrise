@@ -2,6 +2,8 @@ export { StarterKit } from "@tiptap/starter-kit";
 export { TextAlign } from "@tiptap/extension-text-align";
 export { Placeholder } from "@tiptap/extension-placeholder";
 export { Underline } from "@tiptap/extension-underline";
+export { Subscript } from "@tiptap/extension-subscript";
+export { Superscript } from "@tiptap/extension-superscript";
 export { CharacterCount } from "@tiptap/extension-character-count";
 export { TextStyle } from "@tiptap/extension-text-style";
 export { Color } from "@tiptap/extension-text-style/color";
