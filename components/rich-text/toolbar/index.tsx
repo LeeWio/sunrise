@@ -1,6 +1,6 @@
 "use client";
 
-import { Toolbar, ToggleButtonGroup, ToggleButton, Separator, ScrollShadow } from "@heroui/react";
+import { Toolbar, ToggleButtonGroup, ToggleButton, Separator, ScrollShadow, Button } from "@heroui/react";
 import {
   Bold,
   Italic,
@@ -12,6 +12,8 @@ import {
   ListUl,
   ListOl,
   QuoteOpen,
+  ArrowShapeTurnUpLeft,
+  ArrowShapeTurnUpRight,
 } from "@gravity-ui/icons";
 import { FileDropdown } from "./file-dropdown";
 
@@ -29,6 +31,17 @@ export function RichTextToolbar() {
       >
         <FileDropdown />
         
+        <Separator orientation="vertical" className="h-6" />
+
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" isIconOnly aria-label="Undo" className="text-default-600 border-none">
+            <ArrowShapeTurnUpLeft className="size-4" />
+          </Button>
+          <Button variant="ghost" isIconOnly aria-label="Redo" className="text-default-600 border-none">
+            <ArrowShapeTurnUpRight className="size-4" />
+          </Button>
+        </div>
+
         <Separator orientation="vertical" className="h-6" />
 
         <ToggleButtonGroup selectionMode="multiple" aria-label="Text formatting">
