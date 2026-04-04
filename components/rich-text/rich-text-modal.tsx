@@ -1,7 +1,7 @@
 "use client";
 
 import { Modal, Button } from "@heroui/react";
-import { EditorContent } from "@tiptap/react";
+import { Tiptap } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
@@ -22,16 +22,17 @@ export function RichTextModal() {
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog aria-label="Rich Text Editor">
-          <Modal.Header>
-            {/* Toolbar UI (Static for now) */}
-            <RichTextToolbar />
-          </Modal.Header>
-          <Modal.Body className="py-6 px-6">
-            <EditorContent 
-              editor={editor} 
-              className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" 
-            />
-          </Modal.Body>
+          <Tiptap instance={editor}>
+            <Modal.Header>
+              <RichTextToolbar />
+            </Modal.Header>
+            <Modal.Body className="py-6 px-6">
+              <Tiptap.Loading>
+                <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
+              </Tiptap.Loading>
+              <Tiptap.Content className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" />
+            </Modal.Body>
+          </Tiptap>
           <Modal.Footer className="border-t border-border/50 pt-4">
             <Button onPress={() => dispatch(closeRichText())} variant="secondary">
               Cancel
