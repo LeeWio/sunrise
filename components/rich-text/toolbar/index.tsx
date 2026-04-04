@@ -6,6 +6,7 @@ import type { Editor } from "@tiptap/react";
 import {
   Bold,
   Italic,
+  Underline as UnderlineIcon,
   Strikethrough,
   Code,
   TextAlignLeft,
@@ -37,6 +38,7 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
   const formatKeys = new Set<string>();
   if (state.isBold) formatKeys.add("bold");
   if (state.isItalic) formatKeys.add("italic");
+  if (state.isUnderline) formatKeys.add("underline");
   if (state.isStrike) formatKeys.add("strike");
   if (state.isCode) formatKeys.add("code");
 
@@ -103,6 +105,10 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
           <ToggleButton id="italic" aria-label="Italic" onPress={commands.onItalic}>
             <ToggleButtonGroup.Separator />
             <Italic className="size-4" />
+          </ToggleButton>
+          <ToggleButton id="underline" aria-label="Underline" onPress={commands.onUnderline}>
+            <ToggleButtonGroup.Separator />
+            <UnderlineIcon className="size-4" />
           </ToggleButton>
           <ToggleButton id="strike" aria-label="Strikethrough" onPress={commands.onStrike}>
             <ToggleButtonGroup.Separator />

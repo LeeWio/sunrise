@@ -4,6 +4,7 @@ import { Editor } from "@tiptap/react";
 export interface RichTextState {
   isBold: boolean;
   isItalic: boolean;
+  isUnderline: boolean;
   isStrike: boolean;
   isCode: boolean;
   isAlignLeft: boolean;
@@ -44,6 +45,7 @@ function getState(editor: Editor): RichTextState {
   return {
     isBold: editor.isActive("bold"),
     isItalic: editor.isActive("italic"),
+    isUnderline: editor.isActive("underline"),
     isStrike: editor.isActive("strike"),
     isCode: editor.isActive("code"),
     isAlignLeft: editor.isActive({ textAlign: "left" }),

@@ -8,6 +8,7 @@ export function useRichTextCommands(editor: Editor) {
     // Formatting
     onBold: () => editor.chain().focus().toggleBold().run(),
     onItalic: () => editor.chain().focus().toggleItalic().run(),
+    onUnderline: () => editor.chain().focus().toggleUnderline().run(),
     onStrike: () => editor.chain().focus().toggleStrike().run(),
     onCode: () => editor.chain().focus().toggleCode().run(),
     
