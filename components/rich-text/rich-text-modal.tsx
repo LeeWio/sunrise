@@ -2,7 +2,6 @@
 
 import { Modal, Button } from "@heroui/react";
 import { EditorContent } from "@tiptap/react";
-import { PencilToSquare } from "@gravity-ui/icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";

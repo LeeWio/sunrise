@@ -74,5 +74,13 @@ export function RichTextToolbar() {
         </ToggleButton>
       </ToggleButtonGroup>
     </Toolbar>
+    </ScrollShadow>
+  );
+}
+roup.Separator />
+          <QuoteOpen className="size-4" />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </Toolbar>
   );
 }
