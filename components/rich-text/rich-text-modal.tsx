@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
 import { RichTextToolbar } from "./toolbar";
+import "../../styles/rich-text/index.css";
 
 export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
