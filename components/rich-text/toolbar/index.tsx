@@ -95,26 +95,20 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
         <ToggleButtonGroup 
           selectionMode="multiple" 
           selectedKeys={formatKeys}
-          onAction={(key) => {
-            if (key === "bold") commands.onBold();
-            if (key === "italic") commands.onItalic();
-            if (key === "strike") commands.onStrike();
-            if (key === "code") commands.onCode();
-          }}
           aria-label="Text formatting"
         >
-          <ToggleButton id="bold" aria-label="Bold">
+          <ToggleButton id="bold" aria-label="Bold" onPress={commands.onBold}>
             <Bold className="size-4" />
           </ToggleButton>
-          <ToggleButton id="italic" aria-label="Italic">
+          <ToggleButton id="italic" aria-label="Italic" onPress={commands.onItalic}>
             <ToggleButtonGroup.Separator />
             <Italic className="size-4" />
           </ToggleButton>
-          <ToggleButton id="strike" aria-label="Strikethrough">
+          <ToggleButton id="strike" aria-label="Strikethrough" onPress={commands.onStrike}>
             <ToggleButtonGroup.Separator />
             <Strikethrough className="size-4" />
           </ToggleButton>
-          <ToggleButton id="code" aria-label="Code">
+          <ToggleButton id="code" aria-label="Code" onPress={commands.onCode}>
             <ToggleButtonGroup.Separator />
             <Code className="size-4" />
           </ToggleButton>
@@ -125,21 +119,16 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
         <ToggleButtonGroup
           selectionMode="single"
           selectedKeys={alignKeys}
-          onAction={(key) => {
-            if (key === "left") commands.onAlignLeft();
-            if (key === "center") commands.onAlignCenter();
-            if (key === "right") commands.onAlignRight();
-          }}
           aria-label="Text alignment"
         >
-          <ToggleButton id="left" aria-label="Align Left">
+          <ToggleButton id="left" aria-label="Align Left" onPress={commands.onAlignLeft}>
             <TextAlignLeft className="size-4" />
           </ToggleButton>
-          <ToggleButton id="center" aria-label="Align Center">
+          <ToggleButton id="center" aria-label="Align Center" onPress={commands.onAlignCenter}>
             <ToggleButtonGroup.Separator />
             <TextAlignCenter className="size-4" />
           </ToggleButton>
-          <ToggleButton id="right" aria-label="Align Right">
+          <ToggleButton id="right" aria-label="Align Right" onPress={commands.onAlignRight}>
             <ToggleButtonGroup.Separator />
             <TextAlignRight className="size-4" />
           </ToggleButton>
@@ -150,21 +139,16 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
         <ToggleButtonGroup 
           selectionMode="multiple" 
           selectedKeys={blockKeys}
-          onAction={(key) => {
-            if (key === "bullet-list") commands.onBulletList();
-            if (key === "ordered-list") commands.onOrderedList();
-            if (key === "blockquote") commands.onBlockquote();
-          }}
           aria-label="Lists and blocks"
         >
-          <ToggleButton id="bullet-list" aria-label="Bullet List">
+          <ToggleButton id="bullet-list" aria-label="Bullet List" onPress={commands.onBulletList}>
             <ListUl className="size-4" />
           </ToggleButton>
-          <ToggleButton id="ordered-list" aria-label="Ordered List">
+          <ToggleButton id="ordered-list" aria-label="Ordered List" onPress={commands.onOrderedList}>
             <ToggleButtonGroup.Separator />
             <ListOl className="size-4" />
           </ToggleButton>
-          <ToggleButton id="blockquote" aria-label="Blockquote">
+          <ToggleButton id="blockquote" aria-label="Blockquote" onPress={commands.onBlockquote}>
             <ToggleButtonGroup.Separator />
             <QuoteOpen className="size-4" />
           </ToggleButton>
