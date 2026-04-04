@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { BubbleMenu, useTiptap, useTiptapState } from "@tiptap/react";
+import { useTiptap, useTiptapState } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import { Button, Separator, Link as HeroLink } from "@heroui/react";
 import { PencilToSquare, LinkSlash } from "@gravity-ui/icons";
 import { LinkEditPopover } from "./link-edit-popover";
