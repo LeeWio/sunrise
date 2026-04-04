@@ -19,23 +19,30 @@ export function RichTextModal() {
 
   return (
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
-      <Modal.Container>
-        <Modal.Dialog className="w-full max-w-3xl">
+      <Modal.Container size="lg" placement="top">
+        <Modal.Dialog>
           <Modal.CloseTrigger />
-          <Modal.Header className="flex flex-col gap-1">
-            <Modal.Heading className="text-xl font-bold">New Moment</Modal.Heading>
+          <Modal.Header className="border-b border-border/50 pb-4">
+            <Modal.Icon className="bg-primary/10 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </Modal.Icon>
+            <Modal.Heading className="text-xl font-semibold">Write a Moment</Modal.Heading>
           </Modal.Header>
-          <Modal.Body>
-            <div className="min-h-[300px] w-full rounded-xl bg-zinc-100 p-4 dark:bg-zinc-900 cursor-text overflow-y-auto">
-              <EditorContent editor={editor} className="outline-none h-full" />
-            </div>
+          <Modal.Body className="py-6 px-6">
+            <EditorContent 
+              editor={editor} 
+              className="outline-none min-h-[40vh] cursor-text text-base md:text-lg leading-relaxed text-foreground" 
+            />
           </Modal.Body>
-          <Modal.Footer>
-            <Button onPress={() => dispatch(closeRichText())} className="bg-transparent text-danger hover:bg-danger/10">
+          <Modal.Footer className="border-t border-border/50 pt-4">
+            <Button onPress={() => dispatch(closeRichText())} variant="secondary">
               Cancel
             </Button>
-            <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-white">
-              Post
+            <Button onPress={() => { /* TODO: Post Action */ dispatch(closeRichText()); }} className="bg-primary text-primary-foreground font-medium">
+              Publish
             </Button>
           </Modal.Footer>
         </Modal.Dialog>
