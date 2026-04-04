@@ -1,4 +1,4 @@
-export { StarterKit, TextAlign, Placeholder, CharacterCount } from "./index";
+import { StarterKit, TextAlign, Placeholder, CharacterCount } from "./index";
 
 export const ExtensionKit = [
   StarterKit.configure({
