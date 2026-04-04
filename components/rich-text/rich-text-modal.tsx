@@ -6,6 +6,7 @@ import { PencilToSquare } from "@gravity-ui/icons";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
+import { RichTextToolbar } from "./toolbar";
 
 export function RichTextModal() {
   const isOpen = useAppSelector((state) => state.richText.isOpen);
@@ -23,11 +24,15 @@ export function RichTextModal() {
       <Modal.Container size="lg" placement="top">
         <Modal.Dialog>
           <Modal.CloseTrigger />
-          <Modal.Header className="border-b border-border/50 pb-4">
-            <Modal.Icon className="bg-primary/10 text-primary">
-              <PencilToSquare className="size-5" />
-            </Modal.Icon>
-            <Modal.Heading className="text-xl font-semibold">Write a Moment</Modal.Heading>
+          <Modal.Header className="border-b border-border/50 pb-4 flex flex-col gap-4 items-start">
+            <div className="flex items-center gap-2">
+              <Modal.Icon className="bg-primary/10 text-primary">
+                <PencilToSquare className="size-5" />
+              </Modal.Icon>
+              <Modal.Heading className="text-xl font-semibold">Write a Moment</Modal.Heading>
+            </div>
+            {/* Toolbar UI (Static for now) */}
+            <RichTextToolbar />
           </Modal.Header>
           <Modal.Body className="py-6 px-6">
             <EditorContent 
