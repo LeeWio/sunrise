@@ -7,7 +7,12 @@ export const ExtensionKit = [
     types: ["heading", "paragraph"],
   }),
   Placeholder.configure({
-    placeholder: "Capture your life, share your thoughts...",
+    placeholder: ({ node }) => {
+      if (node.type.name === "heading") {
+        return "Enter a title...";
+      }
+      return "Capture your life, share your thoughts...";
+    },
     includeChildren: true,
   }),
 ];
