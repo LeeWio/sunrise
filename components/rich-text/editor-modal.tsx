@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@heroui/react";
+import { Modal, Button } from "@heroui/react";
 import { EditorContent } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { closeEditor } from "../../store/slices/editor-slice";
@@ -18,27 +18,30 @@ export function EditorModal() {
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl" backdrop="blur">
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">New Moment</ModalHeader>
-            <ModalBody>
+    <Modal>
+      <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
+        <Modal.Container>
+          <Modal.Dialog className="w-full max-w-3xl">
+            <Modal.CloseTrigger />
+            <Modal.Header className="flex flex-col gap-1">
+              <Modal.Heading className="text-xl font-bold">New Moment</Modal.Heading>
+            </Modal.Header>
+            <Modal.Body>
               <div className="min-h-[300px] w-full rounded-xl bg-zinc-100 p-4 dark:bg-zinc-900 cursor-text overflow-y-auto">
                 <EditorContent editor={editor} className="outline-none h-full" />
               </div>
             </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
+            <Modal.Footer>
+              <Button onPress={() => dispatch(closeEditor())} className="bg-transparent text-danger hover:bg-danger/10">
                 Cancel
               </Button>
-              <Button color="primary" onPress={() => { /* TODO: Post Action */ onClose(); }}>
+              <Button onPress={() => { /* TODO: Post Action */ dispatch(closeEditor()); }} className="bg-primary text-white">
                 Post
               </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
     </Modal>
   );
 }
