@@ -8,6 +8,7 @@ import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
 import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
+import { LinkBubbleMenu } from "./extensions/link";
 import "../../styles/rich-text/index.css";
 
 function RichTextStats({ editor }: { editor: Editor }) {
@@ -37,14 +38,41 @@ export function RichTextModal() {
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog aria-label="Rich Text Editor">
           {!editor ? (
-            <Modal.Body>
-              <div className="flex flex-col gap-4">
-                <Skeleton className="h-12 w-full rounded-lg" />
-                <Skeleton className="h-[40vh] w-full rounded-xl" />
-              </div>
-            </Modal.Body>
+            <>
+              <Modal.Body>
+                <div className="skeleton--shimmer flex flex-col gap-8">
+                  {/* Toolbar Placeholder */}
+                  <Skeleton animationType="none" className="h-12 w-full rounded-xl" />
+                  
+                  {/* Content Placeholder (Simulated text paragraphs) */}
+                  <div className="flex flex-col gap-4 px-2">
+                    <div className="space-y-3">
+                      <Skeleton animationType="none" className="h-4 w-1/3 rounded-lg" />
+                      <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
+                      <Skeleton animationType="none" className="h-4 w-5/6 rounded-lg" />
+                    </div>
+                    <div className="space-y-3 pt-4">
+                      <Skeleton animationType="none" className="h-4 w-full rounded-lg" />
+                      <Skeleton animationType="none" className="h-4 w-4/5 rounded-lg" />
+                      <Skeleton animationType="none" className="h-4 w-2/3 rounded-lg" />
+                    </div>
+                  </div>
+                </div>
+              </Modal.Body>
+              <Modal.Footer className="border-t border-border/50 pt-4 flex items-center justify-between">
+                <div className="skeleton--shimmer flex gap-4">
+                  <Skeleton animationType="none" className="h-3 w-20 rounded-full" />
+                  <Skeleton animationType="none" className="h-3 w-16 rounded-full" />
+                </div>
+                <div className="skeleton--shimmer flex gap-2">
+                  <Skeleton animationType="none" className="h-9 w-20 rounded-lg" />
+                  <Skeleton animationType="none" className="h-9 w-24 rounded-lg" />
+                </div>
+              </Modal.Footer>
+            </>
           ) : (
             <Tiptap editor={editor}>
+              <LinkBubbleMenu />
               <Modal.Header>
                 {/* Toolbar UI */}
                 <RichTextToolbar />

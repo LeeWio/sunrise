@@ -10,6 +10,7 @@ export function useRichTextState(editor: Editor) {
         isUnderline: ctx.editor.isActive("underline"),
         isStrike: ctx.editor.isActive("strike"),
         isCode: ctx.editor.isActive("code"),
+        isLink: ctx.editor.isActive("link"),
         isAlignLeft: ctx.editor.isActive({ textAlign: "left" }),
         isAlignCenter: ctx.editor.isActive({ textAlign: "center" }),
         isAlignRight: ctx.editor.isActive({ textAlign: "right" }),

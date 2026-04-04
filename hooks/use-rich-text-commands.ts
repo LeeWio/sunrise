@@ -21,5 +21,6 @@ export function useRichTextCommands(editor: Editor) {
     onBulletList: () => editor.chain().focus().toggleBulletList().run(),
     onOrderedList: () => editor.chain().focus().toggleOrderedList().run(),
     onBlockquote: () => editor.chain().focus().toggleBlockquote().run(),
+    onUnsetLink: () => editor.chain().focus().extendMarkRange("link").unsetLink().run(),
   };
 }

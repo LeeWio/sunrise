@@ -1,9 +1,10 @@
-import { StarterKit, TextAlign, Placeholder, CharacterCount } from "./index";
+import { StarterKit, TextAlign, Placeholder, CharacterCount, CustomLink } from "./index";
 
 export const ExtensionKit = [
   StarterKit.configure({
     link: false,
   }),
+  CustomLink,
   CharacterCount.configure({
     mode: "nodeSize",
   }),
