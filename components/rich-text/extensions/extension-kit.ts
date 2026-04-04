@@ -1,8 +1,7 @@
-import { StarterKit, TextAlign, Placeholder, Underline } from "./index";
+import { StarterKit, TextAlign, Placeholder } from "./index";
 
 export const ExtensionKit = [
   StarterKit,
-  Underline,
   TextAlign.configure({
     types: ["heading", "paragraph"],
   }),
