@@ -23,7 +23,7 @@ export function RichTextModal() {
       <Modal.Container size="cover" placement="top">
         <Modal.Dialog>
           <Modal.CloseTrigger />
-          <Modal.Header className="border-b border-border/50 pb-2 pt-4 px-4 flex items-center">
+          <Modal.Header>
             {/* Toolbar UI (Static for now) */}
             <RichTextToolbar />
           </Modal.Header>
