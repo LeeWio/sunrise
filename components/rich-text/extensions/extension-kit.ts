@@ -9,9 +9,9 @@ export const ExtensionKit = [
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === "heading") {
-        return "Untitled";
+        return "Wait, what's the big idea?";
       }
-      return "Write something...";
+      return "Ready to spill the beans?";
     },
     includeChildren: true,
   }),
