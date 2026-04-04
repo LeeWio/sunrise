@@ -13,6 +13,7 @@ import {
   ListOl,
   QuoteOpen,
 } from "@gravity-ui/icons";
+import { FileDropdown } from "./file-dropdown";
 
 export function RichTextToolbar() {
   return (
@@ -26,6 +27,10 @@ export function RichTextToolbar() {
         className="flex flex-nowrap items-center gap-2 bg-transparent p-0 w-max"
         aria-label="Rich Text Formatting"
       >
+        <FileDropdown />
+        
+        <Separator orientation="vertical" className="h-6" />
+
         <ToggleButtonGroup selectionMode="multiple" aria-label="Text formatting">
           <ToggleButton id="bold" aria-label="Bold">
             <Bold className="size-4" />
