@@ -19,7 +19,7 @@ export function FileDropdown() {
 
   return (
     <Dropdown>
-      <Button variant="light" isIconOnly aria-label="File Options" className="text-default-600">
+      <Button variant="ghost" isIconOnly aria-label="File Options" className="text-default-600 border-none">
         <Bars className="size-5" />
       </Button>
       

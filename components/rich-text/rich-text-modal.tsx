@@ -21,7 +21,7 @@ export function RichTextModal() {
   return (
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
       <Modal.Container size="cover" placement="top">
-        <Modal.Dialog>
+        <Modal.Dialog aria-label="Rich Text Editor">
           <Modal.Header>
             {/* Toolbar UI (Static for now) */}
             <RichTextToolbar />
