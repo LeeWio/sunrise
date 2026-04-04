@@ -1,11 +1,19 @@
 "use client";
 
-import { Dropdown, Button, Label, Description, Header, Separator } from "@heroui/react";
-import { Bars, FileArrowDown, FileArrowUp, LogoMarkdown, FileCode } from "@gravity-ui/icons";
+import { Dropdown, Button, Label, Description, Header, Separator, Kbd } from "@heroui/react";
+import { 
+  Bars, 
+  FileArrowDown, 
+  FileArrowRightOut, 
+  LogoMarkdown, 
+  FileCode, 
+  FileArrowUp,
+  TrashBin
+} from "@gravity-ui/icons";
 
 export function FileDropdown() {
   const handleAction = (key: React.Key) => {
-    // TODO: Implement actual import/export logic later
+    // TODO: Implement actual import/export/clear logic later
     console.log("File action triggered:", key);
   };
 
@@ -15,44 +23,75 @@ export function FileDropdown() {
         <Bars className="size-5" />
       </Button>
       
-      <Dropdown.Popover placement="bottom start">
+      <Dropdown.Popover placement="bottom start" className="min-w-[280px]">
         <Dropdown.Menu onAction={handleAction} aria-label="File actions">
+          
           <Dropdown.Section>
-            <Header className="text-xs font-semibold text-default-500">Import</Header>
+            <Header>File</Header>
+            
+            {/* Import Item with Description and Keyboard Shortcut */}
             <Dropdown.Item id="import-md" textValue="Import Markdown">
-              <div className="flex items-center gap-2">
-                <FileArrowDown className="size-4 text-default-500" />
-                <div className="flex flex-col">
-                  <Label>Import Markdown</Label>
-                  <Description>Overwrite current content</Description>
-                </div>
+              <div className="flex h-8 items-start justify-center pt-px">
+                <FileArrowDown className="size-4 shrink-0 text-muted" />
               </div>
+              <div className="flex flex-col">
+                <Label>Import Markdown</Label>
+                <Description>Overwrite current content</Description>
+              </div>
+              <Kbd className="ms-auto" slot="keyboard" variant="light">
+                <Kbd.Abbr keyValue="command" />
+                <Kbd.Content>I</Kbd.Content>
+              </Kbd>
             </Dropdown.Item>
+
+            {/* Export Submenu Trigger */}
+            <Dropdown.SubmenuTrigger>
+              <Dropdown.Item id="export-submenu" textValue="Export As...">
+                <div className="flex h-8 items-start justify-center pt-px">
+                  <FileArrowRightOut className="size-4 shrink-0 text-muted" />
+                </div>
+                <div className="flex flex-col">
+                  <Label>Export As...</Label>
+                  <Description>Download in various formats</Description>
+                </div>
+                <Dropdown.SubmenuIndicator />
+              </Dropdown.Item>
+              
+              <Dropdown.Popover>
+                <Dropdown.Menu onAction={handleAction} aria-label="Export Formats">
+                  <Dropdown.Item id="export-md" textValue="Markdown">
+                    <LogoMarkdown className="size-4 shrink-0 text-muted" />
+                    <Label>Markdown (.md)</Label>
+                  </Dropdown.Item>
+                  <Dropdown.Item id="export-html" textValue="HTML Document">
+                    <FileCode className="size-4 shrink-0 text-muted" />
+                    <Label>HTML Document</Label>
+                  </Dropdown.Item>
+                  <Dropdown.Item id="export-json" textValue="Raw JSON">
+                    <FileArrowUp className="size-4 shrink-0 text-muted" />
+                    <Label>Raw JSON (Tiptap)</Label>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown.Popover>
+            </Dropdown.SubmenuTrigger>
+
           </Dropdown.Section>
 
-          <Separator className="my-1" />
+          <Separator />
 
           <Dropdown.Section>
-            <Header className="text-xs font-semibold text-default-500">Export As</Header>
-            <Dropdown.Item id="export-md" textValue="Markdown">
-              <div className="flex items-center gap-2">
-                <LogoMarkdown className="size-4 text-default-500" />
-                <Label>Markdown (.md)</Label>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Item id="export-html" textValue="HTML Document">
-              <div className="flex items-center gap-2">
-                <FileCode className="size-4 text-default-500" />
-                <Label>HTML Document</Label>
-              </div>
-            </Dropdown.Item>
-            <Dropdown.Item id="export-json" textValue="Raw JSON">
-              <div className="flex items-center gap-2">
-                <FileArrowUp className="size-4 text-default-500" />
-                <Label>Raw JSON (Tiptap)</Label>
-              </div>
+            <Header>Danger Zone</Header>
+            <Dropdown.Item id="clear-content" textValue="Clear Content" variant="danger">
+              <TrashBin className="size-4 shrink-0 text-danger" />
+              <Label>Clear Content</Label>
+              <Kbd className="ms-auto" slot="keyboard" variant="light">
+                <Kbd.Abbr keyValue="command" />
+                <Kbd.Abbr keyValue="shift" />
+                <Kbd.Content>D</Kbd.Content>
+              </Kbd>
             </Dropdown.Item>
           </Dropdown.Section>
+
         </Dropdown.Menu>
       </Dropdown.Popover>
     </Dropdown>
