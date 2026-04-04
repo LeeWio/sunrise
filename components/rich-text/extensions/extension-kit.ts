@@ -1,8 +1,12 @@
-import { StarterKit, TextAlign, Placeholder, CharacterCount, Link, NodeRange } from "./index";
+import { StarterKit, TextAlign, Placeholder, CharacterCount, Link, NodeRange, DropPlaceholder } from "./index";
 
 export const ExtensionKit = [
   StarterKit.configure({
     link: false,
+    dropcursor: {
+      color: "transparent",
+      width: 0,
+    },
   }),
   Link.configure({
     openOnClick: false,
@@ -22,13 +26,7 @@ export const ExtensionKit = [
       target: "_blank",
       "data-type": "link",
     },
-    /**
-     * Use modern isAllowedUri to refine validation logic.
-     * This handles both manual link setting and autolinking.
-     */
     isAllowedUri: (url, ctx) => {
-      // Use the default validator (which handles standard protocols)
-      // and ensure it doesn't start with ./ (relative links) for security/consistency
       return ctx.defaultValidate(url) && !url.startsWith("./");
     },
   }),
@@ -46,4 +44,5 @@ export const ExtensionKit = [
     includeChildren: true,
   }),
   NodeRange,
+  DropPlaceholder,
 ];

@@ -6,3 +6,4 @@ export { CharacterCount } from "@tiptap/extension-character-count";
 export { Link } from "./link";
 export { NodeRange } from "@tiptap/extension-node-range";
 export { DragHandle } from "@tiptap/extension-drag-handle";
+export { DropPlaceholder } from "./drop-placeholder";

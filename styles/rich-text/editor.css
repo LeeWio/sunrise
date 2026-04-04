@@ -39,6 +39,31 @@
   border-radius: 0.5rem;
   pointer-events: none;
   z-index: -10;
-  /* Safe fallback for primary with alpha */
   background-color: var(--heroui-primary-100, rgba(0, 111, 238, 0.1));
+  transition: background-color 0.2s ease;
+}
+
+/* Styling for the node being dragged */
+.ProseMirror-dragging {
+  opacity: 0.4;
+  outline: 2px dashed var(--heroui-primary-400, rgba(0, 111, 238, 0.4));
+  outline-offset: 4px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: var(--heroui-primary-50, rgba(0, 111, 238, 0.05));
+}
+
+/* Custom Drag Image styling */
+.drag-image {
+  background: var(--heroui-background, white);
+  border: 1px solid var(--heroui-border, #eee);
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  opacity: 0.8;
+}
+
+/* NodeView wrapper styling */
+[data-type="drop-placeholder"] {
+  display: block;
 }

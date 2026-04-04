@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useTiptap } from "@tiptap/react";
 import DragHandle from "@tiptap/extension-drag-handle-react";
 import { Button, Dropdown, Header, Kbd, Label, Separator, SearchField } from "@heroui/react";
+import { motion } from "motion/react";
 import { 
   Grip, 
   TrashBin, 
@@ -29,8 +30,11 @@ import { useData } from "./hooks/use-data";
 import { useContentItemActions } from "./hooks/use-content-item-actions";
 import { useContentItemState } from "./hooks/use-content-item-state";
 
+// Create a motion-enabled button for the grip
+const MotionButton = motion.create(Button);
+
 /**
- * Advanced ContentItemMenu - Clean & Config-driven version.
+ * Advanced ContentItemMenu - Smooth Drag & Config-driven version.
  */
 export function ContentItemMenu() {
   const { editor } = useTiptap();
@@ -67,6 +71,12 @@ export function ContentItemMenu() {
     }
   }, [actions]);
 
+  // Section visibility checks
+  const isGeneralVisible = isMatch("Reset Formatting") || isMatch("Copy to Clipboard") || isMatch("Insert Block") || isMatch("Duplicate");
+  const isTurnIntoVisible = isMatch("Text") || isMatch("Heading 1") || isMatch("Heading 2") || isMatch("Heading 3") || isMatch("Bullet List") || isMatch("Ordered List");
+  const isAlignmentVisible = isMatch("Align Left") || isMatch("Align Center") || isMatch("Align Right");
+  const isDangerVisible = isMatch("Delete");
+
   if (!editor) return null;
 
   return (
@@ -78,13 +88,19 @@ export function ContentItemMenu() {
       className="flex items-center"
     >
       <Dropdown trigger="longPress" onOpenChange={setMenuOpen}>
-        <Button
-          isIconOnly size="sm" variant="ghost"
+        {/* Animated Grip Button */}
+        <MotionButton
+          isIconOnly 
+          size="sm" 
+          variant="ghost"
           aria-label="Drag to move, long press for actions"
           className="text-default-400 hover:text-default-600 hover:bg-default-100 transition-all cursor-grab active:cursor-grabbing rounded-md"
+          whileHover={{ scale: 1.15 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 600, damping: 20 }}
         >
           <Grip className="size-4" />
-        </Button>
+        </MotionButton>
         
         <Dropdown.Popover placement="bottom start" className="min-w-[260px] max-h-[80vh] overflow-y-auto scrollbar-hide flex flex-col">
           <SearchField 
@@ -99,8 +115,8 @@ export function ContentItemMenu() {
           </SearchField>
 
           <Dropdown.Menu onAction={handleAction} aria-label="Block actions" className="p-1">
-            {/* General Actions Section */}
-            {(isMatch("Reset Formatting") || isMatch("Copy to Clipboard") || isMatch("Insert Block") || isMatch("Duplicate")) && (
+            {/* General Actions */}
+            {isGeneralVisible && (
               <Dropdown.Section>
                 <Header>General</Header>
                 {isMatch("Reset Formatting") && (
@@ -138,7 +154,7 @@ export function ContentItemMenu() {
             <Separator />
 
             {/* Turn Into Section */}
-            {(isMatch("Text") || isMatch("Heading 1") || isMatch("Heading 2") || isMatch("Heading 3") || isMatch("Bullet List") || isMatch("Ordered List")) && (
+            {isTurnIntoVisible && (
               <Dropdown.Section title="Turn into" selectionMode="single" selectedKeys={nodeType}>
                 <Header>Turn into</Header>
                 {isMatch("Text") && <Dropdown.Item id="paragraph" textValue="Text"><Dropdown.ItemIndicator /><div className="flex items-center gap-2"><TextIcon className="size-4 text-default-500" /><Label>Text</Label></div></Dropdown.Item>}
@@ -153,7 +169,7 @@ export function ContentItemMenu() {
             <Separator />
 
             {/* Alignment Section */}
-            {(isMatch("Align Left") || isMatch("Align Center") || isMatch("Align Right")) && (
+            {isAlignmentVisible && (
               <Dropdown.Section title="Alignment" selectionMode="single" selectedKeys={alignment}>
                 <Header>Alignment</Header>
                 {isMatch("Align Left") && <Dropdown.Item id="left" textValue="Align Left"><Dropdown.ItemIndicator type="dot" /><div className="flex items-center gap-2"><TextAlignLeft className="size-4 text-default-500" /><Label>Align Left</Label></div></Dropdown.Item>}
