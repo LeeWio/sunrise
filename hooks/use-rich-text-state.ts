@@ -1,60 +1,22 @@
-import { useEffect, useState } from "react";
-import { Editor } from "@tiptap/react";
+import { Editor, useEditorState } from "@tiptap/react";
 
-export interface RichTextState {
-  isBold: boolean;
-  isItalic: boolean;
-  isUnderline: boolean;
-  isStrike: boolean;
-  isCode: boolean;
-  isAlignLeft: boolean;
-  isAlignCenter: boolean;
-  isAlignRight: boolean;
-  isBulletList: boolean;
-  isOrderedList: boolean;
-  isBlockquote: boolean;
-  canUndo: boolean;
-  canRedo: boolean;
-}
-
-export function useRichTextState(editor: Editor): RichTextState {
-  // Initialize state based on the current editor context.
-  const [state, setState] = useState<RichTextState>(() => getState(editor));
-
-  useEffect(() => {
-    const updateState = () => {
-      setState(getState(editor));
-    };
-
-    // Listen to transaction, selection, and update events from Tiptap.
-    editor.on("transaction", updateState);
-    editor.on("selectionUpdate", updateState);
-    editor.on("update", updateState);
-
-    return () => {
-      editor.off("transaction", updateState);
-      editor.off("selectionUpdate", updateState);
-      editor.off("update", updateState);
-    };
-  }, [editor]);
-
-  return state;
-}
-
-function getState(editor: Editor): RichTextState {
-  return {
-    isBold: editor.isActive("bold"),
-    isItalic: editor.isActive("italic"),
-    isUnderline: editor.isActive("underline"),
-    isStrike: editor.isActive("strike"),
-    isCode: editor.isActive("code"),
-    isAlignLeft: editor.isActive({ textAlign: "left" }),
-    isAlignCenter: editor.isActive({ textAlign: "center" }),
-    isAlignRight: editor.isActive({ textAlign: "right" }),
-    isBulletList: editor.isActive("bulletList"),
-    isOrderedList: editor.isActive("orderedList"),
-    isBlockquote: editor.isActive("blockquote"),
-    canUndo: editor.can().undo(),
-    canRedo: editor.can().redo(),
-  };
+export function useRichTextState(editor: Editor) {
+  return useEditorState({
+    editor,
+    selector: (ctx) => ({
+      isBold: ctx.editor.isActive("bold"),
+      isItalic: ctx.editor.isActive("italic"),
+      isUnderline: ctx.editor.isActive("underline"),
+      isStrike: ctx.editor.isActive("strike"),
+      isCode: ctx.editor.isActive("code"),
+      isAlignLeft: ctx.editor.isActive({ textAlign: "left" }),
+      isAlignCenter: ctx.editor.isActive({ textAlign: "center" }),
+      isAlignRight: ctx.editor.isActive({ textAlign: "right" }),
+      isBulletList: ctx.editor.isActive("bulletList"),
+      isOrderedList: ctx.editor.isActive("orderedList"),
+      isBlockquote: ctx.editor.isActive("blockquote"),
+      canUndo: ctx.editor.can().undo(),
+      canRedo: ctx.editor.can().redo(),
+    }),
+  });
 }
