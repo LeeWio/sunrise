@@ -20,16 +20,10 @@ export function RichTextModal() {
 
   return (
     <Modal.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} variant="blur">
-      <Modal.Container size="lg" placement="top">
+      <Modal.Container size="cover" placement="top">
         <Modal.Dialog>
           <Modal.CloseTrigger />
-          <Modal.Header className="border-b border-border/50 pb-4 flex flex-col gap-4 items-start">
-            <div className="flex items-center gap-2">
-              <Modal.Icon className="bg-primary/10 text-primary">
-                <PencilToSquare className="size-5" />
-              </Modal.Icon>
-              <Modal.Heading className="text-xl font-semibold">Write a Moment</Modal.Heading>
-            </div>
+          <Modal.Header className="border-b border-border/50 pb-2 pt-4 px-4 flex items-center">
             {/* Toolbar UI (Static for now) */}
             <RichTextToolbar />
           </Modal.Header>
