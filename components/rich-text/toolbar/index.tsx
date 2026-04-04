@@ -1,7 +1,7 @@
 "use client";
 
 import { Toolbar, ToggleButtonGroup, ToggleButton, Separator, ScrollShadow, Button } from "@heroui/react";
-import { useTiptap, useTiptapState } from "@tiptap/react";
+import { useTiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
 import {
   Bold,
@@ -18,6 +18,8 @@ import {
   ArrowShapeTurnUpRight,
 } from "@gravity-ui/icons";
 import { FileDropdown } from "./file-dropdown";
+import { useRichTextState } from "../../../hooks/use-rich-text-state";
+import { useRichTextCommands } from "../../../hooks/use-rich-text-commands";
 
 export function RichTextToolbar() {
   const { editor } = useTiptap();
@@ -28,41 +30,27 @@ export function RichTextToolbar() {
 }
 
 function RichTextToolbarInner({ editor }: { editor: Editor }) {
-  // Performance Optimization: Subscribe only to the specific states we need
-  const isBold = useTiptapState((state) => state.editor.isActive("bold"));
-  const isItalic = useTiptapState((state) => state.editor.isActive("italic"));
-  const isStrike = useTiptapState((state) => state.editor.isActive("strike"));
-  const isCode = useTiptapState((state) => state.editor.isActive("code"));
-
-  const isAlignLeft = useTiptapState((state) => state.editor.isActive({ textAlign: "left" }));
-  const isAlignCenter = useTiptapState((state) => state.editor.isActive({ textAlign: "center" }));
-  const isAlignRight = useTiptapState((state) => state.editor.isActive({ textAlign: "right" }));
-
-  const isBulletList = useTiptapState((state) => state.editor.isActive("bulletList"));
-  const isOrderedList = useTiptapState((state) => state.editor.isActive("orderedList"));
-  const isBlockquote = useTiptapState((state) => state.editor.isActive("blockquote"));
-
-  const canUndo = useTiptapState((state) => state.editor.can().undo());
-  const canRedo = useTiptapState((state) => state.editor.can().redo());
+  const state = useRichTextState(editor);
+  const commands = useRichTextCommands(editor);
 
   // Compute selected keys for formats
   const formatKeys = new Set<string>();
-  if (isBold) formatKeys.add("bold");
-  if (isItalic) formatKeys.add("italic");
-  if (isStrike) formatKeys.add("strike");
-  if (isCode) formatKeys.add("code");
+  if (state.isBold) formatKeys.add("bold");
+  if (state.isItalic) formatKeys.add("italic");
+  if (state.isStrike) formatKeys.add("strike");
+  if (state.isCode) formatKeys.add("code");
 
   // Compute selected keys for alignment
   const alignKeys = new Set<string>();
-  if (isAlignLeft) alignKeys.add("left");
-  if (isAlignCenter) alignKeys.add("center");
-  if (isAlignRight) alignKeys.add("right");
+  if (state.isAlignLeft) alignKeys.add("left");
+  if (state.isAlignCenter) alignKeys.add("center");
+  if (state.isAlignRight) alignKeys.add("right");
 
   // Compute selected keys for lists and blocks
   const blockKeys = new Set<string>();
-  if (isBulletList) blockKeys.add("bullet-list");
-  if (isOrderedList) blockKeys.add("ordered-list");
-  if (isBlockquote) blockKeys.add("blockquote");
+  if (state.isBulletList) blockKeys.add("bullet-list");
+  if (state.isOrderedList) blockKeys.add("ordered-list");
+  if (state.isBlockquote) blockKeys.add("blockquote");
 
   return (
     <ScrollShadow
@@ -84,8 +72,8 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             variant="ghost" 
             isIconOnly 
             aria-label="Undo" 
-            isDisabled={!canUndo}
-            onPress={() => editor.chain().focus().undo().run()}
+            isDisabled={!state.canUndo}
+            onPress={commands.onUndo}
             className="text-default-600 border-none"
           >
             <ArrowShapeTurnUpLeft className="size-4" />
@@ -94,8 +82,8 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             variant="ghost" 
             isIconOnly 
             aria-label="Redo" 
-            isDisabled={!canRedo}
-            onPress={() => editor.chain().focus().redo().run()}
+            isDisabled={!state.canRedo}
+            onPress={commands.onRedo}
             className="text-default-600 border-none"
           >
             <ArrowShapeTurnUpRight className="size-4" />
@@ -108,10 +96,10 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
           selectionMode="multiple" 
           selectedKeys={formatKeys}
           onAction={(key) => {
-            if (key === "bold") editor.chain().focus().toggleBold().run();
-            if (key === "italic") editor.chain().focus().toggleItalic().run();
-            if (key === "strike") editor.chain().focus().toggleStrike().run();
-            if (key === "code") editor.chain().focus().toggleCode().run();
+            if (key === "bold") commands.onBold();
+            if (key === "italic") commands.onItalic();
+            if (key === "strike") commands.onStrike();
+            if (key === "code") commands.onCode();
           }}
           aria-label="Text formatting"
         >
@@ -138,9 +126,9 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
           selectionMode="single"
           selectedKeys={alignKeys}
           onAction={(key) => {
-            if (key === "left") editor.chain().focus().setTextAlign('left').run();
-            if (key === "center") editor.chain().focus().setTextAlign('center').run();
-            if (key === "right") editor.chain().focus().setTextAlign('right').run();
+            if (key === "left") commands.onAlignLeft();
+            if (key === "center") commands.onAlignCenter();
+            if (key === "right") commands.onAlignRight();
           }}
           aria-label="Text alignment"
         >
@@ -163,9 +151,9 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
           selectionMode="multiple" 
           selectedKeys={blockKeys}
           onAction={(key) => {
-            if (key === "bullet-list") editor.chain().focus().toggleBulletList().run();
-            if (key === "ordered-list") editor.chain().focus().toggleOrderedList().run();
-            if (key === "blockquote") editor.chain().focus().toggleBlockquote().run();
+            if (key === "bullet-list") commands.onBulletList();
+            if (key === "ordered-list") commands.onOrderedList();
+            if (key === "blockquote") commands.onBlockquote();
           }}
           aria-label="Lists and blocks"
         >
