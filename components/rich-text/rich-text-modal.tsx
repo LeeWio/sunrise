@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal, Button } from "@heroui/react";
+import { Modal, Button, Skeleton } from "@heroui/react";
 import { Tiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -38,7 +38,10 @@ export function RichTextModal() {
         <Modal.Dialog aria-label="Rich Text Editor">
           {!editor ? (
             <Modal.Body>
-              <div className="min-h-[40vh] w-full animate-pulse rounded-xl bg-default-100" />
+              <div className="flex flex-col gap-4">
+                <Skeleton className="h-12 w-full rounded-lg" />
+                <Skeleton className="h-[40vh] w-full rounded-xl" />
+              </div>
             </Modal.Body>
           ) : (
             <Tiptap editor={editor}>
