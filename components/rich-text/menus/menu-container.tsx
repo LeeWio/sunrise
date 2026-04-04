@@ -4,14 +4,14 @@ import React from "react";
 import { Toolbar } from "@heroui/react";
 import { motion } from "motion/react";
 
-interface MenuContainerProps {
+// Create a motion-enabled version of the HeroUI Toolbar
+const MotionToolbar = motion(Toolbar);
+
+interface MenuContainerProps extends React.ComponentProps<typeof MotionToolbar> {
   children: React.ReactNode;
   className?: string;
   "aria-label"?: string;
 }
-
-// Create a motion-enabled version of the HeroUI Toolbar
-const MotionToolbar = motion(Toolbar);
 
 /**
  * A unified, motion-ready wrapper for editor bubble menus.

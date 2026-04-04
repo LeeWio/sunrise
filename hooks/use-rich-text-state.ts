@@ -1,27 +1,60 @@
-import { Editor, useEditorState } from "@tiptap/react";
+import { useTiptapState } from "@tiptap/react";
 
-export function useRichTextState(editor: Editor) {
-  return useEditorState({
-    editor,
-    selector: (ctx) => {
+/**
+ * A reactive hook that subscribes to the editor's state.
+ * Uses Tiptap 3 Composable API to automatically retrieve the editor from context.
+ */
+export function useRichTextState() {
+  return useTiptapState((ctx) => {
+    // Return safe defaults if editor is not yet initialized or out of context
+    if (!ctx.editor) {
       return {
-        isBold: ctx.editor.isActive("bold"),
-        isItalic: ctx.editor.isActive("italic"),
-        isUnderline: ctx.editor.isActive("underline"),
-        isStrike: ctx.editor.isActive("strike"),
-        isCode: ctx.editor.isActive("code"),
-        isLink: ctx.editor.isActive("link"),
-        isAlignLeft: ctx.editor.isActive({ textAlign: "left" }),
-        isAlignCenter: ctx.editor.isActive({ textAlign: "center" }),
-        isAlignRight: ctx.editor.isActive({ textAlign: "right" }),
-        isBulletList: ctx.editor.isActive("bulletList"),
-        isOrderedList: ctx.editor.isActive("orderedList"),
-        isBlockquote: ctx.editor.isActive("blockquote"),
-        characters: ctx.editor.storage.characterCount.characters(),
-        words: ctx.editor.storage.characterCount.words(),
-        canUndo: ctx.editor.can().undo(),
-        canRedo: ctx.editor.can().redo(),
+        isBold: false,
+        isItalic: false,
+        isUnderline: false,
+        isStrike: false,
+        isCode: false,
+        isLink: false,
+        isAlignLeft: false,
+        isAlignCenter: false,
+        isAlignRight: false,
+        isBulletList: false,
+        isOrderedList: false,
+        isBlockquote: false,
+        isHighlight: false,
+        textColor: undefined as string | undefined,
+        backgroundColor: undefined as string | undefined,
+        highlightColor: undefined as string | undefined,
+        characters: 0,
+        words: 0,
+        canUndo: false,
+        canRedo: false,
       };
-    },
+    }
+
+    const { editor } = ctx;
+
+    return {
+      isBold: editor.isActive("bold"),
+      isItalic: editor.isActive("italic"),
+      isUnderline: editor.isActive("underline"),
+      isStrike: editor.isActive("strike"),
+      isCode: editor.isActive("code"),
+      isLink: editor.isActive("link"),
+      isAlignLeft: editor.isActive({ textAlign: "left" }),
+      isAlignCenter: editor.isActive({ textAlign: "center" }),
+      isAlignRight: editor.isActive({ textAlign: "right" }),
+      isBulletList: editor.isActive("bulletList"),
+      isOrderedList: editor.isActive("orderedList"),
+      isBlockquote: editor.isActive("blockquote"),
+      isHighlight: editor.isActive("highlight"),
+      textColor: editor.getAttributes("textStyle").color as string | undefined,
+      backgroundColor: editor.getAttributes("textStyle").backgroundColor as string | undefined,
+      highlightColor: editor.getAttributes("highlight").color as string | undefined,
+      characters: editor.storage.characterCount.characters(),
+      words: editor.storage.characterCount.words(),
+      canUndo: editor.can().undo(),
+      canRedo: editor.can().redo(),
+    };
   });
 }

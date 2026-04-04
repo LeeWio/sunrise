@@ -1,4 +1,17 @@
-import { StarterKit, TextAlign, Placeholder, CharacterCount, Link, NodeRange, DropPlaceholder } from "./index";
+import { 
+  StarterKit, 
+  TextAlign, 
+  Placeholder, 
+  CharacterCount, 
+  Link, 
+  NodeRange, 
+  DropPlaceholder,
+  TextStyle,
+  Color,
+  BackgroundColor,
+  Highlight,
+  Underline
+} from "./index";
 
 export const ExtensionKit = [
   StarterKit.configure({
@@ -8,6 +21,13 @@ export const ExtensionKit = [
       width: 0,
     },
   }),
+  TextStyle,
+  Color,
+  BackgroundColor,
+  Highlight.configure({
+    multicolor: true,
+  }),
+  Underline,
   Link.configure({
     openOnClick: false,
     autolink: true,
