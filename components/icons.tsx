@@ -1,7 +1,7 @@
 import { SVGProps } from "react";
 
 // Re-export standard icons from gravity-ui
-export { PlayFill, Pause, MusicNote } from "@gravity-ui/icons";
+export { PlayFill, Pause, MusicNote, BackwardStepFill, ForwardStepFill, BroadcastSignal } from "@gravity-ui/icons";
 
 /**
  * Custom Subscript icon following the style of Gravity UI's Superscript.
