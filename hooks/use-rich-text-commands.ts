@@ -35,6 +35,8 @@ export function useRichTextCommands(editor: Editor | null) {
     onUnsetFontFamily: () => editor?.chain().focus().unsetFontFamily().run(),
     onSetFontSize: (fontSize: string) => editor?.chain().focus().setFontSize(fontSize).run(),
     onUnsetFontSize: () => editor?.chain().focus().unsetFontSize().run(),
+    onSetLineHeight: (lineHeight: string) => editor?.chain().focus().setLineHeight(lineHeight).run(),
+    onUnsetLineHeight: () => editor?.chain().focus().unsetLineHeight().run(),
 
     // Colors and Highlight
     onSetColor: (color: string) => editor?.chain().focus().setColor(color).run(),

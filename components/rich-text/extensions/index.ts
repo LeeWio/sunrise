@@ -12,7 +12,7 @@ export { Highlight } from "@tiptap/extension-highlight";
 export { Link } from "./link";
 export { HorizontalRule } from "./horizontal-rule";
 export { Mathematics } from "./mathematics";
-export { FontSize, FontFamily } from "@tiptap/extension-text-style";
+export { FontSize, FontFamily, LineHeight } from "@tiptap/extension-text-style";
 export { Focus } from "@tiptap/extension-focus";
 export { Gapcursor } from "@tiptap/extension-gapcursor";
 export { NodeRange } from "@tiptap/extension-node-range";

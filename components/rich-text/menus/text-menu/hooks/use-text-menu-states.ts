@@ -43,6 +43,7 @@ export const useTextMenuStates = (editor: Editor | null) => {
         highlightColor: undefined as string | undefined,
         fontFamily: undefined as string | undefined,
         fontSize: undefined as string | undefined,
+        lineHeight: undefined as string | undefined,
       };
     }
 
@@ -61,6 +62,7 @@ export const useTextMenuStates = (editor: Editor | null) => {
       highlightColor: ctx.editor.getAttributes("highlight").color as string | undefined,
       fontFamily: ctx.editor.getAttributes("textStyle").fontFamily as string | undefined,
       fontSize: ctx.editor.getAttributes("textStyle").fontSize as string | undefined,
+      lineHeight: ctx.editor.getAttributes("textStyle").lineHeight as string | undefined,
     };
   });
 

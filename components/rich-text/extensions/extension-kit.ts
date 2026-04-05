@@ -17,6 +17,7 @@ import {
   Superscript,
   FontFamily,
   FontSize,
+  LineHeight,
   Focus,
   Gapcursor,
 } from "./index";
@@ -42,6 +43,7 @@ export const ExtensionKit = [
   Superscript,
   FontFamily,
   FontSize,
+  LineHeight,
   Focus.configure({
     className: "has-focus",
     mode: "all",

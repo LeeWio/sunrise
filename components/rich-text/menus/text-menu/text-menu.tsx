@@ -11,6 +11,7 @@ import { useTextMenuStates } from "./hooks/use-text-menu-states";
 import { TextColorPicker } from "./components/color-picker";
 import { FontFamilyPicker } from "./components/font-family-picker";
 import { FontSizePicker } from "./components/font-size-picker";
+import { LineHeightPicker } from "./components/line-height-picker";
 import { useRichTextCommands } from "../../../../hooks/use-rich-text-commands";
 import { ToolbarButton } from "../components";
 
@@ -86,6 +87,11 @@ export function TextMenu({ appendTo }: TextMenuProps) {
             value={states.fontSize}
             onChange={commands.onSetFontSize}
             onClear={commands.onUnsetFontSize}
+          />
+          <LineHeightPicker
+            value={states.lineHeight}
+            onChange={commands.onSetLineHeight}
+            onClear={commands.onUnsetLineHeight}
           />
         </ButtonGroup>
 
