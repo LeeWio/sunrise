@@ -80,10 +80,12 @@
 }
 
 .tiptap-mathematics-render:hover {
-  background-color: var(--heroui-primary-100, rgba(0, 111, 238, 0.15));
+  background-color: var(--accent-soft);
 }
 
-.ProseMirror-selectednode .tiptap-mathematics-render {
-  background-color: var(--heroui-primary-200, rgba(0, 111, 238, 0.25));
-  outline: 2px solid var(--heroui-primary, #006fee);
+/* Focus Extension styling */
+.has-focus:not(.tiptap-mathematics-render) {
+  @apply transition-all duration-300;
+  box-shadow: -2px 0 0 0 var(--accent);
+  padding-left: 0.25rem;
 }
