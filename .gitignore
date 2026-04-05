@@ -41,4 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 # heroui-docs
-.heroui-docs/.reference/
+.heroui-docs/
+.agents/

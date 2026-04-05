@@ -7,16 +7,24 @@ import { TableKit as TiptapTableKit } from "@tiptap/extension-table";
 export const Table = TiptapTableKit.configure({
   table: {
     resizable: true,
-    HTMLAttributes: {},
+    HTMLAttributes: {
+      class:"table-root table__content"
+    },
   },
   tableRow: {
-    HTMLAttributes: {},
+    HTMLAttributes: {
+      class:"table__row"
+    },
   },
   tableHeader: {
-    HTMLAttributes: {},
+    HTMLAttributes: {
+      class:"table__header"
+    },
   },
   tableCell: {
-    HTMLAttributes: {},
+    HTMLAttributes: {
+      class:" table__cell"
+    },
   },
 });
 

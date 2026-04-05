@@ -28,6 +28,8 @@ import {
   Heading,
   Audio,
   Blockquote,
+  Table,
+  SlashCommand
 } from "./index";
 
 export const ExtensionKit = [
@@ -46,6 +48,8 @@ export const ExtensionKit = [
   Heading,
   Audio,
   Blockquote,
+  Table,
+  SlashCommand,
   TextStyle,
   Color,
   BackgroundColor,

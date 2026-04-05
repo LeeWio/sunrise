@@ -26,6 +26,8 @@ export { Code } from "./code";
 export { Heading } from "./heading";
 export { Audio } from "./audio";
 export { Blockquote } from "./blockquote";
+export { Table } from "./table";
+export { SlashCommand } from "./slash-command";
 
 
 
