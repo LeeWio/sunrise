@@ -6,6 +6,9 @@ import { Selection as TiptapSelection } from "@tiptap/extensions";
  * background class. No manual CSS injection needed.
  */
 export const Selection = TiptapSelection.configure({
-  // 'bg-accent-soft' is a standard class in our HeroUI/Tailwind v4 setup.
-  className: "bg-accent",
+  // Use a soft accent background to ensure readable text contrast
+  // while highlighting the selection cleanly without being overly solid.
+  className: "bg-accent/30 text-accent-foreground",
 });
+
+export default Selection;
