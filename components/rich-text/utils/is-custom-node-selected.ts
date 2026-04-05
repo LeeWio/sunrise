@@ -1,5 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { Link, HorizontalRule, Mathematics, DropPlaceholder } from "../extensions";
+import { Link, HorizontalRule, Mathematics, DropPlaceholder, Audio } from "../extensions";
 import { BlockMath, InlineMath } from "@tiptap/extension-mathematics";
 
 /**
@@ -35,6 +35,7 @@ export const isCustomNodeSelected = (editor: Editor, node: HTMLElement | null) =
     BlockMath.name,
     InlineMath.name,
     DropPlaceholder.name,
+    Audio.name,
     "codeBlock", // Part of StarterKit
   ];
 
