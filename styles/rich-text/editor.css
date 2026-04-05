@@ -73,3 +73,17 @@
   display: block;
   width: 100%;
 }
+
+/* Mathematics interactive styles */
+.tiptap-mathematics-render {
+  @apply cursor-pointer transition-all duration-200 rounded px-1 inline-block;
+}
+
+.tiptap-mathematics-render:hover {
+  background-color: var(--heroui-primary-100, rgba(0, 111, 238, 0.15));
+}
+
+.ProseMirror-selectednode .tiptap-mathematics-render {
+  background-color: var(--heroui-primary-200, rgba(0, 111, 238, 0.25));
+  outline: 2px solid var(--heroui-primary, #006fee);
+}

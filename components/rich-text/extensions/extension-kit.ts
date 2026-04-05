@@ -5,6 +5,7 @@ import {
   CharacterCount,
   Link,
   HorizontalRule,
+  Mathematics,
   NodeRange,
   DropPlaceholder,
   TextStyle,
@@ -73,4 +74,5 @@ export const ExtensionKit = [
   NodeRange,
   DropPlaceholder,
   HorizontalRule,
+  Mathematics,
 ];

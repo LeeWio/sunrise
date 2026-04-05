@@ -8,7 +8,7 @@ import { closeRichText } from "../../store/slices/rich-text-slice";
 import { useRichText } from "../../hooks/use-rich-text";
 import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
-import { LinkMenu, ContentItemMenu, TextMenu } from "./menus";
+import { LinkMenu, ContentItemMenu, TextMenu, MathMenu } from "./menus";
 import { DropIndicator } from "./extensions";
 import "../../styles/rich-text/index.css";
 
@@ -98,6 +98,7 @@ export function RichTextModal() {
             ) : (
               <Tiptap editor={editor}>
                 <LinkMenu appendTo={menuContainerRef} />
+                <MathMenu />
                 <TextMenu appendTo={menuContainerRef} />
                 <ContentItemMenu />
                 <DropIndicator />

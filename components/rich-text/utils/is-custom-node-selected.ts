@@ -1,5 +1,6 @@
 import { Editor } from "@tiptap/react";
-import { Link } from "../extensions";
+import { Link, HorizontalRule, Mathematics, DropPlaceholder } from "../extensions";
+import { BlockMath, InlineMath } from "@tiptap/extension-mathematics";
 
 /**
  * Checks if a table grip (column or row handle) is currently selected.
@@ -29,8 +30,12 @@ export const isTableGripSelected = (node: HTMLElement | null) => {
 export const isCustomNodeSelected = (editor: Editor, node: HTMLElement | null) => {
   const customNodes = [
     Link.name,
+    HorizontalRule.name,
+    Mathematics.name,
+    BlockMath.name,
+    InlineMath.name,
+    DropPlaceholder.name,
     "codeBlock", // Part of StarterKit
-    // Add other node names here as they are implemented (e.g., 'imageBlock', 'audio')
   ];
 
   const isActive = customNodes.some((type) => editor.isActive(type));

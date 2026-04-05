@@ -7,6 +7,10 @@ import {
   Separator,
   ScrollShadow,
   Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@heroui/react";
 import { useTiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
@@ -22,6 +26,7 @@ import {
   ListUl,
   ListOl,
   QuoteOpen,
+  MathOperations,
   Minus,
   ArrowShapeTurnUpLeft,
   ArrowShapeTurnUpRight,
@@ -198,6 +203,48 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             <ToggleButtonGroup.Separator />
             <Minus className="size-4" />
           </ToggleButton>
+          <ToggleButtonGroup.Separator />
+          <Dropdown placement="bottom-end">
+            <ToggleButton
+              id="math"
+              aria-label="Insert Math"
+              isSelected={state.isInlineMath || state.isBlockMath}
+            >
+              <MathOperations className="size-4" />
+            </ToggleButton>
+            <Dropdown.Popover>
+              <Dropdown.Menu
+                aria-label="Math insertion options"
+                onAction={(key) => {
+                  const latex = prompt("Enter LaTeX formula:", "E=mc^2");
+                  if (!latex) return;
+
+                  if (key === "inline") {
+                    commands.onInsertInlineMath(latex);
+                  } else if (key === "block") {
+                    commands.onInsertBlockMath(latex);
+                  }
+                }}
+              >
+                <Dropdown.Item id="inline" textValue="Inline Formula">
+                  <div className="flex flex-col">
+                    <span>Inline Formula</span>
+                    <span className="text-default-400 text-tiny">
+                      Insert formula within a sentence
+                    </span>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item id="block" textValue="Block Formula">
+                  <div className="flex flex-col">
+                    <span>Block Formula</span>
+                    <span className="text-default-400 text-tiny">
+                      Insert formula on its own line
+                    </span>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown.Popover>
+          </Dropdown>
         </ToggleButtonGroup>
       </Toolbar>
     </ScrollShadow>

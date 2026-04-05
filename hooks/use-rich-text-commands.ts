@@ -24,6 +24,10 @@ export function useRichTextCommands(editor: Editor | null) {
     onOrderedList: () => editor?.chain().focus().toggleOrderedList().run(),
     onBlockquote: () => editor?.chain().focus().toggleBlockquote().run(),
     onHorizontalRule: () => editor?.chain().focus().setHorizontalRule().run(),
+    onInsertInlineMath: (latex: string) =>
+      editor?.chain().focus().insertContent({ type: "inlineMath", attrs: { latex } }).run(),
+    onInsertBlockMath: (latex: string) =>
+      editor?.chain().focus().insertContent({ type: "blockMath", attrs: { latex } }).run(),
     onUnsetLink: () => editor?.chain().focus().extendMarkRange("link").unsetLink().run(),
 
     // Colors and Highlight
