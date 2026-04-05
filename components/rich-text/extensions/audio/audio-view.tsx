@@ -84,9 +84,10 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
       <Card className="w-full shadow-sm border border-default-200">
         <Card.Content className="flex flex-row items-center gap-4 p-3">
           <Button
+            isIconOnly
+            color="primary"
             variant="ghost"
             onPress={togglePlayPause}
-            className="button--icon-only shrink-0 rounded-full text-primary"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <Pause /> : <PlayFill />}
