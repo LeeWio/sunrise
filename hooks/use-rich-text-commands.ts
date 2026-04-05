@@ -17,6 +17,8 @@ export function useRichTextCommands(editor: Editor | null) {
     // Blocks and media
     onHeading: (level: 1 | 2 | 3 | 4 | 5 | 6) => editor?.chain().focus().toggleHeading({ level }).run(),
     onAudio: () => editor?.chain().focus().insertContent({ type: "audio" }).run(),
+    onInsertTable: ({ rows = 3, cols = 3, withHeaderRow = true } = {}) =>
+      editor?.chain().focus().insertTable({ rows, cols, withHeaderRow }).run(),
 
     // Alignment
     onAlignLeft: () => editor?.chain().focus().setTextAlign("left").run(),

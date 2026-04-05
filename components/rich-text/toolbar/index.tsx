@@ -31,6 +31,7 @@ import {
   Heading2,
   Heading3,
   MusicNote,
+  LayoutList,
 } from "@gravity-ui/icons";
 import { FileDropdown } from "./file-dropdown";
 import { useRichTextState } from "../../../hooks/use-rich-text-state";
@@ -273,6 +274,16 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
               </Dropdown.Menu>
             </Dropdown.Popover>
           </Dropdown>
+          <ToggleButtonGroup.Separator />
+          <Button
+            variant="ghost"
+            isIconOnly
+            aria-label="Insert Table"
+            className="text-default-600 border-none"
+            onPress={() => commands.onInsertTable({ rows: 3, cols: 3, withHeaderRow: true })}
+          >
+            <LayoutList className="size-4" />
+          </Button>
           <ToggleButtonGroup.Separator />
           <Button
             variant="ghost"
