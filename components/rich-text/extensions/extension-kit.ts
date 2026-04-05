@@ -7,6 +7,8 @@ import {
   HorizontalRule,
   Mathematics,
   Selection,
+  TrailingNode,
+  Typography,
   NodeRange,
   DropPlaceholder,
   TextStyle,
@@ -90,4 +92,9 @@ export const ExtensionKit = [
   HorizontalRule,
   Mathematics,
   Selection,
+  Typography,
+  TrailingNode.configure({
+    node: "paragraph",
+    notAfter: ["paragraph"],
+  }),
 ];
