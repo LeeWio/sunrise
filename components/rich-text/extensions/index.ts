@@ -25,5 +25,7 @@ export * from "./drag-and-drop";
 export { Code } from "./code";
 export { Heading } from "./heading";
 export { Audio } from "./audio";
+export { Blockquote } from "./blockquote";
+
 
 

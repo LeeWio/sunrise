@@ -102,7 +102,7 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
   if (!src) {
     return (
       <NodeViewWrapper
-        className={`relative my-4 flex w-full max-w-sm select-none items-center justify-center transition-all ${
+        className={`items-center justify-center transition-all ${
           editor.isActive("audio") ? "ring-2 ring-primary ring-offset-2" : ""
         }`}
         data-drag-handle
@@ -134,7 +134,7 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
 
   return (
     <NodeViewWrapper
-      className={`relative my-4 flex w-full max-w-sm select-none items-center justify-center transition-all ${
+      className={`mx-audo max-w-2xl transition-all ${
         editor.isActive("audio") ? "ring-2 ring-primary ring-offset-2" : ""
       }`}
       data-drag-handle
@@ -142,7 +142,7 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
       {/* Hidden native audio element */}
       <audio ref={audioRef} src={src} preload="metadata" />
 
-      <Card className="w-full overflow-hidden bg-background/60 shadow-medium backdrop-blur-md">
+      <Card >
         <Card.Content className="flex flex-row gap-4 p-4">
           {/* Left: Album Art Placeholder */}
           <div className="flex size-24 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-inner">

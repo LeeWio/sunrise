@@ -27,6 +27,7 @@ import {
   Code,
   Heading,
   Audio,
+  Blockquote,
 } from "./index";
 
 export const ExtensionKit = [
@@ -34,6 +35,7 @@ export const ExtensionKit = [
     link: false,
     bulletList: false,
     horizontalRule: false,
+    blockquote: false,
     dropcursor: {
       color: "transparent",
       width: 0,
@@ -43,6 +45,7 @@ export const ExtensionKit = [
   }),
   Heading,
   Audio,
+  Blockquote,
   TextStyle,
   Color,
   BackgroundColor,
