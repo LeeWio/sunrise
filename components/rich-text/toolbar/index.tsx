@@ -27,6 +27,10 @@ import {
   Minus,
   ArrowShapeTurnUpLeft,
   ArrowShapeTurnUpRight,
+  Heading1,
+  Heading2,
+  Heading3,
+  MusicNote,
 } from "@gravity-ui/icons";
 import { FileDropdown } from "./file-dropdown";
 import { useRichTextState } from "../../../hooks/use-rich-text-state";
@@ -85,6 +89,33 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
         <Separator orientation="vertical" className="h-6" />
 
         <ToggleButtonGroup selectionMode="multiple" aria-label="Text formatting">
+          <ToggleButton
+            id="h1"
+            aria-label="Heading 1"
+            isSelected={state.isHeading1}
+            onPress={() => commands.onHeading(1)}
+          >
+            <Heading1 className="size-4" />
+          </ToggleButton>
+          <ToggleButton
+            id="h2"
+            aria-label="Heading 2"
+            isSelected={state.isHeading2}
+            onPress={() => commands.onHeading(2)}
+          >
+            <ToggleButtonGroup.Separator />
+            <Heading2 className="size-4" />
+          </ToggleButton>
+          <ToggleButton
+            id="h3"
+            aria-label="Heading 3"
+            isSelected={state.isHeading3}
+            onPress={() => commands.onHeading(3)}
+          >
+            <ToggleButtonGroup.Separator />
+            <Heading3 className="size-4" />
+          </ToggleButton>
+          <ToggleButtonGroup.Separator />
           <ToggleButton
             id="bold"
             aria-label="Bold"
@@ -242,6 +273,21 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
               </Dropdown.Menu>
             </Dropdown.Popover>
           </Dropdown>
+          <ToggleButtonGroup.Separator />
+          <Button
+            variant="ghost"
+            isIconOnly
+            aria-label="Insert Audio"
+            className="text-default-600 border-none"
+            onPress={() => {
+              const url = prompt("Enter audio URL (e.g., mp3):", "https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+              if (url) {
+                commands.onAudio(url);
+              }
+            }}
+          >
+            <MusicNote className="size-4" />
+          </Button>
         </ToggleButtonGroup>
       </Toolbar>
     </ScrollShadow>

@@ -14,6 +14,10 @@ export function useRichTextCommands(editor: Editor | null) {
     onSubscript: () => editor?.chain().focus().toggleSubscript().run(),
     onSuperscript: () => editor?.chain().focus().toggleSuperscript().run(),
 
+    // Blocks and media
+    onHeading: (level: 1 | 2 | 3 | 4 | 5 | 6) => editor?.chain().focus().toggleHeading({ level }).run(),
+    onAudio: (src: string) => editor?.chain().focus().setAudio({ src }).run(),
+
     // Alignment
     onAlignLeft: () => editor?.chain().focus().setTextAlign("left").run(),
     onAlignCenter: () => editor?.chain().focus().setTextAlign("center").run(),
