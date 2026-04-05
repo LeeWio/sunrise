@@ -85,11 +85,9 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
         <Card.Content className="flex flex-row items-center gap-3 p-2 pr-4">
           <Button
             isIconOnly
-            radius="full"
-            variant="light"
+            variant="ghost"
             onPress={togglePlayPause}
             aria-label={isPlaying ? "Pause" : "Play"}
-            className="text-foreground"
           >
             {isPlaying ? <Pause /> : <PlayFill />}
           </Button>
@@ -99,12 +97,16 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
             
             <Slider
               aria-label="Audio progress"
-              size="sm"
+              className="flex-1"
               value={currentTime}
               maxValue={duration || 100}
               onChange={handleSeek}
-              className="flex-1"
-            />
+            >
+              <Slider.Track>
+                <Slider.Fill />
+                <Slider.Thumb />
+              </Slider.Track>
+            </Slider>
             
             <span className="w-10 text-left shrink-0">{formatTime(duration)}</span>
           </div>
