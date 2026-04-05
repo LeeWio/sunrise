@@ -15,6 +15,7 @@ export { Mathematics } from "./mathematics";
 export { Selection } from "./selection";
 export { TrailingNode } from "./trailing-node";
 export { Typography } from "./typography";
+export { UniqueID } from "./unique-id";
 export { FontSize, FontFamily, LineHeight } from "@tiptap/extension-text-style";
 export { Focus } from "@tiptap/extension-focus";
 export { Gapcursor } from "@tiptap/extension-gapcursor";

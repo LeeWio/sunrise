@@ -9,6 +9,7 @@ import {
   Selection,
   TrailingNode,
   Typography,
+  UniqueID,
   NodeRange,
   DropPlaceholder,
   TextStyle,
@@ -93,6 +94,7 @@ export const ExtensionKit = [
   Mathematics,
   Selection,
   Typography,
+  UniqueID,
   TrailingNode.configure({
     node: "paragraph",
     notAfter: ["paragraph"],
