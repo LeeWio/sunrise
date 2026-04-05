@@ -24,6 +24,7 @@ import {
   LineHeight,
   Focus,
   Gapcursor,
+  Code,
 } from "./index";
 
 export const ExtensionKit = [
@@ -35,13 +36,12 @@ export const ExtensionKit = [
       color: "transparent",
       width: 0,
     },
+    code:false
   }),
   TextStyle,
   Color,
   BackgroundColor,
-  Highlight.configure({
-    multicolor: true,
-  }),
+  Highlight,
   Underline,
   Subscript,
   Superscript,
@@ -95,8 +95,10 @@ export const ExtensionKit = [
   Selection,
   Typography,
   UniqueID,
+  Code,
   TrailingNode.configure({
     node: "paragraph",
     notAfter: ["paragraph"],
   }),
 ];
+
