@@ -9,10 +9,19 @@ import { AudioPlayerNode } from "./audio-view";
 export const Audio = TiptapAudio.extend<AudioOptions>({
   addOptions() {
     return {
-      ...this.parent?.(),
+      addPasteHandler: true,
       allowBase64: true,
+      autoplay: false,
+      controls: true,
+      loop: false,
+      muted: false,
+      preload: "metadata",
+      controlslist: undefined,
+      crossorigin: undefined,
+      disableRemotePlayback: false,
       HTMLAttributes: {},
-    } as AudioOptions;
+      inline: false,
+    };
   },
 
   addNodeView() {
