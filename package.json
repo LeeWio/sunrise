@@ -16,6 +16,7 @@
     "@heroui/styles": "^3.0.2",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/typography": "^0.5.19",
+    "@tiptap/extension-audio": "^3.22.2",
     "@tiptap/extension-character-count": "3",
     "@tiptap/extension-code": "^3.22.2",
     "@tiptap/extension-drag-handle": "^3.22.1",

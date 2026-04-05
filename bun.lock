@@ -10,6 +10,7 @@
         "@heroui/styles": "^3.0.2",
         "@reduxjs/toolkit": "^2.11.2",
         "@tailwindcss/typography": "^0.5.19",
+        "@tiptap/extension-audio": "^3.22.2",
         "@tiptap/extension-character-count": "3",
         "@tiptap/extension-code": "^3.22.2",
         "@tiptap/extension-drag-handle": "^3.22.1",
@@ -524,6 +525,8 @@
     "@tailwindcss/typography": ["@tailwindcss/typography@0.5.19", "", { "dependencies": { "postcss-selector-parser": "6.0.10" }, "peerDependencies": { "tailwindcss": ">=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1" } }, "sha512-w31dd8HOx3k9vPtcQh5QHP9GwKcgbMp87j58qi6xgiBnFFtKEAgCWnDw4qUT8aHwkCp8bKvb/KGKWWHedP0AAg=="],
 
     "@tiptap/core": ["@tiptap/core@3.22.1", "", { "peerDependencies": { "@tiptap/pm": "^3.22.1" } }, "sha512-6wPNhkdLIGYiKAGqepDCRtR0TYGJxV40SwOEN2vlPhsXqAgzmyG37UyREj5pGH5xTekugqMCgCnyRg7m5nYoYQ=="],
+
+    "@tiptap/extension-audio": ["@tiptap/extension-audio@3.22.2", "", { "peerDependencies": { "@tiptap/core": "^3.22.2" } }, "sha512-pb6kurySOGjJhkm5bREiH0yz2B0OXwu9J+xRKcADwh0XDKK5oWe3Cu77s49H/5nFZD6JaiRimx5mfg2PjU3Xtg=="],
 
     "@tiptap/extension-blockquote": ["@tiptap/extension-blockquote@3.22.1", "", { "peerDependencies": { "@tiptap/core": "^3.22.1" } }, "sha512-omPsJ/IMAZYhXqOaEenYE+HA9U2zju5rQbAn6Xktynvr4A5P95jqkgAwncXB82pCkNYU/uYxi51vyTweTeEUHA=="],
 

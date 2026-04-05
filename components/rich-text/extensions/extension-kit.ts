@@ -26,6 +26,7 @@ import {
   Gapcursor,
   Code,
   Heading,
+  Audio,
 } from "./index";
 
 export const ExtensionKit = [
@@ -41,6 +42,7 @@ export const ExtensionKit = [
     heading: false,
   }),
   Heading,
+  Audio,
   TextStyle,
   Color,
   BackgroundColor,

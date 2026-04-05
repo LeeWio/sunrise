@@ -1,36 +1,26 @@
+import { forwardRef } from "react";
 import { SVGProps } from "react";
 
-/**
- * Centralized file for all custom SVG icons used in the project.
- * Ensure any new custom icons are added here as exported React components.
- *
- * Usage:
- * import { Subscript } from "@/components/icons";
- */
-
-/**
- * Custom Subscript icon following the style of Gravity UI's Superscript.
- */
-export function Subscript(props: SVGProps<SVGSVGElement>) {
+export function PlayFill(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      fill="none"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      {/* Main character part */}
-      <path
-        fill="currentColor"
-        d="M9.111 4.25a.75.75 0 0 1 0 1.5H6.306v7.023h.587a.75.75 0 0 1 0 1.5H4.226a.75.75 0 0 1 0-1.5h.58V5.75H2a.75.75 0 0 1 0-1.5z"
-      />
-      {/* Script part (shifted down) */}
-      <path
-        fill="currentColor"
-        d="M12.945 8.75a1.92 1.92 0 0 1 1.155 3.451L12.707 13.25h1.514a.75.75 0 0 1 0 1.5h-2.2a1.27 1.27 0 0 1-1.264-1.14l-.007-.13.009-.149a1.27 1.27 0 0 1 .498-.867l1.94-1.461a.419.419 0 0 0-.252-.753h-.135a.58.58 0 0 0-.529.342l-.097.216a.75.75 0 1 1-1.368-.616l.098-.216A2.08 2.08 0 0 1 12.81 8.75z"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+      <path fill="currentColor" fillRule="evenodd" d="M12.566 7.146L4.542 2.052A1 1 0 0 0 3 2.893v10.214a1 1 0 0 0 1.542.842l8.024-5.095a1 1 0 0 0 0-1.708" clipRule="evenodd"></path>
+    </svg>
+  );
+}
+
+export function Pause(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+      <path fill="currentColor" fillRule="evenodd" d="M4.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-2ZM2.5 3.5A2.5 2.5 0 0 1 5 1h1a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 6 15H5A2.5 2.5 0 0 1 2.5 12.5v-9Zm7 0a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-2ZM7.5 3.5A2.5 2.5 0 0 1 10 1h1a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 11 15h-1a2.5 2.5 0 0 1-2.5-2.5v-9Z" clipRule="evenodd"></path>
+    </svg>
+  );
+}
+
+export function MusicNote(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+      <path fill="currentColor" fillRule="evenodd" d="M12.5 2.827v7.502c0 1.48-1.573 2.671-3.5 2.671S5.5 11.81 5.5 10.33s1.573-2.671 3.5-2.671c.54 0 1.05.153 1.5.422V4.417L4.5 5.513v6.001c0 1.48-1.573 2.671-3.5 2.671S-2.5 13.003-2.5 11.522s1.573-2.671 3.5-2.671c.54 0 1.05.153 1.5.422V3.45a1.5 1.5 0 0 1 1.258-1.48l7.242-1.171a.5.5 0 0 1 .582.493l.918 1.535ZM7.5 10.329c0-.65-.672-1.171-1.5-1.171s-1.5.52-1.5 1.171.672 1.171 1.5 1.171 1.5-.521 1.5-1.171Zm-6 1.193c0-.65-.672-1.171-1.5-1.171s-1.5.52-1.5 1.171.672 1.171 1.5 1.171 1.5-.521 1.5-1.171ZM3.242 4.41l7.258-1.171v2.247l-7.258 1.171z" clipRule="evenodd" transform="translate(2 0)"></path>
     </svg>
   );
 }
