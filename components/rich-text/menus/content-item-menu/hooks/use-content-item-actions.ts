@@ -50,15 +50,28 @@ export const useContentItemActions = (
 
   const addBefore = useCallback(() => {
     if (!editor || currentNodePos === -1) return;
-    editor.chain().focus().insertContentAt(currentNodePos, { type: "paragraph" }).run();
+    editor
+      .chain()
+      .focus()
+      .insertContentAt(currentNodePos, {
+        type: "paragraph",
+        content: [{ type: "text", text: "/" }],
+      })
+      .setTextSelection(currentNodePos + 2)
+      .run();
   }, [editor, currentNodePos]);
 
   const addBelow = useCallback(() => {
     if (!editor || currentNodePos === -1 || !currentNode) return;
+    const pos = currentNodePos + currentNode.nodeSize;
     editor
       .chain()
       .focus()
-      .insertContentAt(currentNodePos + currentNode.nodeSize, { type: "paragraph" })
+      .insertContentAt(pos, {
+        type: "paragraph",
+        content: [{ type: "text", text: "/" }],
+      })
+      .setTextSelection(pos + 2)
       .run();
   }, [editor, currentNode, currentNodePos]);
 
