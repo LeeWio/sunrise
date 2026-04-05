@@ -10,13 +10,25 @@ const formatTime = (timeInSeconds: number) => {
   return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 };
 
-export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
+export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateAttributes }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const src = node.attrs.src;
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updateAttributes({ src: e.target?.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Sync state with audio element
   useEffect(() => {
@@ -70,6 +82,37 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
       setCurrentTime(seekTime);
     }
   };
+
+  if (!src) {
+    return (
+      <NodeViewWrapper
+        className={`relative my-4 flex w-full max-w-sm select-none items-center justify-center transition-all ${
+          editor.isActive("audio") ? "ring-2 ring-primary ring-offset-2" : ""
+        }`}
+        data-drag-handle
+      >
+        <Card className="w-full shadow-sm border border-default-200">
+          <Card.Content className="flex flex-col items-center justify-center gap-2 p-6">
+            <Button
+              variant="flat"
+              color="primary"
+              onPress={() => fileInputRef.current?.click()}
+            >
+              <MusicNote />
+              Upload Audio
+            </Button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="audio/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </Card.Content>
+        </Card>
+      </NodeViewWrapper>
+    );
+  }
 
   return (
     <NodeViewWrapper

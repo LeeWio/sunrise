@@ -279,12 +279,7 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             isIconOnly
             aria-label="Insert Audio"
             className="text-default-600 border-none"
-            onPress={() => {
-              const url = prompt("Enter audio URL (e.g., mp3):", "https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
-              if (url) {
-                commands.onAudio(url);
-              }
-            }}
+            onPress={() => commands.onAudio()}
           >
             <MusicNote className="size-4" />
           </Button>
