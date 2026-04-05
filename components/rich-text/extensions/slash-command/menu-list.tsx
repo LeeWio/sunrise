@@ -1,17 +1,105 @@
-import React, { useCallback, useEffect, useImperativeHandle, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useImperativeHandle, useState, useMemo, useRef } from "react";
 import { ListBox, Label, Description, Header, Surface, Separator, Kbd, ScrollShadow } from "@heroui/react";
 import * as Icons from "@gravity-ui/icons";
-import { MenuListProps } from "./types";
+import { MenuListProps, Command } from "./types";
+import { motion } from "motion/react";
+
+/**
+ * Robust helper to highlight search query within text.
+ * Escapes regex special characters to prevent crashes.
+ */
+const Highlight = React.memo(({ text, query }: { text: string; query: string }) => {
+  if (!query) return <>{text}</>;
+  
+  // Escape special characters to prevent regex errors
+  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${escapedQuery})`, "gi"));
+  
+  return (
+    <>
+      {parts.map((part, i) => 
+        part.toLowerCase() === query.toLowerCase() 
+          ? <span key={i} className="text-primary font-bold">{part}</span> 
+          : part
+      )}
+    </>
+  );
+});
+
+Highlight.displayName = "Highlight";
+
+/**
+ * Optimized Command Item to prevent unnecessary re-renders.
+ * Enhanced with internal ring and aria-attributes.
+ */
+const CommandItem = React.memo(({ 
+  command, 
+  isSelected, 
+  query 
+}: { 
+  command: Command, 
+  isSelected: boolean, 
+  query: string 
+}) => {
+  const Icon = (Icons as any)[command.iconName] || Icons.CircleQuestion;
+  
+  return (
+    <ListBox.Item
+      key={command.name}
+      id={command.name}
+      textValue={command.label}
+      aria-selected={isSelected}
+      className={`flex items-start gap-3 rounded-xl transition-all duration-200 cursor-pointer outline-none p-2 ${
+        isSelected 
+          ? "bg-accent-soft text-accent-soft-foreground ring-1 ring-inset ring-accent/10 shadow-sm" 
+          : "text-foreground hover:bg-default"
+      }`}
+    >
+      <div id={`command-${command.name}`} className="flex w-full items-start gap-3">
+        <div className="flex h-8 items-start justify-center pt-px">
+          <Icon className={`size-4 shrink-0 ${isSelected ? "text-accent-soft-foreground" : "text-muted"}`} />
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <Label className="text-sm font-semibold leading-tight">
+            <Highlight text={command.label} query={query} />
+          </Label>
+          <Description className={`text-xs leading-normal ${isSelected ? "text-accent-soft-foreground/80" : "text-muted"}`}>
+            {command.description}
+          </Description>
+        </div>
+        {command.aliases && command.aliases.length > 0 && (
+          <Kbd className="ms-auto bg-background/50 border-none shadow-none" variant="light">
+            <Kbd.Abbr keyValue="command" />
+            <Kbd.Content>{command.aliases[0].toUpperCase()}</Kbd.Content>
+          </Kbd>
+        )}
+      </div>
+    </ListBox.Item>
+  );
+});
+
+CommandItem.displayName = "CommandItem";
+
+const MotionSurface = motion.create(Surface);
 
 /**
  * MenuList component for rendering slash command suggestions.
- * Optimized with HeroUI v3 semantic color tokens and ScrollShadow for better UX.
+ * Highly optimized with motion, text highlighting, and stable ref-based key handling.
  */
 export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
   const allCommands = useMemo(() => props.items.flatMap((group) => group.commands), [props.items]);
-  
   const [selectedKey, setSelectedKey] = useState<string | null>(() => allCommands[0]?.name || null);
+  
+  // Use refs to track latest state for the imperative handle to prevent closure stale-ness
+  const selectedKeyRef = useRef(selectedKey);
+  const allCommandsRef = useRef(allCommands);
 
+  useEffect(() => {
+    selectedKeyRef.current = selectedKey;
+    allCommandsRef.current = allCommands;
+  }, [selectedKey, allCommands]);
+
+  // Sync selection when items change (e.g. filtering)
   useEffect(() => {
     if (allCommands.length > 0) {
       if (!selectedKey || !allCommands.some(c => c.name === selectedKey)) {
@@ -24,49 +112,51 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 
   const runCommand = useCallback(
     (key: string) => {
-      const command = allCommands.find(c => c.name === key);
+      const command = allCommandsRef.current.find(c => c.name === key);
       if (command) {
         props.command(command);
       }
     },
-    [allCommands, props]
+    [props]
   );
 
   useImperativeHandle(ref, () => ({
     onKeyDown: ({ event }: { event: KeyboardEvent }) => {
-      if (allCommands.length === 0) return false;
+      const commands = allCommandsRef.current;
+      const currentKey = selectedKeyRef.current;
+      
+      if (commands.length === 0) return false;
 
       if (event.key === "ArrowUp") {
         event.preventDefault();
-        const currIndex = allCommands.findIndex(c => c.name === selectedKey);
-        const prevIndex = (currIndex - 1 + allCommands.length) % allCommands.length;
-        setSelectedKey(allCommands[prevIndex].name);
+        const currIndex = commands.findIndex(c => c.name === currentKey);
+        const prevIndex = (currIndex - 1 + commands.length) % commands.length;
+        setSelectedKey(commands[prevIndex].name);
         return true;
       }
 
       if (event.key === "ArrowDown") {
         event.preventDefault();
-        const currIndex = allCommands.findIndex(c => c.name === selectedKey);
-        const nextIndex = (currIndex + 1) % allCommands.length;
-        setSelectedKey(allCommands[nextIndex].name);
+        const currIndex = commands.findIndex(c => c.name === currentKey);
+        const nextIndex = (currIndex + 1) % commands.length;
+        setSelectedKey(commands[nextIndex].name);
         return true;
       }
 
       if (event.key === "Enter") {
         event.preventDefault();
-        if (selectedKey) {
-          runCommand(selectedKey);
+        if (currentKey) {
+          runCommand(currentKey);
           return true;
         }
       }
 
       return false;
     },
-  }), [allCommands, selectedKey, runCommand]);
+  }), [runCommand]);
 
   useEffect(() => {
     if (selectedKey) {
-      // Use a dedicated ID and instant scroll behavior for better keyboard responsiveness
       const element = document.getElementById(`command-${selectedKey}`);
       if (element) {
         element.scrollIntoView({ block: "nearest", behavior: "auto" });
@@ -76,74 +166,58 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 
   if (allCommands.length === 0) {
     return (
-      <Surface className="w-[256px] p-2 text-sm text-muted rounded-3xl shadow-surface bg-overlay border border-border">
-        No results found
-      </Surface>
+      <MotionSurface 
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="w-[260px] p-8 text-center rounded-3xl shadow-overlay bg-overlay border border-border"
+      >
+        <div className="flex flex-col items-center gap-3">
+          <div className="p-3 rounded-full bg-default-50">
+            <Icons.Magnifier className="size-6 text-muted" />
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-semibold text-foreground">No matches found</p>
+            <p className="text-xs text-muted">No commands found for &quot;{props.query}&quot;</p>
+          </div>
+        </div>
+      </MotionSurface>
     );
   }
 
   return (
-    <Surface 
-      className="w-[256px] rounded-3xl shadow-overlay bg-overlay border border-border overflow-hidden pointer-events-auto"
-      onMouseDown={(e) => {
-        e.preventDefault();
-      }}
+    <MotionSurface
+      initial={{ opacity: 0, scale: 0.96, y: 4 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 400, damping: 28 }}
+      className="w-[260px] rounded-3xl shadow-overlay bg-overlay border border-border overflow-hidden pointer-events-auto"
+      onMouseDown={(e) => e.preventDefault()}
     >
-      <ScrollShadow className="max-h-[320px]" hideScrollBar>
+      <ScrollShadow className="max-h-[380px]" hideScrollBar size={40}>
         <ListBox
           aria-label="Slash commands"
-          className="w-full p-2"
+          className="w-full p-1.5"
           selectionMode="none"
           onAction={(key) => runCommand(key as string)}
         >
           {props.items.map((group, groupIndex) => (
             <React.Fragment key={group.name}>
               <ListBox.Section>
-                <Header className="px-2 py-1.5 text-xs font-semibold text-muted uppercase tracking-wider">{group.title}</Header>
-                {group.commands.map((command) => {
-                  const Icon = (Icons as any)[command.iconName] || Icons.CircleQuestion;
-                  const isSelected = command.name === selectedKey;
-                  
-                  return (
-                    <ListBox.Item
-                      key={command.name}
-                      id={command.name}
-                      textValue={command.label}
-                      className={`flex items-start gap-3 rounded-xl transition-all duration-200 cursor-pointer outline-none p-2 ${
-                        isSelected 
-                          ? "bg-accent-soft text-accent-soft-foreground" 
-                          : "text-foreground hover:bg-default"
-                      }`}
-                    >
-                      <div id={`command-${command.name}`} className="flex w-full items-start gap-3">
-                        <div className="flex h-8 items-start justify-center pt-px">
-                          <Icon className={`size-4 shrink-0 ${isSelected ? "text-accent-soft-foreground" : "text-muted"}`} />
-                        </div>
-                        <div className="flex flex-col gap-0.5">
-                          <Label className="text-sm font-semibold leading-tight">
-                            {command.label}
-                          </Label>
-                          <Description className={`text-xs leading-normal ${isSelected ? "text-accent-soft-foreground/80" : "text-muted"}`}>
-                            {command.description}
-                          </Description>
-                        </div>
-                        {command.aliases && command.aliases.length > 0 && (
-                          <Kbd className="ms-auto bg-background/50 border-none shadow-none" variant="light">
-                            <Kbd.Abbr keyValue="command" />
-                            <Kbd.Content>{command.aliases[0].toUpperCase()}</Kbd.Content>
-                          </Kbd>
-                        )}
-                      </div>
-                    </ListBox.Item>
-                  );
-                })}
+                <Header className="px-3 py-2 text-[10px] font-bold text-muted uppercase tracking-widest">{group.title}</Header>
+                {group.commands.map((command) => (
+                  <CommandItem 
+                    key={command.name} 
+                    command={command} 
+                    isSelected={command.name === selectedKey} 
+                    query={props.query}
+                  />
+                ))}
               </ListBox.Section>
-              {groupIndex < props.items.length - 1 && <Separator className="my-1 border-border/50" />}
+              {groupIndex < props.items.length - 1 && <Separator className="mx-2 my-1 border-border/40" />}
             </React.Fragment>
           ))}
         </ListBox>
       </ScrollShadow>
-    </Surface>
+    </MotionSurface>
   );
 });
 

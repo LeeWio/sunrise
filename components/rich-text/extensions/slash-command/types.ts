@@ -22,4 +22,5 @@ export interface MenuListProps {
   command: (command: Command) => void;
   editor: Editor;
   range: Range;
+  query: string;
 }
