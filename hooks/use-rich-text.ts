@@ -5,6 +5,11 @@ export function useRichText(options?: Partial<UseEditorOptions>) {
   const editor = useEditor({
     extensions: [...ExtensionKit],
     immediatelyRender: false,
+    editorProps: {
+      attributes: {
+        class: "focus:outline-none",
+      },
+    },
     ...options,
   });
 
