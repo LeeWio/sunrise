@@ -29,7 +29,9 @@ import {
   Audio,
   Blockquote,
   Table,
-  SlashCommand
+  SlashCommand,
+  Column,
+  ColumnGroup
 } from "./index";
 
 export const ExtensionKit = [
@@ -50,6 +52,8 @@ export const ExtensionKit = [
   Blockquote,
   Table,
   SlashCommand,
+  Column,
+  ColumnGroup,
   TextStyle,
   Color,
   BackgroundColor,

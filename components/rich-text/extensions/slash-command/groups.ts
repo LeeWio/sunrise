@@ -100,6 +100,24 @@ export const GROUPS: Group[] = [
           editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
         },
       },
+      {
+        name: "columns2",
+        label: "2 Columns",
+        description: "Insert a 2-column layout",
+        iconName: "Columns",
+        action: (editor, range) => {
+          editor.chain().focus().deleteRange(range).insertColumns({ columns: 2 }).run();
+        },
+      },
+      {
+        name: "columns3",
+        label: "3 Columns",
+        description: "Insert a 3-column layout",
+        iconName: "Columns",
+        action: (editor, range) => {
+          editor.chain().focus().deleteRange(range).insertColumns({ columns: 3 }).run();
+        },
+      },
     ],
   },
 ];
