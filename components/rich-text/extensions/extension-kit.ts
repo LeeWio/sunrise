@@ -25,6 +25,7 @@ import {
   Focus,
   Gapcursor,
   Code,
+  Heading,
 } from "./index";
 
 export const ExtensionKit = [
@@ -36,8 +37,10 @@ export const ExtensionKit = [
       color: "transparent",
       width: 0,
     },
-    code:false
+    code: false,
+    heading: false,
   }),
+  Heading,
   TextStyle,
   Color,
   BackgroundColor,
