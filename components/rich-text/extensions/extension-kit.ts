@@ -87,15 +87,7 @@ export const ExtensionKit = [
   TextAlign.configure({
     types: ["heading", "paragraph"],
   }),
-  Placeholder.configure({
-    placeholder: ({ node }) => {
-      if (node.type.name === "heading") {
-        return "Wait, what's the big idea?";
-      }
-      return "Ready to spill the beans?";
-    },
-    includeChildren: true,
-  }),
+  Placeholder,
   NodeRange,
   DropPlaceholder,
   HorizontalRule,

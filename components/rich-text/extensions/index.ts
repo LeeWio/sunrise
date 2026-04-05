@@ -1,6 +1,6 @@
 export { StarterKit } from "@tiptap/starter-kit";
 export { TextAlign } from "@tiptap/extension-text-align";
-export { Placeholder } from "@tiptap/extension-placeholder";
+export { Placeholder } from "./placeholder";
 export { Underline } from "@tiptap/extension-underline";
 export { Subscript } from "@tiptap/extension-subscript";
 export { Superscript } from "@tiptap/extension-superscript";
