@@ -30,6 +30,12 @@ export function useRichTextCommands(editor: Editor | null) {
       editor?.chain().focus().insertContent({ type: "blockMath", attrs: { latex } }).run(),
     onUnsetLink: () => editor?.chain().focus().extendMarkRange("link").unsetLink().run(),
 
+    // Font family and size
+    onSetFontFamily: (fontFamily: string) => editor?.chain().focus().setFontFamily(fontFamily).run(),
+    onUnsetFontFamily: () => editor?.chain().focus().unsetFontFamily().run(),
+    onSetFontSize: (fontSize: string) => editor?.chain().focus().setFontSize(fontSize).run(),
+    onUnsetFontSize: () => editor?.chain().focus().unsetFontSize().run(),
+
     // Colors and Highlight
     onSetColor: (color: string) => editor?.chain().focus().setColor(color).run(),
     onUnsetColor: () => editor?.chain().focus().unsetColor().run(),

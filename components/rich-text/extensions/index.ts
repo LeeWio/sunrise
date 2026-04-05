@@ -12,6 +12,7 @@ export { Highlight } from "@tiptap/extension-highlight";
 export { Link } from "./link";
 export { HorizontalRule } from "./horizontal-rule";
 export { Mathematics } from "./mathematics";
+export { FontSize, FontFamily } from "@tiptap/extension-text-style";
 export { NodeRange } from "@tiptap/extension-node-range";
 export { DragHandle } from "@tiptap/extension-drag-handle";
 export * from "./drag-and-drop";

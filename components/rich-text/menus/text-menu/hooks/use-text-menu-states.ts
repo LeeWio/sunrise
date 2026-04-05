@@ -41,6 +41,8 @@ export const useTextMenuStates = (editor: Editor | null) => {
         textColor: undefined as string | undefined,
         backgroundColor: undefined as string | undefined,
         highlightColor: undefined as string | undefined,
+        fontFamily: undefined as string | undefined,
+        fontSize: undefined as string | undefined,
       };
     }
 
@@ -57,6 +59,8 @@ export const useTextMenuStates = (editor: Editor | null) => {
       textColor: ctx.editor.getAttributes("textStyle").color as string | undefined,
       backgroundColor: ctx.editor.getAttributes("textStyle").backgroundColor as string | undefined,
       highlightColor: ctx.editor.getAttributes("highlight").color as string | undefined,
+      fontFamily: ctx.editor.getAttributes("textStyle").fontFamily as string | undefined,
+      fontSize: ctx.editor.getAttributes("textStyle").fontSize as string | undefined,
     };
   });
 

@@ -15,6 +15,8 @@ import {
   Underline,
   Subscript,
   Superscript,
+  FontFamily,
+  FontSize,
 } from "./index";
 
 export const ExtensionKit = [
@@ -36,6 +38,8 @@ export const ExtensionKit = [
   Underline,
   Subscript,
   Superscript,
+  FontFamily,
+  FontSize,
   Link.configure({
     openOnClick: false,
     autolink: true,

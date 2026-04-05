@@ -3,12 +3,14 @@
 import React from "react";
 import { useTiptap } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { Separator } from "@heroui/react";
+import { Separator, ButtonGroup } from "@heroui/react";
 import { Bold, Italic, Underline, Strikethrough, Code, Superscript } from "@gravity-ui/icons";
 import { Subscript } from "@/components/icons";
 import { MenuContainer } from "../menu-container";
 import { useTextMenuStates } from "./hooks/use-text-menu-states";
 import { TextColorPicker } from "./components/color-picker";
+import { FontFamilyPicker } from "./components/font-family-picker";
+import { FontSizePicker } from "./components/font-size-picker";
 import { useRichTextCommands } from "../../../../hooks/use-rich-text-commands";
 import { ToolbarButton } from "../components";
 
@@ -71,6 +73,21 @@ export function TextMenu({ appendTo }: TextMenuProps) {
             onClear={commands.onUnsetBackgroundColor}
           />
         </div>
+
+        <Separator orientation="vertical" className="mx-1 h-4" />
+
+        <ButtonGroup variant="ghost" className="items-center" size="sm">
+          <FontFamilyPicker
+            value={states.fontFamily}
+            onChange={commands.onSetFontFamily}
+            onClear={commands.onUnsetFontFamily}
+          />
+          <FontSizePicker
+            value={states.fontSize}
+            onChange={commands.onSetFontSize}
+            onClear={commands.onUnsetFontSize}
+          />
+        </ButtonGroup>
 
         <Separator orientation="vertical" className="mx-1 h-4" />
 
