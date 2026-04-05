@@ -7,7 +7,7 @@ export function useRichText(options?: Partial<UseEditorOptions>) {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "focus:outline-none",
+        class: "focus:outline-none selection:bg-foreground/20 selection:text-foreground",
       },
     },
     ...options,
