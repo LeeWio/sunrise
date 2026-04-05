@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import { useTiptap, useTiptapState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Input } from "@heroui/react";
@@ -18,6 +18,7 @@ import { ToolbarButton } from "../components";
 export function MathMenu() {
   const { editor } = useTiptap();
   const [latex, setLatex] = useState("");
+  const [prevMathAttr, setPrevMathAttr] = useState<string | undefined>(undefined);
 
   // Reactively get active node attributes
   const mathAttributes = useTiptapState((state) => {
@@ -26,12 +27,13 @@ export function MathMenu() {
     return inlineAttrs.latex !== undefined ? inlineAttrs : blockAttrs;
   });
 
-  // Sync state when attributes change (selection moves)
-  useEffect(() => {
+  // Sync state when attributes change (selection moves) without effects
+  if (mathAttributes?.latex !== prevMathAttr) {
+    setPrevMathAttr(mathAttributes?.latex);
     if (mathAttributes?.latex !== undefined) {
       setLatex(mathAttributes.latex);
     }
-  }, [mathAttributes?.latex]);
+  }
 
   const shouldShow = useCallback(() => {
     if (!editor) return false;

@@ -10,7 +10,6 @@ import { useRichTextState } from "../../hooks/use-rich-text-state";
 import { RichTextToolbar } from "./toolbar";
 import { LinkMenu, ContentItemMenu, TextMenu, MathMenu } from "./menus";
 import { DropIndicator } from "./extensions";
-import "../../styles/rich-text/index.css";
 
 /**
  * Renders document statistics (character/word counts).

@@ -8,9 +8,6 @@ import {
   ScrollShadow,
   Button,
   Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
 } from "@heroui/react";
 import { useTiptap } from "@tiptap/react";
 import type { Editor } from "@tiptap/react";
