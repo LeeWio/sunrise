@@ -82,38 +82,34 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor }) => {
       <audio ref={audioRef} src={src} preload="metadata" />
 
       <Card className="w-full shadow-sm border border-default-200">
-        <Card.Content className="flex flex-row items-center gap-4 p-3">
+        <Card.Content className="flex flex-row items-center gap-3 p-2 pr-4">
           <Button
             isIconOnly
-            color="primary"
-            variant="ghost"
+            radius="full"
+            variant="light"
             onPress={togglePlayPause}
             aria-label={isPlaying ? "Pause" : "Play"}
+            className="text-foreground"
           >
             {isPlaying ? <Pause /> : <PlayFill />}
           </Button>
 
-          <div className="flex flex-1 flex-col gap-1">
-            <div className="flex items-center justify-between text-xs text-default-500 font-medium px-1">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
+          <div className="flex items-center gap-3 flex-1 text-xs text-default-500 font-medium">
+            <span className="w-10 text-right shrink-0">{formatTime(currentTime)}</span>
             
             <Slider
               aria-label="Audio progress"
+              size="sm"
               value={currentTime}
               maxValue={duration || 100}
               onChange={handleSeek}
-              className="w-full"
-            >
-              <Slider.Track className="bg-default-200">
-                <Slider.Fill className="bg-primary" />
-                <Slider.Thumb className="bg-primary" />
-              </Slider.Track>
-            </Slider>
+              className="flex-1"
+            />
+            
+            <span className="w-10 text-left shrink-0">{formatTime(duration)}</span>
           </div>
           
-          <div className="shrink-0 p-2 rounded-full bg-default-100 text-default-400">
+          <div className="shrink-0 text-default-400">
             <MusicNote />
           </div>
         </Card.Content>
