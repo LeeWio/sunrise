@@ -89,3 +89,23 @@
   box-shadow: -2px 0 0 0 var(--accent);
   padding-left: 0.25rem;
 }
+
+/* Gapcursor styling */
+.ProseMirror .ProseMirror-gapcursor {
+  @apply relative block pointer-events-none;
+}
+
+.ProseMirror .ProseMirror-gapcursor:after {
+  @apply absolute block h-5 w-[2px] bg-accent;
+  content: "";
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: gapcursor-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes gapcursor-blink {
+  to {
+    visibility: hidden;
+  }
+}

@@ -18,6 +18,7 @@ import {
   FontFamily,
   FontSize,
   Focus,
+  Gapcursor,
 } from "./index";
 
 export const ExtensionKit = [
@@ -45,6 +46,7 @@ export const ExtensionKit = [
     className: "has-focus",
     mode: "all",
   }),
+  Gapcursor,
   Link.configure({
     openOnClick: false,
     autolink: true,
