@@ -10,6 +10,7 @@ export { Color } from "@tiptap/extension-text-style/color";
 export { BackgroundColor } from "@tiptap/extension-text-style/background-color";
 export { Highlight } from "@tiptap/extension-highlight";
 export { Link } from "./link";
+export { HorizontalRule } from "./horizontal-rule";
 export { NodeRange } from "@tiptap/extension-node-range";
 export { DragHandle } from "@tiptap/extension-drag-handle";
 export * from "./drag-and-drop";

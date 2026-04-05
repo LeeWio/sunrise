@@ -23,6 +23,7 @@ export function useRichTextCommands(editor: Editor | null) {
     onBulletList: () => editor?.chain().focus().toggleBulletList().run(),
     onOrderedList: () => editor?.chain().focus().toggleOrderedList().run(),
     onBlockquote: () => editor?.chain().focus().toggleBlockquote().run(),
+    onHorizontalRule: () => editor?.chain().focus().setHorizontalRule().run(),
     onUnsetLink: () => editor?.chain().focus().extendMarkRange("link").unsetLink().run(),
 
     // Colors and Highlight

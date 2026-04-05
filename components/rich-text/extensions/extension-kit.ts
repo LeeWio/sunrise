@@ -4,6 +4,7 @@ import {
   Placeholder,
   CharacterCount,
   Link,
+  HorizontalRule,
   NodeRange,
   DropPlaceholder,
   TextStyle,
@@ -18,6 +19,8 @@ import {
 export const ExtensionKit = [
   StarterKit.configure({
     link: false,
+    bulletList: false,
+    horizontalRule: false,
     dropcursor: {
       color: "transparent",
       width: 0,
@@ -69,4 +72,5 @@ export const ExtensionKit = [
   }),
   NodeRange,
   DropPlaceholder,
+  HorizontalRule,
 ];

@@ -22,6 +22,7 @@ import {
   ListUl,
   ListOl,
   QuoteOpen,
+  Minus,
   ArrowShapeTurnUpLeft,
   ArrowShapeTurnUpRight,
 } from "@gravity-ui/icons";
@@ -187,6 +188,15 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
           >
             <ToggleButtonGroup.Separator />
             <QuoteOpen className="size-4" />
+          </ToggleButton>
+          <ToggleButton
+            id="horizontal-rule"
+            aria-label="Horizontal Rule"
+            isSelected={state.isHorizontalRule}
+            onPress={commands.onHorizontalRule}
+          >
+            <ToggleButtonGroup.Separator />
+            <Minus className="size-4" />
           </ToggleButton>
         </ToggleButtonGroup>
       </Toolbar>
