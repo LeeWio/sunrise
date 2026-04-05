@@ -91,15 +91,17 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
         }`}
         data-drag-handle
       >
-        <Card className="w-full shadow-sm border border-default-200">
-          <Card.Content className="flex flex-col items-center justify-center gap-2 p-6">
-            <Button
-              variant="flat"
-              color="primary"
-              onPress={() => fileInputRef.current?.click()}
-            >
-              <MusicNote />
-              Upload Audio
+        <Card className="w-full" variant="secondary">
+          <Card.Content className="flex flex-col items-center justify-center gap-4 text-center py-8">
+            <div className="bg-surface flex size-12 shrink-0 items-center justify-center rounded-xl text-muted shadow-sm">
+              <MusicNote className="size-6" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-sm font-medium">Add an audio file</p>
+              <p className="text-muted text-xs">Supports MP3, WAV, OGG</p>
+            </div>
+            <Button variant="secondary" onPress={() => fileInputRef.current?.click()}>
+              Choose File
             </Button>
             <input
               ref={fileInputRef}
@@ -124,18 +126,18 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
       {/* Hidden native audio element */}
       <audio ref={audioRef} src={src} preload="metadata" />
 
-      <Card className="w-full shadow-sm border border-default-200">
-        <Card.Content className="flex flex-row items-center gap-3 p-2 pr-4">
+      <Card className="w-full">
+        <Card.Content className="flex flex-row items-center gap-4">
           <Button
             isIconOnly
-            variant="ghost"
+            variant="tertiary"
             onPress={togglePlayPause}
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <Pause /> : <PlayFill />}
           </Button>
 
-          <div className="flex items-center gap-3 flex-1 text-xs text-default-500 font-medium">
+          <div className="flex items-center gap-3 flex-1 text-xs text-muted font-medium">
             <span className="w-10 text-right shrink-0">{formatTime(currentTime)}</span>
             
             <Slider
@@ -154,7 +156,7 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
             <span className="w-10 text-left shrink-0">{formatTime(duration)}</span>
           </div>
           
-          <div className="shrink-0 text-default-400">
+          <div className="shrink-0 text-muted">
             <MusicNote />
           </div>
         </Card.Content>
