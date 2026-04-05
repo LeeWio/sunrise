@@ -5,6 +5,9 @@ import { Placeholder as TiptapPlaceholder } from "@tiptap/extension-placeholder"
  * Provides dynamic placeholder texts depending on the node type and position.
  */
 export const Placeholder = TiptapPlaceholder.configure({
+  // Use Tailwind utility classes directly for the empty node
+  emptyNodeClass: "is-empty",
+  emptyEditorClass: "is-editor-empty",
   placeholder: ({ node }) => {
     if (node.type.name === "heading") {
       return "Heading...";
