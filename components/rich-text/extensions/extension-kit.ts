@@ -6,6 +6,7 @@ import {
   Link,
   HorizontalRule,
   Mathematics,
+  Selection,
   NodeRange,
   DropPlaceholder,
   TextStyle,
@@ -88,4 +89,5 @@ export const ExtensionKit = [
   DropPlaceholder,
   HorizontalRule,
   Mathematics,
+  Selection,
 ];
