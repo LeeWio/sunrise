@@ -1,7 +1,43 @@
 import { SVGProps } from "react";
 
 // Re-export standard icons from gravity-ui
-export { PlayFill, Pause, MusicNote, BackwardStepFill, ForwardStepFill, BroadcastSignal } from "@gravity-ui/icons";
+export {
+  PlayFill,
+  Pause,
+  MusicNote,
+  BackwardStepFill,
+  ForwardStepFill,
+  BroadcastSignal,
+  House,
+  Terminal,
+  Magnifier,
+  Sun,
+  Moon,
+  Person,
+  Bars,
+  Xmark,
+  ChevronDown,
+  Pencil,
+  Hammer,
+  Ghost,
+  Wrench,
+  Compass,
+  Flame,
+  BookOpen,
+  FileText,
+  StarFill,
+  Code,
+  Flask,
+  Cube,
+  Scissors,
+  Bookmark,
+  Link,
+  Layers,
+  Envelope,
+  Globe,
+  Palette,
+  Cpu
+} from "@gravity-ui/icons";
 
 /**
  * Custom Subscript icon following the style of Gravity UI's Superscript.
