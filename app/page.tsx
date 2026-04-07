@@ -2,7 +2,6 @@
 
 import { Card, Button, Chip } from "@heroui/react";
 import { House, BroadcastSignal } from "../components/icons";
-import { MomentCard } from "../features/moments/components/moment-card";
 
 const moments = [
   {
@@ -116,9 +115,6 @@ export default function Home() {
       </header>
 
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {moments.map((moment) => (
-          <MomentCard key={moment.id} {...moment} />
-        ))}
 
         {/* 占位卡片：引导发布 */}
         <Card className="flex min-h-[300px] items-center justify-center border-2 border-dashed border-zinc-200 bg-transparent p-6 dark:border-zinc-800">
