@@ -8,22 +8,22 @@ export const Table = TiptapTableKit.configure({
   table: {
     resizable: true,
     HTMLAttributes: {
-      class:"table-root table__content"
+      class: "table-root table__content",
     },
   },
   tableRow: {
     HTMLAttributes: {
-      class:"table__row"
+      class: "table__row",
     },
   },
   tableHeader: {
     HTMLAttributes: {
-      class:"table__header"
+      class: "table__header",
     },
   },
   tableCell: {
     HTMLAttributes: {
-      class:" table__cell"
+      class: " table__cell",
     },
   },
 });

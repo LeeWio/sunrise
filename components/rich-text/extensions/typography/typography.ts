@@ -6,7 +6,7 @@ import { Typography as TiptapTypography } from "@tiptap/extension-typography";
  * (e.g., '->' to '→', '...' to '…', '(c)' to '©').
  */
 export const Typography = TiptapTypography.configure({
-  // All rules are enabled by default. 
+  // All rules are enabled by default.
   // We can explicitly disable or override rules here if needed.
 });
 

@@ -45,7 +45,9 @@ export const Column = Node.create({
           bg-surface-tertiary 
           transition-all duration-300 relative
           [&_.is-empty::before]:text-muted [&_.is-empty::before]:text-xs [&_.is-empty::before]:content-[attr(data-placeholder)]
-        `.replace(/\s+/g, ' ').trim(),
+        `
+          .replace(/\s+/g, " ")
+          .trim(),
       }),
       0,
     ];

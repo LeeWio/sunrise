@@ -31,7 +31,7 @@ import {
   Table,
   SlashCommand,
   Column,
-  ColumnGroup
+  ColumnGroup,
 } from "./index";
 
 export const ExtensionKit = [
@@ -109,4 +109,3 @@ export const ExtensionKit = [
     notAfter: ["paragraph"],
   }),
 ];
-

@@ -3,7 +3,7 @@
 import React from "react";
 import { useTiptap } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
-import { Separator, ButtonGroup } from "@heroui/react";
+import { ButtonGroup } from "@heroui/react";
 import { Bold, Italic, Underline, Strikethrough, Code, Superscript } from "@gravity-ui/icons";
 import { Subscript } from "@/components/icons";
 import { MenuContainer } from "../menu-container";
@@ -13,7 +13,8 @@ import { FontFamilyPicker } from "./components/font-family-picker";
 import { FontSizePicker } from "./components/font-size-picker";
 import { LineHeightPicker } from "./components/line-height-picker";
 import { useRichTextCommands } from "../../../../hooks/use-rich-text-commands";
-import { ToolbarButton } from "../components";
+import { ToggleButton } from "../components";
+import { ToggleButtonGroup } from "@heroui/react";
 
 interface TextMenuProps {
   /**
@@ -22,10 +23,6 @@ interface TextMenuProps {
   appendTo?: React.RefObject<HTMLElement | null> | HTMLElement | (() => HTMLElement);
 }
 
-/**
- * TextMenu component for inline text formatting.
- * Leveraging Tiptap 3 BubbleMenu and project-wide MenuContainer.
- */
 export function TextMenu({ appendTo }: TextMenuProps) {
   const { editor } = useTiptap();
 
@@ -34,7 +31,6 @@ export function TextMenu({ appendTo }: TextMenuProps) {
 
   if (!editor) return null;
 
-  // Resolve appendTo for Floating UI
   const getAppendTo = () => {
     if (typeof appendTo === "function") return appendTo();
     if (appendTo && "current" in appendTo) return appendTo.current || undefined;
@@ -52,32 +48,8 @@ export function TextMenu({ appendTo }: TextMenuProps) {
         offset: 8,
       }}
     >
-      <MenuContainer
-        layout
-        initial={{ opacity: 0, scale: 0.95, y: 5 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 5 }}
-        aria-label="Text formatting menu"
-        className="flex items-center gap-0.5 px-1 py-1"
-      >
-        <div className="flex items-center gap-0.5">
-          <TextColorPicker
-            type="text"
-            value={states.textColor}
-            onChange={commands.onSetColor}
-            onClear={commands.onUnsetColor}
-          />
-          <TextColorPicker
-            type="background"
-            value={states.backgroundColor}
-            onChange={commands.onSetBackgroundColor}
-            onClear={commands.onUnsetBackgroundColor}
-          />
-        </div>
-
-        <Separator orientation="vertical" className="mx-1 h-4" />
-
-        <ButtonGroup variant="ghost" className="items-center" size="sm">
+      <MenuContainer aria-label="Text formatting menu">
+        <ButtonGroup size="sm" variant="tertiary">
           <FontFamilyPicker
             value={states.fontFamily}
             onChange={commands.onSetFontFamily}
@@ -95,52 +67,75 @@ export function TextMenu({ appendTo }: TextMenuProps) {
           />
         </ButtonGroup>
 
-        <Separator orientation="vertical" className="mx-1 h-4" />
-
-        <div className="flex items-center gap-0.5">
-          <ToolbarButton
-            icon={<Bold className="size-3.5" />}
+        <ToggleButtonGroup size="sm">
+          <ToggleButton
+            icon={<Bold />}
             tooltip="Bold"
-            active={states.isBold}
+            isSelected={states.isBold}
             onPress={commands.onBold}
+            aria-label="Bold"
           />
-          <ToolbarButton
-            icon={<Italic className="size-3.5" />}
+          <ToggleButton
+            icon={<Italic />}
             tooltip="Italic"
-            active={states.isItalic}
+            isSelected={states.isItalic}
             onPress={commands.onItalic}
+            aria-label="Italic"
           />
-          <ToolbarButton
-            icon={<Underline className="size-3.5" />}
+          <ToggleButton
+            icon={<Underline />}
             tooltip="Underline"
-            active={states.isUnderline}
+            isSelected={states.isUnderline}
             onPress={commands.onUnderline}
+            aria-label="Underline"
           />
-          <ToolbarButton
-            icon={<Strikethrough className="size-3.5" />}
+          <ToggleButton
+            icon={<Strikethrough />}
             tooltip="Strikethrough"
-            active={states.isStrike}
+            isSelected={states.isStrike}
             onPress={commands.onStrike}
+            aria-label="Strikethrough"
           />
-          <ToolbarButton
-            icon={<Code className="size-3.5" />}
+        </ToggleButtonGroup>
+
+        <ButtonGroup size="sm" variant="tertiary">
+          <ToggleButton
+            icon={<Code />}
             tooltip="Code"
-            active={states.isCode}
+            isSelected={states.isCode}
             onPress={commands.onCode}
+            aria-label="Code"
           />
-          <ToolbarButton
-            icon={<Subscript className="size-3.5" />}
+          <TextColorPicker
+            type="text"
+            value={states.textColor}
+            onChange={commands.onSetColor}
+            onClear={commands.onUnsetColor}
+          />
+          <TextColorPicker
+            type="background"
+            value={states.backgroundColor}
+            onChange={commands.onSetBackgroundColor}
+            onClear={commands.onUnsetBackgroundColor}
+          />
+        </ButtonGroup>
+
+        <ToggleButtonGroup size="sm">
+          <ToggleButton
+            icon={<Subscript />}
             tooltip="Subscript"
-            active={states.isSubscript}
+            isSelected={states.isSubscript}
             onPress={commands.onSubscript}
+            aria-label="Subscript"
           />
-          <ToolbarButton
-            icon={<Superscript className="size-3.5" />}
+          <ToggleButton
+            icon={<Superscript />}
             tooltip="Superscript"
-            active={states.isSuperscript}
+            isSelected={states.isSuperscript}
             onPress={commands.onSuperscript}
+            aria-label="Superscript"
           />
-        </div>
+        </ToggleButtonGroup>
       </MenuContainer>
     </BubbleMenu>
   );

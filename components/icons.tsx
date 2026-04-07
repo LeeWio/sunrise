@@ -36,7 +36,7 @@ export {
   Envelope,
   Globe,
   Palette,
-  Cpu
+  Cpu,
 } from "@gravity-ui/icons";
 
 /**

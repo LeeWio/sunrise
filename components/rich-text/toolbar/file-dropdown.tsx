@@ -23,7 +23,7 @@ export function FileDropdown() {
         variant="ghost"
         isIconOnly
         aria-label="File Options"
-        className="text-default-600 border-none "
+        className="text-default-600 border-none"
       >
         <Bars className="size-5" />
       </Button>

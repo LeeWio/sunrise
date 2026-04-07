@@ -102,7 +102,7 @@
 /* Secondary: rows are transparent and keep bottom border on every row */
 .table-root--secondary .table__row {
   .table__cell {
-    @apply border-b border-separator-tertiary/50 bg-transparent;
+    @apply border-separator-tertiary/50 border-b bg-transparent;
   }
 
   @media (hover: hover) {
@@ -129,19 +129,19 @@
    Table Header (<thead>)
    -------------------------------------------------------------------------- */
 .table__header {
-  @apply border-b border-separator/50 bg-surface-secondary;
+  @apply border-separator/50 bg-surface-secondary border-b;
 }
 
 /* --------------------------------------------------------------------------
    Table Column (<th>)
    -------------------------------------------------------------------------- */
 .table__column {
-  @apply relative px-4 py-2.5 text-left text-xs font-medium text-muted;
+  @apply text-muted relative px-4 py-2.5 text-left text-xs font-medium;
 
   /* Separator between columns — a short vertical line on the right edge */
   &::after {
     content: "";
-    @apply pointer-events-none absolute top-1/2 right-0 h-4 w-px -translate-y-1/2 rounded-sm bg-separator;
+    @apply bg-separator pointer-events-none absolute top-1/2 right-0 h-4 w-px -translate-y-1/2 rounded-sm;
   }
 
   &:last-child:not(:only-child)::after {
@@ -202,7 +202,7 @@
   @apply relative h-full;
 
   /* Bottom separator */
-  @apply border-b border-separator/50;
+  @apply border-separator/50 border-b;
 
   /* Last row in body has no bottom border */
   &:last-child {
@@ -250,9 +250,9 @@
    Table Cell (<td>)
    -------------------------------------------------------------------------- */
 .table__cell {
-  @apply h-full bg-surface px-4 py-3 align-middle text-sm text-foreground;
+  @apply bg-surface text-foreground h-full px-4 py-3 align-middle text-sm;
 
-  @apply border-b border-separator-tertiary/50;
+  @apply border-separator-tertiary/50 border-b;
 
   /* Focus visible — inset shadow so focus stays within the cell boundaries */
   &:focus-visible,
@@ -282,7 +282,7 @@
    -------------------------------------------------------------------------- */
 .table__column-resizer {
   /* Match the ::after separator: absolute, right edge, short vertical line */
-  @apply absolute top-1/2 right-0 h-4 w-px -translate-y-1/2 rounded-sm bg-separator;
+  @apply bg-separator absolute top-1/2 right-0 h-4 w-px -translate-y-1/2 rounded-sm;
   /* Make it interactive — wider hit area with transparent padding */
   @apply box-content translate-x-1/2 cursor-col-resize touch-none px-2;
   /* Reset appearance */
@@ -290,16 +290,16 @@
 
   &[data-hovered="true"],
   &:hover {
-    @apply h-full w-0.5 bg-accent;
+    @apply bg-accent h-full w-0.5;
   }
 
   &[data-resizing="true"] {
-    @apply h-full w-0.5 bg-accent;
+    @apply bg-accent h-full w-0.5;
   }
 
   &[data-focus-visible="true"],
   &:focus-visible {
-    @apply h-full w-0.5 bg-focus;
+    @apply bg-focus h-full w-0.5;
   }
 }
 

@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import { NodeViewWrapper, NodeViewProps } from "@tiptap/react";
 import { Button, Slider, Card } from "@heroui/react";
-import { PlayFill, Pause, MusicNote, BackwardStepFill, ForwardStepFill, BroadcastSignal } from "../../../icons";
+import {
+  PlayFill,
+  Pause,
+  MusicNote,
+  BackwardStepFill,
+  ForwardStepFill,
+  BroadcastSignal,
+} from "../../../icons";
 
 const formatTime = (timeInSeconds: number) => {
   if (isNaN(timeInSeconds) || !isFinite(timeInSeconds)) return "00:00";
@@ -103,13 +110,13 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
     return (
       <NodeViewWrapper
         className={`items-center justify-center transition-all ${
-          editor.isActive("audio") ? "ring-2 ring-primary ring-offset-2" : ""
+          editor.isActive("audio") ? "ring-primary ring-2 ring-offset-2" : ""
         }`}
         data-drag-handle
       >
         <Card className="w-full" variant="secondary">
-          <Card.Content className="flex flex-col items-center justify-center gap-4 text-center py-8">
-            <div className="bg-surface flex size-12 shrink-0 items-center justify-center rounded-xl text-muted shadow-sm">
+          <Card.Content className="flex flex-col items-center justify-center gap-4 py-8 text-center">
+            <div className="bg-surface text-muted flex size-12 shrink-0 items-center justify-center rounded-xl shadow-sm">
               <MusicNote className="size-6" />
             </div>
             <div className="flex flex-col gap-1">
@@ -135,18 +142,18 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
   return (
     <NodeViewWrapper
       className={`mx-audo max-w-2xl transition-all ${
-        editor.isActive("audio") ? "ring-2 ring-primary ring-offset-2" : ""
+        editor.isActive("audio") ? "ring-primary ring-2 ring-offset-2" : ""
       }`}
       data-drag-handle
     >
       {/* Hidden native audio element */}
       <audio ref={audioRef} src={src} preload="metadata" />
 
-      <Card >
+      <Card>
         <Card.Content className="flex flex-row gap-4 p-4">
           {/* Left: Album Art Placeholder */}
           <div className="flex size-24 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-inner">
-            <MusicNote className="text-white/70 size-10 drop-shadow-md" />
+            <MusicNote className="size-10 text-white/70 drop-shadow-md" />
           </div>
 
           {/* Right: Content & Controls */}
@@ -157,20 +164,43 @@ export const AudioPlayerNode: React.FC<NodeViewProps> = ({ node, editor, updateA
                 <p className="truncate text-sm font-semibold">Audio Track</p>
                 <p className="text-muted truncate text-xs">Local File</p>
               </div>
-              <Button isIconOnly className="-mr-2 -mt-1 shrink-0 rounded-full" size="sm" variant="tertiary">
+              <Button
+                isIconOnly
+                className="-mt-1 -mr-2 shrink-0 rounded-full"
+                size="sm"
+                variant="tertiary"
+              >
                 <BroadcastSignal className="size-4" />
               </Button>
             </div>
 
             {/* Controls */}
             <div className="flex items-center justify-center gap-4">
-              <Button isIconOnly className="rounded-full" size="sm" variant="tertiary" onPress={skipBackward}>
+              <Button
+                isIconOnly
+                className="rounded-full"
+                size="sm"
+                variant="tertiary"
+                onPress={skipBackward}
+              >
                 <BackwardStepFill className="size-4" />
               </Button>
-              <Button isIconOnly className="scale-125 rounded-full" size="sm" variant="tertiary" onPress={togglePlayPause}>
+              <Button
+                isIconOnly
+                className="scale-125 rounded-full"
+                size="sm"
+                variant="tertiary"
+                onPress={togglePlayPause}
+              >
                 {isPlaying ? <Pause className="size-4" /> : <PlayFill className="size-4" />}
               </Button>
-              <Button isIconOnly className="rounded-full" size="sm" variant="tertiary" onPress={skipForward}>
+              <Button
+                isIconOnly
+                className="rounded-full"
+                size="sm"
+                variant="tertiary"
+                onPress={skipForward}
+              >
                 <ForwardStepFill className="size-4" />
               </Button>
             </div>

@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 import { useTiptap, useTiptapState } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { Input } from "@heroui/react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { Check, TrashBin } from "@gravity-ui/icons";
 import { MenuContainer } from "../menu-container";
 import { ToolbarButton } from "../components";
@@ -12,7 +12,7 @@ import { ToolbarButton } from "../components";
 /**
  * MathMenu - Interactive popover for editing LaTeX formulas.
  * Appears when an inlineMath or blockMath node is selected or active.
- * 
+ *
  * Performance & Animation optimized by following LinkMenu patterns.
  */
 export function MathMenu() {
@@ -43,7 +43,7 @@ export function MathMenu() {
   const handleSave = useCallback(() => {
     if (!editor || latex === undefined) return;
     const isBlock = editor.isActive("blockMath");
-    
+
     if (isBlock) {
       editor.chain().focus().updateBlockMath({ latex }).run();
     } else {
@@ -63,8 +63,6 @@ export function MathMenu() {
 
   if (!editor) return null;
 
-  const springConfig = { type: "spring" as const, stiffness: 500, damping: 30, mass: 1 };
-
   return (
     <BubbleMenu
       editor={editor}
@@ -75,54 +73,44 @@ export function MathMenu() {
         offset: 12,
       }}
     >
-      <AnimatePresence mode="wait">
-        <MenuContainer
-          key="math-menu-shell"
-          layout
-          initial={{ opacity: 0, scale: 0.95, y: 5 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 5 }}
-          transition={springConfig}
-          className="flex items-center overflow-hidden"
+      <MenuContainer key="math-menu-shell" className="flex items-center overflow-hidden">
+        {/* Internal content animation matched with LinkMenu's edit mode */}
+        <motion.div
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -8 }}
+          transition={{ duration: 0.12, ease: "easeOut" }}
+          className="flex items-center gap-1.5 px-1 py-1"
         >
-          {/* Internal content animation matched with LinkMenu's edit mode */}
-          <motion.div
-            initial={{ opacity: 0, x: 8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -8 }}
-            transition={{ duration: 0.12, ease: "easeOut" }}
-            className="flex items-center gap-1.5 px-1 py-1"
-          >
-            <Input
-              variant="secondary"
-              placeholder="LaTeX..."
-              value={latex}
-              onChange={(e) => setLatex(e.target.value)}
-              className="h-8 min-h-0 w-[240px] py-0"
-              autoFocus
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleSave();
-                if (e.key === "Escape") editor.commands.focus();
-              }}
+          <Input
+            variant="secondary"
+            placeholder="LaTeX..."
+            value={latex}
+            onChange={(e) => setLatex(e.target.value)}
+            className="h-8 min-h-0 w-[240px] py-0"
+            autoFocus
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSave();
+              if (e.key === "Escape") editor.commands.focus();
+            }}
+          />
+
+          <div className="flex items-center gap-0.5 pr-0.5">
+            <ToolbarButton
+              icon={<Check className="size-4" />}
+              tooltip="Update formula"
+              onPress={handleSave}
+              className="text-success hover:bg-success/10"
             />
-            
-            <div className="flex items-center gap-0.5 pr-0.5">
-              <ToolbarButton
-                icon={<Check className="size-4" />}
-                tooltip="Update formula"
-                onPress={handleSave}
-                className="text-success hover:bg-success/10"
-              />
-              <ToolbarButton
-                icon={<TrashBin className="size-4" />}
-                tooltip="Delete"
-                onPress={handleDelete}
-                className="hover:text-danger hover:bg-danger/10"
-              />
-            </div>
-          </motion.div>
-        </MenuContainer>
-      </AnimatePresence>
+            <ToolbarButton
+              icon={<TrashBin className="size-4" />}
+              tooltip="Delete"
+              onPress={handleDelete}
+              className="hover:text-danger hover:bg-danger/10"
+            />
+          </div>
+        </motion.div>
+      </MenuContainer>
     </BubbleMenu>
   );
 }

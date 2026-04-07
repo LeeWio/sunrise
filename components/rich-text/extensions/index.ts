@@ -29,6 +29,3 @@ export { Blockquote } from "./blockquote";
 export { Table } from "./table";
 export { SlashCommand } from "./slash-command";
 export { Column, ColumnGroup } from "./multi-column";
-
-
-

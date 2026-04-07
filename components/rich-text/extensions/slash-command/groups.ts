@@ -97,7 +97,12 @@ export const GROUPS: Group[] = [
         description: "Insert a 3x3 table",
         iconName: "Table",
         action: (editor, range) => {
-          editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+          editor
+            .chain()
+            .focus()
+            .deleteRange(range)
+            .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+            .run();
         },
       },
       {

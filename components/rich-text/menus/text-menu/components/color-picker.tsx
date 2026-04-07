@@ -2,6 +2,7 @@
 
 import React, { useMemo, useCallback } from "react";
 import {
+  Button,
   ColorArea,
   ColorField,
   ColorPicker,
@@ -10,6 +11,7 @@ import {
   ColorSwatchPicker,
   parseColor,
   type Color,
+  Tooltip,
 } from "@heroui/react";
 import { Shuffle, Text, BucketPaint } from "@gravity-ui/icons";
 import { ToolbarButton } from "../../components";
@@ -24,17 +26,16 @@ interface TextColorPickerProps {
    */
   onChange: (color: string) => void;
   /**
+   * Callback to clear the color
+   */
+  onClear: () => void;
+  /**
    * Picker type (text or background)
    */
   type: "text" | "background";
 }
 
-/**
- * TextColorPicker using unified ToolbarButton for perfect consistency.
- * Solves nested button error by using the 'as' prop pattern.
- */
 export const TextColorPicker = React.memo(({ value, onChange, type }: TextColorPickerProps) => {
-  // Convert hex string from Tiptap to HeroUI Color object
   const color = useMemo(() => {
     try {
       return value ? parseColor(value) : parseColor(type === "text" ? "#000000" : "#ffffff");
@@ -76,13 +77,14 @@ export const TextColorPicker = React.memo(({ value, onChange, type }: TextColorP
 
   return (
     <ColorPicker value={color} onChange={handleColorChange}>
-      <ToolbarButton
-        icon={<Icon className="size-3.5" />}
-        tooltip={label}
-        active={!!value}
-        variant="tertiary"
-        aria-label={label}
-      />
+      <ColorPicker.Trigger>
+        <Tooltip delay={300}>
+          <Button size="sm" variant="tertiary" isIconOnly aria-label={label}>
+            <Icon className="size-3.5" />
+          </Button>
+          <Tooltip.Content>{label}</Tooltip.Content>
+        </Tooltip>
+      </ColorPicker.Trigger>
 
       <ColorPicker.Popover className="gap-2">
         <ColorSwatchPicker className="justify-center pt-2" size="xs">
@@ -93,7 +95,6 @@ export const TextColorPicker = React.memo(({ value, onChange, type }: TextColorP
           ))}
         </ColorSwatchPicker>
 
-        {/* Core Selection Area */}
         <ColorArea
           aria-label="Color area"
           className="max-w-full"
@@ -118,7 +119,6 @@ export const TextColorPicker = React.memo(({ value, onChange, type }: TextColorP
           />
         </div>
 
-        {/* Hex Input with Clear Button in Suffix */}
         <ColorField aria-label="Color field">
           <ColorField.Group variant="secondary">
             <ColorField.Prefix>

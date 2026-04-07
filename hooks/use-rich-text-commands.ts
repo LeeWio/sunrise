@@ -15,7 +15,8 @@ export function useRichTextCommands(editor: Editor | null) {
     onSuperscript: () => editor?.chain().focus().toggleSuperscript().run(),
 
     // Blocks and media
-    onHeading: (level: 1 | 2 | 3 | 4 | 5 | 6) => editor?.chain().focus().toggleHeading({ level }).run(),
+    onHeading: (level: 1 | 2 | 3 | 4 | 5 | 6) =>
+      editor?.chain().focus().toggleHeading({ level }).run(),
     onAudio: () => editor?.chain().focus().insertContent({ type: "audio" }).run(),
     onInsertTable: ({ rows = 3, cols = 3, withHeaderRow = true } = {}) =>
       editor?.chain().focus().insertTable({ rows, cols, withHeaderRow }).run(),
@@ -37,11 +38,13 @@ export function useRichTextCommands(editor: Editor | null) {
     onUnsetLink: () => editor?.chain().focus().extendMarkRange("link").unsetLink().run(),
 
     // Font family and size
-    onSetFontFamily: (fontFamily: string) => editor?.chain().focus().setFontFamily(fontFamily).run(),
+    onSetFontFamily: (fontFamily: string) =>
+      editor?.chain().focus().setFontFamily(fontFamily).run(),
     onUnsetFontFamily: () => editor?.chain().focus().unsetFontFamily().run(),
     onSetFontSize: (fontSize: string) => editor?.chain().focus().setFontSize(fontSize).run(),
     onUnsetFontSize: () => editor?.chain().focus().unsetFontSize().run(),
-    onSetLineHeight: (lineHeight: string) => editor?.chain().focus().setLineHeight(lineHeight).run(),
+    onSetLineHeight: (lineHeight: string) =>
+      editor?.chain().focus().setLineHeight(lineHeight).run(),
     onUnsetLineHeight: () => editor?.chain().focus().unsetLineHeight().run(),
 
     // Colors and Highlight

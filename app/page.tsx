@@ -1,7 +1,26 @@
 "use client";
 
-import { Card, Button, Chip } from "@heroui/react";
+import { Card } from "@heroui/react";
 import { House, BroadcastSignal } from "../components/icons";
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  CodeFork,
+  Ellipsis,
+  Picture,
+  Pin,
+  QrCode,
+  Star,
+  TextAlignCenter,
+  TextAlignJustify,
+  TextAlignLeft,
+  TextAlignRight,
+  ThumbsDown,
+  ThumbsUp,
+  Video,
+} from "@gravity-ui/icons";
+import { Button, ButtonGroup, Chip, Description, Dropdown, Label } from "@heroui/react";
 
 const moments = [
   {
@@ -11,7 +30,8 @@ const moments = [
       avatar: "https://i.pravatar.cc/150?u=sunrise",
       handle: "@weili",
     },
-    content: "The sunrise today was absolutely breathtaking. Ready to start the day with some coding! 🌅",
+    content:
+      "The sunrise today was absolutely breathtaking. Ready to start the day with some coding! 🌅",
     image: "https://heroui.com/images/card-example-4.jpeg",
     timestamp: "2 hours ago",
     tags: ["Nature", "Morning"],
@@ -23,7 +43,8 @@ const moments = [
       avatar: "https://i.pravatar.cc/150?u=bot",
       handle: "@sunrise_bot",
     },
-    content: "New tech post available: 'Building Modern UI with HeroUI & Next.js'. Check it out in the Tech Hub!",
+    content:
+      "New tech post available: 'Building Modern UI with HeroUI & Next.js'. Check it out in the Tech Hub!",
     timestamp: "5 hours ago",
     tags: ["Tech", "Announcement"],
   },
@@ -58,7 +79,8 @@ const moments = [
       avatar: "https://i.pravatar.cc/150?u=tech",
       handle: "@techo",
     },
-    content: "Trying out the new Tailwind CSS v4 features. The configuration is so much cleaner now! 🚀",
+    content:
+      "Trying out the new Tailwind CSS v4 features. The configuration is so much cleaner now! 🚀",
     timestamp: "4 days ago",
     tags: ["Coding", "Tailwind"],
   },
@@ -81,7 +103,8 @@ const moments = [
       avatar: "https://i.pravatar.cc/150?u=community",
       handle: "@community",
     },
-    content: "Welcoming all new members to the Sunrise digital space! Share your first moment today.",
+    content:
+      "Welcoming all new members to the Sunrise digital space! Share your first moment today.",
     timestamp: "2 weeks ago",
     tags: ["Welcome", "Social"],
   },
@@ -110,17 +133,17 @@ export default function Home() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Latest Moments</h1>
         <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          Capture and share daily life, spontaneous moments, and technical insights in your personal digital space.
+          Capture and share daily life, spontaneous moments, and technical insights in your personal
+          digital space.
         </p>
       </header>
 
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-
         {/* 占位卡片：引导发布 */}
         <Card className="flex min-h-[300px] items-center justify-center border-2 border-dashed border-zinc-200 bg-transparent p-6 dark:border-zinc-800">
           <Card.Content className="flex flex-col items-center justify-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-900">
-               <House className="h-8 w-8 text-zinc-400" />
+              <House className="h-8 w-8 text-zinc-400" />
             </div>
             <div className="text-center">
               <p className="font-semibold text-zinc-800 dark:text-zinc-200">Ready to share?</p>
@@ -132,6 +155,50 @@ export default function Home() {
           </Card.Content>
         </Card>
       </section>
+
+      <ButtonGroup size="sm" variant="tertiary">
+        <Button>Merge pull request</Button>
+        <Dropdown>
+          <Button size="sm" aria-label="More options">
+            asdfa
+          </Button>
+          <Dropdown.Popover placement="bottom end">
+            <Dropdown.Menu>
+              <Dropdown.Item
+                className="flex flex-col items-start gap-1"
+                id="merge"
+                textValue="Create a merge commit"
+              >
+                <Label>Create a merge commit</Label>
+                <Description>
+                  All commits from this branch will be added to the base branch
+                </Description>
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="flex flex-col items-start gap-1"
+                id="squash-and-merge"
+                textValue="Squash and merge"
+              >
+                <Label>Squash and merge</Label>
+                <Description>
+                  The 14 commits from this branch will be combined into one commit in the base
+                  branch
+                </Description>
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="flex flex-col items-start gap-1"
+                id="rebase-and-merge"
+                textValue="Rebase and merge"
+              >
+                <Label>Rebase and merge</Label>
+                <Description>
+                  The 14 commits from this branch will be rebased and added to the base branch
+                </Description>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown.Popover>
+        </Dropdown>
+      </ButtonGroup>
 
       {/* 底部填充，以便更好地测试滚动效果 */}
       <footer className="mt-12 flex h-32 items-center justify-center text-zinc-400">

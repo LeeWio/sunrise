@@ -30,7 +30,11 @@ export const SlashCommand = Extension.create({
               const aliases = item.aliases?.map((alias) => alias.toLowerCase()) || [];
               const search = query.toLowerCase();
 
-              return label.includes(search) || name.includes(search) || aliases.some((alias) => alias.includes(search));
+              return (
+                label.includes(search) ||
+                name.includes(search) ||
+                aliases.some((alias) => alias.includes(search))
+              );
             }),
           })).filter((group) => group.commands.length > 0);
         },
@@ -50,7 +54,7 @@ export const SlashCommand = Extension.create({
               popup.style.zIndex = "9999";
               popup.style.pointerEvents = "auto";
               popup.appendChild(component.element);
-              
+
               // 关键修复：挂载到编辑器的父节点或其视图节点内，确保处于 Modal 的交互范围内
               props.editor.view.dom.parentElement?.appendChild(popup);
 

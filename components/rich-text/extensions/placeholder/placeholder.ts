@@ -12,7 +12,7 @@ export const Placeholder = TiptapPlaceholder.configure({
     if (node.type.name === "heading") {
       return "Heading...";
     }
-    
+
     if (node.type.name === "blockquote") {
       return "Quote something...";
     }
