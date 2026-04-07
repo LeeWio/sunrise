@@ -1,5 +1,4 @@
 import { Editor, Range } from "@tiptap/core";
-import { ReactNode } from "react";
 
 export interface Group {
   name: string;

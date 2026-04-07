@@ -54,7 +54,7 @@ Highlight.displayName = "Highlight";
  */
 const CommandItem = React.memo(
   ({ command, isSelected, query }: { command: Command; isSelected: boolean; query: string }) => {
-    const Icon = (Icons as any)[command.iconName] || Icons.CircleQuestion;
+    const Icon = (Icons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[command.iconName] || Icons.CircleQuestion;
 
     return (
       <ListBox.Item
@@ -106,27 +106,22 @@ const MotionSurface = motion.create(Surface);
  */
 export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
   const allCommands = useMemo(() => props.items.flatMap((group) => group.commands), [props.items]);
-  const [selectedKey, setSelectedKey] = useState<string | null>(() => allCommands[0]?.name || null);
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+
+  const activeKey = useMemo(() => {
+    if (allCommands.length === 0) return null;
+    if (selectedKey && allCommands.some((c) => c.name === selectedKey)) return selectedKey;
+    return allCommands[0].name;
+  }, [allCommands, selectedKey]);
 
   // Use refs to track latest state for the imperative handle to prevent closure stale-ness
-  const selectedKeyRef = useRef(selectedKey);
+  const selectedKeyRef = useRef(activeKey);
   const allCommandsRef = useRef(allCommands);
 
   useEffect(() => {
-    selectedKeyRef.current = selectedKey;
+    selectedKeyRef.current = activeKey;
     allCommandsRef.current = allCommands;
-  }, [selectedKey, allCommands]);
-
-  // Sync selection when items change (e.g. filtering)
-  useEffect(() => {
-    if (allCommands.length > 0) {
-      if (!selectedKey || !allCommands.some((c) => c.name === selectedKey)) {
-        setSelectedKey(allCommands[0].name);
-      }
-    } else {
-      setSelectedKey(null);
-    }
-  }, [allCommands, selectedKey]);
+  }, [activeKey, allCommands]);
 
   const runCommand = useCallback(
     (key: string) => {
@@ -178,13 +173,13 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
   );
 
   useEffect(() => {
-    if (selectedKey) {
-      const element = document.getElementById(`command-${selectedKey}`);
+    if (activeKey) {
+      const element = document.getElementById(`command-${activeKey}`);
       if (element) {
         element.scrollIntoView({ block: "nearest", behavior: "auto" });
       }
     }
-  }, [selectedKey]);
+  }, [activeKey]);
 
   if (allCommands.length === 0) {
     return (
@@ -231,7 +226,7 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
                   <CommandItem
                     key={command.name}
                     command={command}
-                    isSelected={command.name === selectedKey}
+                    isSelected={command.name === activeKey}
                     query={props.query}
                   />
                 ))}

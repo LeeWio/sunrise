@@ -1,9 +1,10 @@
-import { Extension } from "@tiptap/core";
+import { Extension, Editor, Range } from "@tiptap/core";
 import { Suggestion, SuggestionProps, SuggestionKeyDownProps } from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import { computePosition, flip, shift, offset } from "@floating-ui/dom";
 import { GROUPS } from "./groups";
 import { MenuList } from "./menu-list";
+import { Command } from "./types";
 
 /**
  * SlashCommand extension for Tiptap.
@@ -18,7 +19,7 @@ export const SlashCommand = Extension.create({
       suggestion: {
         char: "/",
         startOfLine: true,
-        command: ({ editor, range, props }: any) => {
+        command: ({ editor, range, props }: { editor: Editor; range: Range; props: Command }) => {
           props.action(editor, range);
         },
         items: ({ query }: { query: string }) => {
@@ -59,7 +60,7 @@ export const SlashCommand = Extension.create({
               props.editor.view.dom.parentElement?.appendChild(popup);
 
               const virtualElement = {
-                getBoundingClientRect: props.clientRect as any,
+                getBoundingClientRect: props.clientRect as unknown as () => DOMRect,
               };
 
               computePosition(virtualElement, popup, {
@@ -78,7 +79,7 @@ export const SlashCommand = Extension.create({
 
               if (popup) {
                 const virtualElement = {
-                  getBoundingClientRect: props.clientRect as any,
+                  getBoundingClientRect: props.clientRect as unknown as () => DOMRect,
                 };
 
                 computePosition(virtualElement, popup, {
@@ -99,7 +100,7 @@ export const SlashCommand = Extension.create({
                 return true;
               }
 
-              return (component.ref as any)?.onKeyDown?.(props) || false;
+              return (component.ref as { onKeyDown?: (props: SuggestionKeyDownProps) => boolean })?.onKeyDown?.(props) || false;
             },
 
             onExit() {
