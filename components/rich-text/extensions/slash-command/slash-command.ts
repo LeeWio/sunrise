@@ -100,7 +100,11 @@ export const SlashCommand = Extension.create({
                 return true;
               }
 
-              return (component.ref as { onKeyDown?: (props: SuggestionKeyDownProps) => boolean })?.onKeyDown?.(props) || false;
+              return (
+                (
+                  component.ref as { onKeyDown?: (props: SuggestionKeyDownProps) => boolean }
+                )?.onKeyDown?.(props) || false
+              );
             },
 
             onExit() {

@@ -54,7 +54,10 @@ Highlight.displayName = "Highlight";
  */
 const CommandItem = React.memo(
   ({ command, isSelected, query }: { command: Command; isSelected: boolean; query: string }) => {
-    const Icon = (Icons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[command.iconName] || Icons.CircleQuestion;
+    const Icon =
+      (Icons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[
+        command.iconName
+      ] || Icons.CircleQuestion;
 
     return (
       <ListBox.Item

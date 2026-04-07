@@ -1,9 +1,0 @@
-@import "./editor.css";
-@import "./placeholder.css";
-
-@reference "../globals.css";
-
-/**
- * Rich Text Editor Styles
- * Main entry point for Tiptap related CSS
- */

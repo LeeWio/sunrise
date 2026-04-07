@@ -77,14 +77,12 @@ export const TextColorPicker = React.memo(({ value, onChange, type }: TextColorP
 
   return (
     <ColorPicker value={color} onChange={handleColorChange}>
-      <ColorPicker.Trigger>
-        <Tooltip delay={300}>
-          <Button size="sm" variant="tertiary" isIconOnly aria-label={label}>
-            <Icon className="size-3.5" />
-          </Button>
-          <Tooltip.Content>{label}</Tooltip.Content>
-        </Tooltip>
-      </ColorPicker.Trigger>
+      <Tooltip delay={300}>
+        <Button size="sm" variant="tertiary" isIconOnly aria-label={label}>
+          <Icon className="size-3.5" />
+        </Button>
+        <Tooltip.Content>{label}</Tooltip.Content>
+      </Tooltip>
 
       <ColorPicker.Popover className="gap-2">
         <ColorSwatchPicker className="justify-center pt-2" size="xs">
