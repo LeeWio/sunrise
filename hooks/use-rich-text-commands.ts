@@ -53,7 +53,7 @@ export function useRichTextCommands(editor: Editor | null) {
     onSetBackgroundColor: (color: string) =>
       editor?.chain().focus().setBackgroundColor(color).run(),
     onUnsetBackgroundColor: () => editor?.chain().focus().unsetBackgroundColor().run(),
-    onToggleHighlight: (color?: string) => editor?.chain().focus().toggleHighlight({ color }).run(),
+    onToggleHighlight: (color: string) => editor?.chain().focus().toggleHighlight({ color }).run(),
     onUnsetHighlight: () => editor?.chain().focus().unsetHighlight().run(),
   };
 }

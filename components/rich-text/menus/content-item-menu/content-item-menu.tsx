@@ -256,7 +256,7 @@ export function ContentItemMenu() {
 
             {/* Turn Into Section */}
             {isTurnIntoVisible && (
-              <Dropdown.Section title="Turn into" selectionMode="single" selectedKeys={nodeType}>
+              <Dropdown.Section selectionMode="single" selectedKeys={nodeType}>
                 <Header>Turn into</Header>
                 {isMatch("Text") && (
                   <Dropdown.Item id="paragraph" textValue="Text">
@@ -319,7 +319,7 @@ export function ContentItemMenu() {
 
             {/* Alignment Section */}
             {isAlignmentVisible && (
-              <Dropdown.Section title="Alignment" selectionMode="single" selectedKeys={alignment}>
+              <Dropdown.Section selectionMode="single" selectedKeys={alignment}>
                 <Header>Alignment</Header>
                 {isMatch("Align Left") && (
                   <Dropdown.Item id="left" textValue="Align Left">

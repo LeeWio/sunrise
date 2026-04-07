@@ -99,16 +99,13 @@ export function LinkMenu({ appendTo }: LinkMenuProps) {
 
               <div className="flex items-center gap-0.5 pr-0.5">
                 <ToolbarButton
-                  as={HeroLink}
-                  href={linkAttributes.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  icon={<ArrowUpRightFromSquare className="size-3.5" />}
+                  size="sm"
+                  icon={<ArrowUpRightFromSquare />}
                   tooltip="Open in new tab"
                 />
 
                 <ToolbarButton
-                  icon={<LinkSlash className="size-3.5" />}
+                  icon={<LinkSlash />}
                   tooltip="Remove link"
                   onPress={handleUnsetLink}
                   className="hover:text-danger hover:bg-danger/10"

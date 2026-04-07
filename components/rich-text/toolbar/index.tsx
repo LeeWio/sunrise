@@ -46,7 +46,7 @@ export function RichTextToolbar() {
 }
 
 function RichTextToolbarInner({ editor }: { editor: Editor }) {
-  const state = useRichTextState(editor);
+  const state = useRichTextState();
   const commands = useRichTextCommands(editor);
 
   return (
@@ -233,7 +233,7 @@ function RichTextToolbarInner({ editor }: { editor: Editor }) {
             <Minus className="size-4" />
           </ToggleButton>
           <ToggleButtonGroup.Separator />
-          <Dropdown placement="bottom-end">
+          <Dropdown>
             <ToggleButton
               id="math"
               aria-label="Insert Math"
